@@ -9,3 +9,4 @@ app.funcionalidad02 = kendo.observable({
 
 // END_CUSTOM_CODE_funcionalidad02
 
+//15:29
