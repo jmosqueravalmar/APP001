@@ -4,33 +4,23 @@
     <!-- START_CUSTOM_CODE_funcionalidad03 -->
     <!-- END_CUSTOM_CODE_funcionalidad03 -->
 
-    <!-- Define the HTML div that will hold the Grid -->
-    <div id="grid"></div>
+    <ul data-role="listview" data-style="inset" class="listadoTareas">
+        <li>
+            <div class="columHeader columTarea01">Tarea</div>
+            <div class="columHeader columTarea02">Cliente</div>
+            <div class="columHeader columTarea03">Fecha C</div>
+        </li>
 
-    <!-- Initialize the Grid -->
-    <script>
+        <li>Act N1</li>
+        <li class="AlertaTareas1">
+            <div style="width:40%; float:left; padding: 5px 2px;">Act N2</div>
+            <div style="width:40%; float:left; padding: 5px 2px;">Alta</div>
+            <div style="width:100%; float:left; padding: 5px 2px;">28/09/2015</div>
+        </li>
+        <li>Act N3</li>
+        <li class="AlertaTareas2">Act N4</li>
+        <li class="AlertaTareas2">Act N5</li>
+        <li>Act N6</li>
+    </ul>
 
-        $(document).ready(function() {
-            $("#grid").kendoGrid({
-                                     columns: [{
-                                                 field: "FirstName",
-                                                 title: "First Name"
-                                             },{
-                                                 field: "LastName",
-                                                 title: "Last Name"
-                                             }
-                ],
-                                     dataSource: {
-                    data: [{
-                                    FirstName: "Joe",
-                                    LastName: "Smith"
-                                },{
-                                    FirstName: "Jane",
-                                    LastName: "Smith"
-                                }
-                                             ]
-                }
-                                 });
-        });
-    </script>
 </div>

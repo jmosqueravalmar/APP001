@@ -1,0 +1,51 @@
+.AlertaTareas1
+{
+    /*Rojo*/
+    background-color: #f00 !important;
+    color: #FFFFFF;
+    /*border: black 1px solid;*/
+}
+
+.AlertaTareas2
+{
+    /*Naranja*/
+    background-color: #EF7A1D !important;
+    color: #FFFFFF;
+}
+
+.listadoTareas li
+{
+    float: left;
+    width: 100%;
+}
+
+.columHeader {
+    text-align:center;
+}
+
+.columTarea01
+{
+    float: left;
+    width: 40%;
+}
+.columTarea02
+{
+    float: left;
+    width: 25%;
+}
+.columTarea03
+{
+    float: left;
+    width: 25%;
+}
+.columTarea04
+{ 
+}
+.columTarea05
+{
+    
+}
+.columTarea06
+{
+    
+}
