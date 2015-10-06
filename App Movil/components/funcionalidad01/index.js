@@ -6,5 +6,26 @@ app.funcionalidad01 = kendo.observable({
 });
 
 // START_CUSTOM_CODE_funcionalidad01
-// END_CUSTOM_CODE_funcionalidad01
 
+var foo = new kendo.data.DataSource({ 
+   data: [
+        "ADIDAS", 
+        "HUAWUEI", 
+        "ADM",
+        "PHILIPS", 
+        "COSAPI", 
+        "ASTRAZENECA PERU S.A.",
+        "RENA WARE DEL PERU' S.A.", 
+        "NIKE", 
+        "SONY",
+        "HONDA DEL PERU' S.A.", 
+        "DAMCO S.A.",
+        "COCA COLA"
+    ] 
+});
+
+function listViewClick(e) {
+    alert(e.item.Title); // The clicked item as a jQuery object
+}
+
+// END_CUSTOM_CODE_funcionalidad01
