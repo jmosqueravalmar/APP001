@@ -31,10 +31,10 @@ function onTap(e) {
     //console.log($("#MyListView").data("kendoMobileListView").items());
     
     console.log($("#MyListView").kendoMobileListView);
-    $("#MyListView").kendoMobileListView.dataSource = foo;
+/*    $("#MyListView").kendoMobileListView.dataSource = foo;
     $("#MyListView").kendoMobileListView.click = function(e) {
         console.log(e.dataItem.id);
-   };
+   };*/
 }
 
 
@@ -42,8 +42,10 @@ function onTap(e) {
 
 $("#MyListView").kendoMobileListView({
     dataSource: foo,
-    click: (function(e) {
-        console.log(e.dataItem.id);
+    click: (function() {
+        var index = this.select().index(),
+            dataItem = this.dataSource.view()[index];
+        log("id: " + dataItem.id + ", nombre: " + dataItem.nombre);
    })
 });
 
