@@ -1,26 +1,48 @@
 <!--<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">-->
-<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
+<div data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
 
     <!-- START_CUSTOM_CODE_funcionalidad03 -->
     <!-- END_CUSTOM_CODE_funcionalidad03 -->
 
-    <ul data-role="listview" data-style="inset" class="listadoTareas">
-        <li>
-            <div class="columHeader columTarea01">Tarea</div>
-            <div class="columHeader columTarea02">Cliente</div>
-            <div class="columHeader columTarea03">Fecha C</div>
-        </li>
-
-        <li>Act N1</li>
-        <li class="AlertaTareas1">
-            <div style="width:40%; float:left; padding: 5px 2px;">Act N2</div>
-            <div style="width:40%; float:left; padding: 5px 2px;">Alta</div>
-            <div style="width:100%; float:left; padding: 5px 2px;">28/09/2015</div>
-        </li>
-        <li>Act N3</li>
-        <li class="AlertaTareas2">Act N4</li>
-        <li class="AlertaTareas2">Act N5</li>
-        <li>Act N6</li>
-    </ul>
+    <!--<ul data-role="listview" data-style="inset" class="listadoTareas">
+    <li class="">
+    <div class="columHeader columTarea01">Tarea</div>
+    <div class="columHeader columTarea02">Cliente</div>
+    <div class="columHeader columTarea03">Fecha C.</div>
+    </li>
+           
+    <li class="">
+    <div class="columTarea01">Ajustar Tarifas</div>
+    <div class="columTarea02">Alta</div>
+    <div class="columTarea03">28/09/2015</div>
+    </li>
+        
+    <li class="">
+    <div class="columTarea01">Definir Indicadores</div>
+    <div class="columTarea02">Alta</div>
+    <div class="columTarea03">28/09/2015</div>
+    </li>
+        
+    <li class="AlertaTareas1">
+    <div class="columTarea01">Levantamiento de especificaciones de despacho</div>
+    <div class="columTarea02">Medio</div>
+    <div class="columTarea03">28/09/2015</div>
+    </li>
+        
+    <li class="AlertaTareas2">
+    <div class="columTarea01">Particulares de atencion</div>
+    <div class="columTarea02">Alta</div>
+    <div class="columTarea03">28/09/2015</div>
+    </li>
+    </ul>-->
+    <div id="container">
+        <input data-role="autocomplete" 
+               data-text-field="name" 
+               data-source="{data: [{name: 'John Doe'},{name: 'Jane Doe'}]}" />
+    </div>
+    
+    <script>
+        kendo.bind($("#container"), {});
+    </script>
 
 </div>
