@@ -25,7 +25,7 @@ var foo = new kendo.data.DataSource({
 });
 
 function listViewClick(e) {
-    alert(e.item.Title); // The clicked item as a jQuery object
+    console.log(e.item.Title); // The clicked item as a jQuery object
 }
 
 // END_CUSTOM_CODE_funcionalidad01
