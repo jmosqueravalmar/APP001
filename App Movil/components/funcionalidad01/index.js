@@ -27,17 +27,24 @@ var foo = new kendo.data.DataSource({
 // The clicked item as a jQuery object
 function onTap(e) {
     console.log(e.touch.target + " was tapped");
+    
+    //console.log($("#MyListView").data("kendoMobileListView").items());
+    
+    console.log($("#MyListView").kendoMobileListView);
+    $("#MyListView").kendoMobileListView.dataSource = foo;
+    $("#MyListView").kendoMobileListView.click = function(e) {
+        console.log(e.dataItem.id);
+   };
 }
 
-$("#MyListView").kendoListView({
+
+
+
+$("#MyListView").kendoMobileListView({
     dataSource: foo,
-    template: kendo.template($("#foo-template").html()),
-    selectable: true,
-    change: function() {
-        var index = this.select().index(),
-            dataItem = this.dataSource.view()[index];
-        log("id: " + dataItem.id + ", text: " + dataItem.text);        
-    }
+    click: (function(e) {
+        console.log(e.dataItem.id);
+   })
 });
 
 // END_CUSTOM_CODE_funcionalidad01
