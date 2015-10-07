@@ -3,20 +3,50 @@
         
     <!-- END_CUSTOM_CODE_funcionalidad02 -->
 <!-- </div> -->
+	
+ 	<div data-role="view" id="orden" data-title="Orden">
+        <div data-role="navbar">
 
-<div data-role="view">
-    <div data-role="navbar">
-          <span data-role="view-title"></span>
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#lista">Seleccionar</a>
     </div>
-            Orden:        
- 			<select id="size">
-            <option>02392</option>
-            <option>02002</option>
-            <option>01292</option>
-            <option>06322</option>
-    		</select>
-</div>
+        Orden:        
+        <select id="size">
+        <option>02392</option>
+        <option>02002</option>
+        <option>01292</option>
+        <option>06322</option>
+        </select>
+    </div>
 
-<script>
+    <div data-role="view" id="lista" data-title="Lista" >
+         <div data-role="navbar">
+            <span data-role="view-title"></span>
+            <a data-role="button" data-align="right" href="#orden">Regresar</a>
+        </div>
+        
+        <ul data-role="listview" data-source="foo" data-template="foo-template"></ul>
+        
+        <script type="text/x-kendo-template" id="foo-template">
+            #: data #
+        </script>
+        
+    </div>
 
-</script>
+
+	<script>
+        var foo = new kendo.data.DataSource({ 
+  		 data: [
+        "Apertura de la Orden", 
+        "ETA Estimado", 
+        "Llegada de la nave",
+        "Documentos Completos", 
+        "Fecha de Numeración", 
+        "Fecha de Cancelación",
+        "Aforo Culminado", 
+        "Levante Autorizado",
+        "Retiro Culminado"
+    ] 
+	});
+
+    </script>
