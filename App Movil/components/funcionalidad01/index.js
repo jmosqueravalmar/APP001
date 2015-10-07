@@ -7,7 +7,7 @@ app.funcionalidad01 = kendo.observable({
 
 // START_CUSTOM_CODE_funcionalidad01
 
-var foo = new kendo.data.DataSource({ 
+var f01 = new kendo.data.DataSource({ 
    data: [
         {id: 1, nombre: "ADIDAS"},
         {id: 2, nombre: "HUAWUEI"}, 
@@ -31,7 +31,7 @@ function onTap(e) {
     //console.log($("#MyListView").data("kendoMobileListView").items());
     
     console.log($("#MyListView").kendoMobileListView);
-/*    $("#MyListView").kendoMobileListView.dataSource = foo;
+/*    $("#MyListView").kendoMobileListView.dataSource = f01;
     $("#MyListView").kendoMobileListView.click = function(e) {
         console.log(e.dataItem.id);
    };*/
@@ -41,12 +41,15 @@ function onTap(e) {
 
 
 $("#MyListView").kendoMobileListView({
-    dataSource: foo,
-    click: (function() {
-        var index = this.select().index(),
-            dataItem = this.dataSource.view()[index];
-        log("id: " + dataItem.id + ", nombre: " + dataItem.nombre);
-   })
+    dataSource: f01,
+    click: (
+        function() {
+            console.log("Qui...");
+            var index = this.select().index(),
+                dataItem = this.dataSource.view()[index];
+            console.log("id: " + dataItem.id + ", nombre: " + dataItem.nombre);
+       }
+    )
 });
 
 // END_CUSTOM_CODE_funcionalidad01
