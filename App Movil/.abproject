@@ -43,5 +43,6 @@
   ],
   "CorePlugins": [
     "org.apache.cordova.network-information"
-  ]
+  ],
+  "iOSDeploymentTarget": "6.0"
 }
