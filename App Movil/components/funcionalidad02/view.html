@@ -4,31 +4,31 @@
     <!-- END_CUSTOM_CODE_funcionalidad02 -->
 <!-- </div> -->
 	
- 	<div data-role="view" id="orden" data-title="Orden">
-        <div data-role="navbar">
-
-        <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#lista">Seleccionar</a>
-    </div>
+ 	<div data-role="view" data-title="Seguimiento de Orden" id="orden" data-layout="main" data-model="app.funcionalidad02"  data-show="app.funcionalidad02.onShow" data-after-show="app.funcionalidad02.afterShow">
+             
         Orden:        
-        <select id="size">
-        <option>02392</option>
-        <option>02002</option>
-        <option>01292</option>
-        <option>06322</option>
+        <select id="size" name="size">
+        <option value="02392">02392</option>
+        <option value="02002">02002</option>
+        <option value="90292">90292</option>
+        <option value="06322">06322</option>
         </select>
+        
+
+        <button data-bind="click: seleccionar" data-role="button">Seleccionar</button>
+
     </div>
 
-    <div data-role="view" id="lista" data-title="Lista" >
+    <div data-role="view" id="lista" data-title="Importación">
          <div data-role="navbar">
             <span data-role="view-title"></span>
-            <a data-role="button" data-align="right" href="#orden">Regresar</a>
+            <a data-role="button" data-align="left" href="#orden">Regresar</a>
         </div>
         
         <ul data-role="listview" data-source="foo" data-template="foo-template"></ul>
         
         <script type="text/x-kendo-template" id="foo-template">
-            #: data #
+            #: nombre # (#: fecha # )
         </script>
         
     </div>
@@ -36,17 +36,17 @@
 
 	<script>
         var foo = new kendo.data.DataSource({ 
-  		 data: [
-        "Apertura de la Orden", 
-        "ETA Estimado", 
-        "Llegada de la nave",
-        "Documentos Completos", 
-        "Fecha de Numeración", 
-        "Fecha de Cancelación",
-        "Aforo Culminado", 
-        "Levante Autorizado",
-        "Retiro Culminado"
-    ] 
-	});
+  		data: [
+            {id: 1, nombre: "Apertura de la Orden", fecha: "23/10/2015", estado: "1"},
+            {id: 2, nombre: "ETA Estimado", fecha: "13/05/2015", estado: "1"}, 
+            {id: 3, nombre: "Llegada de la nave", fecha: "20/11/2015", estado: "1"},
+            {id: 4, nombre: "Documentos Completos", fecha: "03/11/2015", estado: "1"}, 
+            {id: 5, nombre: "Fecha de Numeración", fecha: "13/10/2015", estado: "2"}, 
+            {id: 6, nombre: "Fecha de Cancelación", fecha: "01/10/2015", estado: "1"},
+            {id: 7, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1"}, 
+            {id: 8, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3"}, 
+            {id: 9, nombre: "Retiro Culminado", fecha: "23/10/2015", estado: "2"}
+        ] 
+        });
 
     </script>
