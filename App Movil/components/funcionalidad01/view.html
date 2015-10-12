@@ -7,9 +7,15 @@
     <script type="text/x-kendo-template" id="f01-template">
         <div data-role="touch" data-tap="onClick">
             #: nombre #
-            <a data-role="detailbutton" data-style="detaildisclose"></a>
+            <!--<a data-role="detailbutton" data-style="detaildisclose"></a>-->
         </div>
     </script>
-    
+
+    <div data-role="view" data-title="Cliente detalle" id="det-cliente" data-transition="overlay:up" data-persist="true" data-use-native-scrolling="true">
+        <div  data-transition="overlay:up reverse" data-role="touch" data-tap="onClickVolver">Volver</div>
+    </div>
+   
     <!-- END_CUSTOM_CODE_funcionalidad01 -->
 </div>
+
+

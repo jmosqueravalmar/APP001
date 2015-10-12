@@ -25,17 +25,6 @@ var f01 = new kendo.data.DataSource({
 });
 
 // The clicked item as a jQuery object
-function onTap(e) {
-    console.log(e.touch.target + " was tapped");
-    
-    //console.log($("#MyListView").data("kendoMobileListView").items());
-    
-    console.log($("#MyListView").kendoMobileListView);
-/*    $("#MyListView").kendoMobileListView.dataSource = f01;
-    $("#MyListView").kendoMobileListView.click = function(e) {
-        console.log(e.dataItem.id);
-   };*/
-}
 
 $("#MyListView").kendoMobileListView({
     dataSource: f01,
@@ -50,10 +39,26 @@ function onDataBound() {
 
 function onClick() {
     console.log("ListView click");
-    var data = f01.view(),
-        selected = $.map(this.select(), function(item) {
-            return data[$(item).index()].nombre;
-        });
+    $("#det-cliente").show();
+}
+
+function myTemplate() {
+    kendo.template($("#f01-template").html());
+}
+
+function onClickVolver() {
+    console.log("Volver a lista clientes");
+    $("#det-cliente").hide();    
+}
+
+/*
+function onClick() {
+    console.log("ListView click");
+    var data = f01.view();
+    
+    selected = $.map($.select(), function(item) {
+        return data[$(item).index()].nombre;
+    });
 
     console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
 }
@@ -61,5 +66,6 @@ function onClick() {
 function myTemplate() {
     kendo.template($("#f01-template").html());
 }
+*/
 
 // END_CUSTOM_CODE_funcionalidad01
