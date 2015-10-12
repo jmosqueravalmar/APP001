@@ -18,4 +18,17 @@ app.funcionalidad02 = kendo.observable({
     });
 
 
+    window.get = function(e) {
+        var selectedContactId = e.view.params.id;
+        
+        alert(selectedContactId);
+        
+        //var options = new ContactFindOptions();
+        //options.filter = e.view.params.id;
+        //options.multiple = true;       
+        //var fields = ["*"];   
+        //navigator.contacts.find(fields, onContactDetail123Success, onError, options);
+	}
+
+    
 // END_CUSTOM_CODE_funcionalidad02
