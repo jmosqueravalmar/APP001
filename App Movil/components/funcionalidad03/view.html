@@ -4,105 +4,49 @@
     <!-- START_CUSTOM_CODE_funcionalidad03 -->
     <!-- END_CUSTOM_CODE_funcionalidad03 -->
 
-    <!--<ul data-role="listview" data-style="inset" class="listadoTareas">
-    <li class="">
-    <div class="columHeader columTarea01">Tarea</div>
-    <div class="columHeader columTarea02">Cliente</div>
-    <div class="columHeader columTarea03">Fecha C.</div>
-    </li>
-           
-    <li class="">
-    <div class="columTarea01">Ajustar Tarifas</div>
-    <div class="columTarea02">Alta</div>
-    <div class="columTarea03">28/09/2015</div>
-    </li>
-        
-    <li class="">
-    <div class="columTarea01">Definir Indicadores</div>
-    <div class="columTarea02">Alta</div>
-    <div class="columTarea03">28/09/2015</div>
-    </li>
-        
-    <li class="AlertaTareas1">
-    <div class="columTarea01">Levantamiento de especificaciones de despacho</div>
-    <div class="columTarea02">Medio</div>
-    <div class="columTarea03">28/09/2015</div>
-    </li>
-        
-    <li class="AlertaTareas2">
-    <div class="columTarea01">Particulares de atencion</div>
-    <div class="columTarea02">Alta</div>
-    <div class="columTarea03">28/09/2015</div>
-    </li>
-    </ul>-->
-    <script id="contacts-template" type="text/x-kendo-template">
-
-        <li>
-
-            <a href="\#view-contact?id=${id}" class="expand">
-
-        
-
-                # if (photos && photos.length) { #
-                    <img class="smallProfile" src="${photos[0].value}" />
-                # } else { #
-                    <img class="smallProfile" src="styles/blankProfile.png" />
-                # } ## if (name.givenName) { #
-                    ${name.givenName}
-                # } #
-
-                # if (name.familyName) { #
-                    ${name.familyName}
-                # } #
-
+    <ul data-role="listview" data-inset="true" class="listadoTareas">
+        <li class="">
+            <a href="detalleTarea.html" data-transition="slide">
+                <div class="columHeader columTarea01">Tarea</div>
             </a>
+            <div class="columHeader columTarea02">Cliente</div>
+            <div class="columHeader columTarea03">Fecha C.</div>
+            </a>
+        </li>
+
+        <li class="">
+            <a href="detalleTarea.html" data-transition="slide">
+                <div class="columTarea01">Ajustar Tarifas</div>
+            </a>
+            <div class="columTarea02">Alta</div>
+            <div class="columTarea03">28/09/2015</div>
 
         </li>
 
-    </script>
-    <div id="all-contacts" data-role="view" data-title="Contactos" 
-                
-         data-show="window.getAllContacts">
+        <li class="">
+            <a href="detalleTarea.html" data-transition="slide">
+                <div class="columTarea01">Definir Indicadores</div>
+            </a>
+            <div class="columTarea02">Alta</div>
+            <div class="columTarea03">28/09/2015</div>
+        </li>
 
-        <header data-role="header">
+        <li class="AlertaTareas1">
+            <a href="detalleTarea.html" data-transition="slide">
+                <div class="columTarea01">Levantamiento de especificaciones de despacho</div>
+            </a>
+            <div class="columTarea02">Medio</div>
+            <div class="columTarea03">28/09/2015</div>
+        </li>
 
-            <div data-role="navbar">
-
-                <div data-role="view-title"></div>
-
-            </div>
-
-        </header>
-
-        <ul id="contacts-list" data-role="listview"></ul>
-
-    </div>
-
-    <div id="view-contact" data-role="view" data-title="Detalle"
-
-         data-show="window.getContactDetails">
-
-        <header data-role="header">
-
-            <div data-role="navbar">
-
-                <a data-align="left" data-role="backbutton">Regresar</a>
-
-                <div data-role="view-title"></div>
-            </div>
-
-        </header>
-
-        <img class="largeProfile" />
-
-        <h2 id="contact-name"></h2>
-
-        <h4 id="contact-phone"></h4>
-
-        <button id="update-photo" data-role="button" 
-
-                onclick="window.updatePhoto()">Update Photo</button>
-
-    </div>
+        <li class="AlertaTareas2">
+            <a href="#detalleTarea" data-transition="slide">
+                <div class="columTarea01">Particulares de atencion</div>
+            </a>
+            <div class="columTarea02">Alta</div>
+            <div class="columTarea03">28/09/2015</div>
+        </li>
+    </ul>
 
 </div>
+
