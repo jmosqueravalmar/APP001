@@ -2,7 +2,7 @@
 
 app.funcionalidad01 = kendo.observable({
     onShow: function() {},
-    afterShow: function() {}
+    afterShow: function() {}    
 });
 
 // START_CUSTOM_CODE_funcionalidad01
@@ -36,11 +36,12 @@ $("#MyListView").kendoMobileListView({
 function onDataBound() {
     console.log("ListView data bound");
 }
-
+    
 function onClick() {
     console.log("ListView click");
     $("#det-cliente").show();
 }
+
 
 function myTemplate() {
     kendo.template($("#f01-template").html());
