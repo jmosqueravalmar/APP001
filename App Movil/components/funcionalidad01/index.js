@@ -37,19 +37,29 @@ function onTap(e) {
    };*/
 }
 
-
-
-
 $("#MyListView").kendoMobileListView({
     dataSource: f01,
-    click: (
-        function() {
-            console.log("Qui...");
-            var index = this.select().index(),
-                dataItem = this.dataSource.view()[index];
-            console.log("id: " + dataItem.id + ", nombre: " + dataItem.nombre);
-       }
-    )
+    dataBound: onDataBound,    
+    click: onClick,
+    template : myTemplate
 });
+
+function onDataBound() {
+    console.log("ListView data bound");
+}
+
+function onClick() {
+    console.log("ListView click");
+    var data = f01.view(),
+        selected = $.map(this.select(), function(item) {
+            return data[$(item).index()].nombre;
+        });
+
+    console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
+}
+
+function myTemplate() {
+    kendo.template($("#f01-template").html());
+}
 
 // END_CUSTOM_CODE_funcionalidad01
