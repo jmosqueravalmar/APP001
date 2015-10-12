@@ -12,7 +12,7 @@ app.funcionalidad02 = kendo.observable({
          
          var valor = $( "#size option:selected" ).text();
 	             
-         navigator.notification.alert(valor);
+         //navigator.notification.alert(valor);
          window.location.href = "#lista";
       }
     });
@@ -21,7 +21,9 @@ app.funcionalidad02 = kendo.observable({
     window.get = function(e) {
         var selectedContactId = e.view.params.id;
         
-        alert(selectedContactId);
+        //navigator.notification.alert(selectedContactId);
+        
+        $("#o_valor").text(selectedContactId);
         
         //var options = new ContactFindOptions();
         //options.filter = e.view.params.id;
