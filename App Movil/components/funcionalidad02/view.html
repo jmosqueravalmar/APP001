@@ -11,6 +11,12 @@
         <option value="02392">02392</option>
         <option value="02002">02002</option>
         <option value="90292">90292</option>
+        <option value="02002">02002</option>
+        <option value="90292">90292</option>
+        <option value="02002">02002</option>
+        <option value="90292">90292</option>
+        <option value="02002">02002</option>
+        <option value="90292">90292</option>
         <option value="06322">06322</option>
         </select>
         
@@ -19,7 +25,14 @@
 
     </div>
 
-    <div data-role="view" id="lista" data-title="Importación" data-show="window.get">
+
+		<script type="text/x-kendo-template" id="o_template">
+            #: nombre # (#: fecha # ) #: estado # #: largo #
+            <a href="\#seleccion?id=${id}">Seleccionar</a>
+        </script>
+
+
+    <div data-role="view" id="lista" data-title="Importación">
          <div data-role="navbar">
             <span data-role="view-title"></span>
             <a data-role="button" data-align="left" href="#orden">Regresar</a>
@@ -27,26 +40,52 @@
         
         <ul data-role="listview" data-source="o_foo" data-template="o_template"></ul>
         
-        <script type="text/x-kendo-template" id="o_template">
-            #: nombre # (#: fecha # )
-            <a href="\#lista?id=${id}" class="expand">Seleccionar</a>
-        </script>
-        
+                
     </div>
 
+    <div data-role="view" id="seleccion" data-title="Seleccionado" data-show="window.get">
+        <header data-role="header">
+        <div data-role="navbar">
+            <span data-role="view-title"></span>
+            <a data-role="button" data-align="left" href="#lista">Regresar</a>
+            <a data-role="button" data-align="right" href="#example">REST</a>
+        </div>
+        </header>
+        
+        <span data-role="view-title" id="o_valor"></span>
+    </div>
+
+
+	<div id="example" data-role="view" data-title="REST">
+        <div data-role="navbar">
+            <span data-role="view-title"></span>
+        </div>
+        
+            <div id="grid"></div>
+            
+        <script>
+        
+        </script>
+	</div>
 
 	<script>
         var o_foo = new kendo.data.DataSource({ 
   		data: [
-            {id: 1, nombre: "Apertura de la Orden", fecha: "23/10/2015", estado: "1"},
-            {id: 2, nombre: "ETA Estimado", fecha: "13/05/2015", estado: "1"}, 
-            {id: 3, nombre: "Llegada de la nave", fecha: "20/11/2015", estado: "1"},
-            {id: 4, nombre: "Documentos Completos", fecha: "03/11/2015", estado: "1"}, 
-            {id: 5, nombre: "Fecha de Numeración", fecha: "13/10/2015", estado: "2"}, 
-            {id: 6, nombre: "Fecha de Cancelación", fecha: "01/10/2015", estado: "1"},
-            {id: 7, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1"}, 
-            {id: 8, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3"}, 
-            {id: 9, nombre: "Retiro Culminado", fecha: "23/10/2015", estado: "2"}
+            {id: 1, nombre: "Apertura de la Orden", fecha: "23/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"},
+            {id: 2, nombre: "ETA Estimado", fecha: "13/05/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 3, nombre: "Llegada de la nave", fecha: "20/11/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"},
+            {id: 4, nombre: "Fecha de Numeración", fecha: "13/10/2015", estado: "2", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 5, nombre: "Documentos Completos", fecha: "03/11/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 6, nombre: "Fecha de Cancelación", fecha: "01/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"},
+            {id: 7, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 8, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 9, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 10, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 11, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 12, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 13, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 14, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
+            {id: 15, nombre: "Retiro Culminado", fecha: "23/10/2015", estado: "2", largo: "fdfdfjjdjdjdd33h3333"}
         ] 
         });
 
