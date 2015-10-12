@@ -28,6 +28,11 @@
     color: #FFFFFF;
 }
 
+.listadoTareas
+{
+    width: 700px;
+}
+
 .listadoTareas li
 {
     float: left;
@@ -37,25 +42,31 @@
 .columHeader
 {
     text-align: center;
+    font-weight: bold;
 }
 
 .columTarea01
 {
     float: left;
-    width: 49%;
+    width: 30%;
 }
 .columTarea02
 {
     float: left;
-    width: 25%;
+    width: 10%;
+    text-align: center;
 }
 .columTarea03
 {
     float: left;
-    width: 25%;
+    width: 15%;
+    text-align: center;
 }
 .columTarea04
-{ 
+{
+    float: left;
+    width: 15%;
+    text-align: center;
 }
 .columTarea05
 {

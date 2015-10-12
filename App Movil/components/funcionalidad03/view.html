@@ -1,50 +1,75 @@
 <!--<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">-->
-<div data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
+<div id="tareas" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
 
     <!-- START_CUSTOM_CODE_funcionalidad03 -->
     <!-- END_CUSTOM_CODE_funcionalidad03 -->
 
     <ul data-role="listview" data-inset="true" class="listadoTareas">
         <li class="">
-            <a href="#" data-transition="slide">
-                <div class="columHeader columTarea01">Tarea</div>
-            </a>
-            <div class="columHeader columTarea02">Cliente</div>
+            <div class="columHeader columTarea01">Tarea</div>
+            <div class="columHeader columTarea02">Clientes</div>
             <div class="columHeader columTarea03">Fecha C.</div>
+            <div class="columHeader columTarea03">Fecha L.</div>
+            <div class="columHeader columTarea03">Estado.</div>
+            <div class="columHeader columTarea04">Prioridad</div>
         </li>
 
         <li class="">
-            <a href="#" data-transition="slide">
+            <a href="#flightStatus" data-transition="slide">
                 <div class="columTarea01">Ajustar Tarifas</div>
             </a>
-            <div class="columTarea02">Alta</div>
+            <div class="columTarea02">AUSA</div>
             <div class="columTarea03">28/09/2015</div>
-
+            <div class="columTarea03">28/09/2015</div>
+            <div class="columTarea03">Pendiente</div>
+            <div class="columTarea04">Alta</div>
         </li>
-
+        <!--
         <li class="">
-            <a href="#" data-transition="slide">
-                <div class="columTarea01">Definir Indicadores</div>
-            </a>
-            <div class="columTarea02">Alta</div>
-            <div class="columTarea03">28/09/2015</div>
+        <a href="#flightStatus" data-transition="slide">
+        <div class="columTarea01">Definir Indicadores</div>
+        </a>
+        <div class="columTarea02">AUSA</div>
+        <div class="columTarea03">28/09/2015</div>
+        <div class="columTarea03">28/09/2015</div>
+        <div class="columTarea03">Pendiente</div>
+        <div class="columTarea04">Alta</div>
         </li>
 
         <li class="AlertaTareas1">
-            <a href="#" data-transition="slide">
-                <div class="columTarea01">Levantamiento de especificaciones de despacho</div>
-            </a>
-            <div class="columTarea02">Medio</div>
-            <div class="columTarea03">28/09/2015</div>
+        <a href="#flightStatus" data-transition="slide">
+        <div class="columTarea01">Levantamiento de especificaciones de despacho</div>
+        </a>
+        <div class="columTarea02">AUSA</div>
+        <div class="columTarea03">28/09/2015</div>
+        <div class="columTarea03">28/09/2015</div>
+        <div class="columTarea03">Pendiente</div>
+        <div class="columTarea04">Alta</div>
         </li>
 
         <li class="AlertaTareas2">
-            <a href="#" data-transition="slide">
-                <div class="columTarea01">Particulares de atencion</div>
-            </a>
-            <div class="columTarea02">Alta</div>
-            <div class="columTarea03">28/09/2015</div>
-        </li>
+        <a href="#flightStatus" data-transition="slide">
+        <div class="columTarea01">Particulares de atencion</div>
+        </a>
+        <div class="columTarea02">AUSA</div>
+        <div class="columTarea03">28/09/2015</div>
+        <div class="columTarea03">28/09/2015</div>
+        <div class="columTarea03">Pendiente</div>
+        <div class="columTarea04">Alta</div>
+        </li>-->
+    </ul>
+</div>
+
+<div data-role="view" id="flightStatus" data-title="Detalle" >
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#tareas">Regresar</a>
+    </div>
+
+    <ul data-role="listview" >
+        <li>x</li>
+        <li>x</li>
+        <li>x</li>
     </ul>
 
 </div>
