@@ -35,14 +35,74 @@
     <div class="columTarea03">28/09/2015</div>
     </li>
     </ul>-->
-    <div id="container">
-        <input data-role="autocomplete" 
-               data-text-field="name" 
-               data-source="{data: [{name: 'John Doe'},{name: 'Jane Doe'}]}" />
-    </div>
-    
-    <script>
-        kendo.bind($("#container"), {});
+    <script id="contacts-template" type="text/x-kendo-template">
+
+        <li>
+
+            <a href="\#view-contact?id=${id}" class="expand">
+
+        
+
+                # if (photos && photos.length) { #
+                    <img class="smallProfile" src="${photos[0].value}" />
+                # } else { #
+                    <img class="smallProfile" src="styles/blankProfile.png" />
+                # } ## if (name.givenName) { #
+                    ${name.givenName}
+                # } #
+
+                # if (name.familyName) { #
+                    ${name.familyName}
+                # } #
+
+            </a>
+
+        </li>
+
     </script>
+    <div id="all-contacts" data-role="view" data-title="Contactos" 
+                
+         data-show="window.getAllContacts">
+
+        <header data-role="header">
+
+            <div data-role="navbar">
+
+                <div data-role="view-title"></div>
+
+            </div>
+
+        </header>
+
+        <ul id="contacts-list" data-role="listview"></ul>
+
+    </div>
+
+    <div id="view-contact" data-role="view" data-title="Detalle"
+
+         data-show="window.getContactDetails">
+
+        <header data-role="header">
+
+            <div data-role="navbar">
+
+                <a data-align="left" data-role="backbutton">Regresar</a>
+
+                <div data-role="view-title"></div>
+            </div>
+
+        </header>
+
+        <img class="largeProfile" />
+
+        <h2 id="contact-name"></h2>
+
+        <h4 id="contact-phone"></h4>
+
+        <button id="update-photo" data-role="button" 
+
+                onclick="window.updatePhoto()">Update Photo</button>
+
+    </div>
 
 </div>
