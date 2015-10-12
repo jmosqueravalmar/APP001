@@ -19,7 +19,7 @@
 
     </div>
 
-    <div data-role="view" id="lista" data-title="Importación">
+    <div data-role="view" id="lista" data-title="Importación" data-show="window.get">
          <div data-role="navbar">
             <span data-role="view-title"></span>
             <a data-role="button" data-align="left" href="#orden">Regresar</a>
@@ -29,6 +29,7 @@
         
         <script type="text/x-kendo-template" id="o_template">
             #: nombre # (#: fecha # )
+            <a href="\#lista?id=${id}" class="expand">Seleccionar</a>
         </script>
         
     </div>
