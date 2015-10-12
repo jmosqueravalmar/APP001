@@ -52,21 +52,4 @@ function onClickVolver() {
     $("#det-cliente").hide();    
 }
 
-/*
-function onClick() {
-    console.log("ListView click");
-    var data = f01.view();
-    
-    selected = $.map($.select(), function(item) {
-        return data[$(item).index()].nombre;
-    });
-
-    console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
-}
-
-function myTemplate() {
-    kendo.template($("#f01-template").html());
-}
-*/
-
 // END_CUSTOM_CODE_funcionalidad01

@@ -1,22 +1,31 @@
-<div data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
+<div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
       
     <ul id="MyListView"  data-role="listview" data-source="f01" data-template="f01-template" data-style="inset">
     </ul>
     
     <script type="text/x-kendo-template" id="f01-template">
-        <div data-role="touch" data-tap="onClick">
+        <div>
             #: nombre #
-            <a data-role="detailbutton" data-style="detaildisclose"></a>
+            <a href="\#det-cliente" data-role="detailbutton" data-style="detaildisclose"></a>
         </div>
     </script>
     
-    <div data-role="view" data-title="Cliente detalle" id="det-cliente" data-transition="overlay:up" data-persist="true" data-use-native-scrolling="true">
-        <div  data-transition="overlay:up reverse" data-role="touch" data-tap="onClickVolver">Volver</div>
-    </div>
    
     <!-- END_CUSTOM_CODE_funcionalidad01 -->
 </div>
 
 
+<div data-role="view" id="det-cliente" data-title="Detalle Cliente" >
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#ListaClientes">Regresar</a>        
+    </div>
 
+    <ul data-role="listview" >
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+    </ul>
+
+</div>
