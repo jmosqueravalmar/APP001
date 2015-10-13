@@ -1,7 +1,14 @@
 'use strict';
 
 app.funcionalidad01 = kendo.observable({
-    onShow: function() {},
+    onShow: function() {
+       $("#ListaEmpresas").kendoMobileListView({
+            dataSource: f01,
+            template : "#:nombre#",
+            dataBound: onDataBound,    
+            click: muestraDetalle    
+       });
+    },
     afterShow: function() {}    
 });
 
@@ -20,36 +27,25 @@ var f01 = new kendo.data.DataSource({
         {id: 9, nombre: "SONY"},
         {id: 10, nombre: "HONDA DEL PERU' S.A."}, 
         {id: 11, nombre: "DAMCO S.A."},
-        {id: 12, nombre: "COCA COLA"}
+        {id: 12, nombre: "COCA COLA"},
+        {id: 13, nombre: "LAS CANASTA"},
+        {id: 14, nombre: "EL COMERCIO"}
     ] 
 });
 
 // The clicked item as a jQuery object
 
-$("#MyListView").kendoMobileListView({
-    dataSource: f01,
-    dataBound: onDataBound,    
-    click: onClick,
-    template : myTemplate
-});
-
 function onDataBound() {
     console.log("ListView data bound");
 }
     
-function onClick() {
-    console.log("ListView click");
-    $("#det-cliente").show();
-}
-
-
-function myTemplate() {
-    kendo.template($("#f01-template").html());
-}
-
-function onClickVolver() {
-    console.log("Volver a lista clientes");
-    $("#det-cliente").hide();    
+function muestraDetalle() {
+    console.log("ListView click");    
+    $("#ListaEmpresas").hide();
+    $("#DetalleEmpresa").show();
+    $("#ListaClientes").kendoMobileView({
+        dataTitle : "Detalle CLI"
+    });
 }
 
 // END_CUSTOM_CODE_funcionalidad01
