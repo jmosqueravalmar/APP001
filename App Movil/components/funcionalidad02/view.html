@@ -1,39 +1,52 @@
-<div id="example">
-
-    <div>
-        <div id="listView"></div>
-        <div id="pager"></div>
+    <div id="view-foto" data-role="view" data-title="Captura de Foto">
+        <header data-role="header">
+            <div data-role="navbar">
+                <div data-role="view-title"></div>
+            </div>
+        </header>
+        <img class="largeProfile" width="350" height="350" />
+        
+        
+        <button id="update-photo" data-role="button" 
+                onclick="window.updatePhoto()">Tomar</button>
     </div>
 
-    <script type="text/x-kendo-template" id="template">
-        <div>
-            <h3>#:ProductName#</h3>
-            <p>#:kendo.toString(UnitPrice, "c")#</p>
-        </div>
-    </script>
+	<script>
+        
+        (function() {
+            
+        var apiKey = "Mosi1tOaeZ84K0L1";
+    	var el = new Everlive(apiKey);
 
-    <script>
-        $(function() {
-            var dataSource = new kendo.data.DataSource({
-                transport: {
-                    read: {
-                        url: "http://demos.telerik.com/kendo-ui/service/Products",
-                        dataType: "jsonp"
-                    }
-                },
-                pageSize: 10
-            });
+        
+        window.updatePhoto = function() {
+    	navigator.camera.getPicture(onPhotoSuccess, onError, 
+            { quality: 50, 
+              destinationType: Camera.DestinationType.FILE_URI });
+		}
 
-            $("#pager").kendoPager({
-                autoBind: false,
-                dataSource: dataSource
-            });
 
-            $("#listView").kendoListView({
-                dataSource: dataSource,
-                template: kendo.template($("#template").html())
+       function onPhotoSuccess(imageURI) {
+           var options = {
+                fileName: 'foto.jpg',
+                mimeType: 'image/jpg'
+            };
+           
+            $(".largeProfile").attr("src", imageURI);
+            el.files.upload(imageURI,options)
+           .then(function() {
+                window.plugins.toast.showShortCenter("Upload");
+            }, function(err) {
+                window.plugins.toast.showShortCenter(err);
             });
-        });
-    </script>
-    
-</div>
+           
+            
+        }
+        
+        function onError() {
+        	alert("Problemas con el APP");
+    	}
+            
+            
+		}());
+	</script>
