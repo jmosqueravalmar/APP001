@@ -1,76 +1,35 @@
 <!--<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">-->
-<div id="tareas" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
 
-    <!-- START_CUSTOM_CODE_funcionalidad03 -->
-    <!-- END_CUSTOM_CODE_funcionalidad03 -->
+<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
+    <div id="tareas" class="listadoTareas" data-role="listview" data-title="Seguimiento Tareas" >
 
-    <ul data-role="listview" data-inset="true" class="listadoTareas">
-        <li class="">
-            <div class="columHeader columTarea01">Tarea</div>
-            <div class="columHeader columTarea02">Clientes</div>
-            <div class="columHeader columTarea03">Fecha C.</div>
-            <div class="columHeader columTarea03">Fecha L.</div>
-            <div class="columHeader columTarea03">Estado.</div>
-            <div class="columHeader columTarea04">Prioridad</div>
-        </li>
-
-        <li class="">
-            <a href="#flightStatus" data-transition="slide">
-                <div class="columTarea01">Ajustar Tarifas</div>
-            </a>
-            <div class="columTarea02">AUSA</div>
-            <div class="columTarea03">28/09/2015</div>
-            <div class="columTarea03">28/09/2015</div>
-            <div class="columTarea03">Pendiente</div>
-            <div class="columTarea04">Alta</div>
-        </li>
-        <!--
-        <li class="">
-        <a href="#flightStatus" data-transition="slide">
-        <div class="columTarea01">Definir Indicadores</div>
-        </a>
-        <div class="columTarea02">AUSA</div>
-        <div class="columTarea03">28/09/2015</div>
-        <div class="columTarea03">28/09/2015</div>
-        <div class="columTarea03">Pendiente</div>
-        <div class="columTarea04">Alta</div>
-        </li>
-
-        <li class="AlertaTareas1">
-        <a href="#flightStatus" data-transition="slide">
-        <div class="columTarea01">Levantamiento de especificaciones de despacho</div>
-        </a>
-        <div class="columTarea02">AUSA</div>
-        <div class="columTarea03">28/09/2015</div>
-        <div class="columTarea03">28/09/2015</div>
-        <div class="columTarea03">Pendiente</div>
-        <div class="columTarea04">Alta</div>
-        </li>
-
-        <li class="AlertaTareas2">
-        <a href="#flightStatus" data-transition="slide">
-        <div class="columTarea01">Particulares de atencion</div>
-        </a>
-        <div class="columTarea02">AUSA</div>
-        <div class="columTarea03">28/09/2015</div>
-        <div class="columTarea03">28/09/2015</div>
-        <div class="columTarea03">Pendiente</div>
-        <div class="columTarea04">Alta</div>
-        </li>-->
-    </ul>
+    </div>
 </div>
 
-<div data-role="view" id="flightStatus" data-title="Detalle" >
+<div data-role="view" id="detalleTarea" data-title="Detalle" >
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#tareas">Regresar</a>
+        <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
     </div>
 
-    <ul data-role="listview" >
-        <li>x</li>
+    <ul data-role="listview" id="detalleTR">
+        <li><span id="nombre"></span></li>
         <li>x</li>
         <li>x</li>
     </ul>
 
 </div>
 
+<script type="text/x-kendo-tmpl" id="tema001">
+    <div class="listadoTareas">
+        <li>
+            <div id="nombreT" onclick="llamada(#:ProductID#)" class="columTarea01">#:ProductName#</div>
+            <div class="columTarea02">#:UnitPrice#</div>
+            <div class="columTarea03">#:UnitsInStock#</div>
+            <div class="columTarea03">#:Discontinued#</div>
+            <div class="columTarea03">#:UnitsInStock#.</div>
+            <div class="columTarea04">#:Discontinued#</div>
+            <input type="hidden" name="ejecutar" value="#:ProductID#"/>
+        </li>
+    </div>
+</script>
