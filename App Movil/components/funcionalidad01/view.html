@@ -19,10 +19,11 @@
         <a data-role="button" data-align="right" href="#ListaClientes">Regresar</a>
     </div>
     
-    <div id="det-nombre">Nombre: AAA</div>
-    <div id="det-rubro">Rubro: BBB</div>
+    <div style="display:inline;">Nombre:</div> <div id="det-nombre" style="display:inline;"> AAA</div> <br>
+    <div style="display:inline;">Rubro:</div><div id="det-rubro" style="display:inline;"> BBB</div>
     
-    <span id="doClick" data-bind="click: showClickMe">Click ME</span>
+    <br><br>
+    <span style="display:block;" id="doClick" data-bind="click: showClickMe">Click ME</span>
     <script>        
         var viewModel = kendo.observable({
             showClickMe: function() {
