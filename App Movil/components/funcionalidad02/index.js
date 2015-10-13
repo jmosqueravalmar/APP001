@@ -20,7 +20,7 @@ app.funcionalidad02 = kendo.observable({
 
     window.get = function(e) {
         var selectedContactId = e.view.params.id;
-        
+        //var selectedContactId = e.view.params.nombre;
         //navigator.notification.alert(selectedContactId);
         
         $("#o_valor").text(selectedContactId);

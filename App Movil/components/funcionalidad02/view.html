@@ -1,154 +1,39 @@
- 	<div data-role="view" data-title="Seguimiento de Orden" id="orden" data-layout="main" data-model="app.funcionalidad02"  data-show="app.funcionalidad02.onShow" data-after-show="app.funcionalidad02.afterShow">
-             
-        Orden:        
-        <select id="size" name="size">
-        <option value="02392">02392</option>
-        <option value="02002">02002</option>
-        <option value="90292">90292</option>
-        <option value="02002">02002</option>
-        <option value="90292">90292</option>
-        <option value="02002">02002</option>
-        <option value="90292">90292</option>
-        <option value="02002">02002</option>
-        <option value="90292">90292</option>
-        <option value="06322">06322</option>
-        </select>
-        
+<div id="example">
 
-        <button data-bind="click: seleccionar" data-role="button">Seleccionar</button>
-
+    <div>
+        <div id="listView"></div>
+        <div id="pager"></div>
     </div>
 
-
-		<script type="text/x-kendo-template" id="o_template">
-            #: nombre # (#: fecha # ) #: estado # #: largo #
-            <a href="\#seleccion?id=${id}">Seleccionar</a>
-        </script>
-
-
-    <div data-role="view" id="lista" data-title="Importación">
-         <div data-role="navbar">
-            <span data-role="view-title"></span>
-            <a data-role="button" data-align="left" href="#orden">Regresar</a>
+    <script type="text/x-kendo-template" id="template">
+        <div>
+            <h3>#:ProductName#</h3>
+            <p>#:kendo.toString(UnitPrice, "c")#</p>
         </div>
-        
-        <ul data-role="listview" data-source="o_foo" data-template="o_template"></ul>
-        
-                
-    </div>
-
-    <div data-role="view" id="seleccion" data-title="Seleccionado" data-show="window.get">
-        <header data-role="header">
-        <div data-role="navbar">
-            <span data-role="view-title"></span>
-            <a data-role="button" data-align="left" href="#lista">Regresar</a>
-            <a data-role="button" data-align="right" href="#example">REST</a>
-        </div>
-        </header>
-        
-        <span data-role="view-title" id="o_valor"></span>
-    </div>
-
-
-	<div id="example" data-role="view" data-title="REST">
-        <div data-role="navbar">
-            <span data-role="view-title"></span>
-            <a data-role="button" data-align="left" href="#seleccion">Regresar</a>
-        </div>
-        
-            <div id="grid"></div>
-
-            <script>
-                $(document).ready(function() {
-                    var element = $("#grid").kendoGrid({
-                        dataSource: {
-                            type: "odata",
-                            transport: {
-                                read: "//demos.telerik.com/kendo-ui/service/Northwind.svc/Employees"
-                            },
-                            pageSize: 6,
-                            serverPaging: true,
-                            serverSorting: true
-                        },
-                        height: 600,
-                        sortable: true,
-                        pageable: true,
-                        detailInit: detailInit,
-                        dataBound: function() {
-                            this.expandRow(this.tbody.find("tr.k-master-row").first());
-                        },
-                        columns: [
-                            {
-                                field: "FirstName",
-                                title: "First Name",
-                                width: "110px"
-                            },
-                            {
-                                field: "LastName",
-                                title: "Last Name",
-                                width: "110px"
-                            },
-                            {
-                                field: "Country",
-                                width: "110px"
-                            },
-                            {
-                                field: "City",
-                                width: "110px"
-                            },
-                            {
-                                field: "Title"
-                            }
-                        ]
-                    });
-                });
-
-                function detailInit(e) {
-                    $("<div/>").appendTo(e.detailCell).kendoGrid({
-                        dataSource: {
-                            type: "odata",
-                            transport: {
-                                read: "//demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
-                            },
-                            serverPaging: true,
-                            serverSorting: true,
-                            serverFiltering: true,
-                            pageSize: 10,
-                            filter: { field: "EmployeeID", operator: "eq", value: e.data.EmployeeID }
-                        },
-                        scrollable: false,
-                        sortable: true,
-                        pageable: true,
-                        columns: [
-                            { field: "OrderID", width: "110px" },
-                            { field: "ShipCountry", title:"Ship Country", width: "110px" },
-                            { field: "ShipAddress", title:"Ship Address" },
-                            { field: "ShipName", title: "Ship Name", width: "300px" }
-                        ]
-                    });
-                }
-            </script>
-	</div>
-
-	<script>
-        var o_foo = new kendo.data.DataSource({ 
-  		data: [
-            {id: 1, nombre: "Apertura de la Orden", fecha: "23/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"},
-            {id: 2, nombre: "ETA Estimado", fecha: "13/05/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 3, nombre: "Llegada de la nave", fecha: "20/11/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"},
-            {id: 4, nombre: "Fecha de Numeración", fecha: "13/10/2015", estado: "2", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 5, nombre: "Documentos Completos", fecha: "03/11/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 6, nombre: "Fecha de Cancelación", fecha: "01/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"},
-            {id: 7, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 8, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 9, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 10, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 11, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 12, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 13, nombre: "Aforo Culminado", fecha: "30/10/2015", estado: "1", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 14, nombre: "Levante Autorizado", fecha: "13/10/2015", estado: "3", largo: "fdfdfjjdjdjdd33h3333"}, 
-            {id: 15, nombre: "Retiro Culminado", fecha: "23/10/2015", estado: "2", largo: "fdfdfjjdjdjdd33h3333"}
-        ] 
-        });
-
     </script>
+
+    <script>
+        $(function() {
+            var dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "http://demos.telerik.com/kendo-ui/service/Products",
+                        dataType: "jsonp"
+                    }
+                },
+                pageSize: 10
+            });
+
+            $("#pager").kendoPager({
+                autoBind: false,
+                dataSource: dataSource
+            });
+
+            $("#listView").kendoListView({
+                dataSource: dataSource,
+                template: kendo.template($("#template").html())
+            });
+        });
+    </script>
+    
+</div>
