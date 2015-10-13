@@ -27,12 +27,9 @@ app.funcionalidad03 = kendo.observable({
 
 // START_CUSTOM_CODE_funcionalidad03
  
-function llamada(e) {
+window.llamada = function(e) { 
     //alert(e);
-    
-    //$("#nombre").append(" <b>Id del registro - "+ e +"</b>.");    
-    document.getElementById("nombre").innerHTML = " <b>Id del registro - "+ e +"</b>.";
-    
-    window.location.href = "#detalleTarea";
+    var seleccionado = e.view.params.info;
+    $("#nombre").text(seleccionado); 
 } 
 // END_CUSTOM_CODE_funcionalidad03
