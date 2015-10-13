@@ -14,7 +14,7 @@
 
     <ul data-role="listview" id="detalleTR">
         <li><span id="nombre"></span></li>
-        <li>x</li>
+        <li><span id="nombre2"></span></li>
         <li>x</li>
     </ul>
 
@@ -23,14 +23,14 @@
 <script type="text/x-kendo-tmpl" id="tema001">
     <div class="listadoTareas">
         <li>
-            <a href="\#detalleTarea?info=${ProductID}">
-                <div class="columTarea01">#:ProductName#</div>
+            <a href="\#detalleTarea?info=${EmployeeID}&info2=${FirstName}">
+                <div class="columTarea01">#:FirstName#</div>
             </a>
-            <div class="columTarea02">#:UnitPrice#</div>
-            <div class="columTarea03">#:UnitsInStock#</div>
-            <div class="columTarea03">#:Discontinued#</div>
-            <div class="columTarea03">#:UnitsInStock#.</div>
-            <div class="columTarea04">#:Discontinued#</div> 
+            <div class="columTarea02">#:LastName#</div>
+            <div class="columTarea03">#:Country#</div>
+            <div class="columTarea03">#:City#</div>
+            <div class="columTarea03">#:Title#.</div>
+            <div class="columTarea04">#:EmployeeID#</div> 
         </li>
     </div>
 </script>
