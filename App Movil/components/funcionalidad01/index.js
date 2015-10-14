@@ -2,64 +2,35 @@
 
 app.funcionalidad01 = kendo.observable({
     onShow: function() {},
-    afterShow: function() {}
+    afterShow: function() {},    
 });
 
 // START_CUSTOM_CODE_funcionalidad01
 
 var f01 = new kendo.data.DataSource({ 
-   data: [
-        {id: 1, nombre: "ADIDAS"},
-        {id: 2, nombre: "HUAWUEI"}, 
-        {id: 3, nombre: "ADM"},
-        {id: 4, nombre: "PHILIPS"}, 
-        {id: 5, nombre: "COSAPI"}, 
-        {id: 6, nombre: "ASTRAZENECA PERU S.A."},
-        {id: 7, nombre: "RENA WARE DEL PERU' S.A."}, 
-        {id: 8, nombre: "NIKE"}, 
-        {id: 9, nombre: "SONY"},
-        {id: 10, nombre: "HONDA DEL PERU' S.A."}, 
-        {id: 11, nombre: "DAMCO S.A."},
-        {id: 12, nombre: "COCA COLA"}
-    ] 
+data: [
+        {id: 1, nombre: "ADIDAS", rubro: "Sportware and Footware"},
+        {id: 2, nombre: "HUAWUEI", rubro: "Smartphone and Tablet"}, 
+        {id: 3, nombre: "ADM", rubro: "ACME ACME"},
+        {id: 4, nombre: "PHILIPS", rubro: "TV-LCD and Equipos de sonido"}, 
+        {id: 5, nombre: "COSAPI", rubro: "Consutoria empresarial"}, 
+        {id: 6, nombre: "ASTRAZENECA PERU S.A.", rubro: "Medicamentos"},
+        {id: 7, nombre: "RENA WARE DEL PERU' S.A.", rubro: "ACME ACME"}, 
+        {id: 8, nombre: "NIKE", rubro: "Sportware and Footware"}, 
+        {id: 9, nombre: "SONY", rubro: "TV-LCD and Equipos de sonido"},
+        {id: 10, nombre: "HONDA DEL PERU' S.A.", rubro: "Auto and Motos"}, 
+        {id: 11, nombre: "DAMCO S.A.", rubro: "ACME ACME"},
+        {id: 12, nombre: "COCA COLA", rubro: "Drinks and Merchandaising"}
+    ]
 });
 
-// The clicked item as a jQuery object
-function onTap(e) {
-    console.log(e.touch.target + " was tapped");
+function muestraDetalle(id){
+    console.log("Muestra Detalle de:" + id);
+    var dataItem = f01.get(id);
+    console.log("Nombre: " + dataItem.nombre + " Rubro: " + dataItem.rubro);
+    $("#det-nombre").html(dataItem.nombre);
+    $("#det-rubro").html(dataItem.rubro);
     
-    //console.log($("#MyListView").data("kendoMobileListView").items());
-    
-    console.log($("#MyListView").kendoMobileListView);
-/*    $("#MyListView").kendoMobileListView.dataSource = f01;
-    $("#MyListView").kendoMobileListView.click = function(e) {
-        console.log(e.dataItem.id);
-   };*/
-}
-
-$("#MyListView").kendoMobileListView({
-    dataSource: f01,
-    dataBound: onDataBound,    
-    click: onClick,
-    template : myTemplate
-});
-
-function onDataBound() {
-    console.log("ListView data bound");
-}
-
-function onClick() {
-    console.log("ListView click");
-    var data = f01.view(),
-        selected = $.map(this.select(), function(item) {
-            return data[$(item).index()].nombre;
-        });
-
-    console.log("Selected: " + selected.length + " item(s), [" + selected.join(", ") + "]");
-}
-
-function myTemplate() {
-    kendo.template($("#f01-template").html());
 }
 
 // END_CUSTOM_CODE_funcionalidad01
