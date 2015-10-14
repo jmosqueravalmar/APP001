@@ -1,6 +1,16 @@
 <!--<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">-->
 
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
+   <ul data-role="listview" class="listadoTareas">
+        <li>
+            <div class="columTarea01">Nombre</div>
+            <div class="columTarea02">Apellido</div>
+            <div class="columTarea03">Pais</div>
+            <div class="columTarea03">Ciudad</div>
+            <div class="columTarea03">Titulo</div>
+            <div class="columTarea04">Empleado</div> 
+        </li>   
+   </ul>        
     <div id="tareas" class="listadoTareas" data-role="listview" data-title="Seguimiento Tareas" >
 
     </div>
@@ -15,9 +25,8 @@
     <ul data-role="listview" id="detalleTR">
         <li><span id="nombre"></span></li>
         <li><span id="nombre2"></span></li>
-        <li>x</li>
     </ul>
-
+    <div data-role="listview" id="detalle2"></div>
 </div>
 
 <script type="text/x-kendo-tmpl" id="tema001">
@@ -34,3 +43,17 @@
         </li>
     </div>
 </script>
+
+<script type="text/x-kendo-tmpl" id="tema002">
+    <div class="listadoTareas">
+        <li>
+            <div class="columTarea01">#:OrderID#</div>
+            </a>
+            <div class="columTarea02">#:ShipCountry#</div>
+            <div class="columTarea03">#:ShipAddress#</div>
+            <div class="columTarea03">#:ShipName#</div>
+        </li>
+    </div>
+</script>
+
+ 
