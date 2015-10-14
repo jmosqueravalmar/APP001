@@ -4,9 +4,8 @@ app.funcionalidad03 = kendo.observable({
         var dataSource = new kendo.data.DataSource({
             type: "odata",
             transport: {
-                read: {
-                    url: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Employees"
-                },
+                read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Employees"
+                ,
                 dataBound: function () {
                     this.expandRow(this.tbody.find("tr.k-master-row").first());
                 },
@@ -44,10 +43,9 @@ function detailInit(idEmpleado) {
     var dataSourceDetail = new kendo.data.DataSource({
         type: "odata",
         transport: {
-            read: {
-                read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+            read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
 
-            },
+            ,
             filter: {
                 field: "EmployeeID",
                 operator: "eq",
