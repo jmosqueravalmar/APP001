@@ -1,14 +1,31 @@
 <div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
-    <ul id="MyListView"  data-role="listview" data-source="f01" data-template="f01-template">
-    </ul>
 
-    <script type="text/x-kendo-template" id="f01-template">
-        <div onClick="muestraDetalle('#:id#')">
+    <!--<ul id="f01lv"></ul>-->
+    
+    <div id="f01lv"></div>
+    
+    <script type="text/x-kendo-tmpl" id="template">
+        <!--NOTA: creare la struttura del ITEM con tutti i dettagli necessari-->
+        <h3>
             #:nombre#
-            
             <a href="\#det-cliente" data-role="detailbutton" data-style="detaildisclose"></a>
-        </div>
+        </h3>
+    </script>
+    
+    <script>
+        $(document).ready(function() {
+            $("#f01lv").kendoMobileListView({
+               dataSource: f01,
+                
+               click: function(e) {
+                    console.log("Nombre: " + e.dataItem.nombre + " Id: " + e.dataItem.id);
+                    $("#det-nombre").html(e.dataItem.nombre);
+                    $("#det-rubro").html(e.dataItem.rubro);
+               },
+               template: kendo.template($("#template").html())
+            });            
+        })
     </script>
     <!-- END_CUSTOM_CODE_funcionalidad01 -->
 </div>
@@ -21,16 +38,7 @@
     
     <div style="display:inline;">Nombre:</div> <div id="det-nombre" style="display:inline;"> AAA</div> <br>
     <div style="display:inline;">Rubro:</div><div id="det-rubro" style="display:inline;"> BBB</div>
-    
-    <br><br>
-    <span style="display:block;" id="doClick" data-bind="click: showClickMe">Click ME</span>
-    <script>        
-        var viewModel = kendo.observable({
-            showClickMe: function() {
-                console.log("Click Me");
-            }
-        });
-        kendo.bind($("#doClick"), viewModel);
-    </script>
+ 
 </div>
-    
+
+
