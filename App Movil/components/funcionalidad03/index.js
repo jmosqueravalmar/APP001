@@ -84,4 +84,89 @@ window.llamada = function (e) {
 
 }
 
+window.llamada2 = function (){
+        
+       var dataSource2 = new kendo.data.DataSource({
+          transport: {
+            read: function(options) {
+              /* implementation omitted for brevity */
+            },
+            create: function(options) {
+              // make JSONP request to http://demos.telerik.com/kendo-ui/service/products/create
+              $.ajax({
+                url: "http://demos.telerik.com/kendo-ui/service/products/create",
+                dataType: "jsonp", // "jsonp" is required for cross-domain requests; use "json" for same-domain requests
+                // send the created data items as the "models" service parameter encoded in JSON
+                data: {
+                  models: kendo.stringify(options.data.models)
+                },
+                success: function(result) {
+                  // notify the data source that the request succeeded
+                  options.success(result);
+                },
+                error: function(result) {
+                  // notify the data source that the request failed
+                  options.error(result);
+                }
+              });
+            }
+          },
+          batch: true,
+          schema: {
+            model: { id: "ProductID" }
+          }
+        });
+        dataSource2.add( { ProductName: "Jmosquera2" });
+        dataSource2.sync(); 
+    
+    
+    
+        /*****************************************************************/
+        /*****************************************************************/
+    
+    
+           
+       var dataSource3 = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://demos.telerik.com/kendo-ui/service/Products",
+                    dataType: "jsonp"
+                },
+                schema: {
+                    model: { id: "ProductID" }
+                },
+                columns: [{
+                    field: "ProductName",
+                    title: "ProductName."
+                        }, {
+                    field: "UnitPrice",
+                    title: "UnitPrice."
+                        }, {
+                    field: "Discontinued"
+                        }
+                ]}
+        }); 
+        
+        dataSource3.sort({ field: "ProductID", dir: "desc" });
+        
+         
+          var dataItem = dataSource3.get(50);
+          console.log(dataSource3); // displays "Jane Doe"
+        
+           
+    
+    
+        //dataSource3.remove(dataSource3.get(86));
+    
+        $("#detalle3").kendoListView({
+            dataSource: dataSource3,
+            template: kendo.template($("#tema003").html())
+        });    
+    
+    
+        
+}
+ 
+
+
 // END_CUSTOM_CODE_funcionalidad03
