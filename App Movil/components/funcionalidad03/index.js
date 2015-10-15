@@ -43,28 +43,14 @@ function detailInit(idEmpleado) {
     var dataSourceDetail = new kendo.data.DataSource({
         type: "odata",
         transport: {
-            read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
-
-            ,
-            filter: {
-                field: "EmployeeID",
-                operator: "eq",
-                value: idEmpleado
-            },
-            columns: [{
-                    field: "OrderID",
-                    title: "OrderID."
-                        }, {
-                    field: "ShipCountry",
-                    title: "ShipCountry."
-                        }, {
-                    field: "ShipAddress"
-                        }, {
-                    field: "ShipName"
-                        }]
+            read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders",
+            serverFiltering: true,
+            filter: { field: "EmployeeID", operator: "eq", value: "3"}
         }
     });
-    
+    console.log (idEmpleado);
+    //dataSourceDetail.filter( { field: "EmployeeID", operator: "eq", value: "3" });
+        
     $("#nombre2").text(dataSourceDetail);
     
     $("#detalle2").kendoListView({
@@ -77,8 +63,7 @@ window.llamada = function (e) {
     //alert(e);
     var seleccionado = e.view.params.info;
     var seleccionado2 = e.view.params.info2;
-    $("#nombre").text(seleccionado);
-    $("#nombre2").text(seleccionado2);
+    $("#nombre").text(seleccionado); 
 
     detailInit(seleccionado);
 
