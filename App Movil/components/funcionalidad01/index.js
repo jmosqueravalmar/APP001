@@ -20,7 +20,8 @@ data: [
         {id: 9, nombre: "SONY", rubro: "TV-LCD and Equipos de sonido"},
         {id: 10, nombre: "HONDA DEL PERU' S.A.", rubro: "Auto and Motos"}, 
         {id: 11, nombre: "DAMCO S.A.", rubro: "ACME ACME"},
-        {id: 12, nombre: "COCA COLA", rubro: "Drinks and Merchandaising"}
+        {id: 12, nombre: "COCA COLA", rubro: "Drinks and Merchandaising"},
+        {id: 13, nombre: "AA", rubro: "BB"},
     ]
 });
 // END_CUSTOM_CODE_funcionalidad01
