@@ -1,54 +1,22 @@
-    <div id="view-foto" data-role="view" data-title="Captura de Foto">
-        <header data-role="header">
-            <div data-role="navbar">
-                <div data-role="view-title"></div>
-            </div>
-        </header>
-        <img class="largeProfile" width="350" height="350" />
-        
-        
-        <button id="update-photo" data-role="button" 
-                onclick="window.updatePhoto()">Tomar</button>
-        
- 
-    </div>
 
-	<script>
-        
-        (function() {
-            
-        var apiKey = "Mosi1tOaeZ84K0L1";
-    	var el = new Everlive(apiKey);
-
-        
-        window.updatePhoto = function() {
-    	navigator.camera.getPicture(onPhotoSuccess, onError, 
-            { quality: 50, 
-              destinationType: Camera.DestinationType.FILE_URI });
-		}
-
-
-       function onPhotoSuccess(imageURI) {
-           var options = {
-                fileName: 'foto.jpg',
-                mimeType: 'image/jpg'
-            };
-           
-            $(".largeProfile").attr("src", imageURI);
-            el.files.upload(imageURI,options)
-           .then(function() {
-                window.plugins.toast.showShortCenter("Upload");
-            }, function(err) {
-                window.plugins.toast.showShortCenter(err);
-            });
-           
-            
-        }
-        
-        function onError() {
-        	alert("Problemas con el APP");
-    	}
-        
-		}());
-        
-	</script>
+<div data-role="view"  id="orden"  data-title="Audio" data-layout="main" data-model="audio">
+<header class="header">
+			<h1>Capture Sample</h1>
+		</header>
+        <div class="content">
+            <div class="action-area ch50">
+                           
+                <button data-bind="click: seleccionar" data-role="button">Seleccionar</button>
+			</div>
+            <div class="result-area ch50">
+                <div class="results">
+                    <div id="media"></div>
+                </div>
+				<div class="separator"></div>
+			</div>
+        </div>
+        <footer class="footer">
+		    <div>Cordova API Samples</div>
+	    </footer>
+</div>
+  

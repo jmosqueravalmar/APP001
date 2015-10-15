@@ -1,36 +1,39 @@
-'use strict';
+document.addEventListener("deviceready", onDeviceReady, false);
+ 
 
-app.funcionalidad02 = kendo.observable({
-    onShow: function() {},
-    afterShow: function() {}
-});
+function onDeviceReady() {
+    navigator.notification.alert(navigator.device.capture);
+    navigator.splashscreen.hide();
+    captureApp = new captureApp();
+    captureApp.run();
+    //navigator.notification.alert("entro");
+}
 
-// START_CUSTOM_CODE_funcionalidad02
+function captureApp() {
+}
 
-     window.app.funcionalidad02 = kendo.observable({
+//captureApp.prototype = {
+  //  navigator.notification.alert("entro");
+//}
+
+
+   window.audio = kendo.observable({
      seleccionar: function() {
-         
-         var valor = $( "#size option:selected" ).text();
-	             
-         //navigator.notification.alert(valor);
-         window.location.href = "#lista";
+         //navigator.notification.alert("entro");
+         var that = this;
+         navigator.device.capture.captureAudio(function() {
+         //that._captureSuccess.apply(that, arguments);
+                var i,
+                media = document.getElementById("media");
+                media.innerHTML = "";
+                for (i=0;i < capturedFiles.length;i+=1) {
+                    media.innerHTML+='<p>Capture taken! Its path is: ' + capturedFiles[i].fullPath + '</p>'
+                }
+           
+         }, function() {
+             navigator.notification.alert("Problemas con el APP");
+         }, {limit:1});
+
       }
     });
 
-
-    window.get = function(e) {
-        var selectedContactId = e.view.params.id;
-        //var selectedContactId = e.view.params.nombre;
-        //navigator.notification.alert(selectedContactId);
-        
-        $("#o_valor").text(selectedContactId);
-        
-        //var options = new ContactFindOptions();
-        //options.filter = e.view.params.id;
-        //options.multiple = true;       
-        //var fields = ["*"];   
-        //navigator.contacts.find(fields, onContactDetail123Success, onError, options);
-	}
-
-    
-// END_CUSTOM_CODE_funcionalidad02

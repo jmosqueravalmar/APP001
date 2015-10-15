@@ -24,13 +24,4 @@ data: [
     ]
 });
 
-function muestraDetalle(id){
-    console.log("Muestra Detalle de:" + id);
-    var dataItem = f01.get(id);
-    console.log("Nombre: " + dataItem.nombre + " Rubro: " + dataItem.rubro);
-    $("#det-nombre").html(dataItem.nombre);
-    $("#det-rubro").html(dataItem.rubro);
-    
-}
-
 // END_CUSTOM_CODE_funcionalidad01
