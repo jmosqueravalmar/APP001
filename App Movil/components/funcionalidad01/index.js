@@ -23,5 +23,4 @@ data: [
         {id: 12, nombre: "COCA COLA", rubro: "Drinks and Merchandaising"}
     ]
 });
-
 // END_CUSTOM_CODE_funcionalidad01
