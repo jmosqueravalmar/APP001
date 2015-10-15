@@ -1,11 +1,12 @@
+
+<div data-role="view"  id="orden"  data-title="Audio" data-layout="main" data-model="audio">
 <header class="header">
 			<h1>Capture Sample</h1>
 		</header>
         <div class="content">
             <div class="action-area ch50">
-                <button class="button dh" id="captureVideo">Capture Video</button>
-			    <button class="button dh" id="captureAudio">Capture Audio</button>
-                <button class="button dh" id="captureImage">Capture Image</button>
+                           
+                <button data-bind="click: seleccionar" data-role="button">Seleccionar</button>
 			</div>
             <div class="result-area ch50">
                 <div class="results">
@@ -17,3 +18,5 @@
         <footer class="footer">
 		    <div>Cordova API Samples</div>
 	    </footer>
+</div>
+  
