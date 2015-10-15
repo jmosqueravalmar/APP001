@@ -7,10 +7,10 @@
     
     <script type="text/x-kendo-tmpl" id="template">
         <!--NOTA: creare la struttura del ITEM con tutti i dettagli necessari-->
-        <h3>
-            #:nombre#
+        <h5>
+            #:nombre#.
             <a href="\#det-cliente" data-role="detailbutton" data-style="detaildisclose"></a>
-        </h3>
+        </h5>
     </script>
     
     <script>
@@ -22,6 +22,7 @@
                     console.log("Nombre: " + e.dataItem.nombre + " Id: " + e.dataItem.id);
                     $("#det-nombre").html(e.dataItem.nombre);
                     $("#det-rubro").html(e.dataItem.rubro);
+                    get_Contactos_Clientes(999);
                },
                template: kendo.template($("#template").html())
             });            
@@ -38,10 +39,21 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-xs-2">Cliente</div>
-            <div class="col-xs-4">ABCDE</div>
+            <div class="col-xs-4">
+                <h6 class="text-left">ACTUALIZACION</h6>                
+            </div>
+            <div class="col-xs-8">
+                <h6>15 Octubre 2015 - 16:35:52</h6>                
+            </div>
         </div>
-        
+        <div class="row">
+            <div class="col-xs-4">
+                <h6>CLIENTE</h6>
+            </div>
+            <div class="col-xs-8">
+                <h6 id="det-nombre"></h6>
+            </div>
+        </div>
     </div>
     
     <div style="display:inline;">Nombre:</div> <div id="det-nombre" style="display:inline;"></div> <br>

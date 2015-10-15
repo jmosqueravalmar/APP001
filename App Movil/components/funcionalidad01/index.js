@@ -24,4 +24,17 @@ data: [
         {id: 13, nombre: "AA", rubro: "BB"},
     ]
 });
+
+var f01_contactos = new kendo.data.DataSource({
+data: [
+    {id: 1, clientes_id: "2", nombre: "Juan Perez", fecha_cumpleanos: "10 Marzo", telefonos: ["112 486 624", "0051 1 7538426"]},
+    {id: 2, clientes_id: "2", nombre: "Carlos Alvarado", fecha_cumpleanos: "3 Marzo", telefonos: ["112 251 884"]}
+    ]
+});
+
+/*USARE UNA VARIABILE TEMPORALE PER id cliente... */
+
+function get_Contactos_Clientes(id){
+    console.log("Contactos Clientes >>");
+}
 // END_CUSTOM_CODE_funcionalidad01
