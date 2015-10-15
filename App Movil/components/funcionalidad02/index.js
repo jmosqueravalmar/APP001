@@ -1,36 +1,79 @@
-'use strict';
+document.addEventListener("deviceready", onDeviceReady, false);
+ 
+function id(element) {
+    return document.getElementById(element);
+}
 
-app.funcionalidad02 = kendo.observable({
-    onShow: function() {},
-    afterShow: function() {}
-});
+function onDeviceReady() {
+    navigator.splashscreen.hide();
+    captureApp = new captureApp();
+    captureApp.run();
+}
 
-// START_CUSTOM_CODE_funcionalidad02
+function captureApp() {
+}
 
-     window.app.funcionalidad02 = kendo.observable({
-     seleccionar: function() {
-         
-         var valor = $( "#size option:selected" ).text();
-	             
-         //navigator.notification.alert(valor);
-         window.location.href = "#lista";
-      }
-    });
-
-
-    window.get = function(e) {
-        var selectedContactId = e.view.params.id;
-        //var selectedContactId = e.view.params.nombre;
-        //navigator.notification.alert(selectedContactId);
-        
-        $("#o_valor").text(selectedContactId);
-        
-        //var options = new ContactFindOptions();
-        //options.filter = e.view.params.id;
-        //options.multiple = true;       
-        //var fields = ["*"];   
-        //navigator.contacts.find(fields, onContactDetail123Success, onError, options);
-	}
-
+captureApp.prototype = {
+    pictureSource:null,
     
-// END_CUSTOM_CODE_funcionalidad02
+    destinationType:null,
+    
+    run:function() {
+        var that = this;
+        id("captureVideo").addEventListener("click", function() {
+            that._captureVideo.apply(that, arguments);
+        });
+        id("captureAudio").addEventListener("click", function() {
+            that._capureAudio.apply(that, arguments);
+        });
+        id("captureImage").addEventListener("click", function() {
+            that._captureImage.apply(that, arguments);
+        });
+    },
+    
+    _captureVideo:function() {
+        var that = this;
+        navigator.device.capture.captureVideo(function() {
+            that._captureSuccess.apply(that, arguments);
+        }, function() { 
+            captureApp._captureError.apply(that, arguments);
+        }, {limit:1});
+    },
+    
+    _capureAudio:function() {
+        var that = this;
+        navigator.device.capture.captureAudio(function() {
+            that._captureSuccess.apply(that, arguments);
+        }, function() { 
+            captureApp._captureError.apply(that, arguments);
+        }, {limit:1});
+    },
+    
+    _captureImage:function() {
+        var that = this;
+        navigator.device.capture.captureImage(function() {
+            that._captureSuccess.apply(that, arguments);
+        }, function() { 
+            captureApp._captureError.apply(that, arguments);
+        }, {limit:1});
+    },
+    
+    _captureSuccess:function(capturedFiles) {
+        var i,
+        media = document.getElementById("media");
+        media.innerHTML = "";
+        for (i=0;i < capturedFiles.length;i+=1) {
+            media.innerHTML+='<p>Capture taken! Its path is: ' + capturedFiles[i].fullPath + '</p>'
+        }
+    },
+    
+    _captureError:function(error) {
+        if (window.navigator.simulator === true) {
+            alert(error);
+        }
+        else {
+            var media = document.getElementById("media");
+            media.innerHTML = "An error occured! Code:" + error.code;
+        }
+    },
+}

@@ -16,7 +16,20 @@
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
   "FrameworkVersion": "3.7.0",
   "AndroidPermissions": [
-    "android.permission.INTERNET"
+    "android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION",
+    "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS",
+    "android.permission.ACCESS_NETWORK_STATE",
+    "android.permission.CAMERA",
+    "android.permission.INTERNET",
+    "android.permission.MODIFY_AUDIO_SETTINGS",
+    "android.permission.READ_CONTACTS",
+    "android.permission.READ_PHONE_STATE",
+    "android.permission.RECEIVE_SMS",
+    "android.permission.RECORD_AUDIO",
+    "android.permission.VIBRATE",
+    "android.permission.WRITE_CONTACTS",
+    "android.permission.WRITE_EXTERNAL_STORAGE"
   ],
   "DeviceOrientations": [
     "Portrait"
@@ -42,6 +55,9 @@
     "ID_RESOLUTION_HD720P"
   ],
   "CorePlugins": [
-    "org.apache.cordova.network-information"
+    "org.apache.cordova.device",
+    "org.apache.cordova.file",
+    "org.apache.cordova.media-capture",
+    "org.apache.cordova.splashscreen"
   ]
 }
