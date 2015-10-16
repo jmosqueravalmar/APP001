@@ -1,25 +1,45 @@
 <!--<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">-->
 
-<!-- Listado Principal -->
+<!-- Listado Tareas -->
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="cargaEmpleados" >
 	<ul id="tareas" data-role="listview">
 	
     </ul>    
 </div>
 
+<!-- Detalle Tarea -->
+<div data-role="view" id="details" data-title="Detalle" data-show="detalleTarea">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
+    </div> 
+    <ul id="detalle" class="" data-role="listview" >
+		
+    </ul>
+</div> 
+
 <!-- Templates -->
 <script type="text/x-kendo-tmpl" id="tema001">
-        <li onclick="visibles(#:EmployeeID#)">#:FirstName#
-        	<ul style="display:none;" id="#:EmployeeID#">
-            	<li>#:EmployeeID#</li>
-            	<li>#:FirstName#</li>
-                <li>#:LastName#</li>
-                <li>#:Country#</li>
+        <li><span onclick="visibles(#:CustNum#)">#:Name#</span>
+        	<ul style="display:none;" id="#:CustNum#">
+            	<li>#:CustNum#</li>
+            	<li>#:Name#</li>
+                <li>
+                	<a href="\#details?idEmpd=${CustNum}">#:Country#</a>
+    			</li>
                 <li>#:City#</li>
-                <li>#:Title#</li>
+                <li>#:PostalCode#</li>
             </ul>
         </li>
 </script>
+
+<script type="text/x-kendo-tmpl" id="tema002">
+        <li>
+            <div class="">#:CustNum# | #:Name#</div>-
+            <div class="">#:Country#</div>
+        </li>
+</script>
+
 <!-- Templates -->
 
 
