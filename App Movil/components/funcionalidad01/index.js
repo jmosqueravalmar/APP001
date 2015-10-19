@@ -7,22 +7,38 @@ app.funcionalidad01 = kendo.observable({
 
 // START_CUSTOM_CODE_funcionalidad01
 
-var f01 = new kendo.data.DataSource({ 
-data: [
-        {id: 1, nombre: "ADIDAS", rubro: "Sportware and Footware"},
-        {id: 2, nombre: "HUAWUEI", rubro: "Smartphone and Tablet"}, 
-        {id: 3, nombre: "ADM", rubro: "ACME ACME"},
-        {id: 4, nombre: "PHILIPS", rubro: "TV-LCD and Equipos de sonido"}, 
-        {id: 5, nombre: "COSAPI", rubro: "Consutoria empresarial"}, 
-        {id: 6, nombre: "ASTRAZENECA PERU S.A.", rubro: "Medicamentos"},
-        {id: 7, nombre: "RENA WARE DEL PERU' S.A.", rubro: "ACME ACME"}, 
-        {id: 8, nombre: "NIKE", rubro: "Sportware and Footware"}, 
-        {id: 9, nombre: "SONY", rubro: "TV-LCD and Equipos de sonido"},
-        {id: 10, nombre: "HONDA DEL PERU' S.A.", rubro: "Auto and Motos"}, 
-        {id: 11, nombre: "DAMCO S.A.", rubro: "ACME ACME"},
-        {id: 12, nombre: "COCA COLA", rubro: "Drinks and Merchandaising"},
-        {id: 13, nombre: "AA", rubro: "BB"},
-    ]
+var Cliente = [
+        {ClienteID: 1, ClienteNombre: "ADIDAS", ClienteRubro: "Sportware and Footware"},
+        {ClienteID: 2, ClienteNombre: "HUAWUEI", ClienteRubro: "Smartphone and Tablet"}, 
+        {ClienteID: 3, ClienteNombre: "ADM", ClienteRubro: "ACME ACME"},
+        {ClienteID: 4, ClienteNombre: "PHILIPS", ClienteRubro: "TV-LCD and Equipos de sonido"}, 
+        {ClienteID: 5, ClienteNombre: "COSAPI", ClienteRubro: "Consutoria empresarial"}, 
+        {ClienteID: 6, ClienteNombre: "ASTRAZENECA PERU S.A.", ClienteRubro: "Medicamentos"},
+        {ClienteID: 7, ClienteNombre: "RENA WARE DEL PERU' S.A.", ClienteRubro: "ACME ACME"}, 
+        {ClienteID: 8, ClienteNombre: "NIKE", ClienteRubro: "Sportware and Footware"}, 
+        {ClienteID: 9, ClienteNombre: "SONY", ClienteRubro: "TV-LCD and Equipos de sonido"},
+        {ClienteID: 10, ClienteNombre: "HONDA DEL PERU' S.A.", ClienteRubro: "Auto and Motos"}, 
+        {ClienteID: 11, ClienteNombre: "DAMCO S.A.", ClienteRubro: "ACME ACME"},
+        {ClienteID: 12, ClienteNombre: "COCA COLA", ClienteRubro: "Drinks and Merchandaising"}
+]
+
+var dsCliente = new kendo.data.DataSource({
+    transport: {
+        read: function (e) {
+            // on success
+            e.success(Cliente);
+        },
+        schema: {
+            model: {
+                id: "ClienteID",
+                fields: {
+                    ClienteID: { editable: false, nullable: true, type: "number" },
+                    ClienteNombre: {type: "string"},
+                    ClienteRubro: {type: "string"}                    
+                }
+            }
+        }
+     }        
 });
 
 var f01_contactos = new kendo.data.DataSource({
@@ -32,9 +48,4 @@ data: [
     ]
 });
 
-/*USARE UNA VARIABILE TEMPORALE PER id cliente... */
-
-function get_Contactos_Clientes(id){
-    console.log("Contactos Clientes >>");
-}
 // END_CUSTOM_CODE_funcionalidad01

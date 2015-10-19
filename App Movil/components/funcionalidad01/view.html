@@ -1,33 +1,51 @@
-<div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
+<div id="ListaClientes" data-role="view" d;:ata-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
 
-    <!--<ul id="f01lv"></ul>-->
+    <div id="lstCliente"></div>
     
-    <div id="f01lv"></div>
-    
-    <script type="text/x-kendo-tmpl" id="template">
-        <!--NOTA: creare la struttura del ITEM con tutti i dettagli necessari-->
-        <h5>
-            #:nombre#.
-            <a href="\#det-cliente" data-role="detailbutton" data-style="detaildisclose"></a>
-        </h5>
+    <script type="text/x-kendo-tmpl" id="tmpLstCliente">
+        <div>
+            <dl style="border-bottom-style: solid; border-bottom-color: black; border-bottom-width: thin">        
+                <dt>#:ClienteNombre#</dt>
+                <dd>#:ClienteRubro#</dd>
+            </dl>
+        </div>
     </script>
     
+    <!--
+    NOTA: Si puo intercambiare fra kendoListView e kendoMobileListView
+    ATTENZIONE: kendoMobileListView puo gestire un template specializzato per editing ** editTemplate **
+    Entrambe le opzioni kendoListView e kendoMobileListView suppportano Add di nuovi item
+    La f01 di AUSA richiede uso di kendoMobileListView
+    -->
+
     <script>
-        $(document).ready(function() {
-            $("#f01lv").kendoMobileListView({
-               dataSource: f01,
-                
-               click: function(e) {
-                    console.log("Nombre: " + e.dataItem.nombre + " Id: " + e.dataItem.id);
+        $(document).ready(function () {
+            $("#lstCliente").kendoListView({
+                dataSource: dsCliente,
+                template: kendo.template($("#tmpLstCliente").html()),
+                selectable: true,
+                change: function(e) {
+                    
+                    var row = $(".k-state-selected").select();
+                    console.log("ClienteID > " + this.dataItem(row).ClienteID);
+                    
+                    //console.log("E > data: " + e.dataItem);
+
+                    /*
+                    *** hooks to handle kendoMobileListView data structure ***
                     $("#det-nombre").html(e.dataItem.nombre);
                     $("#det-rubro").html(e.dataItem.rubro);
-                    get_Contactos_Clientes(999);
-               },
-               template: kendo.template($("#template").html())
-            });            
-        })
+                    get_Contactos_Clientes(e.dataItem.id);
+                    */
+                    
+                    //Change view to detail
+                    window.location.href = "#det-cliente";
+                }
+            });
+        });
     </script>
+
     <!-- END_CUSTOM_CODE_funcionalidad01 -->
 </div>
 
