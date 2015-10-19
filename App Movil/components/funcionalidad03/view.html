@@ -11,7 +11,7 @@
 <div data-role="view" id="details" data-title="Detalle" data-show="detalleTarea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
+        <a data-role="button" data-align="right" onclick="regresarPantalla('#tareas1','#detalle');">Regresar</a>
     </div> 
     <ul id="detalle" class="" data-role="listview" >
 		
@@ -20,23 +20,26 @@
 
 <!-- Templates -->
 <script type="text/x-kendo-tmpl" id="tema001">
-        <li><span onclick="visibles(#:CustNum#)">#:Name#</span>
-        	<ul style="display:none;" id="#:CustNum#">
-            	<li>#:CustNum#</li>
-            	<li>#:Name#</li>
+        <li><span onclick="visibles(#:EmployeeID#)">#:FirstName#</span>
+        	<ul style="display:none;" id="#:EmployeeID#">
+            	<li>#:EmployeeID#</li>
+            	<li>#:FirstName#</li>
                 <li>
-                	<a href="\#details?idEmpd=${CustNum}">#:Country#</a>
+                	<a href="\#details?idEmpd=${EmployeeID}">#:LastName#</a>
     			</li>
+                <li>#:Country#</li>
                 <li>#:City#</li>
-                <li>#:PostalCode#</li>
+                <li>#:Title#</li>
             </ul>
         </li>
 </script>
 
 <script type="text/x-kendo-tmpl" id="tema002">
         <li>
-            <div class="">#:CustNum# | #:Name#</div>-
-            <div class="">#:Country#</div>
+            <div class="">#:OrderID# | #:EmployeeID#</div>-
+            <div class="">#:ShipCountry#</div>-
+            <div class="">#:ShipAddress#</div>-
+            <div class="">#:ShipName#</div>
         </li>
 </script>
 
