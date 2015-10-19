@@ -1,89 +1,52 @@
 <!--<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">-->
 
-<!-- Listado Principal -->
-<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">
-   <a data-role="button" data-align="right" href="#agregarProducto">+</a> 
-    <ul data-role="listview" class="listadoTareas">
-        <li>
-            <div class="columTarea01">Nombre</div>
-            <div class="columTarea02">Apellido</div>
-            <div class="columTarea03">Pais</div>
-            <div class="columTarea03">Ciudad</div>
-            <div class="columTarea03">Titulo</div>
-            <div class="columTarea04">Empleado</div> 
-        </li>   
-   </ul>        
-    <div id="tareas" class="listadoTareas" data-role="listview" data-title="Seguimiento Tareas" >
-
-    </div>
+<!-- Listado Tareas -->
+<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="cargaEmpleados" >
+	<ul id="tareas" data-role="listview">
+	
+    </ul>    
 </div>
 
-<!-- Detalle de un Empleado, Ordenes asociadas a este empleado -->
-<div data-role="view" id="detalleTarea" data-title="Detalle" data-show="window.llamada">
+<!-- Detalle Tarea -->
+<div data-role="view" id="details" data-title="Detalle" data-show="detalleTarea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
-    </div>
-
-    <ul data-role="listview" id="detalleTR">
-        <li><span id="nombre"></span></li> 
-    </ul> 
-    <div id="detalle2" class="listadoTareas" data-role="listview" >
-
-    </div>
+        <a data-role="button" data-align="right" onclick="regresarPantalla('#tareas1','#detalle');">Regresar</a>
+    </div> 
+    <ul id="detalle" class="" data-role="listview" >
+		
+    </ul>
 </div> 
-
-<!-- Detalle de Agregar un Producto -->
-<div data-role="view" id="agregarProducto" data-title="Agregar Producto" data-show="window.llamada2">
-    <div data-role="navbar">
-        <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
-    </div>
- 
-    <div id="detalle3" class="listadoTareas" data-role="listview" >
-
-    </div>
-</div> 
-
-
 
 <!-- Templates -->
 <script type="text/x-kendo-tmpl" id="tema001">
-    <div class="listadoTareas">
-        <li>
-            <a href="\#detalleTarea?info=${EmployeeID}&info2=${FirstName}">
-                <div class="columTarea01">#:FirstName#</div>
-            </a>
-            <div class="columTarea02">#:LastName#</div>
-            <div class="columTarea03">#:Country#</div>
-            <div class="columTarea03">#:City#</div>
-            <div class="columTarea03">#:Title#.</div>
-            <div class="columTarea04">#:EmployeeID#</div> 
+        <li><span onclick="visibles(#:EmployeeID#)">#:FirstName#</span>
+        	<ul style="display:none;" id="#:EmployeeID#">
+            	<li>#:EmployeeID#</li>
+            	<li>#:FirstName#</li>
+                <li>
+                	<a href="\#details?idEmpd=${EmployeeID}">#:LastName#</a>
+    			</li>
+                <li>#:Country#</li>
+                <li>#:City#</li>
+                <li>#:Title#</li>
+            </ul>
         </li>
-    </div>
 </script>
 
 <script type="text/x-kendo-tmpl" id="tema002">
-    <div class="listadoTareas">
         <li>
-            <div class="columTarea01">#:OrderID#</div>
-            <div class="columTarea02">#:ShipCountry#</div>
-            <div class="columTarea03">#:EmployeeID#</div>
-            <div class="columTarea03">#:ShipName#</div>
+            <div class="">#:OrderID# | #:EmployeeID#</div>-
+            <div class="">#:ShipCountry#</div>-
+            <div class="">#:ShipAddress#</div>-
+            <div class="">#:ShipName#</div>
         </li>
-    </div>
 </script>
 
-<script type="text/x-kendo-tmpl" id="tema003">
-    <div class="listadoTareas">
-        <li>
-            <div class="columTarea01">#:ProductID#</div>
-            <div class="columTarea02">#:ProductName#</div>
-            <div class="columTarea03">#:UnitPrice#</div>
-            <div class="columTarea03">#:Discontinued#</div>
-        </li>
-    </div>
-</script>
 <!-- Templates -->
 
- 
+
+<!-- Carga JavaScript 2st -->
+ <script>   
+    
+</script>
