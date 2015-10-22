@@ -4,12 +4,10 @@
     <div id="lstCliente"></div>
     
     <script type="text/x-kendo-tmpl" id="tmpLstCliente">
-        <div>
-            <dl style="border-bottom-style: solid; border-bottom-color: black; border-bottom-width: thin">        
-                <dt>#:ClienteNombre#</dt>
-                <dd>#:ClienteRubro#</dd>
-            </dl>
-        </div>
+        <dl style="border-bottom-style: solid; border-bottom-color: black; border-bottom-width: thin">        
+            <dt>#:ClienteNombre#</dt>
+            <dd>#:ClienteRubro#</dd>
+        </dl>
     </script>
     
     <!--
@@ -29,7 +27,7 @@
                     
                     var row = $(".k-state-selected").select();
                     console.log("ClienteID > " + this.dataItem(row).ClienteID);
-                    $("#det-nombre").html(this.dataItem(row).ClienteNombre);
+                    $("#det-nombre").html($.trim(this.dataItem(row).ClienteNombre));
                     
                     //console.log("E > data: " + e.dataItem);
 
@@ -38,7 +36,10 @@
                     $("#det-nombre").html(e.dataItem.nombre);
                     $("#det-rubro").html(e.dataItem.rubro);
                     get_Contactos_Clientes(e.dataItem.id);
-                    */
+                    */                    
+
+                    //Apply the filter to the Custormer's contact list
+                    dsContactosCliente.filter({field: "StrClienteID", operator: "eq", value: $.trim(this.dataItem(row).ClienteID)});
                     
                     //Change view to detail
                     window.location.href = "#det-cliente";
@@ -56,26 +57,251 @@
         <a data-role="button" data-align="right" href="#ListaClientes">Regresar</a>
     </div>
     
-    <div class="container">
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
         <div class="row">
-            <div class="col-xs-4">
-                <h6 class="text-left">ACTUALIZACION</h6>                
-            </div>
-            <div class="col-xs-8">
-                <h6>15 Octubre 2015 - 16:35:52</h6>                
+            <div class="col-xs-12">
+                &nbsp;
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-4">
-                <h6>CLIENTE</h6>
+            <div class="col-xs-12">
+                <strong>ACTUALIZACION CONSULTA CLIENTE</strong>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
             </div>
-            <div class="col-xs-8">
-                <h6 id="det-nombre"></h6>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">Fecha</div>
+            <div class="col-xs-9">15 Octubre 2015</div>
+         </div>
+        <div class="row">
+            <div class="col-xs-3">Hora</div>
+            <div class="col-xs-9">16:35:52</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
             </div>
         </div>
     </div>
     
-    <div style="display:inline;">Nombre:</div> <div id="det-nombre" style="display:inline;"></div> <br>
-    <div style="display:inline;">Rubro:</div><div id="det-rubro" style="display:inline;"></div>
- 
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <strong>CLIENTE</strong>                
+            </div>            
+            <div id="det-nombre" class="col-xs-9">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>DETALLE CONTACTOS CLIENTE</strong>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                PERSONA:
+            </div>
+            <div class="col-xs-9">
+                <input id="ContactosCliente" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                TELEFONO:
+            </div>
+            <div class="col-xs-9">
+                <input id="TelefonosContactoCliente" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                FECHA DE CUMPLEAÑOS:
+            </div>
+        </div>
+        <div class="row">
+            <div id="FechaCumpleanos" class="col-xs-12">
+                dd mmm
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function () {            
+            $("#ContactosCliente").kendoDropDownList({
+                dataTextField: "ContactoNombre",
+                dataValueField: "ContactoID",
+                dataSource: dsContactosCliente,
+                change: function(e) {
+                    console.log("ContactosCliente >> chamge");
+                    //$("#det-nombre").html($.trim(this.dataItem(row).ClienteNombre));
+                    $("#FechaCumpleanos").html($.trim(this.dataItem(row).ContactoFechaCumpleanos));
+                }
+            });
+
+            $("#TelefonosContactoCliente").kendoDropDownList({
+                cascadeFrom: "ContactosCliente",
+                dataTextField: "TelefonoNumero",
+                dataValueField: "TelefonoID",
+                dataSource: dsTelefonosContactoCliente
+            });
+        });
+    </script>
+    
+   <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>SITUACION DE PAGO</strong>
+            </div>            
+        </div>        
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    
+   <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>PARTICIPACION DE AUSA</strong>
+            </div>            
+        </div>        
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>PARTICIPACION OTRAS AGENCIAS </strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div> 
+    
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>INGRESO POR DESPACHO</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>INGRESO ADUANAS</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>CONDICIONES DE PAGO</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div> 
+    
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <strong>TARIFAS</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
 </div>
