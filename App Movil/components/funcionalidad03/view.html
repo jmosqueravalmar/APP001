@@ -1,48 +1,32 @@
 <!--<div data-role="view" data-title="funcionalidad 03" data-layout="main" data-model="app.funcionalidad03" data-show="app.funcionalidad03.onShow" data-after-show="app.funcionalidad03.afterShow">-->
 
+<!-- Menu Derecho -->
+    <!--div id="right-drawer" data-role="drawer" data-title="&nbsp;" data-position="right" data-views='["components/funcionalidad03/view.html"]'>
+        <header data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span> 
+            </div>
+        </header>
+        <ul id="navigation-container" data-role="grid">
+            	
+        </ul>
+        <footer>
+        </footer>
+    </div-->
+<!-- Menu Derecho -->
+
 <!-- Listado Tareas -->
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="cargaEmpleados" >
-	<ul id="tareas" data-role="listview">
+	<div id="tareas">
 	
-    </ul>    
+    </div>    
 </div>
-
-<!-- Detalle Tarea -->
-<div data-role="view" id="details" data-title="Detalle" data-show="detalleTarea">
-    <div data-role="navbar">
-        <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" onclick="regresarPantalla('#tareas1','#detalle');">Regresar</a>
-    </div> 
-    <ul id="detalle" class="" data-role="listview" >
-		
-    </ul>
-</div> 
-
-<!-- Templates -->
+<!-- Listado Tareas -->
+ 
+<!-- Templates --> 
 <script type="text/x-kendo-tmpl" id="tema001">
-        <li><span onclick="visibles(#:EmployeeID#)">#:FirstName#</span>
-        	<ul style="display:none;" id="#:EmployeeID#">
-            	<li>#:EmployeeID#</li>
-            	<li>#:FirstName#</li>
-                <li>
-                	<a href="\#details?idEmpd=${EmployeeID}">#:LastName#</a>
-    			</li>
-                <li>#:Country#</li>
-                <li>#:City#</li>
-                <li>#:Title#</li>
-            </ul>
-        </li>
+	 
 </script>
-
-<script type="text/x-kendo-tmpl" id="tema002">
-        <li>
-            <div class="">#:OrderID# | #:EmployeeID#</div>-
-            <div class="">#:ShipCountry#</div>-
-            <div class="">#:ShipAddress#</div>-
-            <div class="">#:ShipName#</div>
-        </li>
-</script>
-
 <!-- Templates -->
 
 
@@ -50,3 +34,4 @@
  <script>   
     
 </script>
+<!-- Carga JavaScript 2st -->
