@@ -22,13 +22,50 @@
     </div>    
 </div>
 <!-- Listado Tareas -->
- 
+
+<!-- Detalle de Tarea -->
+<div data-role="view" id="detalleTarea" data-title="Detalle" data-show="window.llamada">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
+    </div>
+
+    <ul id="detalle3" data-role="listview" >
+
+    </ul> 
+    <div id="detalle2" data-role="listview" >
+
+    </div>
+</div> 
+<!-- Detalle de Tarea -->
+
 <!-- Templates --> 
 <script type="text/x-kendo-tmpl" id="tema001">
 	 
 </script>
-<!-- Templates -->
 
+<script type="text/x-kendo-tmpl" id="tema002">
+        <li>
+            <div class="">Id Tarea: #:idTTarea#</div>
+            <div class="">Nombre Tipo Tarea: #:nombre#</div>
+			<div class="">Fecha Creacion: #:fcreacion#</div>
+        </li>
+</script>
+
+<script type="text/x-kendo-tmpl" id="tema003">
+		<li>
+            <div class="">#:id#</div>
+            <div class="">#:idTTarea#</div>
+            <div class="">#:nombre#</div>
+            <div class="">#:cliente#</div>
+            <div class="">#:fcreacion#</div>
+            <div class="">#:flimite#</div>
+            <div class="">#:"estado#</div>
+            <div class="">#:prioridad#</div> 
+        </li>
+</script>
+
+<!-- Templates -->
 
 <!-- Carga JavaScript 2st -->
  <script>   
