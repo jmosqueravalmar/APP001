@@ -142,6 +142,11 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
+                <button id="btnLlamar" type="button">Llamar</button>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
                 FECHA DE CUMPLEAÑOS:
             </div>
         </div>
@@ -164,9 +169,18 @@
                 dataValueField: "ContactoID",
                 dataSource: dsContactosCliente,
                 change: function(e) {
-                    console.log("ContactosCliente >> chamge");
-                    //$("#det-nombre").html($.trim(this.dataItem(row).ClienteNombre));
-                    $("#FechaCumpleanos").html($.trim(this.dataItem(row).ContactoFechaCumpleanos));
+                    console.log("ContactosCliente >> change");
+                    // ContactoFechaCumpleanos
+                    // get the dataItem corresponding to the selectedIndex.
+                    $("#FechaCumpleanos").html($.trim(this.dataItem().ContactoFechaCumpleanos)); 
+                },
+                dataBound: function(e) {
+                    console.log("ContactosCliente >> dataBound");
+                     $("#FechaCumpleanos").html($.trim("1 May.")); 
+                    // dataItem from dsContactosCliente DataSource
+                    console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
+                    // ContactoFechaCumpleanos
+                    $("#FechaCumpleanos").html($.trim(this.dataItem(0).ContactoFechaCumpleanos)); 
                 }
             });
 
@@ -176,6 +190,16 @@
                 dataValueField: "TelefonoID",
                 dataSource: dsTelefonosContactoCliente
             });
+            
+            $("#btnLlamar").kendoButton({
+                 click: function(e) {
+                     console.log(e.event.target.tagName);                     
+                     // +++ ERROR +++ Simple reference to a JQuery object
+                     //console.log("Llamar numero >> " + $("#TelefonosContactoCliente").dataItem().TelefonoNumero);                     
+                     console.log("Llamar numero >> " + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().TelefonoNumero);
+                     window.open('tel:' + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().TelefonoNumero, '_system')
+                 }
+             });
         });
     </script>
     
