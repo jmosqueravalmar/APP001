@@ -5,8 +5,7 @@
     
     <script type="text/x-kendo-tmpl" id="tmpLstCliente">
         <dl style="border-bottom-style: solid; border-bottom-color: black; border-bottom-width: thin">        
-            <dt>#:ClienteNombre#</dt>
-            <dd>#:ClienteRubro#</dd>
+            <dt>#:ClienteRazonSocial#</dt>
         </dl>
     </script>
     
@@ -27,7 +26,7 @@
                     
                     var row = $(".k-state-selected").select();
                     console.log("ClienteID > " + this.dataItem(row).ClienteID);
-                    $("#det-nombre").html($.trim(this.dataItem(row).ClienteNombre));
+                    $("#det-nombre").html($.trim(this.dataItem(row).ClienteRazonSocial));
                     
                     //console.log("E > data: " + e.dataItem);
 
@@ -447,7 +446,9 @@
         </div>
     </div> 
     <!--  PARTICIPACION CONDICIONES DE PAGO END  -->
-    
+
+    <!--  PARTICIPACION TARIFAS START  -->
+    <!-- TODO: DATA HTML HARD CODED, REFACTOR IT  -->    
     <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
         <div class="row">
             <div class="col-xs-12">
@@ -460,11 +461,46 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-xs-4">
+                Servicio:
+            </div>
+            <div class="col-xs-8">
+                Tramite Aduanero
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                Observaciones:
+            </div>
+            <div class="col-xs-8">
+                <button id="button" type="button">Ver Detalle</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                Servicio:
+            </div>
+            <div class="col-xs-8">
+                Trasporte
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                Observaciones:
+            </div>
+            <div class="col-xs-8">
+                <button id="button" type="button">Ver Detalle</button>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-12">
                 &nbsp;
             </div>
         </div>
     </div>
+    <!--  PARTICIPACION TARIFAS END  -->
+    
 </div>
+
 
 

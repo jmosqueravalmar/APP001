@@ -8,18 +8,11 @@ app.funcionalidad01 = kendo.observable({
 // START_CUSTOM_CODE_funcionalidad01
 
 var Cliente = [
-        {ClienteID: 1, ClienteNombre: "ADIDAS", ClienteRubro: "Sportware and Footware"},
-        {ClienteID: 2, ClienteNombre: "HUAWUEI", ClienteRubro: "Smartphone and Tablet"}, 
-        {ClienteID: 3, ClienteNombre: "ADM", ClienteRubro: "ACME ACME"},
-        {ClienteID: 4, ClienteNombre: "PHILIPS", ClienteRubro: "TV-LCD and Equipos de sonido"}, 
-        {ClienteID: 5, ClienteNombre: "COSAPI", ClienteRubro: "Consutoria empresarial"}, 
-        {ClienteID: 6, ClienteNombre: "ASTRAZENECA PERU S.A.", ClienteRubro: "Medicamentos"},
-        {ClienteID: 7, ClienteNombre: "RENA WARE DEL PERU' S.A.", ClienteRubro: "ACME ACME"}, 
-        {ClienteID: 8, ClienteNombre: "NIKE", ClienteRubro: "Sportware and Footware"}, 
-        {ClienteID: 9, ClienteNombre: "SONY", ClienteRubro: "TV-LCD and Equipos de sonido"},
-        {ClienteID: 10, ClienteNombre: "HONDA DEL PERU' S.A.", ClienteRubro: "Auto and Motos"}, 
-        {ClienteID: 11, ClienteNombre: "DAMCO S.A.", ClienteRubro: "ACME ACME"},
-        {ClienteID: 12, ClienteNombre: "COCA COLA", ClienteRubro: "Drinks and Merchandaising"}
+        {ClienteID: 199, ClienteRazonSocial: "EXSA S.A."},
+        {ClienteID: 1605, ClienteRazonSocial: "EXTINTORES PALVA S.C.R.L."}, 
+        {ClienteID: 1609, ClienteRazonSocial: "EXTRACTOS Y OLEORRESINAS NATURALES SOCIEDAD ANÓNIMA CERRADA - EXNAT S.A.C."},
+        {ClienteID: 761, ClienteRazonSocial: "EYR-UNION-AYB-ASOCIADOS"}, 
+        {ClienteID: 1658, ClienteRazonSocial: "FABIOLA CATHERINE CHUECAS BECERRA"}, 
 ];
 
 var dsCliente = new kendo.data.DataSource({
@@ -45,10 +38,10 @@ var dsCliente = new kendo.data.DataSource({
 // StrClienteID inside ContactosCliente must be a string to filter on dsContactosCliente
 
 var ContactosCliente = [
-    {ContactoID: 1, StrClienteID: "2", ContactoNombre: "Juan Perez", ContactoFechaCumpleanos: "10 Marzo"},
-    {ContactoID: 2, StrClienteID: "2", ContactoNombre: "Carlos Alvarado", ContactoFechaCumpleanos: "3 Marzo"},
-    {ContactoID: 1, StrClienteID: "1", ContactoNombre: "Jorge Palomino", ContactoFechaCumpleanos: "3 Junio"},
-    {ContactoID: 2, StrClienteID: "1", ContactoNombre: "Julio Galvez", ContactoFechaCumpleanos: "4 Julio"},
+    {ContactoID: 1, StrClienteID: "199", ContactoNombre: "Juan Perez", ContactoFechaCumpleanos: "10 Marzo"},
+    {ContactoID: 2, StrClienteID: "199", ContactoNombre: "Carlos Alvarado", ContactoFechaCumpleanos: "3 Marzo"},
+    {ContactoID: 1, StrClienteID: "1605", ContactoNombre: "Jorge Palomino", ContactoFechaCumpleanos: "3 Junio"},
+    {ContactoID: 2, StrClienteID: "1605", ContactoNombre: "Julio Galvez", ContactoFechaCumpleanos: "4 Julio"},
 ];
 
 var TelefonosContactoCliente = [
