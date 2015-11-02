@@ -37,8 +37,9 @@
                     get_Contactos_Clientes(e.dataItem.id);
                     */                    
 
-                    //Apply the filter to the Custormer's contact list
-                    dsContactosCliente.filter({field: "StrClienteID", operator: "eq", value: $.trim(this.dataItem(row).ClienteID)});
+                    //Apply the filter to the Custormer's contact list                    
+                    dsContactosCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
+                    dsTelefonosContactoCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
                     
                     //Change view to detail
                     window.location.href = "#det-cliente";
@@ -191,6 +192,7 @@
 
             $("#TelefonosContactoCliente").kendoDropDownList({
                 cascadeFrom: "ContactosCliente",
+                cascadeFromField: "ContactoID",
                 dataTextField: "TelefonoNumero",
                 dataValueField: "TelefonoID",
                 dataSource: dsTelefonosContactoCliente
