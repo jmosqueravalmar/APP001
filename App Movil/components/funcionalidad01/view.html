@@ -39,6 +39,7 @@
 
                     //Apply the filter to the Custormer's contact list                    
                     dsContactosCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
+                    // il filtro farlo nel evento corretto non serve tanto
                     dsTelefonosContactoCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
                     
                     //Change view to detail
