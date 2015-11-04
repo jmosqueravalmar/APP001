@@ -22,21 +22,24 @@
               </li>
           </ul>
         </form> -->
+     
     <div id="contenedor">
-        
     </div>
     
 	<script>
+    	  
+        var variable = 305; /* valor a filtrar */
     	var dataSC = new kendo.data.DataSource({
             transport: {
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Home/devuelveCartera/305",
+                    url: "http://www.ausa.com.pe/appmovil_test01/Home/devuelveCartera/"+variable,
                     dataType: "json"
                 }
-            }
+            },
+            pageSize: 5
         });
         
-        contenedor
+   
         $("#contenedor").kendoGrid({
                     dataSource: dataSC,
                     pageable: true,
