@@ -22,41 +22,4 @@
               </li>
           </ul>
         </form> -->
-     
-    <div id="contenedor">
-    </div>
-    
-	<script>
-    	  
-        var variable = 305; /* valor a filtrar */
-    	var dataSC = new kendo.data.DataSource({
-            transport: {
-                read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Home/devuelveCartera/"+variable,
-                    dataType: "json"
-                }
-            },
-            pageSize: 5
-        });
-        
-   
-        $("#contenedor").kendoGrid({
-                    dataSource: dataSC,
-                    pageable: true,
-                    height: 600, 
-                    columns: [
-                        {
-                            field: "ClienteID",
-                            title: "ClienteID..",
-                            width: "133px"
-                        },
-                        {
-                            field: "ClienteRazonSocial",
-                            title: "ClienteRazonSocial..",
-                            width: "133px"
-                        }]
-                });
-    </script>
-    
-    
 </div>
