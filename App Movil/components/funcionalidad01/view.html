@@ -1,4 +1,4 @@
-<div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
+<div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-before-show="app.funcionalidad01.beforeShow" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
 
     <div id="lstCliente" class="container-fluid" ></div>
@@ -25,9 +25,9 @@
                 change: function(e) {
                     
                     var row = $(".k-state-selected").select();
-                    console.log("ClienteID > " + this.dataItem(row).ClienteID);
+                    console.log("List View ClienteID > " + this.dataItem(row).ClienteID);
                     $("#det-nombre").html($.trim(this.dataItem(row).ClienteRazonSocial));
-                    
+                    ClienteID = this.dataItem(row).ClienteID;
                     //console.log("E > data: " + e.dataItem);
 
                     /*
@@ -42,6 +42,7 @@
                     
                     //Change view to detail
                     window.location.href = "#det-cliente";
+                    //window.location.href = "components/funcionalidad01/viewDetalle.html";
                 }
             });
         });
@@ -50,7 +51,7 @@
     <!-- END_CUSTOM_CODE_funcionalidad01 -->
 </div>
 
-<div data-role="view" id="det-cliente" data-title="Detalle" >
+<div data-role="view" id="det-cliente" data-title="Detalle"  data-show="app.funcionalidad01.MostraDetalleCliente">
     <div data-role="navbar">
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#ListaClientes">Regresar</a>
@@ -165,48 +166,6 @@
         </div>
     </div>
     <!--  DETALLE CONTACTOS CLIENTE END HTML  -->    
-    <script>
-        $(document).ready(function () {            
-                        
-            $("#ContactosCliente").kendoDropDownList({
-                dataTextField: "ContactoNombre",
-                dataValueField: "ContactoID",
-                dataSource: dsContactosCliente,
-                change: function(e) {
-                    console.log("ContactosCliente >> change");
-                    // ContactoFechaCumpleanos
-                    // get the dataItem corresponding to the selectedIndex.
-                    $("#FechaCumpleanos").html($.trim(this.dataItem().ContactoFechaCumpleanos)); 
-                },
-                dataBound: function(e) {
-                    console.log("ContactosCliente >> dataBound");
-                     $("#FechaCumpleanos").html($.trim("1 May.")); 
-                    // dataItem from dsContactosCliente DataSource
-                    // console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
-                    // ContactoFechaCumpleanos
-                    $("#FechaCumpleanos").html($.trim(this.dataItem(0).ContactoFechaCumpleanos));
-                }
-            });
-
-            $("#TelefonosContactoCliente").kendoDropDownList({
-                cascadeFrom: "ContactosCliente",
-                dataTextField: "TelefonoNumero",
-                dataValueField: "TelefonoID",
-                dataSource: dsTelefonosContactoCliente
-            });
-            
-            $("#btnLlamar").kendoButton({
-                 click: function(e) {
-                     console.log(e.event.target.tagName);                     
-                     // +++ ERROR +++ Simple reference to a JQuery object
-                     //console.log("Llamar numero >> " + $("#TelefonosContactoCliente").dataItem().TelefonoNumero);                     
-                     console.log("Llamar numero >> " + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().TelefonoNumero);
-                     window.open('tel:' + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().TelefonoNumero, '_system')
-                 }
-             });
-        });
-    </script>
-    <!--  DETALLE CONTACTOS CLIENTE END  JS -->    
     
     <!--  SITUACION DE PAGO START  -->
    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
@@ -500,6 +459,3 @@
     <!--  PARTICIPACION TARIFAS END  -->
     
 </div>
-
-
-
