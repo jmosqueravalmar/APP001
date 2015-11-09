@@ -38,9 +38,7 @@
                     */                    
 
                     //Apply the filter to the Custormer's contact list                    
-                    dsContactosCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
-                    // il filtro farlo nel evento corretto non serve tanto
-                    dsTelefonosContactoCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
+                    // dsContactosCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
                     
                     //Change view to detail
                     window.location.href = "#det-cliente";
@@ -153,12 +151,10 @@
             </div>            
         </div>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-9">
                 FECHA DE CUMPLEAÑOS:
             </div>
-        </div>
-        <div class="row">
-            <div id="FechaCumpleanos" class="col-xs-12">
+            <div id="FechaCumpleanos" class="col-xs-3">
                 dd mmm
             </div>
         </div>
@@ -171,6 +167,7 @@
     <!--  DETALLE CONTACTOS CLIENTE END HTML  -->    
     <script>
         $(document).ready(function () {            
+                        
             $("#ContactosCliente").kendoDropDownList({
                 dataTextField: "ContactoNombre",
                 dataValueField: "ContactoID",
@@ -185,15 +182,14 @@
                     console.log("ContactosCliente >> dataBound");
                      $("#FechaCumpleanos").html($.trim("1 May.")); 
                     // dataItem from dsContactosCliente DataSource
-                    console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
+                    // console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
                     // ContactoFechaCumpleanos
-                    $("#FechaCumpleanos").html($.trim(this.dataItem(0).ContactoFechaCumpleanos)); 
+                    $("#FechaCumpleanos").html($.trim(this.dataItem(0).ContactoFechaCumpleanos));
                 }
             });
 
             $("#TelefonosContactoCliente").kendoDropDownList({
                 cascadeFrom: "ContactosCliente",
-                cascadeFromField: "ContactoID",
                 dataTextField: "TelefonoNumero",
                 dataValueField: "TelefonoID",
                 dataSource: dsTelefonosContactoCliente
