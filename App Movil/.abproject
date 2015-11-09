@@ -32,7 +32,8 @@
     "android.permission.WRITE_EXTERNAL_STORAGE"
   ],
   "DeviceOrientations": [
-    "Portrait"
+    "Portrait",
+    "Landscape"
   ],
   "AndroidHardwareAcceleration": "false",
   "iOSStatusBarStyle": "Default",
