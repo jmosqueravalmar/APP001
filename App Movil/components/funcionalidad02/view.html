@@ -1,5 +1,5 @@
 <!-- Inicio formulario -->
-<div id="ListaOrdenes" data-role="view" data-title="Selección de Órden" data-layout="main" data-model="app.funcionalidad06" data-show="app.funcionalidad06.onShow" data-after-show="app.funcionalidad06.afterShow">
+<div id="ListaOrdenes" data-role="view" data-title="Selección de Órden" data-layout="main" data-model="app.funcionalidad06" data-show="app.funcionalidad02.onShow" data-after-show="app.funcionalidad02.afterShow">
     <div align="center" class="jumbotron">
         <p>Seleccione la órden que desea hacer seguimiento</p>
         <div class="input-group col-xs-8">
@@ -14,8 +14,7 @@
         </br>
         <button type="button" class="btn btn-primary btn-lg" onclick="getOrden($('#year').val(),$('#order').val());"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
     </div>
-	<div id="appendto" class="demo-section k-content"></div>
-	<span id="notification"></span>
+	<div id="appendto" class="demo-section k-content"></div>	
 </div>
 <!-- Detalle -->
 <div data-role="view" id="det-orden1" data-title="Seguimiento">
@@ -23,7 +22,7 @@
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#ListaOrdenes">Regresar</a>
     </div>
-    <ul id="det-orden" data-role="listview">
+    <ul id="det-orden" data-role="listview" class="col-md-12">
     </ul>
 </div>
 <!-- Templates -->

@@ -1,16 +1,18 @@
 'use strict';
 
-app.funcionalidad06 = kendo.observable({
+app.funcionalidad02 = kendo.observable({
     onShow: function () {},
     afterShow: function () {},
 });
 
 function getOrden(year, order) {
     console.log(order);
+    var cliente = 6;
+    //
     var dsOrden = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/valor?fecha=" + year + "&id=" + order,
+                url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + cliente,
                 dataType: "json"
             }
         },
