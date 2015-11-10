@@ -12,6 +12,7 @@ app.funcionalidad01 = kendo.observable({
         console.log("DFC > MostraDetalleCliente ");
         console.log("Detalle Cliente ClienteID > " + ClienteID);
         
+        //DETALLE CONTACTOS CLIENTE START        
         dsContactosCliente = new kendo.data.DataSource({
               transport: {
                 //Parametrizzare con ContactoID
@@ -98,6 +99,103 @@ app.funcionalidad01 = kendo.observable({
                      window.open('tel:' + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().Numero, '_system')
                  }
         });
+        //DETALLE CONTACTOS CLIENTE END
+        
+        //SITUACION DE PAGO START
+        dsSituaccionPago = new kendo.data.DataSource({
+              transport: {
+                //Parametrizzare con ContactoID
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/morosidad/"+ClienteID,
+                    dataType: "json"
+                 },
+              },
+             schema: {
+                  model: {
+                       id: "ClienteID",
+                       fields: {
+                           ClienteID: { editable: false, nullable: true, type: "number" },
+                           ClienteRazonSocial: {type: "string"},
+                           DeudaVencida: {type: "number"},
+                           PlazoDePago: {type: "number"},
+                           LíneaAsignada: {type: "number"},
+                           UtilizacionActual: {type: "number"},
+                           PorcUtilizacionDeLinea: {type: "number"},
+                           UsoDeLineaPromedioUltSeisMeses: {type: "number"},
+                           PorcUsoDeLineaPromedioUltSeisMeses: {type: "number"},
+                       }
+                   }
+              },
+             requestEnd: function(e) {
+                console.log("dsSituaccionPago >> requestEnd");
+             },
+         });   
+        
+        dsSituaccionPago.fetch(function(){
+            var data = this.data();
+            console.log("dsSituaccionPago >> data fetch()");
+            console.log(data.length);
+            console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
+            console.log("PlazoDePago >> " + data[0].PlazoDePago);
+            $("#PorcUtilizacionDeLinea").html(data[0].PorcUtilizacionDeLinea + "%");
+        });
+        //SITUACION DE PAGO END
+
+        //PARTICIPACION AUSA Y OTRAS AGENCIAS START
+        dsParticipacionAUSAyAgencias = new kendo.data.DataSource({
+              transport: {
+                //Parametrizzare con ContactoID
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/participacionD/"+ClienteID,
+                    dataType: "json"
+                 },
+              },
+             schema: {
+                  model: {
+                       id: "ClienteID",
+                       fields: {
+                           ClienteID: { editable: false, nullable: true, type: "number" },
+                           ClienteRazonSocial: {type: "string"},
+                           Agente: {type: "string"},
+                           NumDespachosVigentes: {type: "number"},
+                           PorcDespachosVigentes: {type: "number"},
+                           NumDespachosAnterior: {type: "number"},
+                           PorcDespachosAnterior: {type: "number"},
+                           FOBVigente: {type: "number"},
+                           PorcFOBVigente: {type: "number"},
+                           FOBAnterior: {type: "number"},
+                           PorcFOBAnterior: {type: "number"},
+                           CIFVigente: {type: "number"},
+                           PorcCIFVigente: {type: "number"},
+                           CIFAnterior: {type: "number"},
+                           PorcCIFAnterior: {type: "number"},
+                       }
+                   }
+              },
+             requestEnd: function(e) {
+                console.log("dsParticipacionAUSAyAgencias >> requestEnd");
+             },
+         });   
+        
+         dsParticipacionAUSAyAgencias.fetch(function(){
+              var view1 = dsParticipacionAUSAyAgencias.view();
+              console.log("view1 >> length: " + view1.length);
+             
+              //AUSA  ADUANAS S.A.
+              dsParticipacionAUSAyAgencias.filter({ field: "Agente",  operator: "startswith", value: "AUSA" });
+              var view2 = dsParticipacionAUSAyAgencias.view();
+              console.log("view2 >> length: " + view2.length);
+              console.log("view2 >> Agente: " + view2[0].Agente);
+              $("#PorcDespachosVigentes").html(view2[0].PorcDespachosVigentes + "%");
+              $("#PorcDespachosAnterior").html(view2[0].PorcDespachosAnterior + "%");
+              $("#PorcFOBVigente").html(view2[0].PorcFOBVigente + "%");
+              $("#PorcFOBAnterior").html(view2[0].PorcFOBAnterior + "%");
+              $("#PorcCIFVigente").html(view2[0].PorcFOBAnterior + "%");
+              $("#PorcCIFAnterior").html(view2[0].PorcCIFAnterior + "%");
+
+         });
+
+        //PARTICIPACION AUSA Y OTRAS AGENCIAS END
     
     },
 });
@@ -130,5 +228,7 @@ var ClienteID = "";
 var dsContactosCliente = null;
 var dsTelefonosContactoCliente = null;
 var dsSituaccionPago = null;
+var dsParticipacionAUSAyAgencias = null;
 
 // END_CUSTOM_CODE_funcionalidad01
+
