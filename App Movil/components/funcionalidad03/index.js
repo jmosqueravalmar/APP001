@@ -9,132 +9,196 @@ app.funcionalidad03 = kendo.observable({
 });
 
 // START_CUSTOM_CODE_funcionalidad03 
-    
-	var ListTareas = new kendo.data.DataSource({ 
-                        data: [
-                           		{id: 1,  idTTarea: 10,nombre: "Tarea Nro 1", cliente: "Cliente 1", fcreacion: "01/10/2015", flimite: "01/10/2015", estado: "pendiente", prioridad: "alto"},
-                                {id: 2,  idTTarea: 10,nombre: "Tarea Nro 2", cliente: "Cliente 2",fcreacion: "01/10/2015", flimite: "01/10/2015",  estado: "pendiente", prioridad: "medio"},
-                                {id: 3,  idTTarea: 3,nombre: "Tarea Nro 3", cliente: "Cliente 3",fcreacion: "01/10/2015", flimite: "01/10/2015",   estado: "pendiente", prioridad: "alto"},
-                                {id: 4,  idTTarea: 4,nombre: "Tarea Nro 4", cliente: "Cliente 4",fcreacion: "01/12/2015", flimite: "01/10/2015",   estado: "pendiente", prioridad: "alto"},
-                                {id: 5,  idTTarea: 5,nombre: "Tarea Nro 5", cliente: "Cliente 5",fcreacion: "01/10/2015", flimite: "01/10/2015",   estado: "pendiente", prioridad: "alto"},
-                                {id: 6,  idTTarea: 6,nombre: "Tarea Nro 6", cliente: "Cliente 6",fcreacion: "01/10/2015", flimite: "01/10/2015",   estado: "pendiente", prioridad: "bajo"},
-                                {id: 7,  idTTarea: 7,nombre: "Tarea Nro 7", cliente: "Cliente 7",fcreacion: "01/12/2015", flimite: "01/10/2015",   estado: "pendiente", prioridad: "alto"},
-                                {id: 8,  idTTarea: 8,nombre: "Tarea Nro 8", cliente: "Cliente 8",fcreacion: "01/10/2015", flimite: "01/10/2015",   estado: "pendiente", prioridad: "alto"},
-                                {id: 9,  idTTarea: 9,nombre: "Tarea Nro 9", cliente: "Cliente 9",fcreacion: "01/10/2015", flimite: "01/10/2015",   estado: "pendiente", prioridad: "medio"},
-                                {id: 10, idTTarea: 10,nombre: "Tarea Nro 10", cliente: "Cliente 10",fcreacion: "01/10/2015", flimite: "01/10/2015",estado: "pendiente", prioridad: "medio"},
-                                {id: 11, idTTarea: 11,nombre: "Tarea Nro 11", cliente: "Cliente 11",fcreacion: "01/10/2015", flimite: "01/10/2015",estado: "pendiente", prioridad: "bajo"},
-                                {id: 12, idTTarea: 12,nombre: "Tarea Nro 12", cliente: "Cliente 12",fcreacion: "01/10/2015", flimite: "01/10/2015",estado: "pendiente", prioridad: "alto"},
-                                {id: 13, idTTarea: 13,nombre: "Tarea Nro 13", cliente: "Cliente 13",fcreacion: "01/10/2015", flimite: "01/10/2015",estado: "pendiente", prioridad: "alto"}
-                        ],
-        				pageSize: 8
-					 });
-	
-	var DetallTareas = new kendo.data.DataSource({ 
-                        data: [
-                            {idTTarea: 1,nombre: "Tipo de Tarea Nro 1" , fcreacion: "01/10/2015"},
-                            {idTTarea: 2,nombre: "Tipo de Tarea Nro 2" , fcreacion: "01/10/2015"},
-                            {idTTarea: 3,nombre: "Tipo de Tarea Nro 3" , fcreacion: "01/10/2015"},
-                            {idTTarea: 4,nombre: "Tipo de Tarea Nro 4" , fcreacion: "01/10/2015"},
-                            {idTTarea: 5,nombre: "Tipo de Tarea Nro 5" , fcreacion: "01/10/2015"},
-                            {idTTarea: 6,nombre: "Tipo de Tarea Nro 6" , fcreacion: "01/10/2015"},
-                            {idTTarea: 7,nombre: "Tipo de Tarea Nro 7" , fcreacion: "01/10/2015"},
-                            {idTTarea: 8,nombre: "Tipo de Tarea Nro 8" , fcreacion: "01/10/2015"},
-                            {idTTarea: 9,nombre: "Tipo de Tarea Nro 9" , fcreacion: "01/10/2015"},
-                            {idTTarea: 10,nombre: "Tipo de Tarea Nro 10", fcreacion: "01/10/2015"},
-                            {idTTarea: 11,nombre: "Tipo de Tarea Nro 11", fcreacion: "01/10/2015"},
-                            {idTTarea: 12,nombre: "Tipo de Tarea Nro 12", fcreacion: "01/10/2015"},
-                            {idTTarea: 13,nombre: "Tipo de Tarea Nro 13", fcreacion: "01/10/2015"}
+
+var ListTareas = new kendo.data.DataSource({
+    /*data: [
+        {
+            id: 1,
+            idTTarea: 10,
+            nombre: "Tarea Nro 1",
+            cliente: "Cliente 1",
+            fcreacion: "01/10/2015",
+            flimite: "01/10/2015",
+            estado: "pendiente",
+            prioridad: "alto"
+        }],*/
+    transport: {
+        read: {
+            url: "http://www.ausa.com.pe/appmovil_test01/Tareas/list/101",
+            dataType: "json"
+        }
+    },
+    schema: {
+        data: function (data) {
+            return data;
+        }
+    },
+    pageSize: 8
+});
+
+var DetallTareas = new kendo.data.DataSource({
+    data: [
+        {
+            idTTarea: 1,
+            nombre: "Tipo de Tarea Nro 1",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 2,
+            nombre: "Tipo de Tarea Nro 2",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 3,
+            nombre: "Tipo de Tarea Nro 3",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 4,
+            nombre: "Tipo de Tarea Nro 4",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 5,
+            nombre: "Tipo de Tarea Nro 5",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 6,
+            nombre: "Tipo de Tarea Nro 6",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 7,
+            nombre: "Tipo de Tarea Nro 7",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 8,
+            nombre: "Tipo de Tarea Nro 8",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 9,
+            nombre: "Tipo de Tarea Nro 9",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 10,
+            nombre: "Tipo de Tarea Nro 10",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 11,
+            nombre: "Tipo de Tarea Nro 11",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 12,
+            nombre: "Tipo de Tarea Nro 12",
+            fcreacion: "01/10/2015"
+        },
+        {
+            idTTarea: 13,
+            nombre: "Tipo de Tarea Nro 13",
+            fcreacion: "01/10/2015"
+        }
                         ]
-					 });
-	
+});
 
-    //Carga JavaScript 1st
-	
 
-	function cargaEmpleados (){   
-        
-        $("#tareas").kendoGrid({
-                dataSource: ListTareas,
-                height: 250,
-            	filterable: true,
-                sortable: true, 
-            	scrollable: false,
-            	pageable: true,
-            	selectable: "row",
-            	change: eventoClick,
-                columns: [/*{
-                        field:"id",
-                        filterable: false,
-                        width: "50px"
-                    },*/
-                    {
-                        field: "nombre",
-                        title: "Nombre de Tarea",
-                        width: "350px"                        
-                    },
-					{
-                        field: "cliente",
-                        title: "Cliente",
-                        width: "150px"
-                    },
-                    {
-                        field: "fcreacion",
-                        title: "F. Creación",
-                        format: "{0:dd/MM/yyyy}",
-                        width: "50px"
-                    }, {
-                        field: "flimite",
-                        title: "F. Limite",
-                        format: "{0:dd/MM/yyyy}",
-                        width: "50px"
-                    }, {
-                        field: "estado",
-                        title: "Estado.",
-                        width: "100px"
-                    }, {
-                        field: "prioridad",
-                        title: "Prioridad.",
-						width: "50px"
-                    }
-                ]
-            	}); 
-    }
-	
-	function eventoClick(){
-         var seleccion = $(".k-state-selected").select();
-        var idTar = this.dataItem(seleccion).id;
-        var idTTa = this.dataItem(seleccion).idTTarea;
-        /*console.log("id tarea -> " + idTar);
-        console.log("id tipo -> " + idTTa);*/
-        
-        window.location.href = "#detalleTarea?id="+ idTar +"&id2=" + idTTa ;
-    } 
-	
-	window.llamada = function (e) {
-        var seleccionado = e.view.params.id;
-        var seleccionado2= e.view.params.id2; 
-        console.log("id tarea -> " + seleccionado);
-        console.log("id tipo -> " + seleccionado2);
-		
-        DetallTareas.filter( { field: "idTTarea", operator: "eq", value: parseInt(seleccionado)});
-        
-    	$("#detalle2").kendoListView({
-          dataSource: DetallTareas,
-          template: kendo.template($("#tema002").html())
-        });
-        
-        var filtro = new kendo.data.DataSource({
-            			data: ListTareas
-        			 }); 
-        
-        filtro.filter( { field: "id", operator: "eq", value: parseInt(seleccionado2)});
-        
-        $("#detalle3").kendoListView({
-          dataSource: ListTareas,
-          template: kendo.template($("#tema003").html())
-        });
-        
- 
-    } 
-  
+//Carga JavaScript 1st
+
+
+function cargaEmpleados() {
+
+    $("#tareas").kendoGrid({
+            dataSource: ListTareas,
+            height: 250,
+            filterable: true,
+            sortable: true,
+            scrollable: false,
+            pageable: true,
+            selectable: "row",
+            change: eventoClick,
+            columns: [
+                {
+                    field: "tiptar_str_descripcion",                    
+                    title: "Nombre de Tarea",
+                    width: "360px"
+            },
+                {
+                    field: "Usuario",
+                    title: "Cliente",
+                    width: "150px"
+            },
+                {
+                    field: "tar_dat_fchcreacion",
+                    title: "F. Creación",
+                    template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'MM/dd/yyyy') #",
+                    width: "50px"
+            }, {
+                    field: "tar_dat_fchlimite",
+                    title: "F. Limite",
+                    template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'MM/dd/yyyy') #",
+                    width: "50px"
+            }, {
+                    field: "tar_int_estado",
+                    title: "Estado",
+                	template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#'
+            }, {
+                    field: "tar_int_prioridad",
+                    title: "Prioridad",
+                    template: '#if(tar_int_prioridad==1){#<span class = "glyphicon glyphicon-arrow-down text-success" aria-hidden = "true" ></span>Baja#}else{if(tar_int_prioridad==3){#<span class="glyphicon glyphicon-arrow-up text-danger" aria-hidden="true"></span>Alta#}else{#<span class = "glyphicon glyphicon glyphicon-arrow-right text-warning" aria-hidden="true"></span>Media#}}#',
+     				width: "50px"
+            }
+            ]
+    });
+}
+
+function eventoClick() {
+    var seleccion = $(".k-state-selected").select();
+    var idTar = this.dataItem(seleccion).id;
+    var idTTa = this.dataItem(seleccion).idTTarea;
+    /*console.log("id tarea -> " + idTar);
+    console.log("id tipo -> " + idTTa);*/
+
+    window.location.href = "#detalleTarea?id=" + idTar + "&id2=" + idTTa;
+}
+
+window.llamada = function (e) {
+    var seleccionado = e.view.params.id;
+    var seleccionado2 = e.view.params.id2;
+    console.log("id tarea -> " + seleccionado);
+    console.log("id tipo -> " + seleccionado2);
+
+    DetallTareas.filter({
+        field: "idTTarea",
+        operator: "eq",
+        value: parseInt(seleccionado)
+    });
+
+    $("#detalle2").kendoListView({
+        dataSource: DetallTareas,
+        template: kendo.template($("#tema002").html())
+    });
+
+    var filtro = new kendo.data.DataSource({
+        data: ListTareas
+    });
+
+    filtro.filter({
+        field: "id",
+        operator: "eq",
+        value: parseInt(seleccionado2)
+    });
+
+    $("#detalle3").kendoListView({
+        dataSource: ListTareas,
+        template: kendo.template($("#tema003").html())
+    });
+
+
+}
+
 // END_CUSTOM_CODE_funcionalidad03
