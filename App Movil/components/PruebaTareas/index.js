@@ -9,7 +9,7 @@ function adminTareas() {
     window.location.href = "#addTipoTarea";
 }
 
-function addTipoTarea() {
+function addTipoTarea() { 
     var valido = true;
     $('#txtnombre, #txtdescripcion, #txtuserid').parent().parent().removeClass("has-error");
     if ($('#txtnombre').val() == "") {
