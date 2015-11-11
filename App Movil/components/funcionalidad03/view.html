@@ -26,7 +26,7 @@
 </div>
 <!-- Fin Listado Tareas -->
 <!-- Agregar Tarea -->
-<div data-role="view" id="addTarea" data-title="Crear Nueva Tarea">
+<div data-role="view" id="addTarea" data-title="Nueva Tarea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
@@ -34,9 +34,10 @@
     <h3 class="text-center">HUAWUEI</h3>
     <form class="col-md-12">
         <div class="form-group">
-            <label class="control-label" for="txtnombre">Tipo</label>
-            <div>
-                <input id="txtnombre" type="text" placeholder="Tipo de tarea" class="form-control input-md" required="">
+            <label class="control-label" for="puntodeventa">Tipo</label>
+            <div class="input-group">
+                <select id="puntodeventa" name="puntodeventa" class="form-control input-md" required=""></select>
+                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></span>
             </div>
         </div>
         <div class="form-group">
@@ -48,16 +49,17 @@
         <div class="form-group">
             <label class="control-label" for="txtobserv">Observación</label>
             <div>
-                <textarea id="txtobserv" class="form-control" rows="3" placeholder="Observación"></textarea>
+                <textarea id="txtobserv" class="form-control" rows="2" placeholder="Observación"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label" for="txtdetalle">Detalle</label>
             <div>
-                <textarea id="txtdetalle" class="form-control" rows="5" placeholder="Detalle de la tarea"></textarea>
+                <textarea id="txtdetalle" class="form-control" rows="4" placeholder="Detalle de la tarea"></textarea>
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label">Prioridad</label>
             <div class="btn-group btn-group-justified" data-toggle="buttons">
                 <label class="btn btn-default">
                     <input value="1" type="radio" name="check_activa" autocomplete="off"> Baja
@@ -70,8 +72,20 @@
                 </label>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label class="control-label" for="txtfechalimite">Fecha Límite</label>
+                <div>
+                    <input id="txtfechalimite" type="date" class="form-control input-md" required="">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <label class="control-label pull-right">Adjuntar</label>
+                <button type="button" class="btn btn-default pull-right" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
+            </div>
+        </div>
         <div class="text-center">
-            <button type="button" class="btn btn-primary" onclick="addTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Tipo</button>
+            <button type="button" class="btn btn-primary btn-block btn-lg" onclick="addTarea();"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Agregar Nueva Tarea</button>
         </div>
     </form>
 </div>

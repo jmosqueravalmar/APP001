@@ -37,8 +37,8 @@ var ListTareas = new kendo.data.DataSource({
 });
 
 var DetallTareas = new kendo.data.DataSource({
-    data: [
-        {
+    data: [        
+		{
             idTTarea: 1,
             nombre: "Tipo de Tarea Nro 1",
             fcreacion: "01/10/2015"
@@ -122,6 +122,11 @@ function cargaEmpleados() {
             selectable: "row",
             change: eventoClick,
             columns: [
+                /*{
+            field: "tar_int_id",
+            title: "id",
+    		format: '{0:n2} %'
+        	},*/
                 {
                     field: "tiptar_str_descripcion",                    
                     title: "Nombre de Tarea",
