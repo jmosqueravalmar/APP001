@@ -2,7 +2,7 @@
 
 app.funcionalidad01 = kendo.observable({
     beforeShow: function() {
-        console.log("DFC > beforeShow ");        
+        //console.log("DFC > beforeShow ");        
     },
     onShow: function() {
 
@@ -32,7 +32,7 @@ app.funcionalidad01 = kendo.observable({
                    }
               },
              requestEnd: function(e) {
-                console.log("dsContactosCliente >> requestEnd");
+                //console.log("dsContactosCliente >> requestEnd");
              },
          });
 
@@ -59,7 +59,7 @@ app.funcionalidad01 = kendo.observable({
                 }
             },
             requestEnd: function(e) {
-                console.log("dsTelefonosContactoCliente >> requestEnd");
+                //console.log("dsTelefonosContactoCliente >> requestEnd");
             },
         });        
         
@@ -68,13 +68,13 @@ app.funcionalidad01 = kendo.observable({
             dataValueField: "ContactoID",
             dataSource: dsContactosCliente,
             change: function(e) {
-                console.log("ContactosCliente >> change");
+                //console.log("ContactosCliente >> change");
                 // ContactoFechaCumpleanos
                 // get the dataItem corresponding to the selectedIndex.
                 $("#FechaCumpleanos").html($.trim(this.dataItem().ContactoFechaCumpleanos)); 
             },
             dataBound: function(e) {
-                console.log("ContactosCliente >> dataBound");
+                //console.log("ContactosCliente >> dataBound");
                 $("#FechaCumpleanos").html($.trim("1 May.")); 
                 // dataItem from dsContactosCliente DataSource
                 // console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
@@ -92,10 +92,10 @@ app.funcionalidad01 = kendo.observable({
         
          $("#btnLlamar").kendoButton({
                  click: function(e) {
-                     console.log(e.event.target.tagName);                     
+                     //console.log(e.event.target.tagName);                     
                      // +++ ERROR +++ Simple reference to a JQuery object
                      //console.log("Llamar numero >> " + $("#TelefonosContactoCliente").dataItem().TelefonoNumero);                     
-                     console.log("Llamar numero >> " + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().Numero);
+                     //console.log("Llamar numero >> " + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().Numero);
                      window.open('tel:' + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().Numero, '_system')
                  }
         });
@@ -127,16 +127,16 @@ app.funcionalidad01 = kendo.observable({
                    }
               },
              requestEnd: function(e) {
-                console.log("dsSituaccionPago >> requestEnd");
+                //console.log("dsSituaccionPago >> requestEnd");
              },
          });   
         
         dsSituaccionPago.fetch(function(){
             var data = this.data();
-            console.log("dsSituaccionPago >> data fetch()");
-            console.log(data.length);
-            console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
-            console.log("PlazoDePago >> " + data[0].PlazoDePago);
+            //console.log("dsSituaccionPago >> data fetch()");
+            //console.log(data.length);
+            //console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
+            //console.log("PlazoDePago >> " + data[0].PlazoDePago);
             $("#PorcUtilizacionDeLinea").html(data[0].PorcUtilizacionDeLinea + "%");
         });
         //SITUACION DE PAGO END
@@ -173,19 +173,29 @@ app.funcionalidad01 = kendo.observable({
                    }
               },
              requestEnd: function(e) {
-                console.log("dsParticipacionAUSAyAgencias >> requestEnd");
+                //console.log("dsParticipacionAUSAyAgencias >> requestEnd");
              },
          });   
         
          dsParticipacionAUSAyAgencias.fetch(function(){
               var view1 = dsParticipacionAUSAyAgencias.view();
-              console.log("view1 >> length: " + view1.length);
+              //console.log("view1 >> length: " + view1.length);
+             //ParticipacionOtrasAgencias
+             var strHTML = "";
+             for (var i = 0; i < view1.length; i++) {
+                 //strHTML += "<dd> Agencias " + i + "</dd>"; 
+                 strHTML += "<dd>";
+                 strHTML += view1[i].Agente;
+                 strHTML += " ("+view1[i].PorcDespachosAnterior+"%)";
+                 strHTML += "</dd>";
+             }
+             $("#ParticipacionOtrasAgencias").html(strHTML);
              
               //AUSA  ADUANAS S.A.
               dsParticipacionAUSAyAgencias.filter({ field: "Agente",  operator: "startswith", value: "AUSA" });
               var view2 = dsParticipacionAUSAyAgencias.view();
-              console.log("view2 >> length: " + view2.length);
-              console.log("view2 >> Agente: " + view2[0].Agente);
+              //console.log("view2 >> length: " + view2.length);
+              //console.log("view2 >> Agente: " + view2[0].Agente);
               $("#PorcDespachosVigentes").html(view2[0].PorcDespachosVigentes + "%");
               $("#PorcDespachosAnterior").html(view2[0].PorcDespachosAnterior + "%");
               $("#PorcFOBVigente").html(view2[0].PorcFOBVigente + "%");
@@ -196,6 +206,42 @@ app.funcionalidad01 = kendo.observable({
          });
 
         //PARTICIPACION AUSA Y OTRAS AGENCIAS END
+        
+        //INGRESO POR DESPACHO INGRESO ADUANAS CANTIDAD USOS AOL DEL MES START
+        dsIngresoDespachoAduanaUsoAOLMes = new kendo.data.DataSource({
+              transport: {
+                //Parametrizzare con ContactoID
+                read: {
+                    url: "http://http://www.ausa.com.pe/appmovil_test01/Clientes/participacion/"+ClienteID,
+                    dataType: "json"
+                 },
+              },
+             schema: {
+                  model: {
+                       id: "ClienteID",
+                       fields: {
+                           ClienteID: { editable: false, nullable: true, type: "number" },
+                           ClienteRazonSocial: {type: "string"},
+                           IPDmesVigente: {type: "number"},
+                           IPDMesAnterior: {type: "number"},
+                           IPDUltimos3Meses: {type: "number"},
+                           AduanaIngresoMesVigente: {type: "number"},
+                           AduanaIngresoMesAnterior: {type: "number"},
+                           AduanaIngresoUltimos3Meses: {type: "number"},
+                           HitsAOL: {type: "number"},
+                       }
+                   }
+              },
+             requestEnd: function(e) {
+                console.log("dsIngresoDespachoAduanaUsoAOLMes >> requestEnd");
+             },
+         });
+        
+        /*
+        *TO DO 11 NOVIEMBRE 2015 fetch + mapping dinamic data on view.html
+        */
+        
+        //INGRESO POR DESPACHO INGRESO ADUANAS CANTIDAD USOS AOL DEL MES END
     
     },
 });
@@ -229,6 +275,6 @@ var dsContactosCliente = null;
 var dsTelefonosContactoCliente = null;
 var dsSituaccionPago = null;
 var dsParticipacionAUSAyAgencias = null;
-
+var dsIngresoDespachoAduanaUsoAOLMes = null;
 // END_CUSTOM_CODE_funcionalidad01
 
