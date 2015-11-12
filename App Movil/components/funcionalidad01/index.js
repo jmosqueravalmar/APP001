@@ -212,7 +212,7 @@ app.funcionalidad01 = kendo.observable({
               transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://http://www.ausa.com.pe/appmovil_test01/Clientes/participacion/"+ClienteID,
+                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/participacion/"+ClienteID,
                     dataType: "json"
                  },
               },
@@ -236,12 +236,101 @@ app.funcionalidad01 = kendo.observable({
                 console.log("dsIngresoDespachoAduanaUsoAOLMes >> requestEnd");
              },
          });
-        
-        /*
-        *TO DO 11 NOVIEMBRE 2015 fetch + mapping dinamic data on view.html
-        */
+               
+        dsIngresoDespachoAduanaUsoAOLMes.fetch(function(){
+            // id --> PartAduanaCierreMesAnterior
+            // id --> PartAduanaAcumuladoMes
+            // id --> PartAduanaAcumuladoTresMeses
+            // id --> UsosAOLdelMes
+            var data = this.data();
+            $("#PartDespachoCierreMesAnterior").html("$" + data[0].IPDMesAnterior);
+            $("#PartDespachoAcumuladoMes").html("$" + data[0].IPDmesVigente);
+            $("#PartDespachoAcumuladoTresMeses").html("$" + data[0].IPDUltimos3Meses);
+            $("#PartAduanaCierreMesAnterior").html("$" + data[0].AduanaIngresoMesAnterior);
+            $("#PartAduanaAcumuladoMes").html("$" + data[0].AduanaIngresoMesVigente);
+            $("#PartAduanaAcumuladoTresMeses").html("$" + data[0].AduanaIngresoUltimos3Meses);
+            $("#UsosAOLdelMes").html(data[0].HitsAOL);
+        });
         
         //INGRESO POR DESPACHO INGRESO ADUANAS CANTIDAD USOS AOL DEL MES END
+        
+        //CONDICIONES DE PAGO START
+        dsCondicionesDePago = new kendo.data.DataSource({
+              transport: {
+                //Parametrizzare con ContactoID
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/condpagoD/"+ClienteID,
+                    dataType: "json"
+                 },
+              },
+             schema: {
+                  model: {
+                       id: "ClienteID",
+                       fields: {
+                           ClienteID: { editable: false, nullable: true, type: "number" },
+                           Compania: {type: "string"},
+                           ClienteRazonSocial: {type: "string"},
+                           LineaNegocio: {type: "string"},
+                           Servicio: {type: "string"},
+                           DiasPago: {type: "number"},
+                           HastaMonto: {type: "string"},
+                           Moneda: {type: "string"},
+                           LineaCredito: {type: "number"},
+                       }
+                   }
+              },
+             requestEnd: function(e) {
+                console.log("dsCondicionesDePago >> requestEnd");
+             },
+         });        
+        
+         dsCondicionesDePago.fetch(function(){
+             var strHTMLCondicionesDePago = "";
+             var data = this.data();
+             console.log("dsCondicionesDePago.data() >> length: " + data.length);            
+             
+             for (var i = 0; i < data.length; i++) {
+                 console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
+                 strHTMLCondicionesDePago += "<details>";
+                 strHTMLCondicionesDePago += "<summary><b>";
+                 strHTMLCondicionesDePago += data[i].Servicio;                 
+                 strHTMLCondicionesDePago += "</b></summary>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Dias Pago</div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                 strHTMLCondicionesDePago += data[i].DiasPago;
+                 strHTMLCondicionesDePago += "</b></div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Hasta Monto</div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                 strHTMLCondicionesDePago += data[i].HastaMonto;
+                 strHTMLCondicionesDePago += "</b></div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Moneda</div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                 strHTMLCondicionesDePago += data[i].Moneda;
+                 strHTMLCondicionesDePago += "</b></div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Linea Credito</div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                 strHTMLCondicionesDePago += data[i].LineaCredito;
+                 strHTMLCondicionesDePago += "</b></div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Linea Negocio</div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                 strHTMLCondicionesDePago += data[i].LineaNegocio;
+                 strHTMLCondicionesDePago += "</b></div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Compania</div>";
+                 strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                 strHTMLCondicionesDePago += data[i].Compania;
+                 strHTMLCondicionesDePago += "</b></div>";
+                 strHTMLCondicionesDePago += "</details>";
+             };
+             
+             $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+         });        
+        //CONDICIONES DE PAGO END
+        
+        //PARTICIPACION TARIFAS START
+        /*
+        *TODO-WIP: 12 NOVIEMBRE 2015
+        */
+        //PARTICIPACION TARIFAS END
     
     },
 });
@@ -276,5 +365,6 @@ var dsTelefonosContactoCliente = null;
 var dsSituaccionPago = null;
 var dsParticipacionAUSAyAgencias = null;
 var dsIngresoDespachoAduanaUsoAOLMes = null;
+var dsCondicionesDePago = null;
 // END_CUSTOM_CODE_funcionalidad01
 
