@@ -54,12 +54,12 @@ function getTareas() {
             {
                 field: "tar_dat_fchcreacion",
                 title: "F. Creación",
-                template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'MM/dd/yyyy') #",
+                template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
                 width: "50px"
             }, {
                 field: "tar_dat_fchlimite",
                 title: "F. Limite",
-                template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'MM/dd/yyyy') #",
+                template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
                 width: "50px"
             }, {
                 field: "tar_int_estado",
@@ -76,7 +76,13 @@ function getTareas() {
 }
 
 function viewFormTarea() {
-        window.location.href = "#addTarea";
+    window.location.href = "#accionTarea";
+    getSelectTipoTarea("add");
+    $('#divBtnAdd').show();
+    $('#divBtnAccion').hide();
+}
+
+function getSelectTipoTarea(accion) {
         //DataSource del select tipo de tarea        
         var dsTipoTarea = new kendo.data.DataSource({
             transport: {
@@ -98,9 +104,17 @@ function viewFormTarea() {
             dataValueField: "tiptar_int_id",
             dataSource: dsTipoTarea
         });
+
+        if (accion == "add") {
+
+        } else {
+            var dropdownlist = $("#txtidtt").data("kendoDropDownList");
+            dropdownlist.value(accion);
+        };
     }
     //Función Agregar Nueva Tarea
-function addTarea() {
+
+function accionTarea(accion) {
     var valido = true;
     $('#txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
 
@@ -132,18 +146,19 @@ function addTarea() {
     console.log($('#txtobserv').val());
     console.log($('#txtdetalle').val());
     console.log($('input:radio[name=txtprioridad]:checked').val());
-    console.log($('#txtflimite').val().replace("-", "/").replace("-", "/") + " 00:00:00");
+    console.log($('#txtflimite').val() + " 00:00:00");
     valido && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/insert',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/'+accion,
         data: {
             txtuserid: 101,
+            txtid: $('#txtid').val(),
             txtidtt: $('#txtidtt option:selected').val(),
             txtorden: $('#txtorden').val(),
             txtobserv: $('#txtobserv').val(),
             txtdetalle: $('#txtdetalle').val(),
             txtprioridad: $('input:radio[name=txtprioridad]:checked').val(),
-            txtflimite: $('#txtflimite').val().replace("-", "/").replace("-", "/") + " 00:00:00"
+            txtflimite: $('#txtflimite').val() + " 00:00:00"
         },
         async: false,
         success: function (datos) {
@@ -152,6 +167,11 @@ function addTarea() {
                 notificationElement.kendoNotification();
                 var notificationWidget = notificationElement.data("kendoNotification");
                 notificationWidget.show("Se agregó la nueva tarea", "success");
+                
+                var grid = $("#tareas").data("kendoGrid");
+                grid.dataSource.read();
+                window.location.href = "#tareas1";
+
             } else {
                 var notificationElement = $("#notification");
                 notificationElement.kendoNotification();
@@ -169,52 +189,41 @@ function addTarea() {
 }
 
 function selectGrid() {
+    window.location.href = "#accionTarea";
     var seleccion = $(".k-state-selected").select();
-    var idTar = this.dataItem(seleccion).id;
-    var idTTa = this.dataItem(seleccion).idTTarea;
-    /*console.log("id tarea -> " + idTar);
-    console.log("id tipo -> " + idTTa);*/
-
-    //window.location.href = "#detalleTarea?id=" + idTar + "&id2=" + idTTa;
-	window.location.href = "#addTarea";
+     $('#txtid').val(this.dataItem(seleccion).tar_int_id);
+    getSelectTipoTarea(this.dataItem(seleccion).tiptar_int_id); // Enviamos el valor de tiptar_int_id para que lo seleccione
+    $('#txtorden').val(this.dataItem(seleccion).tar_str_orden);
+    $('#txtobserv').val(this.dataItem(seleccion).tar_str_observacion);
+    $('#txtdetalle').val(this.dataItem(seleccion).tar_txt_detalle);
+    $("input[type='radio']").parent().removeClass("active");
+    switch (this.dataItem(seleccion).tar_int_prioridad) {
+        case 1:
+            $('#txtprioridad1').toggleClass("active");
+            break;
+        case 2:
+            $('#txtprioridad2').toggleClass("active");
+            break;
+        default:
+            $('#txtprioridad3').toggleClass("active");
+    };
+    var tar_dat_fchlimite = new Date(parseInt((this.dataItem(seleccion).tar_dat_fchlimite).replace(/\D/g, ''), 10));
+    tar_dat_fchlimite =
+        tar_dat_fchlimite.getFullYear() + "-" + (tar_dat_fchlimite.getMonth() < 9 ?
+            ("0" + (tar_dat_fchlimite.getMonth() + 1)) : tar_dat_fchlimite.getMonth() + 1
+        ) + "-" +
+        (tar_dat_fchlimite.getDate() < 10 ?
+            ("0" + tar_dat_fchlimite.getDate()) : tar_dat_fchlimite.getDate()
+        );
+    $('#txtflimite').val(tar_dat_fchlimite);
+    $('#divBtnAdd').hide();
+    $('#divBtnAccion').show();
 }
 
-window.llamada = function (e) {
-    var seleccionado = e.view.params.id;
-    var seleccionado2 = e.view.params.id2;
-    console.log("id tarea -> " + seleccionado);
-    console.log("id tipo -> " + seleccionado2);
-
-    DetallTareas.filter({
-        field: "idTTarea",
-        operator: "eq",
-        value: parseInt(seleccionado)
-    });
-
-    $("#detalle2").kendoListView({
-        dataSource: DetallTareas,
-        template: kendo.template($("#tema002").html())
-    });
-
-    var filtro = new kendo.data.DataSource({
-        data: ListTareas
-    });
-
-    filtro.filter({
-        field: "id",
-        operator: "eq",
-        value: parseInt(seleccionado2)
-    });
-
-    $("#detalle3").kendoListView({
-        dataSource: ListTareas,
-        template: kendo.template($("#tema003").html())
-    });
-}
 
 //Para mantener active el button-group
 $(document).on("change", "input[type='radio']", function () {
-    $("input[type='radio']").parent().removeClass("active")
+    $("input[type='radio']").parent().removeClass("active");
     $(this).parent().toggleClass("active");
 });
 // END_CUSTOM_CODE_funcionalidad03

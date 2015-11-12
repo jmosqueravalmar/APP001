@@ -131,6 +131,7 @@ function getOrden(year, order) {
         }
     });
     /*dsOrden.fetch(function () {
+  .replace(/\D/g,'')
         var data = dsOrden.data();
         var orden = data[0];
 
