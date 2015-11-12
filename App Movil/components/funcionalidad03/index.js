@@ -8,23 +8,11 @@ app.funcionalidad03 = kendo.observable({
     }
 });
 
-// START_CUSTOM_CODE_funcionalidad03 
-
-var ListTareas = new kendo.data.DataSource({
-    /*data: [
-        {
-            id: 1,
-            idTTarea: 10,
-            nombre: "Tarea Nro 1",
-            cliente: "Cliente 1",
-            fcreacion: "01/10/2015",
-            flimite: "01/10/2015",
-            estado: "pendiente",
-            prioridad: "alto"
-        }],*/
+//DataSorce tareas
+var dsTareas = new kendo.data.DataSource({
     transport: {
         read: {
-            url: "http://www.ausa.com.pe/appmovil_test01/Tareas/list/101",
+            url: "http://www.ausa.com.pe/appmovil_test01/Tareas/listar/101",
             dataType: "json"
         }
     },
@@ -33,25 +21,19 @@ var ListTareas = new kendo.data.DataSource({
             return data;
         }
     },
-    pageSize: 8
+    pageSize: 10
 });
-
-
-
-//Carga JavaScript 1st
-
-
-function cargaEmpleados() {
-
+//Carga dsTareas
+function getTareas() {
     $("#tareas").kendoGrid({
-        dataSource: ListTareas,
+        dataSource: dsTareas,
         height: 250,
         filterable: true,
         sortable: true,
         scrollable: false,
         pageable: true,
         selectable: "row",
-        change: eventoClick,
+        change: selectGrid,
         columns: [
                 /*{
             field: "tar_int_id",
@@ -59,7 +41,8 @@ function cargaEmpleados() {
     		format: '{0:n2} %'
         	},*/
             {
-                field: "tiptar_str_descripcion",
+                //field: "tiptar_str_nombre",
+                field: "tipotarea",
                 title: "Nombre de Tarea",
                 width: "360px"
             },
@@ -98,7 +81,7 @@ function viewFormTarea() {
         var dsTipoTarea = new kendo.data.DataSource({
             transport: {
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Tareas/tipolist",
+                    url: "http://www.ausa.com.pe/appmovil_test01/Tareas/tipolistar",
                     dataType: "json"
                 }
             },
@@ -115,44 +98,65 @@ function viewFormTarea() {
             dataValueField: "tiptar_int_id",
             dataSource: dsTipoTarea
         });
-
     }
     //Función Agregar Nueva Tarea
 function addTarea() {
     var valido = true;
-    $('#txtnombre, #txtdescripcion, #txtuserid').parent().parent().removeClass("has-error");
-    if ($('#txtnombre').val() == "") {
-        $('#txtnombre').parent().parent().addClass("has-error");
+    $('#txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
+
+    if ($('#txtidtt option').size() == 0) {
+        $('#txtidtt').parent().parent().addClass("has-error");
         valido = false;
     }
-    if ($('#txtdescripcion').val() == "") {
-        $('#txtdescripcion').parent().parent().addClass("has-error");
+    if ($('#txtorden').val() == "") {
+        $('#txtorden').parent().parent().addClass("has-error");
         valido = false;
     }
-    if ($('#txtuserid').val() == "") {
-        $('#txtuserid').parent().parent().addClass("has-error");
+    if ($('#txtobserv').val() == "") {
+        $('#txtobserv').parent().parent().addClass("has-error");
         valido = false;
     }
+    if ($('#txtdetalle').val() == "") {
+        $('#txtdetalle').parent().parent().addClass("has-error");
+        valido = false;
+    }
+
+    if ($('#txtflimite').val() == "") {
+        $('#txtflimite').parent().parent().addClass("has-error");
+        valido = false;
+    }
+
+    console.log(101);
+    console.log($('#txtidtt option:selected').val());
+    console.log($('#txtorden').val());
+    console.log($('#txtobserv').val());
+    console.log($('#txtdetalle').val());
+    console.log($('input:radio[name=txtprioridad]:checked').val());
+    console.log($('#txtflimite').val().replace("-", "/").replace("-", "/") + " 00:00:00");
     valido && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/tipoinsertdos',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/insert',
         data: {
-            txtnombre: $('#txtnombre').val(),
-            txtdescripcion: $('#txtdescripcion').val(),
-            txtuserid: 111
+            txtuserid: 101,
+            txtidtt: $('#txtidtt option:selected').val(),
+            txtorden: $('#txtorden').val(),
+            txtobserv: $('#txtobserv').val(),
+            txtdetalle: $('#txtdetalle').val(),
+            txtprioridad: $('input:radio[name=txtprioridad]:checked').val(),
+            txtflimite: $('#txtflimite').val().replace("-", "/").replace("-", "/") + " 00:00:00"
         },
         async: false,
         success: function (datos) {
-            if (datos.replace(/^\s+/g, '').replace(/\s+$/g, '') == '[{"Ejecucion":0}]') { // Lo que devuelve el servidor
+            if (datos.replace(/^\s+/g, '').replace(/\s+$/g, '') == '[{"Ejecucion":0}]') { // Lo que devuelve el servidor 0=insertado 1=error
                 var notificationElement = $("#notification");
                 notificationElement.kendoNotification();
                 var notificationWidget = notificationElement.data("kendoNotification");
-                notificationWidget.show("Se agregó nuevo tipo de tarea", "success");
+                notificationWidget.show("Se agregó la nueva tarea", "success");
             } else {
                 var notificationElement = $("#notification");
                 notificationElement.kendoNotification();
                 var notificationWidget = notificationElement.data("kendoNotification");
-                notificationWidget.show("No se pudo agregar el tipo de tarea", "error");
+                notificationWidget.show("No se pudo agregar la tarea", "error");
             }
         },
         error: function () {
@@ -164,16 +168,15 @@ function addTarea() {
     });
 }
 
-function eventoClick() {
+function selectGrid() {
     var seleccion = $(".k-state-selected").select();
     var idTar = this.dataItem(seleccion).id;
     var idTTa = this.dataItem(seleccion).idTTarea;
     /*console.log("id tarea -> " + idTar);
     console.log("id tipo -> " + idTTa);*/
 
-    window.location.href = "#detalleTarea?id=" + idTar + "&id2=" + idTTa;
-
-
+    //window.location.href = "#detalleTarea?id=" + idTar + "&id2=" + idTTa;
+	window.location.href = "#addTarea";
 }
 
 window.llamada = function (e) {
@@ -207,9 +210,11 @@ window.llamada = function (e) {
         dataSource: ListTareas,
         template: kendo.template($("#tema003").html())
     });
-
-
 }
 
-var dsTipoTarea = null;
+//Para mantener active el button-group
+$(document).on("change", "input[type='radio']", function () {
+    $("input[type='radio']").parent().removeClass("active")
+    $(this).parent().toggleClass("active");
+});
 // END_CUSTOM_CODE_funcionalidad03
