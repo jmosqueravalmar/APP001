@@ -280,17 +280,17 @@ app.funcionalidad01 = kendo.observable({
                    }
               },
              requestEnd: function(e) {
-                console.log("dsCondicionesDePago >> requestEnd");
+                //console.log("dsCondicionesDePago >> requestEnd");
              },
          });        
         
          dsCondicionesDePago.fetch(function(){
              var strHTMLCondicionesDePago = "";
              var data = this.data();
-             console.log("dsCondicionesDePago.data() >> length: " + data.length);            
+             //console.log("dsCondicionesDePago.data() >> length: " + data.length);            
              
              for (var i = 0; i < data.length; i++) {
-                 console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
+                 //console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
                  strHTMLCondicionesDePago += "<details>";
                  strHTMLCondicionesDePago += "<summary><b>";
                  strHTMLCondicionesDePago += data[i].Servicio;                 
@@ -327,22 +327,64 @@ app.funcionalidad01 = kendo.observable({
         //CONDICIONES DE PAGO END
         
         //PARTICIPACION TARIFAS START
-        /*
-        *TODO-WIP: 12 NOVIEMBRE 2015
-        */
+        dsTarifas = new kendo.data.DataSource({
+              transport: {
+                //Parametrizzare con ContactoID
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/tarifas/"+ClienteID,
+                    dataType: "json"
+                 },
+              },
+             schema: {
+                  model: {
+                       id: "ClienteID",
+                       fields: {
+                           ClienteID: { editable: false, nullable: true, type: "number" },
+                           ClienteRazonSocial: {type: "string"},
+                           Servicio: {type: "string"},
+                           Observacion: {type: "string"},
+                       }
+                   }
+              },
+             requestEnd: function(e) {
+                console.log("dsTarifas >> requestEnd");
+             },
+         });
+        
+         dsTarifas.fetch(function(){
+             var strHTMLTarifas = "";
+             var data = this.data();
+             console.log("dsTarifas.data() >> length: " + data.length);            
+             
+             for (var i = 0; i < data.length; i++) {
+                 console.log("dsTarifas.Servicio: " + data[i].Servicio);
+                 strHTMLTarifas += "<details>";
+                 strHTMLTarifas += "<summary><b>";
+                 strHTMLTarifas += data[i].Servicio;
+                 strHTMLTarifas += "</b></summary>";
+                 strHTMLTarifas += "<p><b>Observaciones</b></p>";
+                 strHTMLTarifas += "<textarea readonly rows=\"5\" cols=\"40\">";
+                 strHTMLTarifas += data[i].Observacion;
+                 strHTMLTarifas += "</textarea>";
+                 strHTMLTarifas += "</details>";
+             };
+             
+             $("#Tarifas").append(strHTMLTarifas);
+         });
         //PARTICIPACION TARIFAS END
     
     },
 });
 
 // START_CUSTOM_CODE_funcionalidad01
+UsuarioID = "305";
 
 var dsCliente = new kendo.data.DataSource({
     transport: {
         // OK funziona, ottimizzare per grandi vol. di dati || paginazione
-        // Parametrizzare la variabile idCliente
+        // Parametrizzare la URL con una variabile idUsuario
         read: {
-            url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/305",
+            url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/"+UsuarioID,
             dataType: "json"
         },        
      },
@@ -359,6 +401,8 @@ var dsCliente = new kendo.data.DataSource({
      filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
 });
 
+
+var UsuarioID = "";
 var ClienteID = "";
 var dsContactosCliente = null;
 var dsTelefonosContactoCliente = null;
@@ -366,5 +410,6 @@ var dsSituaccionPago = null;
 var dsParticipacionAUSAyAgencias = null;
 var dsIngresoDespachoAduanaUsoAOLMes = null;
 var dsCondicionesDePago = null;
+var dsTarifas = null;
 // END_CUSTOM_CODE_funcionalidad01
 

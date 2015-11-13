@@ -122,45 +122,49 @@
                 &nbsp;
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>DETALLE CONTACTOS CLIENTE</strong>
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                &nbsp;
+        <details>
+            <summary><b>DETALLE CONTACTOS CLIENTE</b></summary>        
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">
-                PERSONA:
+            <div class="row">
+                <div class="col-xs-3">
+                    PERSONA:
+                </div>
+                <div class="col-xs-9">
+                    <input id="ContactosCliente" />
+                </div>
             </div>
-            <div class="col-xs-9">
-                <input id="ContactosCliente" />
+            <div class="row">
+                <div class="col-xs-3">
+                    TELEFONO:
+                </div>
+                <div class="col-xs-9">
+                    <input id="TelefonosContactoCliente" />
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">
-                TELEFONO:
+            <div class="row">
+                <div class="col-xs-12">
+                    <button id="btnLlamar" type="button">LLAMAR</button>
+                </div>            
             </div>
-            <div class="col-xs-9">
-                <input id="TelefonosContactoCliente" />
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp:
+                </div>            
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <button id="btnLlamar" type="button">LLAMAR</button>
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-xs-9">
-                FECHA DE CUMPLEAÑOS:
+            <div class="row">
+                <div class="col-xs-9">
+                    <b>FECHA DE CUMPLEAÑOS:</b>
+                </div>
+                <div  class="col-xs-3">
+                    <b id="FechaCumpleanos">dd mmm</b>
+                </div>
             </div>
-            <div id="FechaCumpleanos" class="col-xs-3">
-                dd mmm
-            </div>
-        </div>
+        </details>
+        
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -177,26 +181,24 @@
                 &nbsp;
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>SITUACION DE PAGO</strong>
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                &nbsp;
+       
+        <details>
+            <summary><b>SITUACION DE PAGO</b></summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                PORCENTAJE DE USO DE LA LINEA
-            </div>            
-        </div>
-        <div class="row">
-            <div id="PorcUtilizacionDeLinea" class="col-xs-12">
-                xy.uvz%
+            <div class="row">
+                <div class="col-xs-9">
+                    <b>PORCENTAJE USO DE LA LINEA</b>
+                </div>            
+                <div id="PorcUtilizacionDeLinea" class="col-xs-3">
+                    xy.uvz%
+                </div>
             </div>
-        </div>
+        </details>
+       
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -213,44 +215,50 @@
                 &nbsp;
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>PARTICIPACION DE AUSA</strong>
-            </div>            
-        </div>        
-        <div class="row">
+       
+       <details>
+           <summary><b>PARTICIPACION DE AUSA</b></summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+       
+            <div class="row">
+                <div class="col-xs-12">
+                    <dl>
+                        <dt>PARTICIPACION CANTIDAD</dt>
+                        <dd> - ACUMULADO DEL MES <span id="PorcDespachosVigentes">xy.z%</span></dd>
+                        <dd> - CIERRE DEL MES ANTERIOR <span id="PorcDespachosAnterior">xy.z%</span></dd>
+                    </dl>                
+                </div>
+             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <dl>
+                        <dt>PARTICIPACION FOB MONTO</dt>
+                        <dd> - ACUMULADO DEL MES <span id="PorcFOBVigente">xy.z%</span></dd>
+                        <dd> - CIERRE DEL MES ANTERIOR <span id="PorcFOBAnterior">xy.z%</span></dd>
+                    </dl>                
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <dl>
+                        <dt>PARTICIPACION CIF MONTO</dt>
+                        <dd> - ACUMULADO DEL MES <span id="PorcCIFVigente">xy.z%</span></dd>
+                        <dd> - CIERRE DEL MES ANTERIOR <span id="PorcCIFAnterior">xy.z%</span></dd>
+                    </dl>                
+                </div>
+            </div>
+       </details>
+       
+       <div class="row">
             <div class="col-xs-12">
                 &nbsp;
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <dl>
-                    <dt>PARTICIPACION CANTIDAD</dt>
-                    <dd> - ACUMULADO DEL MES <span id="PorcDespachosVigentes">xy.z%</span></dd>
-                    <dd> - CIERRE DEL MES ANTERIOR <span id="PorcDespachosAnterior">xy.z%</span></dd>
-                </dl>                
-            </div>
-         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <dl>
-                    <dt>PARTICIPACION FOB MONTO</dt>
-                    <dd> - ACUMULADO DEL MES <span id="PorcFOBVigente">xy.z%</span></dd>
-                    <dd> - CIERRE DEL MES ANTERIOR <span id="PorcFOBAnterior">xy.z%</span></dd>
-                </dl>                
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <dl>
-                    <dt>PARTICIPACION CIF MONTO</dt>
-                    <dd> - ACUMULADO DEL MES <span id="PorcCIFVigente">xy.z%</span></dd>
-                    <dd> - CIERRE DEL MES ANTERIOR <span id="PorcCIFAnterior">xy.z%</span></dd>
-                </dl>                
-            </div>
-        </div>       
-    </div>
+       </div>  
+   </div>
     <!--  PARTICIPACION DE AUSA END  -->
 
     <!--  PARTICIPACION OTRAS AGENCIAS START  -->
@@ -261,17 +269,20 @@
                 &nbsp;
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>PARTICIPACION OTRAS AGENCIAS </strong>
-                <dl id="ParticipacionOtrasAgencias">
-                    <dd>- Abc (xy.z%) </dd>
-                    <dd>- Def (yz.x%) </dd>
-                    <dd>- Ghi (zx.y%) </dd>
-                </dl>
-                <p> * al cierre del mes anterior</p>
+        <details>
+            <summary><b>PARTICIPACION OTRAS AGENCIAS</b></summary>
+            <div class="row">
+                <div class="col-xs-12">
+                    <dl id="ParticipacionOtrasAgencias">
+                        <dd>- Abc (xy.z%) </dd>
+                        <dd>- Def (yz.x%) </dd>
+                        <dd>- Ghi (zx.y%) </dd>
+                    </dl>
+                    <p> * al cierre del mes anterior</p>
+                </div>
             </div>
-        </div>
+        </details>
+        
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -288,35 +299,36 @@
                 &nbsp;
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>INGRESO POR DESPACHO</strong>
+        
+        <details>
+            <summary><b>INGRESO POR DESPACHO</b></summary>
+        
+            <div class="row">
+                <div class="col-xs-9">
+                    CIERRE MES ANTERIOR
+                </div>
+                <div id="PartDespachoCierreMesAnterior" class="col-xs-3">
+                    $xyz.uw
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-9">
-                CIERRE MES ANTERIOR
+            <div class="row">
+                <div class="col-xs-9">
+                    ACUMULADO DEL MES
+                </div>
+                <div id="PartDespachoAcumuladoMes" class="col-xs-3">
+                    $yzu.wx
+                </div>
             </div>
-            <div id="PartDespachoCierreMesAnterior" class="col-xs-3">
-                $xyz.uw
+            <div class="row">
+                <div class="col-xs-9">
+                    ACUMULADO ULTIMOS 3 MESES
+                </div>
+                <div id="PartDespachoAcumuladoTresMeses" class="col-xs-3">
+                    $zuw.xy
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-9">
-                ACUMULADO DEL MES
-            </div>
-            <div id="PartDespachoAcumuladoMes" class="col-xs-3">
-                $yzu.wx
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-9">
-                ACUMULADO ULTIMOS 3 MESES
-            </div>
-            <div id="PartDespachoAcumuladoTresMeses" class="col-xs-3">
-                $zuw.xy
-            </div>
-        </div>
+        </details>
+        
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -333,40 +345,35 @@
                 &nbsp;
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>INGRESO ADUANAS</strong>
+        
+        <details>
+            <summary><b>INGRESO ADUANAS</b></summary>        
+            <div class="row">
+                <div class="col-xs-9">
+                    CIERRE MES ANTERIOR
+                </div>
+                <div id="PartAduanaCierreMesAnterior" class="col-xs-3">
+                    $xyz.uw
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-9">
-                CIERRE MES ANTERIOR
+            <div class="row">
+                <div class="col-xs-9">
+                    ACUMULADO DEL MES
+                </div>
+                <div id="PartAduanaAcumuladoMes" class="col-xs-3">
+                    $yzu.wx
+                </div>
             </div>
-            <div id="PartAduanaCierreMesAnterior" class="col-xs-3">
-                $xyz.uw
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-9">
-                ACUMULADO DEL MES
-            </div>
-            <div id="PartAduanaAcumuladoMes" class="col-xs-3">
-                $yzu.wx
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-9">
-                ACUMULADO ULTIMOS 3 MESES
-            </div>
-            <div id="PartAduanaAcumuladoTresMeses" class="col-xs-3">
-                $zuw.xy
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                &nbsp;
-            </div>
-        </div>
+            <div class="row">
+                <div class="col-xs-9">
+                    ACUMULADO ULTIMOS 3 MESES
+                </div>
+                <div id="PartAduanaAcumuladoTresMeses" class="col-xs-3">
+                    $zuw.xy
+                </div>
+            </div>            
+        </details>        
+
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -378,117 +385,51 @@
     <!--  PARTICIPACION CONDICIONES DE PAGO START  -->
     <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
     <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
-        <div class="row">
+      <div class="row">
             <div class="col-xs-12">
                 &nbsp;
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>CONDICIONES DE PAGO</strong>
+      </div>
+        
+      <details>
+            <summary><b>CONDICIONES DE PAGO</b></summary>
+            <div class="row">
+                <div id="CondicionesDePago" class="col-xs-12">
+                    
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <!-- Condicion de pago ejemplo hard coded
-            <div class="col-xs-12">
-                <details>
-                    <summary><b>Nombre Servicio ABC</b></summary>
-                    <div class="col-xs-5">
-                        Dias Pago
-                    </div>
-                    <div class="col-xs-7">
-                        <b>xyz</b>
-                    </div>
-                    <div class="col-xs-5">
-                        Hasta Monto
-                    </div>
-                    <div class="col-xs-7">
-                        <b>Contado Vencido</b>
-                    </div>
-                    <div class="col-xs-5">
-                        Moneda
-                    </div>
-                    <div class="col-xs-7">
-                        <b>US Dollar</b>
-                    </div>
-                    <div class="col-xs-5">
-                        Linea Credito
-                    </div>
-                    <div class="col-xs-7">
-                        <b>123456</b>
-                    </div>
-                    <div class="col-xs-5">
-                        Linea Negocio
-                    </div>
-                    <div class="col-xs-7">
-                        <b>TRANSP. - ALMAC. - DIST. - TI</b>
-                    </div> 
-                    <div class="col-xs-5">
-                        Compania
-                    </div>
-                    <div class="col-xs-7">
-                        <b>Ausa Operaciones</b>
-                    </div>
-                </details>
-            </div>
-            -->
-            <div id="CondicionesDePago" class="col-xs-12">
-                
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
+      </details>
+      
+    <div class="row">
+         <div class="col-xs-12">
                 &nbsp;
-            </div>
-        </div>
+         </div>
+     </div>
     </div> 
     <!--  PARTICIPACION CONDICIONES DE PAGO END  -->
 
     <!--  PARTICIPACION TARIFAS START  -->
-    <!-- TODO-WIP: DATA HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->    
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->    
     <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <strong>TARIFAS</strong>
+        <details>
+            <summary><b> TARIFAS </b></summary>               
+            <div class="row">
+                <div id="Tarifas" class="col-xs-12">
+                    <!-- Tarifas ejemplo hard coded
+                    <details>
+                        <summary><b>Nombre Servicio ABC</b></summary>                    
+                            <p>Observaciones</p>
+                            <textarea readonly rows="5" cols="40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>                    
+                    </details>
+                    -->
+               </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-4">
-                Servicio:
-            </div>
-            <div class="col-xs-8">
-                Tramite Aduanero
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-xs-4">
-                Observaciones:
-            </div>
-            <div class="col-xs-8">
-                <button id="button" type="button">Ver Detalle</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-4">
-                Servicio:
-            </div>
-            <div class="col-xs-8">
-                Trasporte
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-xs-4">
-                Observaciones:
-            </div>
-            <div class="col-xs-8">
-                <button id="button" type="button">Ver Detalle</button>
-            </div>
-        </div>
+        </details>        
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -505,16 +446,16 @@
                 &nbsp;
             </div>
        </div>
+        
        <div class="row">
-            <div class="col-xs-12">
-                <strong>CANTIDAD DE USOS AOL DEL MES</strong>
+            <div class="col-xs-10">
+                <strong>CANTIDAD USOS AOL DEL MES</strong>
+            </div>
+            <div  class="col-xs-2">
+                <b id="UsosAOLdelMes">zuw.xy</b>                
             </div>
        </div>
-        <div class="row">
-            <div id="UsosAOLdelMes" class="col-xs-12">
-                zuw.xy
-            </div>
-       </div>
+        
       <div class="row">
             <div class="col-xs-12">
                 &nbsp;
