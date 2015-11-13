@@ -197,6 +197,27 @@
                     xy.uvz%
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- TODO-WIP -->
+                    <button id="btnMorosidadUtilizacionLinea" type="button" class="btn btn-info">Morosidad y Utilizacion de Linea</button>
+                        <script>
+                                $(document).ready(function () {
+                                             $("#btnMorosidadUtilizacionLinea").kendoButton({
+                                                 click: function(e) {
+                                                     //console.log(e.event.target.tagName);                                                     
+                                                     window.location.href = "#det-MorosidadUtilizacionLinea";
+                                                 },
+                                             });
+                                });
+                         </script>
+                </div>
+            </div>
         </details>
        
         <div class="row">
@@ -464,4 +485,254 @@
     </div>
     <!--  CANTIDAD DE USOS AOL DEL MES  END  -->
     
+</div>
+
+<!-- TODO-WIP -->
+<!-- DETALLE  Morosidad y Utilizacion Linea -->
+<div data-role="view" id="det-MorosidadUtilizacionLinea" data-title="Morosidad y Utilizacion Linea" data-show="app.funcionalidad01.MostraMorosidadUtilizacionLinea">
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#det-cliente">Regresar</a>
+    </div>
+    
+    <!--  CLIENTE RAZON SOCIAL START  -->
+    <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <b>CLIENTE</b>
+            </div>            
+            <div id="detMULClienteRazonSocial" class="col-xs-9">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  CLIENTE RAZON SOCIAL  END  -->
+
+    <!--  DEUDA VENCIDA START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>DEUDA VENCIDA</b>                                
+            </div>            
+            <div class="col-xs-3">
+                $1,234.56
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  DEUDA VENCIDA  END  -->
+
+    <!--  CONDICION PAGO (DIAS) START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>CONDICION PAGO (DIAS)</b>                                
+            </div>            
+            <div class="col-xs-3">
+                30
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  CONDICION PAGO (DIAS)  END  -->
+    
+    <!--  LINEA ASIGNADA START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>LINEA ASIGNADA</b>                                
+            </div>            
+            <div class="col-xs-3">
+                $100,000.00
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  LINEA ASIGNADA  END  -->
+    
+    <!--  UTILIZACION ACTUAL START  -->
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>UTILIZACION ACTUAL</b>                                
+            </div>            
+            <div class="col-xs-3">
+                $80,000.00
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  UTILIZACION ACTUAL  END  -->
+    
+    <!--  DIFERENCIAS DE LINEAS START  -->
+    <!--  DEF:  DIFERENCIAS DE LINEAS = (LINEA ASIGNADA - UTILIZACION ACTUAL) -->
+    <!--  IMPORTANTE: VERIFICA CON RODRIGO AUSA LA DEFINIZIONE NON COMPARE NELLA ACTA ESTERNA DI J.RAMIREZ -->    
+    <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>DIFERENCIAS DE LINEAS</b>                                
+            </div>            
+            <div class="col-xs-3">
+                $80,000.00
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  DIFERENCIAS DE LINEAS  END  -->
+    
+    <!--  PORC. EN USO DE LA LINEA  ACTUAL START  -->
+    <!-- TODO:HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>PORC. EN USO  LINEA  ACTUAL</b>                                
+            </div>            
+            <div class="col-xs-3">
+                80%
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PORC. EN USO DE LA LINEA  ACTUAL  END  -->
+
+    <!--  PROMEDIO USO ULTIMO 6 MESES ($) START  -->
+    <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>PROMEDIO USO ULTIMO 6 MESES ($)</b>                                
+            </div>            
+            <div class="col-xs-3">
+                $55,000.00
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PROMEDIO USO ULTIMO 6 MESES ($)  END  -->    
+    
+    <!--  PORC. EN USO PROMEDIO USO ULTIMO 6 MESES ($) START  -->
+    <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>PORC. EN USO PROMEDIO USO ULTIMO 6 MESES ($)</b>                                
+            </div>            
+            <div class="col-xs-3">
+                $55,000.00
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  PORC. EN USO PROMEDIO USO ULTIMO 6 MESES ($)  END  -->    
+    
+    <!--  STATUS AUSA START  -->
+    <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <b>STATUS AUSA</b>                                
+            </div>            
+            <div class="col-xs-3">
+                Abced fghi Lmo...
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <!--  STATUS AUSA  END  -->    
 </div>

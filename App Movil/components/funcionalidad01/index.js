@@ -204,7 +204,6 @@ app.funcionalidad01 = kendo.observable({
               $("#PorcCIFAnterior").html(view2[0].PorcCIFAnterior + "%");
 
          });
-
         //PARTICIPACION AUSA Y OTRAS AGENCIAS END
         
         //INGRESO POR DESPACHO INGRESO ADUANAS CANTIDAD USOS AOL DEL MES START
@@ -250,8 +249,7 @@ app.funcionalidad01 = kendo.observable({
             $("#PartAduanaAcumuladoMes").html("$" + data[0].AduanaIngresoMesVigente);
             $("#PartAduanaAcumuladoTresMeses").html("$" + data[0].AduanaIngresoUltimos3Meses);
             $("#UsosAOLdelMes").html(data[0].HitsAOL);
-        });
-        
+        });        
         //INGRESO POR DESPACHO INGRESO ADUANAS CANTIDAD USOS AOL DEL MES END
         
         //CONDICIONES DE PAGO START
@@ -320,7 +318,7 @@ app.funcionalidad01 = kendo.observable({
                  strHTMLCondicionesDePago += data[i].Compania;
                  strHTMLCondicionesDePago += "</b></div>";
                  strHTMLCondicionesDePago += "</details>";
-             };
+             }
              
              $("#CondicionesDePago").append(strHTMLCondicionesDePago);
          });        
@@ -347,17 +345,17 @@ app.funcionalidad01 = kendo.observable({
                    }
               },
              requestEnd: function(e) {
-                console.log("dsTarifas >> requestEnd");
+                //console.log("dsTarifas >> requestEnd");
              },
          });
         
          dsTarifas.fetch(function(){
              var strHTMLTarifas = "";
              var data = this.data();
-             console.log("dsTarifas.data() >> length: " + data.length);            
+             //console.log("dsTarifas.data() >> length: " + data.length);            
              
              for (var i = 0; i < data.length; i++) {
-                 console.log("dsTarifas.Servicio: " + data[i].Servicio);
+                 //console.log("dsTarifas.Servicio: " + data[i].Servicio);
                  strHTMLTarifas += "<details>";
                  strHTMLTarifas += "<summary><b>";
                  strHTMLTarifas += data[i].Servicio;
@@ -367,12 +365,39 @@ app.funcionalidad01 = kendo.observable({
                  strHTMLTarifas += data[i].Observacion;
                  strHTMLTarifas += "</textarea>";
                  strHTMLTarifas += "</details>";
-             };
+             }
              
              $("#Tarifas").append(strHTMLTarifas);
          });
         //PARTICIPACION TARIFAS END
     
+    },
+    //TODO-WIP
+    MostraMorosidadUtilizacionLinea: function(){
+        console.log("DFC > MostraMorosidadUtilizacionLinea ");
+        console.log("Morosidad y Utilizacion de Linea >> ClienteID > " + ClienteID);
+        /*
+       ClienteID: { editable: false, nullable: true, type: "number" },
+       ClienteRazonSocial: {type: "string"},
+       DeudaVencida: {type: "number"},
+       PlazoDePago: {type: "number"},
+       LíneaAsignada: {type: "number"},
+       UtilizacionActual: {type: "number"},
+       PorcUtilizacionDeLinea: {type: "number"},
+       UsoDeLineaPromedioUltSeisMeses: {type: "number"},
+       PorcUsoDeLineaPromedioUltSeisMeses: {type: "number"},
+        */
+        
+        dsSituaccionPago.fetch(function(){
+            var data = this.data();
+            console.log("dsSituaccionPago >> data fetch() 2");
+            
+            //console.log(data.length);
+            //console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
+            //console.log("PlazoDePago >> " + data[0].PlazoDePago);
+            
+            $("#detMULClienteRazonSocial").html(data[0].ClienteRazonSocial );
+        });
     },
 });
 
@@ -412,4 +437,3 @@ var dsIngresoDespachoAduanaUsoAOLMes = null;
 var dsCondicionesDePago = null;
 var dsTarifas = null;
 // END_CUSTOM_CODE_funcionalidad01
-
