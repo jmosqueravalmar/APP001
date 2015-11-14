@@ -14,11 +14,9 @@
     </div-->
 <!-- Menu Derecho -->
 <!-- Listado Tareas -->
+
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas">
-    </br>
-    <button type="button" class="btn btn-default" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
-    </br>
-    </br>
+    <button type="button" class="btn btn-primary  btn-block btn-lg" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
     <div id="tareas">
     </div>
 </div>
@@ -29,9 +27,14 @@
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
     </div>
-    <h3 class="text-center">HUAWUEI</h3>
     <form class="col-md-12">
-        <input id="txtid" type="hidden" placeholder="txtid"><!--Para almacenar el id de la tarea a eliminar o editar-->
+        <!--Para almacenar el id de la tarea a eliminar o editar-->
+        <input id="txtid" type="hidden" placeholder="txtid">
+        <div class="form-group">
+            <label class="control-label" for="txtidc">Clientes</label>
+            <select id="txtidc" multiple="multiple">
+            </select>
+        </div>
         <div class="form-group">
             <label class="control-label" for="txtidtt">Tipo</label>
             <div class="input-group">
@@ -80,9 +83,10 @@
                     <input id="txtflimite" type="date" class="form-control input-md" required="">
                 </div>
             </div>
-            <div class="col-xs-6">
-                <label class="control-label pull-right">Adjuntar</label>
-                <button type="button" class="btn btn-default pull-right" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
+            <div class="col-xs-6" align="right" id="divNotaVoz">
+                <label class="control-label">Adjuntar</label>
+                </br>
+                <button type="button" class="btn btn-default" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button></br>
             </div>
         </div>
         <div class="text-center" id="divBtnAdd">
