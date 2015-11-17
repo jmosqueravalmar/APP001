@@ -379,27 +379,11 @@ app.funcionalidad01 = kendo.observable({
     MostraMorosidadUtilizacionLinea: function(){
         //console.log("DFC > MostraMorosidadUtilizacionLinea ");
         //console.log("Morosidad y Utilizacion de Linea >> ClienteID > " + ClienteID);
-        /*
-       ClienteID: { editable: false, nullable: true, type: "number" },
-       ClienteRazonSocial: {type: "string"},
-       DeudaVencida: {type: "number"},
-       PlazoDePago: {type: "number"},
-       LíneaAsignada: {type: "number"},
-       UtilizacionActual: {type: "number"},
-       DiferenciaDeLineas: {type: "number"},
-       PorcUtilizacionDeLinea: {type: "number"},
-       UsoDeLineaPromedioUltSeisMeses: {type: "number"},
-       PorcUsoDeLineaPromedioUltSeisMeses: {type: "number"},
-        */
         
         dsSituaccionPago.fetch(function(){
             var data = this.data();
             //console.log("dsSituaccionPago >> data fetch() 2");
-            
-            //console.log(data.length);
-            //console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
-            //console.log("PlazoDePago >> " + data[0].PlazoDePago);
-            
+                        
             $("#detMULClienteRazonSocial").html(data[0].ClienteRazonSocial);
             $("#detMULDeudaVencida").html("$" + data[0].DeudaVencida);
             $("#detMULPlazoDePago").html(data[0].PlazoDePago);
@@ -437,10 +421,13 @@ app.funcionalidad01 = kendo.observable({
              },
         });
         
-        dsSituaccionPago.fetch(function(){
+        dsCondicionesDePagoMUL.fetch(function(){
             var data = this.data();
             console.log("dsCondicionesDePagoMUL >> data fetch() ");
-            $("#detMULLíneaFacturaAUSA").html(data[0].LíneaFacturaAUSA);
+            $("#detMULLíneaFacturaAUSA").html("$" + data[0].LíneaFacturaAUSA);
+            $("#detMULPlazoFacturaAUSA").html(data[0].PlazoFacturaAUSA);
+            $("#detMULLíneaLetrasAUSA").html("$" + data[0].LíneaLetrasAUSA);
+            $("#detMULPlazoLetrasAUSA").html(data[0].PlazoLetrasAUSA);
         });
     },
     //DETALLE  Morosidad y Utilizacion Linea START
@@ -483,5 +470,3 @@ var dsCondicionesDePago = null;
 var dsTarifas = null;
 var dsCondicionesDePagoMUL = null;
 // END_CUSTOM_CODE_funcionalidad01
-
-// TEST 2 PUSH; RELOAD NEW CHANGES 16 Nov. 2015
