@@ -8,30 +8,6 @@ app.funcionalidad03 = kendo.observable({
     }
 });
 
-$(document).ready(function () {
-    var wnd = $("#window");
-
-    $(".open-button").bind("click", function () {
-        wnd.data("kendoWindow").open();
-        $(this).hide();
-    });
-
-    $(".close-button").click(function () {
-        // call 'close' method on nearest kendoWindow
-        $(this).closest("[data-role=window]").kendoWindow("close");
-    });
-
-    if (!wnd.data("kendoWindow")) {
-        wnd.kendoWindow({
-            modal: true,
-            title: "Dialog window",
-            close: function () {
-                $(".open-button").show();
-            },
-            visible: false
-        });
-    }
-});
 
 //DataSorce tareas
 var dsTareas = new kendo.data.DataSource({
@@ -63,14 +39,7 @@ function getTareas() {
         pageable: true,
         selectable: "row",
         change: selectGrid,
-        columns: [
-                /*{
-            field: "tar_int_id",
-            title: "id",
-    		format: '{0:n2} %'
-        	},*/
-            {
-                //field: "tiptar_str_nombre",
+        columns: [{
                 field: "tipotarea",
                 title: "Nombre de Tarea",
                 width: "360px"
@@ -85,22 +54,24 @@ function getTareas() {
                 title: "F. Creación",
                 template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
                 width: "50px"
-            }, {
+            },
+            {
                 field: "tar_dat_fchlimite",
                 title: "F. Limite",
                 template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
                 width: "50px"
-            }, {
+            },
+            {
                 field: "tar_int_estado",
                 title: "Estado",
                 template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#'
-            }, {
+            },
+            {
                 field: "tar_int_prioridad",
                 title: "Prioridad",
                 template: '#if(tar_int_prioridad==1){#<span class = "glyphicon glyphicon-arrow-down text-success" aria-hidden = "true" ></span>Baja#}else{if(tar_int_prioridad==3){#<span class="glyphicon glyphicon-arrow-up text-danger" aria-hidden="true"></span>Alta#}else{#<span class = "glyphicon glyphicon glyphicon-arrow-right text-warning" aria-hidden="true"></span>Media#}}#',
                 width: "50px"
-            }
-            ]
+            }]
     });
 }
 
@@ -124,6 +95,12 @@ function getSelectTipoTarea(accion) {
         },
         dataTextField: "tiptar_str_nombre",
         dataValueField: "tiptar_int_id",
+        // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
+        filter: {
+            field: "ClienteRazonSocial",
+            operator: "startswith",
+            value: "EX"
+        }
     });
 
     if (accion == "add") {
@@ -134,44 +111,71 @@ function getSelectTipoTarea(accion) {
     };
 }
 
-
-
 function getSelectCliente(accion) {
-    $("#txtidc").kendoMultiSelect({
-        dataSource: {
-            transport: {
-                read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/305",
-                    dataType: "json"
-                }
-            }
-        },
-        dataTextField: "ClienteRazonSocial",
-        dataValueField: "ClienteID",
-        filter: "contains"
-    });
-
-    if (accion == "add") {
-
-    } else {
-        /*var dsTareaCliente = new kendo.data.DataSource({
-            transport: {
-                read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
-                    dataType: "json",
-                    type: "post",
-                    data: {
-                        txtid: 1
+        if (!$("#txtidc").data("kendoMultiSelect")) {
+            $("#txtidc").kendoMultiSelect({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/305",
+                            dataType: "json"
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "ClienteID",
+                            fields: {
+                                ClienteID: {
+                                    editable: false,
+                                    nullable: true,
+                                    type: "number"
+                                },
+                                ClienteRazonSocial: {
+                                    type: "string"
+                                }
+                            }
+                        }
+                    },
+                    // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
+                    filter: {
+                        field: "ClienteRazonSocial",
+                        operator: "startswith",
+                        value: "EX"
                     }
                 },
-            }
-        });
-        var MultiSelect = $("#txtidc").data("kendoMultiSelect");
-        MultiSelect.value([3689, 5274]);*/
-    };
-}
+                dataTextField: "ClienteRazonSocial",
+                dataValueField: "ClienteID",
+                filter: "contains"
+            });
+        }
+        if (accion == "add") {
 
-//Función Agregar Nueva Tarea
+        } else {
+            var dsTareaCliente = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
+                        dataType: "json",
+                        type: "post",
+                        data: {
+                            txtid: accion
+                        }
+                    }
+                }
+            });
+            var values = [];
+            dsTareaCliente.fetch(function () {
+                var data = dsTareaCliente.data();
+                for (var i = 0; i < dsTareaCliente.total(); i++) {
+                    var TareaCliente = data[i];
+                    values.push(TareaCliente.cli_int_id);
+                };
+                var multiselect = $("#txtidc").data("kendoMultiSelect");
+                multiselect.value(values);
+            });
+        }
+    }
+    //Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {
     var valido = true;
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
@@ -203,14 +207,16 @@ function accionTarea(accion) {
         $('#txtflimite').parent().parent().addClass("has-error");
         valido = false;
     }
-    /*
-        console.log(101);
-        console.log($('#txtidtt option:selected').val());
-        console.log($('#txtorden').val());
-        console.log($('#txtobserv').val());
-        console.log($('#txtdetalle').val());
-        console.log($('input:radio[name=txtprioridad]:checked').val());
-        console.log($('#txtflimite').val() + " 00:00:00");*/
+
+    /*console.log($('#txtidc').val());
+    console.log($('#txtidtt option:selected').val());
+    console.log($('#txtorden').val());
+    console.log($('#txtobserv').val());
+    console.log($('#txtdetalle').val());
+    console.log($('input:radio[name=txtprioridad]:checked').val());
+    console.log($('#txtflimite').val() + " 00:00:00");
+    console.log(valido);*/
+
     valido && $.ajax({
         type: "POST",
         url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
@@ -228,44 +234,78 @@ function accionTarea(accion) {
         success: function (datos) {
             var data = [];
             data = JSON.parse(datos);
-            $('#txtid').val(data[0].Column1);
-            alert(data[0].Column1);
-            return;
-            if ($('#txtid').val() > 0) {
-                for (var i = 0; i < $('#txtidc').val().length; i++) {
-                    $.ajax({
-                        type: "POST",
-                        url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/c' + accion,
-                        data: {
-                            txtid: $('#txtid').val(),
-                            txtid: txtidc[i]
-                        },
-                        async: false,
-                        success: function (datos) {
-                            if (datos) {
-
-                            } else {
-
-
+            console.log(datos);
+            if (data[0].Column1 > 0 || $('#txtid').val() > 0) { //Si intertado es mayor que cero O es acción es edición  
+                var txtidc = $('#txtidc').val();
+                var dsTareaCliente = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
+                            dataType: "json",
+                            type: "post",
+                            data: {
+                                txtid: $('#txtid').val()
                             }
-                        },
-                        error: function () {
-                            var notificationElement = $("#notification");
-                            notificationElement.kendoNotification();
-                            var notificationWidget = notificationElement.data("kendoNotification");
-                            notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
                         }
-                    });
-                }
-                var notificationElement = $("#notification");
-                notificationElement.kendoNotification();
-                var notificationWidget = notificationElement.data("kendoNotification");
-                notificationWidget.show("Se agregó la nueva tarea", "success");
+                    }
+                });
+                dsTareaCliente.fetch(function () {
+                    var data = dsTareaCliente.data();
+                    for (var i = 0; i < dsTareaCliente.total(); i++) {
+                        var TareaCliente = data[i];
+                        $.ajax({ // DELETE
+                            type: "POST",
+                            url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/cdelete',
+                            data: {
+                                txtidt: $('#txtid').val(),
+                                txtidc: TareaCliente.cli_int_id
+                            },
+                            async: false,
+                            success: function (datos) {
 
-                var grid = $("#tareas").data("kendoGrid");
-                grid.dataSource.read();
-                window.location.href = "#tareas1";
+                            },
+                            error: function () {
+                                var notificationElement = $("#notification");
+                                notificationElement.kendoNotification();
+                                var notificationWidget = notificationElement.data("kendoNotification");
+                                notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
+                                valido = false;
+                            }
+                        });
+                    };
 
+                    for (var i = 0; i < $('#txtidc').val().length; i++) {
+                        $.ajax({ // INSERT
+                            type: "POST",
+                            url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/cinsert',
+                            data: {
+                                txtid: $('#txtid').val(),
+                                txtidc: txtidc[i]
+                            },
+                            async: false,
+                            error: function () {
+                                var notificationElement = $("#notification");
+                                notificationElement.kendoNotification();
+                                var notificationWidget = notificationElement.data("kendoNotification");
+                                notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
+                                valido = false;
+                            }
+                        });
+                    };
+
+                });
+
+
+                if (valido) {
+                    var notificationElement = $("#notification");
+                    notificationElement.kendoNotification();
+                    var notificationWidget = notificationElement.data("kendoNotification");
+                    notificationWidget.show((accion == "insert" ? "Se agregó la nueva tarea" : "Se editó la nueva tarea"), "success");
+
+                    var grid = $("#tareas").data("kendoGrid");
+                    grid.dataSource.read();
+                    window.location.href = "#tareas1";
+                };
             } else {
                 var notificationElement = $("#notification");
                 notificationElement.kendoNotification();
@@ -285,8 +325,9 @@ function accionTarea(accion) {
 function addNotaVoz() {
     $("#divNotaVoz").append('Audio01 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
 }
+
 function deleteNotaVoz(id) {
-    
+
 }
 
 function selectGrid() {
@@ -322,10 +363,27 @@ function selectGrid() {
     $('#divBtnAccion').show();
 }
 
-//btn confirmar acción
-function confirmar(accion) {
-    $('#second').data('kendoWindow').center().open();
+
+
+
+
+
+
+function openModal() {
+    $("#foo").data("kendoMobileModalView").open();
 }
+
+function closeModal() {
+    $("#foo").data("kendoMobileModalView").close();
+}
+function confirmado() {
+    $("#foo").data("kendoMobileModalView").close();
+    alert(1);
+}
+
+
+
+
 
 //Para mantener active el button-group
 $(document).on("change", "input[type='radio']", function () {
