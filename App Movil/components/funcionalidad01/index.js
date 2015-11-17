@@ -437,3 +437,6 @@ var dsIngresoDespachoAduanaUsoAOLMes = null;
 var dsCondicionesDePago = null;
 var dsTarifas = null;
 // END_CUSTOM_CODE_funcionalidad01
+
+// DFC Test push 17 Nov 2015
+
