@@ -383,6 +383,7 @@ app.funcionalidad01 = kendo.observable({
        PlazoDePago: {type: "number"},
        LíneaAsignada: {type: "number"},
        UtilizacionActual: {type: "number"},
+       DiferenciaDeLineas: {type: "number"},
        PorcUtilizacionDeLinea: {type: "number"},
        UsoDeLineaPromedioUltSeisMeses: {type: "number"},
        PorcUsoDeLineaPromedioUltSeisMeses: {type: "number"},
@@ -397,6 +398,7 @@ app.funcionalidad01 = kendo.observable({
             //console.log("PlazoDePago >> " + data[0].PlazoDePago);
             
             $("#detMULClienteRazonSocial").html(data[0].ClienteRazonSocial );
+            $("#detMULDeudaVencida").html(data[0].DeudaVencida );
         });
     },
 });
@@ -437,6 +439,3 @@ var dsIngresoDespachoAduanaUsoAOLMes = null;
 var dsCondicionesDePago = null;
 var dsTarifas = null;
 // END_CUSTOM_CODE_funcionalidad01
-
-// DFC Test push 17 Nov 2015
-
