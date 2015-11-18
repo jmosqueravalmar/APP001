@@ -28,7 +28,7 @@ var dsTareas = new kendo.data.DataSource({
     },
     pageSize: 10
 });
-//Carga dsTareas
+//Cargar dsTareas
 function getTareas() {
     $("#tareas").kendoGrid({
         dataSource: dsTareas,
