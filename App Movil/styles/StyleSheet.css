@@ -44,11 +44,37 @@
 }*/
 
 
-
-
-
-
-
-
-
-
+/* STYLE FUNCIONALIDAD 01*/
+    summary::-webkit-details-marker {
+    	display: none
+    }
+    
+    summary:before {
+    	background: red;
+      border-radius: 5px;
+      content: "+";
+      color: #fff;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0 10px 0 0;
+      padding-top: 1px;
+      padding-left: 1px;
+      padding-right: 2px;
+      padding-bottom: 2px;
+      text-align: center;
+    }
+    
+    details[open] summary:before {
+    	background: green;
+      border-radius: 5px;
+      content: "+";
+      color: #fff;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0 10px 0 0;
+      padding: 0;
+      padding-top: 1px;
+      padding-left: 1px;
+      padding-right: 2px;
+      padding-bottom: 2px;
+    }

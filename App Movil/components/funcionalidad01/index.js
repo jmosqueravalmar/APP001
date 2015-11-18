@@ -120,6 +120,7 @@ app.funcionalidad01 = kendo.observable({
                            PlazoDePago: {type: "number"},
                            LíneaAsignada: {type: "number"},
                            UtilizacionActual: {type: "number"},
+                           DiferenciaDeLineas: {type: "number"},
                            PorcUtilizacionDeLinea: {type: "number"},
                            UsoDeLineaPromedioUltSeisMeses: {type: "number"},
                            PorcUsoDeLineaPromedioUltSeisMeses: {type: "number"},
@@ -372,33 +373,64 @@ app.funcionalidad01 = kendo.observable({
         //PARTICIPACION TARIFAS END
     
     },
+    
     //TODO-WIP
+    //DETALLE  Morosidad y Utilizacion Linea START
     MostraMorosidadUtilizacionLinea: function(){
-        console.log("DFC > MostraMorosidadUtilizacionLinea ");
-        console.log("Morosidad y Utilizacion de Linea >> ClienteID > " + ClienteID);
-        /*
-       ClienteID: { editable: false, nullable: true, type: "number" },
-       ClienteRazonSocial: {type: "string"},
-       DeudaVencida: {type: "number"},
-       PlazoDePago: {type: "number"},
-       LíneaAsignada: {type: "number"},
-       UtilizacionActual: {type: "number"},
-       PorcUtilizacionDeLinea: {type: "number"},
-       UsoDeLineaPromedioUltSeisMeses: {type: "number"},
-       PorcUsoDeLineaPromedioUltSeisMeses: {type: "number"},
-        */
+        //console.log("DFC > MostraMorosidadUtilizacionLinea ");
+        //console.log("Morosidad y Utilizacion de Linea >> ClienteID > " + ClienteID);
         
         dsSituaccionPago.fetch(function(){
             var data = this.data();
-            console.log("dsSituaccionPago >> data fetch() 2");
-            
-            //console.log(data.length);
-            //console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
-            //console.log("PlazoDePago >> " + data[0].PlazoDePago);
-            
-            $("#detMULClienteRazonSocial").html(data[0].ClienteRazonSocial );
+            //console.log("dsSituaccionPago >> data fetch() 2");
+                        
+            $("#detMULClienteRazonSocial").html(data[0].ClienteRazonSocial);
+            $("#detMULDeudaVencida").html("$" + data[0].DeudaVencida);
+            $("#detMULPlazoDePago").html(data[0].PlazoDePago);
+            $("#detMULLíneaAsignada").html(data[0].LíneaAsignada);
+            $("#detMULUtilizacionActual").html(data[0].UtilizacionActual);
+            $("#detMULDiferenciaDeLineas").html(data[0].DiferenciaDeLineas);
+            $("#detMULPorcUtilizacionDeLinea").html(data[0].PorcUtilizacionDeLinea);
+            $("#detMULUsoDeLineaPromedioUltSeisMeses").html(data[0].UsoDeLineaPromedioUltSeisMeses);
+            $("#detMULPorcUsoDeLineaPromedioUltSeisMeses").html(data[0].PorcUsoDeLineaPromedioUltSeisMeses);
+        });
+        
+        dsCondicionesDePagoMUL = new kendo.data.DataSource({
+              transport: {
+                //Parametrizzare con ContactoID
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/condpago/"+ClienteID,
+                    dataType: "json"
+                 },
+              },
+             schema: {
+                  model: {
+                       id: "ClienteID",
+                       fields: {
+                           ClienteID: { editable: false, nullable: true, type: "number" },
+                           ClienteRazonSocial: {type: "string"},
+                           LíneaFacturaAUSA:  {type: "number"},
+                           PlazoFacturaAUSA:  {type: "number"},
+                           LíneaLetrasAUSA:  {type: "number"},
+                           PlazoLetrasAUSA:  {type: "number"},
+                       }
+                   }
+              },
+             requestEnd: function(e) {
+                console.log("dsCondicionesDePagoMUL >> requestEnd");
+             },
+        });
+        
+        dsCondicionesDePagoMUL.fetch(function(){
+            var data = this.data();
+            console.log("dsCondicionesDePagoMUL >> data fetch() ");
+            $("#detMULLíneaFacturaAUSA").html("$" + data[0].LíneaFacturaAUSA);
+            $("#detMULPlazoFacturaAUSA").html(data[0].PlazoFacturaAUSA);
+            $("#detMULLíneaLetrasAUSA").html("$" + data[0].LíneaLetrasAUSA);
+            $("#detMULPlazoLetrasAUSA").html(data[0].PlazoLetrasAUSA);
         });
     },
+    //DETALLE  Morosidad y Utilizacion Linea START
 });
 
 // START_CUSTOM_CODE_funcionalidad01
@@ -436,4 +468,5 @@ var dsParticipacionAUSAyAgencias = null;
 var dsIngresoDespachoAduanaUsoAOLMes = null;
 var dsCondicionesDePago = null;
 var dsTarifas = null;
+var dsCondicionesDePagoMUL = null;
 // END_CUSTOM_CODE_funcionalidad01
