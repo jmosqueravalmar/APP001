@@ -30,6 +30,9 @@ var dsTareas = new kendo.data.DataSource({
 });
 //Cargar dsTareas
 function getTareas() {
+    if (!$("#tareas").data("kendoGrid")) {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    };
     $("#tareas").kendoGrid({
         dataSource: dsTareas,
         height: 250,
@@ -107,75 +110,73 @@ function getSelectTipoTarea(accion) {
 }
 
 function getSelectCliente(accion) {
-        if (!$("#txtidc").data("kendoMultiSelect")) {
-            $("#txtidc").kendoMultiSelect({
-                dataSource: {
-                    transport: {
-                        read: {
-                            url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/305",
-                            dataType: "json"
-                        }
-                    },
-                    schema: {
-                        model: {
-                            id: "ClienteID",
-                            fields: {
-                                ClienteID: {
-                                    editable: false,
-                                    nullable: true,
-                                    type: "number"
-                                },
-                                ClienteRazonSocial: {
-                                    type: "string"
-                                }
-                            }
-                        }
-                    },
-                    // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-                    filter: {
-                        field: "ClienteRazonSocial",
-                        operator: "startswith",
-                        value: "EX"
-                    }
-
-                },
-                dataTextField: "ClienteRazonSocial",
-                dataValueField: "ClienteID",
-                filter: "contains"
-            });
-        }
-
-        var values = [];
-        if (accion == "add") {
-
-        } else {
-            var dsTareaCliente = null;
-            dsTareaCliente = new kendo.data.DataSource({
+    if (!$("#txtidc").data("kendoMultiSelect")) {
+        $("#txtidc").kendoMultiSelect({
+            dataSource: {
                 transport: {
                     read: {
-                        url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
-                        dataType: "json",
-                        type: "post",
-                        data: {
-                            txtid: accion
+                        url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/305",
+                        dataType: "json"
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "ClienteID",
+                        fields: {
+                            ClienteID: {
+                                editable: false,
+                                nullable: true,
+                                type: "number"
+                            },
+                            ClienteRazonSocial: {
+                                type: "string"
+                            }
                         }
                     }
+                },
+                // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
+                filter: {
+                    field: "ClienteRazonSocial",
+                    operator: "startswith",
+                    value: "EX"
                 }
-            });
 
-            dsTareaCliente.fetch(function () {
-                var data = dsTareaCliente.data();
-                for (var i = 0; i < dsTareaCliente.total(); i++) {
-                    var TareaCliente = data[i];
-                    values.push(TareaCliente.cli_int_id);
-                };
-                var multiselect = $("#txtidc").data("kendoMultiSelect");
-                multiselect.value(values);
-            });
-            console.log(values);
-            console.log(accion);
-        }
+            },
+            dataTextField: "ClienteRazonSocial",
+            dataValueField: "ClienteID",
+            filter: "contains"
+        });
     }
+
+    var values = [];
+    if (accion == "add") {
+
+    } else {
+        var dsTareaCliente = null;
+        dsTareaCliente = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
+                    dataType: "json",
+                    type: "post",
+                    data: {
+                        txtid: accion
+                    }
+                }
+            }
+        });
+
+        dsTareaCliente.fetch(function () {
+            var data = dsTareaCliente.data();
+            for (var i = 0; i < dsTareaCliente.total(); i++) {
+                var TareaCliente = data[i];
+                values.push(TareaCliente.cli_int_id);
+            };
+            var multiselect = $("#txtidc").data("kendoMultiSelect");
+            multiselect.value(values);
+        });
+    }
+}
 
 //Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {

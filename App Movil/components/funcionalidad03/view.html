@@ -14,6 +14,7 @@
     </div-->
 <!-- Menu Derecho -->
 <!-- Listado Tareas -->
+<script src="components/funcionalidad03/addVos.js"></script>
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas">
     </br>
     <button type="button" class="btn btn-default" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
@@ -90,19 +91,8 @@
             <label class="control-label">Grabar</label>
             </br>
             <button type="button" class="btn btn-default" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
-        </div>
-        <div class="content">
-            <div class="action-area ch50">
-                <label class="control-label">Grabar</label>
-                </br>
-                <button class="button dh btn btn-default" id="captureAudio"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
-            </div>
-            <div class="result-area ch50">
-                <div class="results">
-                    <div id="media"></div>
-                </div>
-                <div class="separator"></div>
-            </div>
+            <button id="captureAudio">Capture Audio</button>
+            <div id="media"></div>
         </div>
         </br>
         <div class="text-center" id="divBtnAdd">
@@ -146,12 +136,11 @@
     <!-- Fin Template Modal Add Tipo de Tarea-->
     <!-- Template Modal Confirmar Add-->
     <div data-role="modalview" id="modalConfirmarInsert" style="width: 300px; height: 150px">
-        </br>
         <h2>Agregar</h2>
         </br>
         <div>
             <div class="col-xs-6">
-                <button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#modalConfirmar').data('kendoMobileModalView').close();">Cancelar</button>
+                <button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#modalConfirmarInsert').data('kendoMobileModalView').close();">Cancelar</button>
             </div>
             <div class="col-xs-6">
                 <button type="button" class="btn btn-default btn-block btn-lg" onclick="accionTarea('insert');">Aceptar</button>
