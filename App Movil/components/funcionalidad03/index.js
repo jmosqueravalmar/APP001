@@ -77,6 +77,7 @@ function getTareas() {
 
 function viewFormTarea() {
     window.location.href = "#accionTarea";
+    $('#formAdd')[0].reset();
     getSelectTipoTarea("add");
     getSelectCliente("add");
     $('#divBtnAdd').show();
@@ -94,13 +95,7 @@ function getSelectTipoTarea(accion) {
             }
         },
         dataTextField: "tiptar_str_nombre",
-        dataValueField: "tiptar_int_id",
-        // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-        filter: {
-            field: "ClienteRazonSocial",
-            operator: "startswith",
-            value: "EX"
-        }
+        dataValueField: "tiptar_int_id"
     });
 
     if (accion == "add") {
@@ -142,16 +137,20 @@ function getSelectCliente(accion) {
                         operator: "startswith",
                         value: "EX"
                     }
+
                 },
                 dataTextField: "ClienteRazonSocial",
                 dataValueField: "ClienteID",
                 filter: "contains"
             });
         }
+
+        var values = [];
         if (accion == "add") {
 
         } else {
-            var dsTareaCliente = new kendo.data.DataSource({
+            var dsTareaCliente = null;
+            dsTareaCliente = new kendo.data.DataSource({
                 transport: {
                     read: {
                         url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
@@ -163,7 +162,7 @@ function getSelectCliente(accion) {
                     }
                 }
             });
-            var values = [];
+
             dsTareaCliente.fetch(function () {
                 var data = dsTareaCliente.data();
                 for (var i = 0; i < dsTareaCliente.total(); i++) {
@@ -173,9 +172,12 @@ function getSelectCliente(accion) {
                 var multiselect = $("#txtidc").data("kendoMultiSelect");
                 multiselect.value(values);
             });
+            console.log(values);
+            console.log(accion);
         }
     }
-    //Función Agregar. Editar y Eliminar Tarea
+
+//Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {
     var valido = true;
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
@@ -234,9 +236,41 @@ function accionTarea(accion) {
         success: function (datos) {
             var data = [];
             data = JSON.parse(datos);
-            console.log(datos);
-            if (data[0].Column1 > 0 || $('#txtid').val() > 0) { //Si intertado es mayor que cero O es acción es edición  
-                var txtidc = $('#txtidc').val();
+            var txtidc = $('#txtidc').val();
+            if (data[0].Column1 > 0) { //Si intertado es mayor que cero  
+
+                for (var i = 0; i < $('#txtidc').val().length; i++) {
+                    $.ajax({ // INSERT
+                        type: "post",
+                        url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/cinsert',
+                        data: {
+                            txtid: data[0].Column1,
+                            txtidc: txtidc[i]
+                        },
+                        async: false,
+                        error: function () {
+                            var notificationElement = $("#notification");
+                            notificationElement.kendoNotification();
+                            var notificationWidget = notificationElement.data("kendoNotification");
+                            notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
+                            valido = false;
+                        }
+                    });
+                };
+                if (valido) {
+                    var notificationElement = $("#notification");
+                    notificationElement.kendoNotification();
+                    var notificationWidget = notificationElement.data("kendoNotification");
+                    notificationWidget.show((accion == "insert" ? "Se agregó la nueva tarea" : "Se editó la nueva tarea"), "success");
+
+                    var grid = $("#tareas").data("kendoGrid");
+                    grid.dataSource.read();
+                    window.location.href = "#tareas1";
+                };
+                return;
+            }
+
+            if ($('#txtid').val() > 0) { //Es edición  
                 var dsTareaCliente = new kendo.data.DataSource({
                     transport: {
                         read: {
@@ -306,12 +340,7 @@ function accionTarea(accion) {
                     grid.dataSource.read();
                     window.location.href = "#tareas1";
                 };
-            } else {
-                var notificationElement = $("#notification");
-                notificationElement.kendoNotification();
-                var notificationWidget = notificationElement.data("kendoNotification");
-                notificationWidget.show("No se pudo agregar la tarea", "error");
-            }
+            };
         },
         error: function () {
             var notificationElement = $("#notification");
@@ -363,26 +392,49 @@ function selectGrid() {
     $('#divBtnAccion').show();
 }
 
-
-
-
-
-
-
-function openModal() {
-    $("#foo").data("kendoMobileModalView").open();
+function addTipoTarea() {
+    var valido = true;
+    $('#txtnombre, #txtdescripcion').parent().parent().removeClass("has-error");
+    if ($('#txtnombre').val() == "") {
+        $('#txtnombre').parent().parent().addClass("has-error");
+        valido = false;
+    }
+    if ($('#txtdescripcion').val() == "") {
+        $('#txtdescripcion').parent().parent().addClass("has-error");
+        valido = false;
+    }
+    valido && $.ajax({
+        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/tipoInsert',
+        type: "post",
+        data: {
+            txtnombre: $('#txtnombre').val(),
+            txtdescripcion: $('#txtdescripcion').val(),
+            txtuserid: 101
+        },
+        async: false,
+        success: function (datos) {
+            alert(datos);
+            if (datos.replace(/^\s+/g, '').replace(/\s+$/g, '') == '[{"Ejecucion":0}]') { // Lo que devuelve el servidor
+                var notificationElement = $("#notification");
+                notificationElement.kendoNotification();
+                var notificationWidget = notificationElement.data("kendoNotification");
+                notificationWidget.show("Se agregó nuevo tipo de tarea", "success");
+                $("#modalAddTipoTarea").data("kendoMobileModalView").close();
+            } else {
+                var notificationElement = $("#notification");
+                notificationElement.kendoNotification();
+                var notificationWidget = notificationElement.data("kendoNotification");
+                notificationWidget.show("No se pudo agregar el tipo de tarea", "error");
+            }
+        },
+        error: function () {
+            var notificationElement = $("#notification");
+            notificationElement.kendoNotification();
+            var notificationWidget = notificationElement.data("kendoNotification");
+            notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
+        }
+    });
 }
-
-function closeModal() {
-    $("#foo").data("kendoMobileModalView").close();
-}
-function confirmado() {
-    $("#foo").data("kendoMobileModalView").close();
-    alert(1);
-}
-
-
-
 
 
 //Para mantener active el button-group
@@ -390,4 +442,4 @@ $(document).on("change", "input[type='radio']", function () {
     $("input[type='radio']").parent().removeClass("active");
     $(this).parent().toggleClass("active");
 });
-// END_CUSTOM_CODE_funcionalidad03
+// END_CUSTOM_CODE_funcionalidad03 17/11/2015 12.32 pm

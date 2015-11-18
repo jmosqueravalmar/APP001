@@ -22,13 +22,13 @@
     </div>
 </div>
 <!-- Fin Listado Tareas -->
-<!-- Acción Tarea -->
+<!-- Acción Tarea: Add Insert Delete -->
 <div data-role="view" id="accionTarea" data-title="Tarea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#tareas1">Regresar</a>
     </div>
-    <form class="col-md-12">
+    <form class="col-md-12" id="formAdd">
         <!--Para almacenar el id de la tarea a eliminar o editar-->
         <input id="txtid" type="hidden" placeholder="txtid">
         <div class="form-group" align="left">
@@ -40,7 +40,8 @@
             <label class="control-label" for="txtidtt">Tipo</label>
             <div class="input-group">
                 <select id="txtidtt" class="form-control input-md" required=""></select>
-                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="input-group-btn" onclick="$('#modalAddTipoTarea').data('kendoMobileModalView').open();">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
                 </span>
             </div>
@@ -105,23 +106,83 @@
         </div>
         </br>
         <div class="text-center" id="divBtnAdd">
-            <button type="button" class="btn btn-default btn-lg" onclick="accionTarea('insert');"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Agregar Nueva Tarea</button>
+            <button type="button" class="btn btn-default btn-lg" onclick="$('#modalConfirmarInsert').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Agregar Nueva Tarea</button>
         </div>
     </form>
     <div id="divBtnAccion">
         <div class="col-xs-6">
-            <button type="button" class="btn btn-default btn-block btn-lg" onclick="accionTarea('update');"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</button>
+            <button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#modalConfirmarUpdate').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</button>
         </div>
         <div class="col-xs-6">
-            <button type="button" class="btn btn-default btn-block btn-lg" onclick="accionTarea('delete');"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
+            <button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#modalConfirmarDelete').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
         </div>
     </div>
-    <div>
-        <button type="button" class="btn btn-default" data-role="button" data-click="openModal">open</button>
+    <!-- Template Modal Add Tipo de Tarea-->
+    <div data-role="modalview" id="modalAddTipoTarea" style="width: 300px; height: 300px">
+        </br>
+        <form class="col-md-12">
+            <div class="form-group">
+                <label class="control-label" for="txtnombre">Tipo</label>
+                <div>
+                    <input id="txtnombre" type="text" placeholder="Tipo de tarea" class="form-control input-md" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="txtdescripcion">Descripción</label>
+                <div>
+                    <textarea id="txtdescripcion" class="form-control" rows="5" placeholder="Descripción de tarea"></textarea>
+                </div>
+            </div>
+        </form>
+        <div>
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block btn-lg" data-role="button" onclick="$('#modalAddTipoTarea').data('kendoMobileModalView').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block btn-lg" data-role="button" onclick="addTipoTarea('insert');"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+            </div>
+        </div>
     </div>
-    <div data-role="modalview" id="foo" style="width: 200px; height: 200px">
-        <button type="button" class="btn btn-default" data-role="button" data-click="closeModal">Cancelar</button>
-        <button type="button" data-role="button" data-click="confirmado" class="btn btn-default">Aceptar</button>
+    <!-- Fin Template Modal Add Tipo de Tarea-->
+    <!-- Template Modal Confirmar Add-->
+    <div data-role="modalview" id="modalConfirmarInsert" style="width: 300px; height: 150px">
+        </br>
+        <h2>Confirmar</h2>
+        <div>
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#modalConfirmar').data('kendoMobileModalView').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block btn-lg" onclick="accionTarea('insert');">Aceptar</button>
+            </div>
+        </div>
     </div>
+    <!-- Fin Template Modal Confirmar Add-->
+    <!-- Template Modal Confirmar Update-->
+    <div data-role="modalview" id="modalConfirmarUpdate" style="width: 300px; height: 150px">
+        <h2>Editar</h2>
+        <div>
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#modalConfirmarUpdate').data('kendoMobileModalView').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="accionModal" type="button" class="btn btn-default btn-block btn-lg" onclick="accionTarea('update');">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Template Modal Confirmar Edit Delete-->
+    <!-- Template Modal Confirmar Delete-->
+    <div data-role="modalview" id="modalConfirmarDelete" style="width: 300px; height: 150px">
+        <h2>Eliminar</h2>
+        <div>
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#modalConfirmarDelete').data('kendoMobileModalView').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="accionModal" type="button" class="btn btn-default btn-block btn-lg" onclick="accionTarea('delete');">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Template Modal Confirmar Edit Delete-->
 </div>
 <!-- Fin Acción Tarea -->
