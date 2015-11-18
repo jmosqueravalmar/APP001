@@ -197,12 +197,24 @@ app.funcionalidad01 = kendo.observable({
               var view2 = dsParticipacionAUSAyAgencias.view();
               //console.log("view2 >> length: " + view2.length);
               //console.log("view2 >> Agente: " + view2[0].Agente);
+              //TODO-WIP IMPLEMENTS VISUAL ALERTS 
               $("#PorcDespachosVigentes").html(view2[0].PorcDespachosVigentes + "%");
+              AlertaProcentageRangos(view2[0].PorcDespachosVigentes,"PorcDespachosVigentes");
+             
               $("#PorcDespachosAnterior").html(view2[0].PorcDespachosAnterior + "%");
+              AlertaProcentageRangos(view2[0].PorcDespachosAnterior,"PorcDespachosAnterior");
+             
               $("#PorcFOBVigente").html(view2[0].PorcFOBVigente + "%");
+              AlertaProcentageRangos(view2[0].PorcFOBVigente,"PorcFOBVigente");
+             
               $("#PorcFOBAnterior").html(view2[0].PorcFOBAnterior + "%");
-              $("#PorcCIFVigente").html(view2[0].PorcFOBAnterior + "%");
+              AlertaProcentageRangos(view2[0].PorcFOBAnterior,"PorcFOBAnterior");
+             
+              $("#PorcCIFVigente").html(view2[0].PorcCIFVigente + "%");
+              AlertaProcentageRangos(view2[0].PorcCIFVigente,"PorcCIFVigente");
+             
               $("#PorcCIFAnterior").html(view2[0].PorcCIFAnterior + "%");
+              AlertaProcentageRangos(view2[0].PorcCIFAnterior,"PorcCIFAnterior");
 
          });
         //PARTICIPACION AUSA Y OTRAS AGENCIAS END
@@ -288,9 +300,10 @@ app.funcionalidad01 = kendo.observable({
              var data = this.data();
              //console.log("dsCondicionesDePago.data() >> length: " + data.length);            
              
+             //TODO-WIP CHAGE THE STYLE FOR SUB DETAILS
              for (var i = 0; i < data.length; i++) {
                  //console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
-                 strHTMLCondicionesDePago += "<details>";
+                 strHTMLCondicionesDePago += "<details class=\"StandardDetails\">";
                  strHTMLCondicionesDePago += "<summary><b>";
                  strHTMLCondicionesDePago += data[i].Servicio;                 
                  strHTMLCondicionesDePago += "</b></summary>";
@@ -469,4 +482,18 @@ var dsIngresoDespachoAduanaUsoAOLMes = null;
 var dsCondicionesDePago = null;
 var dsTarifas = null;
 var dsCondicionesDePagoMUL = null;
+
+function AlertaProcentageRangos(valorIndicador,elementoAlerta){
+    console.log("AlertaProcentageRangos >>> nivelAlerta: " + valorIndicador + " elementoAlerta: " + elementoAlerta);
+    var colorAlerta = "";
+    if (valorIndicador >= 100.00) {
+        colorAlerta = "red";
+    } else if (valorIndicador >= 80.00 && valorIndicador < 100.00) {
+        colorAlerta = "orange";
+    } else if (valorIndicador < 80.00 ) {
+        colorAlerta = "green";
+    }
+    //$("#PorcDespachosVigentes").css("background-color","yellow");
+    eval("$(\"#Alerta"+elementoAlerta+"\").css(\"background-color\",\""+colorAlerta+"\");");
+}
 // END_CUSTOM_CODE_funcionalidad01
