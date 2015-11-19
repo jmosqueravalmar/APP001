@@ -82,3 +82,8 @@
 .StandardDetails details summary{
     display: block;
 }
+
+.ItemLstCliente{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

@@ -1,12 +1,14 @@
 <div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-before-show="app.funcionalidad01.beforeShow" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
 
-    <div id="lstCliente" class="container-fluid" ></div>
+    <div id="lstCliente" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;"></div>
     
     <script type="text/x-kendo-tmpl" id="tmpLstCliente">
-        <dl style="border-bottom-style: solid; border-bottom-color: black; border-bottom-width: thin">        
-            <dt>#:ClienteRazonSocial#</dt>
-        </dl>
+         <div class="row">
+            <div class="col-xs-12 ItemLstCliente">
+                <b>#:ClienteRazonSocial#</b>                
+            </div>
+        </div>
     </script>
     
     <!--
