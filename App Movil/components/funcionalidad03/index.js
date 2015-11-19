@@ -335,8 +335,13 @@ function accionTarea(accion) {
                     var notificationElement = $("#notification");
                     notificationElement.kendoNotification();
                     var notificationWidget = notificationElement.data("kendoNotification");
-                    notificationWidget.show((accion == "insert" ? "Se agregó la nueva tarea" : "Se editó la nueva tarea"), "success");
-
+                    switch (accion) {
+                        case "insert":
+                            notificationWidget.show("Se agregó la nueva tarea", "success");
+                            break;
+                        default:
+                            notificationWidget.show((accion == "delete" ? "Se eliminó la nueva tarea" : "Se editó la nueva tarea"), "success");
+                    }
                     var grid = $("#tareas").data("kendoGrid");
                     grid.dataSource.read();
                     window.location.href = "#tareas1";
@@ -414,8 +419,10 @@ function addTipoTarea() {
         },
         async: false,
         success: function (datos) {
-            alert(datos);
-            if (datos.replace(/^\s+/g, '').replace(/\s+$/g, '') == '[{"Ejecucion":0}]') { // Lo que devuelve el servidor
+            var data = [];
+            data = JSON.parse(datos);
+            if (data[0].Ejecucion == 0) {
+                getSelectTipoTarea("add");
                 var notificationElement = $("#notification");
                 notificationElement.kendoNotification();
                 var notificationWidget = notificationElement.data("kendoNotification");
