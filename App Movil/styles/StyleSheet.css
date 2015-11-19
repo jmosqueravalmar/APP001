@@ -50,10 +50,10 @@
     }
     
     summary:before {
-    	background: red;
+      background: green;
       border-radius: 5px;
-      content: "+";
-      color: #fff;
+      content: "[+]";
+      color: #FFF;
       font-size: 1.2em;
       font-weight: bold;
       margin: 0 10px 0 0;
@@ -65,10 +65,10 @@
     }
     
     details[open] summary:before {
-    	background: green;
+     background: red;
       border-radius: 5px;
-      content: "+";
-      color: #fff;
+      content: "[--]";
+      color: #FFF;
       font-size: 1.2em;
       font-weight: bold;
       margin: 0 10px 0 0;
@@ -78,3 +78,12 @@
       padding-right: 2px;
       padding-bottom: 2px;
     }
+
+.StandardDetails details summary{
+    display: block;
+}
+
+.ItemLstCliente{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

@@ -1,12 +1,14 @@
 <div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-before-show="app.funcionalidad01.beforeShow" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
 
-    <div id="lstCliente" class="container-fluid" ></div>
+    <div id="lstCliente" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;"></div>
     
     <script type="text/x-kendo-tmpl" id="tmpLstCliente">
-        <dl style="border-bottom-style: solid; border-bottom-color: black; border-bottom-width: thin">        
-            <dt>#:ClienteRazonSocial#</dt>
-        </dl>
+         <div class="row">
+            <div class="col-xs-12 ItemLstCliente">
+                <b>#:ClienteRazonSocial#</b>                
+            </div>
+        </div>
     </script>
     
     <!--
@@ -244,34 +246,145 @@
                     &nbsp;
                 </div>
             </div>
-       
-            <div class="row">
-                <div class="col-xs-12">
-                    <dl>
-                        <dt>PARTICIPACION CANTIDAD</dt>
-                        <dd> - ACUMULADO DEL MES <span id="PorcDespachosVigentes">xy.z%</span></dd>
-                        <dd> - CIERRE DEL MES ANTERIOR <span id="PorcDespachosAnterior">xy.z%</span></dd>
-                    </dl>                
-                </div>
-             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <dl>
-                        <dt>PARTICIPACION FOB MONTO</dt>
-                        <dd> - ACUMULADO DEL MES <span id="PorcFOBVigente">xy.z%</span></dd>
-                        <dd> - CIERRE DEL MES ANTERIOR <span id="PorcFOBAnterior">xy.z%</span></dd>
-                    </dl>                
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <dl>
-                        <dt>PARTICIPACION CIF MONTO</dt>
-                        <dd> - ACUMULADO DEL MES <span id="PorcCIFVigente">xy.z%</span></dd>
-                        <dd> - CIERRE DEL MES ANTERIOR <span id="PorcCIFAnterior">xy.z%</span></dd>
-                    </dl>                
-                </div>
-            </div>
+           
+            <!-- TODO-WIP: IMPLEMENTS VISUAL ALERTS  -->
+            <!-- PARTICIPACION CANTIDAD START  -->
+           <div class="row">
+               <div class="col-xs-12">
+                 <b>PARTICIPACION CANTIDAD</b> 
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-8">
+                 <b>- ACUMULADO DEL MES</b>
+               </div>
+               <div class="col-xs-2">
+                 <b id="PorcDespachosVigentes">xy.z%</b>
+               </div>
+               <div id="AlertaPorcDespachosVigentes" class="col-xs-1">
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               </div>
+               <div class="col-xs-1">
+                 &nbsp;
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-12">
+                 &nbsp; 
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-8">
+                 <b>- CIERRE DEL MES ANTERIOR</b>
+               </div>
+               <div class="col-xs-2">
+                 <b id="PorcDespachosAnterior">xy.z%</b>
+               </div>
+               <div id="AlertaPorcDespachosAnterior" class="col-xs-1">
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               </div>
+               <div class="col-xs-1">
+                 &nbsp;
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-12">
+                 &nbsp; 
+               </div>
+           </div>
+           <!-- PARTICIPACION CANTIDAD END  -->
+           
+           <!-- PARTICIPACION FOB MONTO START  -->           
+           <div class="row">
+               <div class="col-xs-12">
+                 <b>PARTICIPACION FOB MONTO</b> 
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-8">
+                 <b>- ACUMULADO DEL MES</b>
+               </div>
+               <div class="col-xs-2">
+                 <b id="PorcFOBVigente">xy.z%</b>
+               </div>
+               <div id="AlertaPorcFOBVigente" class="col-xs-1">
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               </div>
+               <div class="col-xs-1">
+                 &nbsp;
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-12">
+                 &nbsp; 
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-8">
+                 <b>- CIERRE DEL MES ANTERIOR</b>
+               </div>
+               <div class="col-xs-2">
+                 <b id="PorcFOBAnterior">xy.z%</b>
+               </div>
+               <div id="AlertaPorcFOBAnterior" class="col-xs-1">
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               </div>
+               <div class="col-xs-1">
+                 &nbsp;
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-12">
+                 &nbsp; 
+               </div>
+           </div>
+           <!-- PARTICIPACION FOB MONTO END  -->
+           
+           <!-- PARTICIPACION CIF MONTO START  -->           
+           <div class="row">
+               <div class="col-xs-12">
+                 <b>PARTICIPACION CIF MONTO</b> 
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-8">
+                 <b>- ACUMULADO DEL MES</b>
+               </div>
+               <div class="col-xs-2">
+                 <b id="PorcCIFVigente">xy.z%</b>
+               </div>
+               <div id="AlertaPorcCIFVigente" class="col-xs-1">
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               </div>
+               <div class="col-xs-1">
+                 &nbsp;
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-12">
+                 &nbsp; 
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-8">
+                 <b>- CIERRE DEL MES ANTERIOR</b>
+               </div>
+               <div class="col-xs-2">
+                 <b id="PorcCIFAnterior">xy.z%</b>
+               </div>
+               <div id="AlertaPorcCIFAnterior" class="col-xs-1">
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               </div>
+               <div class="col-xs-1">
+                 &nbsp;
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xs-12">
+                 &nbsp; 
+               </div>
+           </div>
+           <!-- PARTICIPACION CIF MONTO END  -->
        </details>
        
        <div class="row">
