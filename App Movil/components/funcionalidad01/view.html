@@ -1,10 +1,10 @@
 <div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-before-show="app.funcionalidad01.beforeShow" data-show="app.funcionalidad01.onShow" data-after-show="app.funcionalidad01.afterShow">
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
 
-    <div id="lstCliente" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;"></div>
+    <div id="lstCliente" class="container-fluid"></div>
     
     <script type="text/x-kendo-tmpl" id="tmpLstCliente">
-         <div class="row">
+         <div class="row BorderItemLstCliente">
             <div class="col-xs-12 ItemLstCliente">
                 <b>#:ClienteRazonSocial#</b>                
             </div>
@@ -486,29 +486,34 @@
         </div>
         
         <details>
-            <summary><b>INGRESO ADUANAS</b></summary>        
+            <summary><b>INGRESO ADUANAS</b></summary>
             <div class="row">
-                <div class="col-xs-9">
-                    CIERRE MES ANTERIOR
-                </div>
-                <div id="PartAduanaCierreMesAnterior" class="col-xs-3">
-                    $xyz.uw
+                <div class="col-xs-12">
+                    &nbsp;
                 </div>
             </div>
-            <div class="row">
+            <div class="row MarginBotton5">
                 <div class="col-xs-9">
-                    ACUMULADO DEL MES
+                    <b>CIERRE MES ANTERIOR</b>
                 </div>
-                <div id="PartAduanaAcumuladoMes" class="col-xs-3">
-                    $yzu.wx
+                <div class="col-xs-3">
+                    <b  id="PartAduanaCierreMesAnterior">$xyz.uw</b>
                 </div>
             </div>
-            <div class="row">
+            <div class="row MarginBotton5">
                 <div class="col-xs-9">
-                    ACUMULADO ULTIMOS 3 MESES
+                    <b>ACUMULADO DEL MES</b>
                 </div>
-                <div id="PartAduanaAcumuladoTresMeses" class="col-xs-3">
-                    $zuw.xy
+                <div class="col-xs-3">
+                    <b  id="PartAduanaAcumuladoMes">$yzu.wx</b>
+                </div>
+            </div>
+            <div class="row MarginBotton5">
+                <div class="col-xs-9">
+                    <b>ACUMULADO ULTIMOS 3 MESES</b>
+                </div>
+                <div class="col-xs-3">
+                    <b id="PartAduanaAcumuladoTresMeses">$zuw.xy</b>
                 </div>
             </div>            
         </details>        
@@ -529,7 +534,7 @@
                 &nbsp;
             </div>
       </div>
-        
+      <!-- TODO-WIP:  CHANGE TO MODAL VIEW REFACTOR IT  -->  
       <details>
             <summary><b>CONDICIONES DE PAGO</b></summary>
             <div class="row">
@@ -539,11 +544,12 @@
             </div>
       </details>
       
-    <div class="row">
+      <div class="row">
          <div class="col-xs-12">
                 &nbsp;
          </div>
-     </div>
+      </div>
+        
     </div> 
     <!--  PARTICIPACION CONDICIONES DE PAGO END  -->
 
@@ -607,7 +613,7 @@
 
 <!-- TODO-WIP -->
 <!-- DETALLE  Morosidad y Utilizacion Linea START-->
-<div data-role="view" id="det-MorosidadUtilizacionLinea" data-title="Morosidad y Utilizacion Linea" data-show="app.funcionalidad01.MostraMorosidadUtilizacionLinea">
+<div data-role="view" id="det-MorosidadUtilizacionLinea" data-title="Morosidad y Utilizacion" data-show="app.funcionalidad01.MostraMorosidadUtilizacionLinea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#det-cliente">Regresar</a>

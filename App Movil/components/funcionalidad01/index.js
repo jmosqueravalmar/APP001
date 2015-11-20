@@ -300,7 +300,8 @@ app.funcionalidad01 = kendo.observable({
              var data = this.data();
              //console.log("dsCondicionesDePago.data() >> length: " + data.length);            
              
-             //TODO-WIP CHAGE THE STYLE FOR SUB DETAILS
+             //TODO-WIP CHANGE THE STYLE FOR SUB DETAILS
+             //TODO-WIP CHANGE CHANGE TO MODAL VIEW REFACTOR IT
              for (var i = 0; i < data.length; i++) {
                  //console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
                  strHTMLCondicionesDePago += "<details class=\"StandardDetails\">";

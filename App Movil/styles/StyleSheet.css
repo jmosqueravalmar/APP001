@@ -95,3 +95,14 @@
 .MarginBotton5 {
      margin-bottom: 5px;
 }
+
+.BorderItemLstCliente{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    margin-right:3px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    min-height:40px;
+}
