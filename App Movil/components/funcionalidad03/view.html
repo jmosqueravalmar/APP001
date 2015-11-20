@@ -34,7 +34,7 @@
     }
     .k-state-default>.k-select {
         background-color: #fff;
-    }
+    }ground-color
 </style>
 <script src="components/funcionalidad03/addVos.js"></script>
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas">
@@ -109,16 +109,17 @@
                 </label>
             </div>
         </div>
-        <div id="divNotaVoz" id="divNotaVoz">
+        <div id="divNotaVoz">
             <label class="control-label">Grabar</label>
             </br>
             <button type="button" class="btn btn-default" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
+            <p id="divNotaVoz"></p>
             <button id="captureAudio">Capture Audio</button>
             <div id="media"></div>
         </div>
         </br>
         <div class="text-center" id="divBtnAdd">
-            <button type="button" class="btn btn-default btn-lg" onclick="$('#modalConfirmarInsert').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Agregar Nueva Tarea</button>
+            <button type="button" class="btn btn-default btn-lg" onclick="$('#modalConfirmarInsert').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Nueva Tarea</button>
         </div>
     </form>
     <div id="divBtnAccion">

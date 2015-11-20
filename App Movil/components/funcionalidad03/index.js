@@ -8,7 +8,6 @@ app.funcionalidad03 = kendo.observable({
     }
 });
 
-
 //DataSorce tareas
 var dsTareas = new kendo.data.DataSource({
     transport: {
@@ -33,12 +32,11 @@ function getTareas() {
     if (!$("#tareas").data("kendoGrid")) {
         document.addEventListener("deviceready", onDeviceReady, false);
     };
+
     $("#tareas").kendoGrid({
         dataSource: dsTareas,
-        height: 250,
         filterable: true,
         sortable: true,
-        scrollable: false,
         pageable: true,
         selectable: "row",
         change: selectGrid,
@@ -56,24 +54,25 @@ function getTareas() {
                 field: "tar_dat_fchcreacion",
                 title: "F. Creación",
                 template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
-                width: "50px"
+                width: "120px"
             },
             {
                 field: "tar_dat_fchlimite",
                 title: "F. Limite",
                 template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
-                width: "50px"
+                width: "120px"
             },
             {
                 field: "tar_int_estado",
                 title: "Estado",
-                template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#'
+                template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#',
+                width: "100px"
             },
             {
                 field: "tar_int_prioridad",
                 title: "Prioridad",
                 template: '#if(tar_int_prioridad==1){#<span class = "glyphicon glyphicon-arrow-down text-success" aria-hidden = "true" ></span>Baja#}else{if(tar_int_prioridad==3){#<span class="glyphicon glyphicon-arrow-up text-danger" aria-hidden="true"></span>Alta#}else{#<span class = "glyphicon glyphicon glyphicon-arrow-right text-warning" aria-hidden="true"></span>Media#}}#',
-                width: "50px"
+                width: "110px"
             }]
     });
 }
@@ -358,17 +357,14 @@ function accionTarea(accion) {
 }
 
 function addNotaVoz() {
-    $("#divNotaVoz").append('Audio01 <span type="xxx" class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
+    $("#divNotaVoz").append('<span>Audio01 <span type="xxx" class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>');
 }
 
 //Eliminar nota de audio
 $(document).on("click", "span[type='xxx']", function () {
-  alert( "Handler for .click() called." );  
+    $(this).parent().remove();
 });
 
-$( "glyphicon-remove" ).click(function() {
-  alert( "Handler for .click() called." );
-});
 
 
 function selectGrid() {
@@ -381,14 +377,19 @@ function selectGrid() {
     $('#txtobserv').val(this.dataItem(seleccion).tar_str_observacion);
     $('#txtdetalle').val(this.dataItem(seleccion).tar_txt_detalle);
     $("input[type='radio']").parent().removeClass("active");
+
+    $("span[type='btnCheck']").remove();
     switch (this.dataItem(seleccion).tar_int_prioridad) {
         case 1:
             $('#txtprioridad1').toggleClass("active");
+            $('#txtprioridad1').prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
             break;
         case 2:
             $('#txtprioridad2').toggleClass("active");
+            $('#txtprioridad2').prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
             break;
         default:
+            $('#txtprioridad3').prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
             $('#txtprioridad3').toggleClass("active");
     };
     var tar_dat_fchlimite = new Date(parseInt((this.dataItem(seleccion).tar_dat_fchlimite).replace(/\D/g, ''), 10));
@@ -402,7 +403,7 @@ function selectGrid() {
     $('#txtflimite').val(tar_dat_fchlimite);
     $('#divBtnAdd').hide();
     $('#divBtnAccion').show();
-    
+
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
     $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
 }
@@ -418,6 +419,7 @@ function addTipoTarea() {
         $('#txtdescripcion').parent().parent().addClass("has-error");
         valido = false;
     }
+    ok
     valido && $.ajax({
         url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/tipoInsert',
         type: "post",
@@ -458,5 +460,7 @@ function addTipoTarea() {
 $(document).on("change", "input[type='radio']", function () {
     $("input[type='radio']").parent().removeClass("active");
     $(this).parent().toggleClass("active");
+    $("span[type='btnCheck']").remove();
+    $(this).parent().prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
 });
 // END_CUSTOM_CODE_funcionalidad03 17/11/2015 12.32 pm

@@ -1,129 +1,45 @@
 <!-- Inicio formulario -->
+
 <div id="ListaOrdenes" data-role="view" data-title="Seguimiento de Tareas" data-layout="main" data-model="app.PruebaTareas" data-show="app.PruebaTareas.onShow" data-after-show="app.PruebaTareas.afterShow">
-    <!--div id="example">
-        <div id="grid"></div>
-        <script>
-            $(document).ready(function () {
-                var crudServiceBaseUrl = "//demos.telerik.com/kendo-ui/service",
-                    dataSource = new kendo.data.DataSource({
-                        transport: {
-                            read: {
-                                url: crudServiceBaseUrl + "/Products",
-                                dataType: "jsonp"
+    <div id="grid"></div>
+    <script>
+        
+
+        $("#grid").kendoGrid({
+            dataSource: {
+                type: "odata",
+                transport: {
+                    read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            OrderID: {
+                                type: "number"
                             },
-                            update: {
-                                url: crudServiceBaseUrl + "/Products/Update",
-                                dataType: "jsonp"
+                            ShipName: {
+                                type: "string"
                             },
-                            destroy: {
-                                url: crudServiceBaseUrl + "/Products/Destroy",
-                                dataType: "jsonp"
-                            },
-                            create: {
-                                url: crudServiceBaseUrl + "/Products/Create",
-                                dataType: "jsonp"
-                            },
-                            parameterMap: function (options, operation) {
-                                if (operation !== "read" && options.models) {
-                                    return {
-                                        models: kendo.stringify(options.models)
-                                    };
-                                }
-                            }
-                        },
-                        batch: true,
-                        pageSize: 20,
-                        schema: {
-                            model: {
-                                id: "ProductID",
-                                fields: {
-                                    ProductID: {
-                                        editable: false,
-                                        nullable: true
-                                    },
-                                    ProductName: {
-                                        validation: {
-                                            required: true
-                                        }
-                                    },
-                                    UnitPrice: {
-                                        type: "number",
-                                        validation: {
-                                            required: true,
-                                            min: 1
-                                        }
-                                    },
-                                    Discontinued: {
-                                        type: "boolean"
-                                    },
-                                    UnitsInStock: {
-                                        type: "number",
-                                        validation: {
-                                            min: 0,
-                                            required: true
-                                        }
-                                    }
-                                }
+                            ShipCity: {
+                                type: "string"
                             }
                         }
-                    });
-
-                $("#grid").kendoGrid({
-                    dataSource: dataSource,
-                    pageable: true,
-                    height: 550,
-                    toolbar: ["create"],
-                    columns: [
-                            "ProductName",
-                        {
-                            field: "UnitPrice",
-                            title: "Unit Price",
-                            format: "{0:c}",
-                            width: "120px"
-                        },
-                        {
-                            field: "UnitsInStock",
-                            title: "Units In Stock",
-                            width: "120px"
-                        },
-                        {
-                            field: "Discontinued",
-                            width: "120px"
-                        },
-                        {
-                            command: ["edit", "destroy"],
-                            title: "&nbsp;",
-                            width: "250px"
-                        }],
-                    editable: "inline"
-                });
-            });
-        </script>
-    </div-->
-    <button type="button" class="btn btn-primary" onclick="adminTareas();"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Administrar tipos</button>
-</div>
-<!-- Administrar Tipo de Tarea -->
-<div data-role="view" id="addTipoTarea" data-title="Crear Tipo">
-    <div data-role="navbar">
-        <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#ListaOrdenes">Regresar</a>
-    </div>
-    <h3 class="text-center">HUAWUEI</h3>
-    <form class="col-md-12">
-        <div class="form-group">
-            <label class="control-label" for="txtnombre">Tipo</label>
-            <div>
-                <input id="txtnombre" type="text" placeholder="Tipo de tarea" class="form-control input-md" required="">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="txtdescripcion">Descripción</label>
-            <div>
-                <textarea id="txtdescripcion" class="form-control" rows="5" placeholder="Descripción de tarea"></textarea>
-            </div>
-        </div>
-        <div class="text-center">
-            <button type="button" class="btn btn-primary" onclick="addTipoTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Tipo</button>
-        </div>
-    </form>    
+                    }
+                },
+                pageSize: 10
+            },
+            filterable: true,
+            sortable: true,
+            resizable: true,
+            pageable: true,
+            columns: [{
+                    field: "OrderID",
+                    filterable: false,
+                    width: 200
+        },
+                  "ShipName",
+                  "ShipCity"
+                 ]
+        });
+    </script>
 </div>
