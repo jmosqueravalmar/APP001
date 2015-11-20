@@ -302,6 +302,7 @@ app.funcionalidad01 = kendo.observable({
              
              //TODO-WIP CHANGE THE STYLE FOR SUB DETAILS
              //TODO-WIP CHANGE CHANGE TO MODAL VIEW REFACTOR IT
+             /*
              for (var i = 0; i < data.length; i++) {
                  //console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
                  strHTMLCondicionesDePago += "<details class=\"StandardDetails\">";
@@ -336,6 +337,40 @@ app.funcionalidad01 = kendo.observable({
              }
              
              $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+             */
+             
+             
+             for (var i = 0; i < data.length; i++) {
+                 
+                 strHTMLCondicionesDePago += "<div  class=\"row\">"                 
+                 strHTMLCondicionesDePago += "<div  class=\"col-xs-12\">"                 
+                 strHTMLCondicionesDePago += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModCondPago('" + data[i].Servicio + "','" + data[i].DiasPago + "');\"> ";
+                 strHTMLCondicionesDePago += " <b>";                 
+                 strHTMLCondicionesDePago += data[i].Servicio;
+                 strHTMLCondicionesDePago += " </b>";
+                 strHTMLCondicionesDePago += " </div>";
+                 strHTMLCondicionesDePago += " </div>"
+                 strHTMLCondicionesDePago += " </div>"
+                 /*
+                 strHTMLCondicionesDePago += "<button type=\"button\"  onclick=\"$('#CondPago" + i +  "').data('kendoMobileModalView').open();\">";
+                 strHTMLCondicionesDePago += data[i].Servicio;
+                 strHTMLCondicionesDePago += "</button>";
+                 strHTMLCondicionesDePago += "<div data-role=\"modalview\" id=\"CondPago" + i +  "\">";
+                 strHTMLCondicionesDePago += "<div>";
+                 strHTMLCondicionesDePago += data[i].Servicio;
+                 strHTMLCondicionesDePago += "</div>";
+                 strHTMLCondicionesDePago += "<div>";
+                 strHTMLCondicionesDePago += "<button type=\"button\"  onclick=\"$('#CondPago" + i +  "').data('kendoMobileModalView').close();\">";
+                 strHTMLCondicionesDePago += "Cancelar";
+                 strHTMLCondicionesDePago += "</button>";                 
+                 strHTMLCondicionesDePago += "</div>";
+                 strHTMLCondicionesDePago += "</div>";
+                 */
+             }
+             
+             $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+             
+             
          });        
         //CONDICIONES DE PAGO END
         
