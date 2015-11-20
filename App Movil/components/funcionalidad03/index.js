@@ -358,12 +358,18 @@ function accionTarea(accion) {
 }
 
 function addNotaVoz() {
-    $("#divNotaVoz").append('Audio01 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
+    $("#divNotaVoz").append('Audio01 <span type="xxx" class="glyphicon glyphicon-remove" aria-hidden="true"></span>');
 }
 
-function deleteNotaVoz(id) {
+//Eliminar nota de audio
+$(document).on("click", "span[type='xxx']", function () {
+  alert( "Handler for .click() called." );  
+});
 
-}
+$( "glyphicon-remove" ).click(function() {
+  alert( "Handler for .click() called." );
+});
+
 
 function selectGrid() {
     window.location.href = "#accionTarea";
