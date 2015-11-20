@@ -402,6 +402,9 @@ function selectGrid() {
     $('#txtflimite').val(tar_dat_fchlimite);
     $('#divBtnAdd').hide();
     $('#divBtnAccion').show();
+    
+    $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
+    $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
 }
 
 function addTipoTarea() {
