@@ -21,8 +21,18 @@ var dsTareas = new kendo.data.DataSource({
         }
     },
     schema: {
-        data: function (data) {
-            return data;
+        model: {
+            fields: {
+                tar_dat_fchcreacion: {
+                    type: "date"
+                },
+                tar_dat_fchlimite: {
+                    type: "date"
+                },
+                tar_int_prioridad: {
+                    type: "string"
+                }
+            }
         }
     },
     pageSize: 10
@@ -38,43 +48,162 @@ function getTareas() {
         filterable: true,
         sortable: true,
         pageable: true,
+        scrollable: false,
         selectable: "row",
         change: selectGrid,
+        filterMenuInit: filterMenu,
         columns: [{
                 field: "tipotarea",
                 title: "Nombre de Tarea",
-                width: "360px"
+                width: "360px",
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            contains: "Contiene",
+                            eq: "Es igual a",
+                            neq: "No es igual a"
+                        }
+                    }
+                }
             },
             {
                 field: "Usuario",
                 title: "Cliente",
-                width: "150px"
+                width: "150px",
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            contains: "Contiene",
+                            eq: "Es igual a",
+                            neq: "No es igual a"
+                        }
+                    }
+                }
             },
             {
                 field: "tar_dat_fchcreacion",
                 title: "F. Creación",
                 template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
-                width: "120px"
+                width: "120px",
+                filterable: {
+                    messages: {
+                        info: "Rango de fechas: "
+                    }
+                }
             },
             {
                 field: "tar_dat_fchlimite",
                 title: "F. Limite",
                 template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
-                width: "120px"
+                width: "120px",
+                filterable: {
+                    messages: {
+                        info: "Rango de fechas: "
+                    }
+                }
             },
             {
                 field: "tar_int_estado",
                 title: "Estado",
                 template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#',
-                width: "100px"
+                width: "100px",
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            contains: "Contiene",
+                            eq: "Es igual a",
+                            neq: "No es igual a"
+                        }
+                    }
+                }
             },
             {
                 field: "tar_int_prioridad",
                 title: "Prioridad",
                 template: '#if(tar_int_prioridad==1){#<span class = "glyphicon glyphicon-arrow-down text-success" aria-hidden = "true" ></span>Baja#}else{if(tar_int_prioridad==3){#<span class="glyphicon glyphicon-arrow-up text-danger" aria-hidden="true"></span>Alta#}else{#<span class = "glyphicon glyphicon glyphicon-arrow-right text-warning" aria-hidden="true"></span>Media#}}#',
-                width: "110px"
-            }]
+                width: "110px",
+                filterable: {
+                    operators: {
+                        string: {
+                            contains: "Contiene"
+                        }
+                    },
+                    extra: false
+                }
+            }],
+        filterable: {
+            messages: {
+                and: "y",
+                or: "o",
+                filter: "Filtrar",
+                clear: "Limpiar",
+                info: "Filtrar por: "
+            }
+        },
+        dataBound: function (e) {
+            /*    var items = this._data;
+                var tableRows = $(this.table).find("tr");
+                tableRows.each(function (index) {
+                    var row = $(this);
+                    var Item = items[index];
+                    var f1 = kendo.parseDate(Item.tar_dat_fchlimite, 'dd-MM-yyyy');
+                    var f2 = kendo.parseDate(Item.tar_dat_fchcreacion, 'dd-MM-yyyy');
+                    var diff = new Date(f1 - f2);
+                    var days = diff / 1000 / 60 / 60 / 24;
+                    if (days < 2) {
+                        row.addClass("danger");
+                    } else {
+                        row.addClass("warning");
+                    }
+                }); 
+              
+                
+            */
+        }
     });
+
+    function filterMenu(e) {
+        if (e.field == "tar_dat_fchcreacion" || e.field == "tar_dat_fchlimite") {
+            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+            beginOperator.value("gte");
+            beginOperator.trigger("change");
+
+            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+            endOperator.value("lte");
+            endOperator.trigger("change");
+            //debugger;
+            e.container.find(".k-dropdown").hide();
+        }
+        if (e.field == "tar_int_prioridad") {
+            e.container.find("k-widget.k-dropdown.k-header").css("background-color", "red");
+            // Change the text field to a dropdownlist in the Role filter menu.
+            e.container.find(".k-textbox:first")
+                //.removeClass("k-textbox")
+                .kendoDropDownList({
+                    dataSource: new kendo.data.DataSource({
+                        data: [
+                            {
+                                title: "Alta",
+                                value: 3
+                            },
+                            {
+                                title: "Media",
+                                value: 2
+                            },
+                            {
+                                title: "Baja",
+                                value: 1
+                            }
+                                ]
+                    }),
+                    dataTextField: "title",
+                    dataValueField: "value"
+                });
+        }
+    };
 }
 
 function viewFormTarea() {
