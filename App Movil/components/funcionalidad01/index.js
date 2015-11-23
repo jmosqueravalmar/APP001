@@ -419,27 +419,12 @@ app.funcionalidad01 = kendo.observable({
                  
                  myStr = data[i].Observacion;
                  
-                 myStr = myStr.replace("\\r\\n", "<br>");
-                 myStr = myStr.replace("•", "(*)");
-                 myStr = myStr.replace("í", "i");
-                 myStr = myStr.replace("ó", "o");
-                 myStr = myStr.replace("ú", "u");
-                 myStr = myStr.replace("é", "e");
-                 myStr = myStr.replace("\\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-                 myStr = myStr.replace("S/.", "Soles");
-                 myStr = myStr.replace("$", "_USD_");
-                 myStr = myStr.replace(" ", "&nbsp;");
-                 
-                 myStr = myStr.replace("\\u0027", "_");
-                 myStr = myStr.replace("/", "-");
-
-                 console.log(" myStr >>>> " + myStr.substr(0,109));
+                 myStr = myStr.replace("\r\n", "\n");
                  
                  strHTMLTarifas += "<div  class=\"row\">";
                  strHTMLTarifas += "<div  class=\"col-xs-12\">";
-                 strHTMLTarifas += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModTarifas('" + data[i].Servicio;                 
-                 //strHTMLTarifas += "','" + "WQEWEWF";
-                 strHTMLTarifas += "','" + myStr;//.substr(0,15); //"WQEWEWF";
+                 strHTMLTarifas += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModTarifas('" + data[i].Servicio;
+                 strHTMLTarifas += "','" + escape(myStr);
                  strHTMLTarifas += "');\"> ";                 
                  strHTMLTarifas += " <b>";                 
                  strHTMLTarifas += data[i].Servicio;                 
@@ -578,8 +563,8 @@ function OpenModCondPago(valServicio,valDiasPago,valHastaMonto,valMoneda,valLine
 
 function OpenModTarifas(valServicio,valObservaciones){
     console.log("OpenModTarifas >>> "+valServicio);
-     $("#ModTarifasServicio").html(valServicio);
-     $("#ModTarifasObservaciones").html(valObservaciones);     
+     $("#ModTarifasServicio").html(valServicio);    
+     $("#ModTarifasObservaciones").html(unescape(valObservaciones));
      $('#ModTarifas').data('kendoMobileModalView').open();
 }
 
