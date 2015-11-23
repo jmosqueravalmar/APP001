@@ -412,15 +412,37 @@ app.funcionalidad01 = kendo.observable({
              
              $("#Tarifas").append(strHTMLTarifas);
              */
+                          
+             var myStr = "";
              
-             for (var i = 0; i < data.length; i++) {                 
-                 strHTMLTarifas += "<div  class=\"row\">"                 
-                 strHTMLTarifas += "<div  class=\"col-xs-12\">"                 
-                 strHTMLTarifas += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModTarifas('" + data[i].Servicio
-                 // strHTMLTarifas += "','" + data[i].DiasPago -- PAR1
+             for (var i = 0; i < data.length; i++) {  
+                 
+                 myStr = data[i].Observacion;
+                 
+                 myStr = myStr.replace("\\r\\n", "<br>");
+                 myStr = myStr.replace("•", "(*)");
+                 myStr = myStr.replace("í", "i");
+                 myStr = myStr.replace("ó", "o");
+                 myStr = myStr.replace("ú", "u");
+                 myStr = myStr.replace("é", "e");
+                 myStr = myStr.replace("\\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+                 myStr = myStr.replace("S/.", "Soles");
+                 myStr = myStr.replace("$", "_USD_");
+                 myStr = myStr.replace(" ", "&nbsp;");
+                 
+                 myStr = myStr.replace("\\u0027", "_");
+                 myStr = myStr.replace("/", "-");
+
+                 console.log(" myStr >>>> " + myStr.substr(0,109));
+                 
+                 strHTMLTarifas += "<div  class=\"row\">";
+                 strHTMLTarifas += "<div  class=\"col-xs-12\">";
+                 strHTMLTarifas += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModTarifas('" + data[i].Servicio;                 
+                 //strHTMLTarifas += "','" + "WQEWEWF";
+                 strHTMLTarifas += "','" + myStr;//.substr(0,15); //"WQEWEWF";
                  strHTMLTarifas += "');\"> ";                 
                  strHTMLTarifas += " <b>";                 
-                 strHTMLTarifas += data[i].Servicio;
+                 strHTMLTarifas += data[i].Servicio;                 
                  strHTMLTarifas += " </b>";
                  strHTMLTarifas += " </div>";
                  strHTMLTarifas += " </div>";
@@ -517,7 +539,6 @@ var dsCliente = new kendo.data.DataSource({
      filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
 });
 
-
 var UsuarioID = "";
 var ClienteID = "";
 var dsContactosCliente = null;
@@ -555,10 +576,13 @@ function OpenModCondPago(valServicio,valDiasPago,valHastaMonto,valMoneda,valLine
      $('#ModCondPago').data('kendoMobileModalView').open();
 }
 
-function OpenModTarifas(valServicio){
+function OpenModTarifas(valServicio,valObservaciones){
     console.log("OpenModTarifas >>> "+valServicio);
-     //$("#ModServicio").html(valServicio);
-     
-     //$('#ModCondPago').data('kendoMobileModalView').open();
+     $("#ModTarifasServicio").html(valServicio);
+     $("#ModTarifasObservaciones").html(valObservaciones);     
+     $('#ModTarifas').data('kendoMobileModalView').open();
 }
+
+
+
 // END_CUSTOM_CODE_funcionalidad01
