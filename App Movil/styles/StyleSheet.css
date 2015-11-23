@@ -105,4 +105,55 @@
     border-width: 1px;
     border-radius: 10px;
     min-height:40px;
+    text-align: justify;
 }
+
+.DetCondPagoServicio{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    margin-right:3px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    height: 45px;
+    min-width: 200px;
+    text-align: center;
+    padding-top: 10px;
+    /*vertical-align: middle;*/
+}
+
+.wCondPagoServicio{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 100%    
+}
+
+.PopUpCondPago{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    margin: 4px;
+    width: 95%; 
+    height: 70%;
+}
+
+.PopUpTarifas{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    margin: 4px;
+    width: 95%; 
+    height: 70%;    
+}
+
+/*
+div {
+   position:absolute; height:100%; 
+   display: table;
+}
+h1 {
+   display: table-cell;
+   vertical-align: middle;
+}
+*/

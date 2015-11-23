@@ -441,7 +441,7 @@
                     <b id="PartDespachoCierreMesAnterior">$xyz.uw</b>
                 </div>
                 <div class="col-xs-2">
-                    &nbsp:
+                    &nbsp;
                 </div>
             </div>
             <div class="row MarginBotton5">
@@ -452,7 +452,7 @@
                     <b id="PartDespachoAcumuladoMes">$yzu.wx</b>
                 </div>
                 <div class="col-xs-2">
-                    &nbsp:
+                    &nbsp;
                 </div>                
             </div>
             <div class="row MarginBotton5">
@@ -463,7 +463,7 @@
                     <b id="PartDespachoAcumuladoTresMeses">$zuw.xy</b>
                 </div>
                 <div class="col-xs-2">
-                    &nbsp:
+                    &nbsp;
                 </div>
             </div>
         </details>
@@ -538,10 +538,70 @@
       <details>
             <summary><b>CONDICIONES DE PAGO</b></summary>
             <div class="row">
-                <div id="CondicionesDePago" class="col-xs-12">
+                <div id="CondicionesDePago" class="col-xs-12">                    
                     
                 </div>
             </div>
+          
+            <div data-role="modalview" id="ModCondPago" class="PopUpCondPago">
+                <div class="row">
+                     <div class="col-xs-12">
+                             <b id="ModServicio">***Nombre-Servicio***</b>
+                     </div>
+                </div>
+                <br><br>
+                <div class="row">
+                    <div class="col-xs-5"><b>Dias Pago</b></div>
+                    <div class="col-xs-7">
+                        <b id="ModDiasPago">***Total-Dias-Pago***</b>                        
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-5"><b>Hasta Monto</b></div>
+                    <div class="col-xs-7">
+                        <b id="ModHastaMonto">***Hasta-Monto***</b>                        
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-5"><b>Moneda</b></div>
+                    <div class="col-xs-7">
+                        <b id="ModMoneda">***Moneda***</b>                        
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                     <div class="col-xs-5"><b>Linea Credito</b></div>
+                    <div class="col-xs-7">
+                        <b id="ModLineaCredito">***Linea-Credito***</b>                        
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                     <div class="col-xs-5"><b>Linea Negocio</b></div>
+                    <div class="col-xs-7">
+                        <b id="ModLineaNegocio">***Linea-Negocio***</b>                        
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                     <div class="col-xs-5"><b>Compania</b></div>
+                    <div class="col-xs-7">
+                        <b id="ModCompania">***Compania***</b>                        
+                    </div>
+                </div>
+                <br>                
+                <div class="row">
+                    <div class="col-xs-9">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-3">
+                            <button type="button" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>                        
+                    </div>
+                </div>    
+                <br>
+            </div>          
       </details>
       
       <div class="row">
@@ -554,7 +614,8 @@
     <!--  PARTICIPACION CONDICIONES DE PAGO END  -->
 
     <!--  PARTICIPACION TARIFAS START  -->
-    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->    
+    <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
+    <!-- TODO-WIP:  CHANGE TO MODAL VIEW REFACTOR IT  -->
     <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
         <div class="row">
             <div class="col-xs-12">
@@ -565,15 +626,38 @@
             <summary><b> TARIFAS </b></summary>               
             <div class="row">
                 <div id="Tarifas" class="col-xs-12">
-                    <!-- Tarifas ejemplo hard coded
-                    <details>
-                        <summary><b>Nombre Servicio ABC</b></summary>                    
-                            <p>Observaciones</p>
-                            <textarea readonly rows="5" cols="40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>                    
-                    </details>
-                    -->
+
                </div>
             </div>
+            
+            <div data-role="modalview" id="ModTarifas" class="PopUpTarifas">
+                <div class="row">
+                     <div class="col-xs-12">
+                             <b id="ModTarifasServicio">***Nombre-Servicio***</b>
+                     </div>
+                </div>
+                <div class="row">
+                     <div class="col-xs-12">
+                             <p><b>Observaciones</b></p>
+                     </div>
+                </div>
+                <div class="row">
+                     <div class="col-xs-12">
+                             <textarea id="ModTarifasObservaciones" readonly rows="5" cols="40"> </textarea>
+                     </div>
+                </div>                
+                <br>                
+                <div class="row">
+                    <div class="col-xs-9">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-3">
+                            <button type="button" onclick="$('#ModTarifas').data('kendoMobileModalView').close();">Cerrar</button>                        
+                    </div>
+                </div>    
+                <br>                
+            </div>
+            
         </details>        
         <div class="row">
             <div class="col-xs-12">

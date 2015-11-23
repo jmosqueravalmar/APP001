@@ -302,6 +302,7 @@ app.funcionalidad01 = kendo.observable({
              
              //TODO-WIP CHANGE THE STYLE FOR SUB DETAILS
              //TODO-WIP CHANGE CHANGE TO MODAL VIEW REFACTOR IT
+             /*
              for (var i = 0; i < data.length; i++) {
                  //console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
                  strHTMLCondicionesDePago += "<details class=\"StandardDetails\">";
@@ -336,6 +337,32 @@ app.funcionalidad01 = kendo.observable({
              }
              
              $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+             */
+             
+             
+             for (var i = 0; i < data.length; i++) {
+                 
+                 strHTMLCondicionesDePago += "<div  class=\"row\">"                 
+                 strHTMLCondicionesDePago += "<div  class=\"col-xs-12\">"                 
+                 strHTMLCondicionesDePago += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModCondPago('" + data[i].Servicio
+                 strHTMLCondicionesDePago += "','" + data[i].DiasPago
+                 strHTMLCondicionesDePago += "','" + data[i].HastaMonto
+                 strHTMLCondicionesDePago += "','" + data[i].Moneda
+                 strHTMLCondicionesDePago += "','" + data[i].LineaCredito
+                 strHTMLCondicionesDePago += "','" + data[i].LineaNegocio
+                 strHTMLCondicionesDePago += "','" + data[i].Compania
+                 strHTMLCondicionesDePago += "');\"> ";                 
+                 strHTMLCondicionesDePago += " <b>";                 
+                 strHTMLCondicionesDePago += data[i].Servicio;
+                 strHTMLCondicionesDePago += " </b>";
+                 strHTMLCondicionesDePago += " </div>";
+                 strHTMLCondicionesDePago += " </div>";
+                 strHTMLCondicionesDePago += " </div>";
+             }
+             
+             $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+             
+             
          });        
         //CONDICIONES DE PAGO END
         
@@ -367,8 +394,9 @@ app.funcionalidad01 = kendo.observable({
          dsTarifas.fetch(function(){
              var strHTMLTarifas = "";
              var data = this.data();
-             //console.log("dsTarifas.data() >> length: " + data.length);            
-             
+             //console.log("dsTarifas.data() >> length: " + data.length);
+
+             /*
              for (var i = 0; i < data.length; i++) {
                  //console.log("dsTarifas.Servicio: " + data[i].Servicio);
                  strHTMLTarifas += "<details>";
@@ -380,6 +408,30 @@ app.funcionalidad01 = kendo.observable({
                  strHTMLTarifas += data[i].Observacion;
                  strHTMLTarifas += "</textarea>";
                  strHTMLTarifas += "</details>";
+             }
+             
+             $("#Tarifas").append(strHTMLTarifas);
+             */
+                          
+             var myStr = "";
+             
+             for (var i = 0; i < data.length; i++) {  
+                 
+                 myStr = data[i].Observacion;
+                 
+                 myStr = myStr.replace("\r\n", "\n");
+                 
+                 strHTMLTarifas += "<div  class=\"row\">";
+                 strHTMLTarifas += "<div  class=\"col-xs-12\">";
+                 strHTMLTarifas += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModTarifas('" + data[i].Servicio;
+                 strHTMLTarifas += "','" + escape(myStr);
+                 strHTMLTarifas += "');\"> ";                 
+                 strHTMLTarifas += " <b>";                 
+                 strHTMLTarifas += data[i].Servicio;                 
+                 strHTMLTarifas += " </b>";
+                 strHTMLTarifas += " </div>";
+                 strHTMLTarifas += " </div>";
+                 strHTMLTarifas += " </div>";
              }
              
              $("#Tarifas").append(strHTMLTarifas);
@@ -472,7 +524,6 @@ var dsCliente = new kendo.data.DataSource({
      filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
 });
 
-
 var UsuarioID = "";
 var ClienteID = "";
 var dsContactosCliente = null;
@@ -497,4 +548,26 @@ function AlertaProcentageRangos(valorIndicador,elementoAlerta){
     //$("#PorcDespachosVigentes").css("background-color","yellow");
     eval("$(\"#Alerta"+elementoAlerta+"\").css(\"background-color\",\""+colorAlerta+"\");");
 }
+
+function OpenModCondPago(valServicio,valDiasPago,valHastaMonto,valMoneda,valLineaCredito,valLineaNegocio,valCompania){
+     $("#ModServicio").html(valServicio);
+     $("#ModDiasPago").html(valDiasPago);
+     $("#ModHastaMonto").html(valHastaMonto);
+     $("#ModMoneda").html(valMoneda);
+     $("#ModLineaCredito").html(valLineaCredito);
+     $("#ModLineaNegocio").html(valLineaNegocio);
+     $("#ModCompania").html(valCompania);
+     
+     $('#ModCondPago').data('kendoMobileModalView').open();
+}
+
+function OpenModTarifas(valServicio,valObservaciones){
+    console.log("OpenModTarifas >>> "+valServicio);
+     $("#ModTarifasServicio").html(valServicio);    
+     $("#ModTarifasObservaciones").html(unescape(valObservaciones));
+     $('#ModTarifas').data('kendoMobileModalView').open();
+}
+
+
+
 // END_CUSTOM_CODE_funcionalidad01
