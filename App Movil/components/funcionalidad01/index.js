@@ -344,28 +344,20 @@ app.funcionalidad01 = kendo.observable({
                  
                  strHTMLCondicionesDePago += "<div  class=\"row\">"                 
                  strHTMLCondicionesDePago += "<div  class=\"col-xs-12\">"                 
-                 strHTMLCondicionesDePago += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModCondPago('" + data[i].Servicio + "','" + data[i].DiasPago + "');\"> ";
+                 strHTMLCondicionesDePago += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModCondPago('" + data[i].Servicio
+                 strHTMLCondicionesDePago += "','" + data[i].DiasPago
+                 strHTMLCondicionesDePago += "','" + data[i].HastaMonto
+                 strHTMLCondicionesDePago += "','" + data[i].Moneda
+                 strHTMLCondicionesDePago += "','" + data[i].LineaCredito
+                 strHTMLCondicionesDePago += "','" + data[i].LineaNegocio
+                 strHTMLCondicionesDePago += "','" + data[i].Compania
+                 strHTMLCondicionesDePago += "');\"> ";                 
                  strHTMLCondicionesDePago += " <b>";                 
                  strHTMLCondicionesDePago += data[i].Servicio;
                  strHTMLCondicionesDePago += " </b>";
                  strHTMLCondicionesDePago += " </div>";
-                 strHTMLCondicionesDePago += " </div>"
-                 strHTMLCondicionesDePago += " </div>"
-                 /*
-                 strHTMLCondicionesDePago += "<button type=\"button\"  onclick=\"$('#CondPago" + i +  "').data('kendoMobileModalView').open();\">";
-                 strHTMLCondicionesDePago += data[i].Servicio;
-                 strHTMLCondicionesDePago += "</button>";
-                 strHTMLCondicionesDePago += "<div data-role=\"modalview\" id=\"CondPago" + i +  "\">";
-                 strHTMLCondicionesDePago += "<div>";
-                 strHTMLCondicionesDePago += data[i].Servicio;
-                 strHTMLCondicionesDePago += "</div>";
-                 strHTMLCondicionesDePago += "<div>";
-                 strHTMLCondicionesDePago += "<button type=\"button\"  onclick=\"$('#CondPago" + i +  "').data('kendoMobileModalView').close();\">";
-                 strHTMLCondicionesDePago += "Cancelar";
-                 strHTMLCondicionesDePago += "</button>";                 
-                 strHTMLCondicionesDePago += "</div>";
-                 strHTMLCondicionesDePago += "</div>";
-                 */
+                 strHTMLCondicionesDePago += " </div>";
+                 strHTMLCondicionesDePago += " </div>";
              }
              
              $("#CondicionesDePago").append(strHTMLCondicionesDePago);
@@ -402,8 +394,9 @@ app.funcionalidad01 = kendo.observable({
          dsTarifas.fetch(function(){
              var strHTMLTarifas = "";
              var data = this.data();
-             //console.log("dsTarifas.data() >> length: " + data.length);            
-             
+             //console.log("dsTarifas.data() >> length: " + data.length);
+
+             /*
              for (var i = 0; i < data.length; i++) {
                  //console.log("dsTarifas.Servicio: " + data[i].Servicio);
                  strHTMLTarifas += "<details>";
@@ -415,6 +408,23 @@ app.funcionalidad01 = kendo.observable({
                  strHTMLTarifas += data[i].Observacion;
                  strHTMLTarifas += "</textarea>";
                  strHTMLTarifas += "</details>";
+             }
+             
+             $("#Tarifas").append(strHTMLTarifas);
+             */
+             
+             for (var i = 0; i < data.length; i++) {                 
+                 strHTMLTarifas += "<div  class=\"row\">"                 
+                 strHTMLTarifas += "<div  class=\"col-xs-12\">"                 
+                 strHTMLTarifas += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModTarifas('" + data[i].Servicio
+                 // strHTMLTarifas += "','" + data[i].DiasPago -- PAR1
+                 strHTMLTarifas += "');\"> ";                 
+                 strHTMLTarifas += " <b>";                 
+                 strHTMLTarifas += data[i].Servicio;
+                 strHTMLTarifas += " </b>";
+                 strHTMLTarifas += " </div>";
+                 strHTMLTarifas += " </div>";
+                 strHTMLTarifas += " </div>";
              }
              
              $("#Tarifas").append(strHTMLTarifas);
@@ -531,5 +541,24 @@ function AlertaProcentageRangos(valorIndicador,elementoAlerta){
     }
     //$("#PorcDespachosVigentes").css("background-color","yellow");
     eval("$(\"#Alerta"+elementoAlerta+"\").css(\"background-color\",\""+colorAlerta+"\");");
+}
+
+function OpenModCondPago(valServicio,valDiasPago,valHastaMonto,valMoneda,valLineaCredito,valLineaNegocio,valCompania){
+     $("#ModServicio").html(valServicio);
+     $("#ModDiasPago").html(valDiasPago);
+     $("#ModHastaMonto").html(valHastaMonto);
+     $("#ModMoneda").html(valMoneda);
+     $("#ModLineaCredito").html(valLineaCredito);
+     $("#ModLineaNegocio").html(valLineaNegocio);
+     $("#ModCompania").html(valCompania);
+     
+     $('#ModCondPago').data('kendoMobileModalView').open();
+}
+
+function OpenModTarifas(valServicio){
+    console.log("OpenModTarifas >>> "+valServicio);
+     //$("#ModServicio").html(valServicio);
+     
+     //$('#ModCondPago').data('kendoMobileModalView').open();
 }
 // END_CUSTOM_CODE_funcionalidad01
