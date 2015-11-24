@@ -12,7 +12,7 @@
         <footer>
         </footer>
     </div-->
-<!-- Menu Derecho  -->
+<!-- Menu Derecho -->
 <!-- Listado Tareas -->
 <style>
     .k-dropdown .k-input,
@@ -39,9 +39,11 @@
     .warning{
         background-color:#fcf8e3;
     }
-    
     .danger{
         background-color:#f2dede;
+    }
+    .default{
+        background-color:#fff;
     }
 </style>
 <script src="components/funcionalidad03/addVos.js"></script>
@@ -122,8 +124,8 @@
             </br>
             <button type="button" class="btn btn-default" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
             <p id="divNotaVoz"></p>
-            <button id="captureAudio">Capture Audio</button>
-            <div id="media"></div>
+            <button id="captureAudio" style="display:none;">Capture Audio</button>
+            <div id="media" style="display:none;"></div>
         </div>
         </br>
         <div class="text-center" id="divBtnAdd">

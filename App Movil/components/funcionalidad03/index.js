@@ -64,6 +64,11 @@ function getTareas() {
                             eq: "Es igual a",
                             neq: "No es igual a"
                         }
+                    },
+                    messages: {
+                        info: "Filtrar por: ",
+                        filter: "Filtrar",
+                        clear: "Limpiar"
                     }
                 }
             },
@@ -79,6 +84,11 @@ function getTareas() {
                             eq: "Es igual a",
                             neq: "No es igual a"
                         }
+                    },
+                    messages: {
+                        info: "Filtrar por: ",
+                        filter: "Filtrar",
+                        clear: "Limpiar"
                     }
                 }
             },
@@ -100,7 +110,7 @@ function getTareas() {
                 width: "120px",
                 filterable: {
                     messages: {
-                        info: "Rango de fechas: "
+                        info: "Rango de fechas: ",
                     }
                 }
             },
@@ -126,42 +136,32 @@ function getTareas() {
                 template: '#if(tar_int_prioridad==1){#<span class = "glyphicon glyphicon-arrow-down text-success" aria-hidden = "true" ></span>Baja#}else{if(tar_int_prioridad==3){#<span class="glyphicon glyphicon-arrow-up text-danger" aria-hidden="true"></span>Alta#}else{#<span class = "glyphicon glyphicon glyphicon-arrow-right text-warning" aria-hidden="true"></span>Media#}}#',
                 width: "110px",
                 filterable: {
+                    extra: false,
                     operators: {
                         string: {
                             contains: "Contiene"
                         }
-                    },
-                    extra: false
+                    }
                 }
             }],
-        filterable: {
-            messages: {
-                and: "y",
-                or: "o",
-                filter: "Filtrar",
-                clear: "Limpiar",
-                info: "Filtrar por: "
-            }
-        },
+
         dataBound: function (e) {
-            /*    var items = this._data;
-                var tableRows = $(this.table).find("tr");
-                tableRows.each(function (index) {
-                    var row = $(this);
-                    var Item = items[index];
-                    var f1 = kendo.parseDate(Item.tar_dat_fchlimite, 'dd-MM-yyyy');
-                    var f2 = kendo.parseDate(Item.tar_dat_fchcreacion, 'dd-MM-yyyy');
-                    var diff = new Date(f1 - f2);
-                    var days = diff / 1000 / 60 / 60 / 24;
-                    if (days < 2) {
-                        row.addClass("danger");
-                    } else {
-                        row.addClass("warning");
-                    }
-                }); 
-              
-                
-            */
+            var items = this._data;
+            var rows = e.sender.tbody.children();
+            for (var i = 0; i < rows.length; i++) {
+                var row = $(rows[i]);
+                var f1 = kendo.parseDate(items[i].tar_dat_fchlimite, 'dd-MM-yyyy');
+                var f2 = kendo.parseDate(items[i].tar_dat_fchcreacion, 'dd-MM-yyyy');
+                var diff = new Date(f1 - f2);
+                var days = diff / 1000 / 60 / 60 / 24;
+                if (days < 2) {
+                    row.addClass("danger");
+                } else if (days >= 2 && days < 7) {
+                    row.addClass("warning");
+                } else {
+                    row.addClass("default");
+                }
+            }
         }
     });
 
@@ -177,8 +177,30 @@ function getTareas() {
             //debugger;
             e.container.find(".k-dropdown").hide();
         }
+        if (e.field == "tar_int_estado") {
+            //e.container.find("k-widget.k-dropdown.k-header").css("display", "none");
+            // Change the text field to a dropdownlist in the Role filter menu.
+            e.container.find(".k-textbox:first")
+                //.removeClass("k-textbox")
+                .kendoDropDownList({
+                    dataSource: new kendo.data.DataSource({
+                        data: [
+                            {
+                                title: "Pendiente",
+                                value: 1
+                            },
+                            {
+                                title: "Cerrado",
+                                value: 0
+                            }
+                                ]
+                    }),
+                    dataTextField: "title",
+                    dataValueField: "value"
+                });
+        }
         if (e.field == "tar_int_prioridad") {
-            e.container.find("k-widget.k-dropdown.k-header").css("background-color", "red");
+            //e.container.find("k-widget.k-dropdown.k-header").css("display", "none");
             // Change the text field to a dropdownlist in the Role filter menu.
             e.container.find(".k-textbox:first")
                 //.removeClass("k-textbox")
@@ -339,7 +361,9 @@ function accionTarea(accion) {
         valido = false;
     }
 
-    /*console.log($('#txtidc').val());
+    /* Eliminar este console log en producción
+
+    console.log($('#txtidc').val());
     console.log($('#txtidtt option:selected').val());
     console.log($('#txtorden').val());
     console.log($('#txtobserv').val());
@@ -486,7 +510,7 @@ function accionTarea(accion) {
 }
 
 function addNotaVoz() {
-    $("#divNotaVoz").append('<span>Audio01 <span type="xxx" class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>');
+    $("#divNotaVoz").append('<span>Audio01 <span type="xxx" class="glyphicon glyphicon-remove"></span>&nbsp&nbsp&nbsp</span>');
 }
 
 //Eliminar nota de audio
@@ -521,15 +545,9 @@ function selectGrid() {
             $('#txtprioridad3').prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
             $('#txtprioridad3').toggleClass("active");
     };
-    var tar_dat_fchlimite = new Date(parseInt((this.dataItem(seleccion).tar_dat_fchlimite).replace(/\D/g, ''), 10));
-    tar_dat_fchlimite =
-        tar_dat_fchlimite.getFullYear() + "-" + (tar_dat_fchlimite.getMonth() < 9 ?
-            ("0" + (tar_dat_fchlimite.getMonth() + 1)) : tar_dat_fchlimite.getMonth() + 1
-        ) + "-" +
-        (tar_dat_fchlimite.getDate() < 10 ?
-            ("0" + tar_dat_fchlimite.getDate()) : tar_dat_fchlimite.getDate()
-        );
+    var tar_dat_fchlimite = kendo.toString(kendo.parseDate(this.dataItem(seleccion).tar_dat_fchlimite, 'dd-MM-yyyy'), 'yyyy-MM-dd');
     $('#txtflimite').val(tar_dat_fchlimite);
+
     $('#divBtnAdd').hide();
     $('#divBtnAccion').show();
 
@@ -548,7 +566,6 @@ function addTipoTarea() {
         $('#txtdescripcion').parent().parent().addClass("has-error");
         valido = false;
     }
-    ok
     valido && $.ajax({
         url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/tipoInsert',
         type: "post",
