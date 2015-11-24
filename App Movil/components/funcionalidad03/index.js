@@ -117,7 +117,8 @@ function getTareas() {
             {
                 field: "tar_int_estado",
                 title: "Estado",
-                template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#',
+                //template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#',
+                template: '#if(tar_int_estado==1){#Pendiente#}else{#Cerrado#}#',
                 width: "100px",
                 filterable: {
                     extra: false,
@@ -333,9 +334,9 @@ function accionTarea(accion) {
     var valido = true;
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
     $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
-    if ($('#txtidc').val() == null) {
+    var txtidc = $("#txtidc").data("kendoMultiSelect");
+    if (txtidc.value() == "") {
         $('#txtidc').parent().parent().addClass("has-error");
-        //$('.k-multiselect-wrap.k-floatwrap').css("border-color","red");   
         $('.k-multiselect-wrap.k-floatwrap').css("border-width", "1px");
         $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#a94442");
         valido = false;
@@ -533,11 +534,11 @@ function selectGrid() {
 
     $("span[type='btnCheck']").remove();
     switch (this.dataItem(seleccion).tar_int_prioridad) {
-        case 1:
+        case "1":
             $('#txtprioridad1').toggleClass("active");
             $('#txtprioridad1').prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
             break;
-        case 2:
+        case "2":
             $('#txtprioridad2').toggleClass("active");
             $('#txtprioridad2').prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
             break;
