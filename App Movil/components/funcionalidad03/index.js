@@ -16,7 +16,7 @@ var dsTareas = new kendo.data.DataSource({
             dataType: "json",
             type: "post",
             data: {
-                txtid: 101
+                txtid: 668
             }
         }
     },
@@ -101,7 +101,8 @@ function getTareas() {
                     messages: {
                         info: "Rango de fechas: "
                     }
-                }
+                },
+                format: "{0:MM/dd/yyyy}"
             },
             {
                 field: "tar_dat_fchlimite",
@@ -112,7 +113,8 @@ function getTareas() {
                     messages: {
                         info: "Rango de fechas: ",
                     }
-                }
+                },
+                format: "{0:MM/dd/yyyy}"
             },
             {
                 field: "tar_int_estado",
@@ -167,7 +169,7 @@ function getTareas() {
     });
 
     function filterMenu(e) {
-        if (e.field == "tar_dat_fchcreacion" || e.field == "tar_dat_fchlimite") {
+        if (e.field == "tar_dat_fchlimite") {
             var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
             beginOperator.value("gte");
             beginOperator.trigger("change");
@@ -175,8 +177,17 @@ function getTareas() {
             var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
             endOperator.value("lte");
             endOperator.trigger("change");
-            //debugger;
-            e.container.find(".k-dropdown").hide();
+            e.container.find(".k-dropdown").hide()
+        }
+        if (e.field == "tar_dat_fchcreacion") {
+            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+            beginOperator.value("gte");
+            beginOperator.trigger("change");
+
+            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+            endOperator.value("lte");
+            endOperator.trigger("change");
+            e.container.find(".k-dropdown").hide()
         }
         if (e.field == "tar_int_estado") {
             //e.container.find("k-widget.k-dropdown.k-header").css("display", "none");
@@ -226,6 +237,7 @@ function getTareas() {
                     dataValueField: "value"
                 });
         }
+
     };
 }
 
@@ -377,7 +389,7 @@ function accionTarea(accion) {
         type: "POST",
         url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
         data: {
-            txtuserid: 101,
+            txtuserid: 668,
             txtid: $('#txtid').val(),
             txtidtt: $('#txtidtt option:selected').val(),
             txtorden: $('#txtorden').val(),
@@ -573,7 +585,7 @@ function addTipoTarea() {
         data: {
             txtnombre: $('#txtnombre').val(),
             txtdescripcion: $('#txtdescripcion').val(),
-            txtuserid: 101
+            txtuserid: 668
         },
         async: false,
         success: function (datos) {

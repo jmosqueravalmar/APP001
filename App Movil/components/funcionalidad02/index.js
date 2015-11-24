@@ -12,7 +12,7 @@ function getOrden(year, order) {
     var dsOrden = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + cliente,
+                url: "http://54.213.238.161/WsPrueba/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + cliente,
                 dataType: "json"
             }
         },
@@ -30,7 +30,7 @@ function getOrden(year, order) {
             var dsDetOrden = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/detalle/" + orden.ord_int_id,
+                        url: "http://54.213.238.161/WsPrueba/Ordenes/detalle/" + orden.ord_int_id,
                         dataType: "json"
                     }
                 },
