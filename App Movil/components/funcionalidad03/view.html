@@ -35,9 +35,19 @@
     .k-state-default>.k-select {
         background-color: #fff;
     }
+    
+    .warning{
+        background-color:#fcf8e3;
+    }
+    .danger{
+        background-color:#f2dede;
+    }
+    .default{
+        background-color:#fff;
+    }
 </style>
 <script src="components/funcionalidad03/addVos.js"></script>
-<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas">
+<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas" data-zoom="true">
     </br>
     <button type="button" class="btn btn-default" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
     </br>
@@ -99,7 +109,7 @@
             <label class="control-label">Prioridad</label>
             <div class="btn-group btn-group-justified" data-toggle="buttons">
                 <label class="btn btn-default active" id="txtprioridad1">
-                    <input value="1" type="radio" name="txtprioridad" autocomplete="off" checked> Baja
+                    <input value="1" type="radio" name="txtprioridad" autocomplete="off" checked><span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span> Baja
                 </label>
                 <label class="btn btn-default" id="txtprioridad2">
                     <input value="2" type="radio" name="txtprioridad" autocomplete="off"> Media
@@ -109,16 +119,17 @@
                 </label>
             </div>
         </div>
-        <div id="divNotaVoz" id="divNotaVoz">
+        <div id="divNotaVoz">
             <label class="control-label">Grabar</label>
             </br>
             <button type="button" class="btn btn-default" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
-            <button id="captureAudio">Capture Audio</button>
-            <div id="media"></div>
+            
+            <button id="captureAudio" style="display:none;">Capture Audio</button>
+            <div id="media" style="display:none;"></div>
         </div>
         </br>
         <div class="text-center" id="divBtnAdd">
-            <button type="button" class="btn btn-default btn-lg" onclick="$('#modalConfirmarInsert').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Agregar Nueva Tarea</button>
+            <button type="button" class="btn btn-default btn-lg" onclick="$('#modalConfirmarInsert').data('kendoMobileModalView').open();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Nueva Tarea</button>
         </div>
     </form>
     <div id="divBtnAccion">
