@@ -56,7 +56,7 @@
 <div data-role="view" id="det-cliente" data-title="Detalle"  data-show="app.funcionalidad01.MostraDetalleCliente">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#ListaClientes"><span class="k-icon k-i-undo"></span></a>
+        <a data-role="button" data-align="right" onclick="GoBackListaClientes();"><span class="k-icon k-i-undo"></span></a>
     </div>
     
     <!-- ACTUALIZACION CONSULTA CLIENTE START  -->
@@ -612,7 +612,7 @@
 <div data-role="view" id="det-MorosidadUtilizacionLinea" data-title="Morosidad y Utilizacion" data-show="app.funcionalidad01.MostraMorosidadUtilizacionLinea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#det-cliente"><span class="k-icon k-i-undo"></span></a>
+        <a data-role="button" data-align="right" onclick="GoBackMorosidadUtilizacionLinea();"><span class="k-icon k-i-undo"></span></a>
     </div>
     
     <!--  CLIENTE RAZON SOCIAL START  -->
@@ -652,7 +652,7 @@
                 DEUDA VENCIDA
             </div>            
             <div class="col-xs-3">
-                <b id="detMULDeudaVencida" >$1,234.56</b>                
+                <b id="detMULDeudaVencida" ></b>                
             </div>
         </div>
         <div class="row">
@@ -676,7 +676,7 @@
                 CONDICION PAGO (DIAS)
             </div>            
             <div class="col-xs-3">
-                <b  id="detMULPlazoDePago" >30</b>                
+                <b  id="detMULPlazoDePago" ></b>                
             </div>
         </div>
         <div class="row">
@@ -700,7 +700,7 @@
                 LINEA ASIGNADA
             </div>            
             <div class="col-xs-3">
-                <b id="detMULLíneaAsignada" >$100,000.00</b>                
+                <b id="detMULLíneaAsignada" ></b>                
             </div>
         </div>
         <div class="row">
@@ -724,7 +724,7 @@
                 UTILIZACION ACTUAL
             </div>            
             <div class="col-xs-3">
-                <b id="detMULUtilizacionActual" >$80,000.00</b>                
+                <b id="detMULUtilizacionActual" ></b>                
             </div>
         </div>
         <div class="row">
@@ -750,7 +750,7 @@
                 DIFERENCIAS DE LINEAS
             </div>            
             <div class="col-xs-3">
-                <b id="detMULDiferenciaDeLineas" >$80,000.00</b>                
+                <b id="detMULDiferenciaDeLineas" ></b>                
             </div>
         </div>
         <div class="row">
@@ -774,7 +774,7 @@
                 PORC. EN USO  LINEA  ACTUAL
             </div>            
             <div class="col-xs-3">
-                <b id="detMULPorcUtilizacionDeLinea" >80%</b>                
+                <b id="detMULPorcUtilizacionDeLinea" ></b>                
             </div>
         </div>
         <div class="row">
@@ -798,7 +798,7 @@
                 PROMEDIO USO ULTIMO 6 MESES
             </div>            
             <div class="col-xs-3">
-                <b id="detMULUsoDeLineaPromedioUltSeisMeses" >$55,000.00</b>                
+                <b id="detMULUsoDeLineaPromedioUltSeisMeses" ></b>                
             </div>
         </div>
         <div class="row">
@@ -822,7 +822,7 @@
                 PORC. EN USO PROMEDIO USO ULTIMO 6 MESES
             </div>            
             <div class="col-xs-3">
-                <b id="detMULPorcUsoDeLineaPromedioUltSeisMeses" >$55,000.00</b>                
+                <b id="detMULPorcUsoDeLineaPromedioUltSeisMeses" ></b>                
             </div>
         </div>
         <div class="row">
@@ -856,7 +856,7 @@
                     Monto Linea Factura
                 </div>            
                 <div class="col-xs-3">
-                    <b id="detMULLíneaFacturaAUSA" >$ xyz.wv</b>                    
+                    <b id="detMULLíneaFacturaAUSA" ></b>                    
                 </div>
             </div>
             <div class="row">
@@ -864,7 +864,7 @@
                     Dias Plazo Factura
                 </div>            
                 <div class="col-xs-3">
-                    <b id="detMULPlazoFacturaAUSA" >xy</b>                    
+                    <b id="detMULPlazoFacturaAUSA" ></b>                    
                 </div>
             </div>
             <div class="row">
@@ -872,7 +872,7 @@
                     Monto Línea Letras
                 </div>            
                 <div class="col-xs-3">
-                    <b id="detMULLíneaLetrasAUSA" >xy</b>                    
+                    <b id="detMULLíneaLetrasAUSA" ></b>                    
                 </div>
             </div>
             <div class="row">
@@ -880,7 +880,7 @@
                     Dias Plazo Letras
                 </div>            
                 <div class="col-xs-3">
-                    <b id="detMULPlazoLetrasAUSA" >xy</b>                    
+                    <b id="detMULPlazoLetrasAUSA" ></b>                    
                 </div>
             </div>
             

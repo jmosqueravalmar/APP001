@@ -569,3 +569,29 @@ function MakeCall(){
 }
 
 // END_CUSTOM_CODE_funcionalidad01
+
+function GoBackListaClientes(){
+ //Tarifas
+ $("#Tarifas").html("");
+ $("#CondicionesDePago").html("");
+ window.location.href = "#ListaClientes";    
+}
+
+function GoBackMorosidadUtilizacionLinea(){
+
+$("#detMULClienteRazonSocial").html("");
+$("#detMULDeudaVencida").html("");
+$("#detMULPlazoDePago").html("");
+$("#detMULLíneaAsignada").html("");
+$("#detMULUtilizacionActual").html("");
+$("#detMULDiferenciaDeLineas").html("");
+$("#detMULPorcUtilizacionDeLinea").html("");
+$("#detMULUsoDeLineaPromedioUltSeisMeses").html("");
+$("#detMULPorcUsoDeLineaPromedioUltSeisMeses").html("");
+$("#detMULLíneaFacturaAUSA").html("");
+$("#detMULPlazoFacturaAUSA").html("");
+$("#detMULLíneaLetrasAUSA").html("");
+$("#detMULPlazoLetrasAUSA").html("");
+    
+ window.location.href = "#det-cliente";    
+}
