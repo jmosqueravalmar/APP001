@@ -523,7 +523,7 @@ function accionTarea(accion) {
 }
 
 function addNotaVoz() {
-    $("#divNotaVoz").append('<span>Audio01 <span type="xxx" class="glyphicon glyphicon-remove"></span>&nbsp&nbsp&nbsp</span>');
+    $("#divNotaVoz").append('<span class="font-cuerpo">Audio01 <span type="xxx" class="glyphicon glyphicon-remove"></span>&nbsp&nbsp&nbsp</span>');
 }
 
 //Eliminar nota de audio
