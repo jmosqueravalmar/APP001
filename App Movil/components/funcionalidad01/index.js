@@ -344,7 +344,7 @@ app.funcionalidad01 = kendo.observable({
                  
                  strHTMLCondicionesDePago += "<div  class=\"row\">"                 
                  strHTMLCondicionesDePago += "<div  class=\"col-xs-12\">"                 
-                 strHTMLCondicionesDePago += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModCondPago('" + data[i].Servicio
+                 strHTMLCondicionesDePago += "<div class=\"btnDetPopUp\" onclick=\"OpenModCondPago('" + data[i].Servicio
                  strHTMLCondicionesDePago += "','" + data[i].DiasPago
                  strHTMLCondicionesDePago += "','" + data[i].HastaMonto
                  strHTMLCondicionesDePago += "','" + data[i].Moneda
@@ -423,7 +423,7 @@ app.funcionalidad01 = kendo.observable({
                  
                  strHTMLTarifas += "<div  class=\"row\">";
                  strHTMLTarifas += "<div  class=\"col-xs-12\">";
-                 strHTMLTarifas += "<div class=\"btn btn-info wCondPagoServicio\" onclick=\"OpenModTarifas('" + data[i].Servicio;
+                 strHTMLTarifas += "<div class=\"btnDetPopUp\" onclick=\"OpenModTarifas('" + data[i].Servicio;
                  strHTMLTarifas += "','" + escape(myStr);
                  strHTMLTarifas += "');\"> ";                 
                  strHTMLTarifas += " <b>";                 

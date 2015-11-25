@@ -542,66 +542,10 @@
                     
                 </div>
             </div>
+          <!-- TODO-WIP:  CHANGE TO MODAL VIEW DIV ALONE MOVED TO THE END  -->          
           
-            <div data-role="modalview" id="ModCondPago" class="PopUpCondPago">
-                <div class="row">
-                     <div class="col-xs-12">
-                             <b id="ModServicio">***Nombre-Servicio***</b>
-                     </div>
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="col-xs-5"><b>Dias Pago</b></div>
-                    <div class="col-xs-7">
-                        <b id="ModDiasPago">***Total-Dias-Pago***</b>                        
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-xs-5"><b>Hasta Monto</b></div>
-                    <div class="col-xs-7">
-                        <b id="ModHastaMonto">***Hasta-Monto***</b>                        
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-xs-5"><b>Moneda</b></div>
-                    <div class="col-xs-7">
-                        <b id="ModMoneda">***Moneda***</b>                        
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                     <div class="col-xs-5"><b>Linea Credito</b></div>
-                    <div class="col-xs-7">
-                        <b id="ModLineaCredito">***Linea-Credito***</b>                        
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                     <div class="col-xs-5"><b>Linea Negocio</b></div>
-                    <div class="col-xs-7">
-                        <b id="ModLineaNegocio">***Linea-Negocio***</b>                        
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                     <div class="col-xs-5"><b>Compania</b></div>
-                    <div class="col-xs-7">
-                        <b id="ModCompania">***Compania***</b>                        
-                    </div>
-                </div>
-                <br>                
-                <div class="row">
-                    <div class="col-xs-9">
-                        &nbsp;
-                    </div>
-                    <div class="col-xs-3">
-                            <button type="button" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>                        
-                    </div>
-                </div>    
-                <br>
-            </div>          
+
+          
       </details>
       
       <div class="row">
@@ -630,33 +574,8 @@
                </div>
             </div>
             
-            <div data-role="modalview" id="ModTarifas" class="PopUpTarifas">
-                <div class="row">
-                     <div class="col-xs-12">
-                             <b id="ModTarifasServicio">***Nombre-Servicio***</b>
-                     </div>
-                </div>
-                <div class="row">
-                     <div class="col-xs-12">
-                             <p><b>Observaciones</b></p>
-                     </div>
-                </div>
-                <div class="row">
-                     <div class="col-xs-12">
-                             <textarea id="ModTarifasObservaciones" readonly rows="5" cols="40"> </textarea>
-                     </div>
-                </div>                
-                <br>                
-                <div class="row">
-                    <div class="col-xs-9">
-                        &nbsp;
-                    </div>
-                    <div class="col-xs-3">
-                            <button type="button" onclick="$('#ModTarifas').data('kendoMobileModalView').close();">Cerrar</button>                        
-                    </div>
-                </div>    
-                <br>                
-            </div>
+            <!-- TODO-WIP:  CHANGE TO MODAL TARIFAS DIV ALONE MOVED TO THE END  -->
+
             
         </details>        
         <div class="row">
@@ -986,5 +905,103 @@
             
     </div>
     <!--  STATUS AUSA  END  -->    
+</div>
+
+<div data-role="modalview" id="ModTarifas" class="PopUpTarifas">
+    <div class="container-fluid">
+        <div class="row">
+             <div class="col-xs-12">
+                     <br><b id="ModTarifasServicio">***Nombre-Servicio***</b>
+             </div>
+        </div>
+        <div class="row">
+             <div class="col-xs-12">
+                     <br><b>Observaciones</b><br><br>
+             </div>
+        </div>
+        <div class="row">
+             <div class="col-xs-1">
+                 &nbsp;
+             </div>
+             <div class="col-xs-10">
+                     <textarea id="ModTarifasObservaciones" readonly rows="20" cols="35"> </textarea>
+             </div>
+             <div class="col-xs-1">
+                 &nbsp;
+             </div>
+        </div>                
+        <br>                
+        <div class="row">
+            <div class="col-xs-7">
+                &nbsp;
+            </div>
+            <div class="col-xs-5">
+                    <button type="button" onclick="$('#ModTarifas').data('kendoMobileModalView').close();">Cerrar</button>                        
+            </div>
+        </div>    
+        <br>                
+    </div>
+</div>
+
+<div data-role="modalview" id="ModCondPago" class="PopUpCondPago">
+ <div class="container-fluid">    
+        <div class="row">
+             <div class="col-xs-12">
+                     <b id="ModServicio">***Nombre-Servicio***</b>
+             </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-xs-5"><b>Dias Pago</b></div>
+            <div class="col-xs-7">
+                <b id="ModDiasPago">***Total-Dias-Pago***</b>                        
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-5"><b>Hasta Monto</b></div>
+            <div class="col-xs-7">
+                <b id="ModHastaMonto">***Hasta-Monto***</b>                        
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-5"><b>Moneda</b></div>
+            <div class="col-xs-7">
+                <b id="ModMoneda">***Moneda***</b>                        
+            </div>
+        </div>
+        <br>
+        <div class="row">
+             <div class="col-xs-5"><b>Linea Credito</b></div>
+            <div class="col-xs-7">
+                <b id="ModLineaCredito">***Linea-Credito***</b>                        
+            </div>
+        </div>
+        <br>
+        <div class="row">
+             <div class="col-xs-5"><b>Linea Negocio</b></div>
+            <div class="col-xs-7">
+                <b id="ModLineaNegocio">***Linea-Negocio***</b>                        
+            </div>
+        </div>
+        <br>
+        <div class="row">
+             <div class="col-xs-5"><b>Compania</b></div>
+            <div class="col-xs-7">
+                <b id="ModCompania">***Compania***</b>                        
+            </div>
+        </div>
+        <br>                
+        <div class="row">
+            <div class="col-xs-9">
+                &nbsp;
+            </div>
+            <div class="col-xs-3">
+                    <button type="button" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>                        
+            </div>
+        </div>    
+        <br>
+</div>    
 </div>
 <!-- DETALLE  Morosidad y Utilizacion Linea END-->
