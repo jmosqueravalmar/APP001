@@ -45,6 +45,34 @@
 
 
 /* STYLE FUNCIONALIDAD 01*/
+.btnDetMorosidadUtilizacionLinea{
+    border-style: solid;
+    border-color: Black;
+    border-width: 1px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 100%;
+    background-color: #0053B3;
+    color: #FFFFFF;
+    padding: 10px;
+    text-align: center;
+}
+
+.btnLlamar{
+    border-style: solid;
+    border-color: Black;
+    border-width: 1px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 100%;
+    background-color: #449d44;
+    color: #FFFFFF;
+    padding: 10px;
+    text-align: center;    
+}
+
     summary::-webkit-details-marker {
     	display: none
     }

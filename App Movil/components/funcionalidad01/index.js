@@ -90,15 +90,6 @@ app.funcionalidad01 = kendo.observable({
             dataSource: dsTelefonosContactoCliente
          });
         
-         $("#btnLlamar").kendoButton({
-                 click: function(e) {
-                     //console.log(e.event.target.tagName);                     
-                     // +++ ERROR +++ Simple reference to a JQuery object
-                     //console.log("Llamar numero >> " + $("#TelefonosContactoCliente").dataItem().TelefonoNumero);                     
-                     //console.log("Llamar numero >> " + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().Numero);
-                     window.open('tel:' + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().Numero, '_system')
-                 }
-        });
         //DETALLE CONTACTOS CLIENTE END
         
         //SITUACION DE PAGO START
@@ -568,6 +559,13 @@ function OpenModTarifas(valServicio,valObservaciones){
      $('#ModTarifas').data('kendoMobileModalView').open();
 }
 
+function GoToDetMorosidadUtilizacionLinea(){ 
+    window.location.href = "#det-MorosidadUtilizacionLinea";
+}
 
+function MakeCall(){
+    //Handle to Cordoba lib
+    window.open('tel:' + $("#TelefonosContactoCliente").data("kendoDropDownList").dataItem().Numero, '_system')
+}
 
 // END_CUSTOM_CODE_funcionalidad01
