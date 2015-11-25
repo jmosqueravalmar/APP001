@@ -35,38 +35,37 @@
     .k-state-default>.k-select {
         background-color: #fff;
     }
-    
-    .warning{
-        background-color:#fcf8e3;
+    .warning {
+        background-color: #fcf8e3;
     }
-    .danger{
-        background-color:#f2dede;
+    .danger {
+        background-color: #f2dede;
     }
-    .default{
-        background-color:#fff;
+    .default {
+        background-color: #fff;
     }
 </style>
 <script src="components/funcionalidad03/addVos.js"></script>
-<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" class="font-nav-bar" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas" data-zoom="true">
+<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas" data-zoom="true">
     </br>
     <button type="button" class="btn btn-default font-boton" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
     </br>
-    <div id="tareas" class="font-cuerpo">
+    <div id="tareas">
     </div>
 </div>
 <!-- Fin Listado Tareas -->
 <!-- Acción Tarea: Add Insert Delete -->
-<div data-role="view" id="accionTarea" data-title="Tarea" class="font-nav-bar">
+<div data-role="view" id="accionTarea" data-title="Tarea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#tareas1" class="font-boton">Regresar</a>
+        <a data-role="button" data-align="right" href="#tareas1"><span class="k-icon k-i-undo"></a>
     </div>
     <form class="col-md-12" id="formAdd">
         <!--Para almacenar el id de la tarea a eliminar o editar-->
         <input id="txtid" type="hidden" placeholder="txtid">
         <div class="form-group" align="left">
             <label class="control-label font-cuerpo" for="txtidc">Clientes</label>
-            <select id="txtidc" multiple="multiple" class="font-cuerpo">
+            <select id="txtidc" class="font-cuerpo" multiple="multiple">
             </select>
         </div>
         <div class="form-group">
@@ -83,13 +82,13 @@
             <div class="form-group col-xs-5">
                 <label class="control-label font-cuerpo" for="txtorden">Órden</label>
                 <div>
-                    <input id="txtorden font-cuerpo" type="text" placeholder="Órden" class="form-control input-md" required="">
+                    <input id="txtorden" type="text" placeholder="Órden" class="form-control input-md font-cuerpo" required="">
                 </div>
             </div>
             <div class="col-xs-7" align="right">
                 <label class="control-label font-cuerpo" for="txtflimite">Fecha Límite</label>
                 <div>
-                    <input id="txtflimite font-cuerpo" type="date" class="form-control input-md" required="">
+                    <input id="txtflimite" type="date" class="form-control input-md font-cuerpo" required="">
                 </div>
             </div>
         </div>
@@ -108,7 +107,7 @@
         <div class="form-group">
             <label class="control-label font-cuerpo">Prioridad</label>
             <div class="btn-group btn-group-justified" data-toggle="buttons">
-                <label class="btn btn-default active font-cuerpo" id="txtprioridad1">
+                <label class="btn btn-default font-cuerpo active" id="txtprioridad1">
                     <input value="1" type="radio" name="txtprioridad" autocomplete="off" checked><span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span> Baja
                 </label>
                 <label class="btn btn-default font-cuerpo" id="txtprioridad2">
@@ -119,12 +118,12 @@
                 </label>
             </div>
         </div>
-        <div id="divNotaVoz">
+        <div>
             <label class="control-label font-cuerpo">Grabar</label>
             </br>
             <button type="button" class="btn btn-default font-boton" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
-            
-            <button id="captureAudio" style="display:none;" class="font-boton">Capture Audio</button>
+            <tag id="divNotaVoz" class="font-cuerpo"></tag>
+            <button id="captureAudio" style="display:none;" class="font-cuerpo">Capture Audio</button>
             <div id="media" style="display:none;" class="font-cuerpo"></div>
         </div>
         </br>
@@ -168,8 +167,8 @@
     </div>
     <!-- Fin Template Modal Add Tipo de Tarea-->
     <!-- Template Modal Confirmar Add-->
-    <div data-role="modalview" id="modalConfirmarInsert" style="width: 300px; height: 150px">
-        <p class="font-cuerpo">¿Realmente desea agregar la tarea?</p>
+    <div data-role="modalview" id="modalConfirmarInsert" style="width: 300px; height: 120px">
+        <h2 class="font-cuerpo">¿Realmente desea agregar la tarea?</h2>
         </br>
         <div>
             <div class="col-xs-6">
@@ -182,8 +181,8 @@
     </div>
     <!-- Fin Template Modal Confirmar Add-->
     <!-- Template Modal Confirmar Update-->
-    <div data-role="modalview" id="modalConfirmarUpdate" style="width: 300px; height: 150px">
-        <p class="font-cuerpo">¿Realmente desea editar la tarea?</p>
+    <div data-role="modalview" id="modalConfirmarUpdate" style="width: 300px; height: 120px">
+        <h2 class="font-cuerpo">¿Realmente desea editar la tarea?</h2>
         </br>
         <div>
             <div class="col-xs-6">
@@ -196,8 +195,8 @@
     </div>
     <!-- Fin Template Modal Confirmar Edit Delete-->
     <!-- Template Modal Confirmar Delete-->
-    <div data-role="modalview" id="modalConfirmarDelete" style="width: 300px; height: 150px">
-        <p class="font-cuerpo">¿Realmente desea eliminar la tarea?</p>
+    <div data-role="modalview" id="modalConfirmarDelete" style="width: 300px; height: 120px">
+        <h2 class="font-cuerpo">¿Realmente desea eliminar la tarea?</h2>
         </br>
         <div>
             <div class="col-xs-6">

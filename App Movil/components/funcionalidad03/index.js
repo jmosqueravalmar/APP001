@@ -248,6 +248,7 @@ function viewFormTarea() {
     getSelectCliente("add");
     $('#divBtnAdd').show();
     $('#divBtnAccion').hide();
+    $("#divNotaVoz").html("");
 }
 
 function getSelectTipoTarea(accion) {
@@ -505,7 +506,7 @@ function accionTarea(accion) {
                             notificationWidget.show("Se agregó la nueva tarea", "success");
                             break;
                         default:
-                            notificationWidget.show((accion == "delete" ? "Se eliminó la nueva tarea" : "Se editó la nueva tarea"), "success");
+                            notificationWidget.show((accion == "delete" ? "Se eliminó la tarea" : "Se editó la tarea"), "success");
                     }
                     var grid = $("#tareas").data("kendoGrid");
                     grid.dataSource.read();
@@ -566,6 +567,7 @@ function selectGrid() {
 
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
     $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
+    $("#divNotaVoz").html("");
 }
 
 function addTipoTarea() {
