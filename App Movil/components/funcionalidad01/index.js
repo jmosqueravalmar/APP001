@@ -448,7 +448,7 @@ app.funcionalidad01 = kendo.observable({
             $("#detMULUtilizacionActual").html(data[0].UtilizacionActual);
             $("#detMULDiferenciaDeLineas").html(data[0].DiferenciaDeLineas);
             $("#detMULPorcUtilizacionDeLinea").html(data[0].PorcUtilizacionDeLinea);
-            $("#detMULUsoDeLineaPromedioUltSeisMeses").html(data[0].UsoDeLineaPromedioUltSeisMeses);
+            $("#detMULUsoDeLineaPromedioUltSeisMeses").html("$" + data[0].UsoDeLineaPromedioUltSeisMeses);
             $("#detMULPorcUsoDeLineaPromedioUltSeisMeses").html(data[0].PorcUsoDeLineaPromedioUltSeisMeses);
         });
         
