@@ -1,7 +1,7 @@
 <!-- Inicio formulario -->
 <div id="ListaOrdenes" data-role="view" data-title="Selección de Órden" data-layout="main" data-model="app.funcionalidad06" data-show="app.funcionalidad02.onShow" data-after-show="app.funcionalidad02.afterShow">
     <div align="center" class="jumbotron">
-        <p>Seleccione la órden que desea hacer seguimiento</p>
+        <p style="font-size:18px !important;">Indique los datos de la órden que desea hacer seguimiento</p>
         <div class="input-group col-xs-8">
             <span class="input-group-addon">Año de la Órden</span>
             <input id="year" type="number" class="form-control input-lg" placeholder="Año" value="2015">
@@ -26,7 +26,7 @@
 <div data-role="view" id="det-orden1" data-title="Seguimiento">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#ListaOrdenes">Regresar</a>
+        <a data-role="button" data-align="right" href="#ListaOrdenes"><span class="k-icon k-i-undo"></a>
     </div>
     <ul id="det-orden" data-role="listview" class="col-md-12">
     </ul>
@@ -34,9 +34,9 @@
 <!-- Templates -->
 <script type="text/x-kendo-tmpl" id="temp01">
     <!-- temp01 = Régimen IMPO -->
-    <h3 class="text-center">HUAWUEI</h3>
+    <h3 class="text-center">NOMBRE CLIENTE</h3>
     <div class="panel panel-primary">
-        <div class="panel-heading">IMPORTACIÓN</div>
+        <div class="panel-heading centrar">IMPORTACIÓN</div>
         <div class="panel-body">
             <p>Nro de la Órden: #:Orden#</p>
             <p>Nro de Referencia: #:Referencia#</p>

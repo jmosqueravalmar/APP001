@@ -223,4 +223,19 @@ h1 {
 	font-size: 13px !important;
     font-weight: normal !important;
 }
+
+.centrar {
+    text-align:center !important;
+} 
+
 /* standar */
+
+/*  funcionalidad 2 */
+
+.input-group-addon {
+    width: 55% !important;
+}
+
+.input-group input {
+    text-align:center;
+}
