@@ -3,23 +3,32 @@
     <!-- END_CUSTOM_CODE_homeView -->
 
 <!-- application views will be rendered here -->
-        <form method="post" action="">
+
           <ul data-role="listview" data-style="inset">
               <li>
                   <label>
                       Username:
-                      <input type="text" name="user"/>
+                      <input type="text" id="txtsUsuario" style="border: solid;"/>
                   </label>
               </li>
               <li>
                   <label>
                       Password:
-                      <input type="password" name="pass"/>
+                      <input type="password" id="txtsContrasenia" style="border: solid;" />
                   </label>
               </li>
               <li>
-                  <button onclick="autenticar();" data-role="button">Seleccionar</button>
+                  <div id="GoLogin" onclick="Login();" style="border: solid;">Login</div>
+              </li>
+              <li>
+                  <label>Login Response:</label>  <span id="LoginResponse"></span>
+              </li>
+              <li>
+                  <label>Status Post:</label>  <span id="StatusPost"></span>
+              </li>
+              <li>
+                  <label>XHR Obj:</label>  <span id="XHRObj"></span>
               </li>
           </ul>
-        </form> 
+
 </div>
