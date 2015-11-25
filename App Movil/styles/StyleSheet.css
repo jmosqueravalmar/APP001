@@ -151,6 +151,13 @@
     width: 100%;
 }
 
+.TitlePopUp{
+    min-width: 100%;
+    background-color: #0053B3;
+    color: #FFFFFF;    
+    font-size: large;
+}
+
 /*
 div {
    position:absolute; height:100%; 
