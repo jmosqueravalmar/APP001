@@ -2,7 +2,7 @@
 app.funcionalidad03 = kendo.observable({
     onShow: function () {
         //Carga JavaScript 3st
-    },
+    }, 
     afterShow: function () {
         //Carga JavaScript 4st        
     }
