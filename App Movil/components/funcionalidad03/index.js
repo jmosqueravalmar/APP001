@@ -355,7 +355,7 @@ function getSelectCliente(accion) {
 //accionTarea -> Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {
     var valido = true;
-    $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
+    $('#txtidc, #txtuserid, #txtidtt, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
     $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
     var txtidc = $("#txtidc").data("kendoMultiSelect");
     if (txtidc.value() == "") {
@@ -368,16 +368,8 @@ function accionTarea(accion) {
         $('#txtidtt').parent().parent().addClass("has-error");
         valido = false;
     }
-    if ($('#txtorden').val() == "") {
-        $('#txtorden').parent().parent().addClass("has-error");
-        valido = false;
-    }
     if ($('#txtobserv').val() == "") {
         $('#txtobserv').parent().parent().addClass("has-error");
-        valido = false;
-    }
-    if ($('#txtdetalle').val() == "") {
-        $('#txtdetalle').parent().parent().addClass("has-error");
         valido = false;
     }
     if ($('#txtflimite').val() == "") {
@@ -385,8 +377,7 @@ function accionTarea(accion) {
         valido = false;
     }
 
-    // Eliminar este console log en producción
-
+    /*// Eliminar este console log en producción
     console.log(accion);
     console.log("txtid = " + $('#txtid').val());
     console.log("txtidc = " + $('#txtidc').val());
@@ -397,7 +388,7 @@ function accionTarea(accion) {
     console.log("txtprioridad = " + $('input:radio[name=txtprioridad]:checked').val());
     console.log("txtflimite = " + $('#txtflimite').val() + " 00:00:00");
     console.log("txtestado = " + $('#txtestado').val());
-    console.log(valido);
+    console.log(valido);*/
 
     valido && $.ajax({
         type: "POST",
