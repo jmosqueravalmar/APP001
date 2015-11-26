@@ -6,33 +6,91 @@ app.homeView = kendo.observable({
 });
 
 // START_CUSTOM_CODE_homeView
-// END_CUSTOM_CODE_homeView
+var txtsUsuario = "";
+var txtsContrasenia = "";
+var dsLogin = null;
 
-function autenticar() {
+function LoginDS(){
+    /*
+    * DATOS PRUEBAS
+    * jlcornejo - 123
+    * rmanrique - rm0112ue
+    */
+   txtsUsuario = $("#txtsUsuario").val();
+   txtsContrasenia = $("#txtsContrasenia").val();
+   console.log("fx Login2() pars >>> usr: " + txtsUsuario + " pwd: " + txtsContrasenia);
+    
+    var notificationElement = $("#notification");
+    notificationElement.kendoNotification();
+    var notificationWidget = notificationElement.data("kendoNotification");
+    
+    if (isEmpty(txtsUsuario)){
+        notificationWidget.show("Favor ingresar el usuario", "error");
+        return;
+    }
+    
+    if (isEmpty(txtsContrasenia)){
+        notificationWidget.show("Favor ingresar la contrasenia", "error");
+        return;
+    }
 
-    $.soap({
-        url: 'http://www.ausa.com.pe/WS_SVU/ws_svu.asmx?op=',
-        method: 'nuevaAutenticacion',
-
-        data: {
-           userName: 'jlcornejo',
-            password: '123'
+    dsLogin = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "http://54.213.238.161/wsAusa/Inicio/AutentificaUsuario",
+                dataType: "json",
+                type: "post",
+                data: {
+                    txtsUsuario: txtsUsuario, txtsContrasenia: txtsContrasenia
+                }
+            }
         },
-
-        success: function (soapResponse) {
-            // do stuff with soapResponse
-            // if you want to have the response as JSON use soapResponse.toJSON();
-            // or soapResponse.toString() to get XML string
-            alert(soapResponse.toString());
-            // or soapResponse.toXML() to get XML DOM
+        schema: {
+            model: {
+                fields: {
+                    Id: { editable: false, nullable: true, type: "number" },
+                    Tipo:  {type: "string"},
+                    Ejecucion: {type: "number"},
+                }
+            }
         },
-        error: function (SOAPResponse) {
-            // show error
-            alert("error");
+        requestEnd: function(e) {
+            console.log("dsLogin >> requestEnd");
+
+        },
+    });    
+    
+    dsLogin.fetch(function(){
+        var data = this.data();
+        console.log("Res Login2() >>> Id: " + data[0].Id + " Tipo: " + data[0].Tipo + " Ejecucion: " + data[0].Ejecucion);
+        /*
+        * data[0].Ejecucion --> status autenticacion
+        * VALORES 
+        * --> 0 ERROR usuario autenticado correttamente
+        * --> 1 ERROR usuario no autenticado
+        */
+        var resLogin = 1;
+        resLogin = data[0].Ejecucion;
+        
+        if (resLogin === 0){
+          $('.iconoMenu').show();
+          notificationWidget.show("Autenticacion exitosa", "success");
+          $("#MenuPrincipal").show();
         }
+        
+        if (resLogin === 1){
+          notificationWidget.show("Error de Autenticacion", "error");
+          notificationWidget.show("Usuario y/o Contrasenia no correctos", "error");
+        }
+        
     });
- 
+    
+    
+    
+}
 
+function isEmpty(str){
+    return (!str || 0 === str.length);
 }
 
 function Login(){
@@ -41,9 +99,9 @@ function Login(){
     * jlcornejo - 123
     * rmanrique - rm0112ue
     */
-    var txtsUsuario = $("#txtsUsuario").val();
-    var txtsContrasenia = $("#txtsContrasenia").val();
-    console.log("jQuery post pars >>> usr: " + txtsUsuario + " pwd: " + txtsContrasenia);
+   txtsUsuario = $("#txtsUsuario").val();
+   txtsContrasenia = $("#txtsContrasenia").val();
+   console.log("fx Login() jQuery post pars >>> usr: " + txtsUsuario + " pwd: " + txtsContrasenia);
     
     $.post(
         "http://54.213.238.161/wsAusa/Inicio/AutentificaUsuario",
@@ -53,9 +111,13 @@ function Login(){
              $("#LoginResponse").html(data);
              $("#StatusPost").append(status);
              $("#XHRObj").append(xhr);
+             
+             //Enable main menu
+             $("#MenuPrincipal").show();
          },
          /* use dataType "json" */
         "text"
     );
 }
- 
+
+// END_CUSTOM_CODE_homeView

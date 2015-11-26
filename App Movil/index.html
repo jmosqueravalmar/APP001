@@ -36,7 +36,7 @@
         <header data-role="header">
             <div data-role="navbar">
                 <span data-role="view-title"></span>
-                <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
+                <a id="MenuPrincipal" data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" style="display: none;" data-icon="drawer-button"></a>
             </div>
         </header>
         <!-- application views will be rendered here -->
@@ -49,7 +49,7 @@
         </header>
         <!-- application views will be rendered here -->
     </div>
-    <div id="appDrawer" data-role="drawer" data-title="">
+    <div id="appDrawer" data-role="drawer" data-title="" data-swipe-to-open="false">
         <header data-role="header">
             <div data-role="navbar">
                 <span data-role="view-title"></span>
