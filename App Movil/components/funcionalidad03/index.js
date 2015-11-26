@@ -7,8 +7,7 @@ app.funcionalidad03 = kendo.observable({
         //Carga JavaScript 4st        
     }
 });
-
-//DataSorce tareas
+//dsTareas -> obtenemos la lista de tareas
 var dsTareas = new kendo.data.DataSource({
     transport: {
         read: {
@@ -20,6 +19,7 @@ var dsTareas = new kendo.data.DataSource({
             }
         }
     },
+    //schema -> para mantener los filtror y para el formato date
     schema: {
         model: {
             fields: {
@@ -29,6 +29,9 @@ var dsTareas = new kendo.data.DataSource({
                 tar_dat_fchlimite: {
                     type: "date"
                 },
+                tar_int_estado: {
+                    type: "string"
+                },
                 tar_int_prioridad: {
                     type: "string"
                 }
@@ -37,242 +40,250 @@ var dsTareas = new kendo.data.DataSource({
     },
     pageSize: 10
 });
-//Cargar dsTareas
+//getTareas -> cargamos el grid tareas
 function getTareas() {
-    if (!$("#tareas").data("kendoGrid")) {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    };
-
-    $("#tareas").kendoGrid({
-        dataSource: dsTareas,
-        filterable: true,
-        sortable: true,
-        pageable: true,
-        scrollable: false,
-        selectable: "row",
-        change: selectGrid,
-        filterMenuInit: filterMenu,
-        columns: [{
-                field: "tipotarea",
-                title: "Nombre de Tarea",
-                width: "360px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
+        if (!$("#tareas").data("kendoGrid")) {
+            document.addEventListener("deviceready", onDeviceReady, false);
+        };
+        $("#tareas").kendoGrid({
+            dataSource: dsTareas,
+            filterable: true,
+            sortable: true,
+            pageable: true,
+            scrollable: false,
+            selectable: "row",
+            change: selectGrid,
+            filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
+            columns: [{
+                    field: "tipotarea",
+                    title: "Nombre de Tarea",
+                    width: "360px",
+                    filterable: {
+                        extra: false,
+                        operators: {
+                            string: {
+                                contains: "Contiene",
+                                eq: "Es igual a",
+                                neq: "No es igual a"
+                            }
+                        },
+                        messages: {
+                            info: "Filtrar por tarea: ",
+                            filter: "Filtrar",
+                            clear: "Limpiar"
+                        }
+                    }
+            },
+                {
+                    field: "Usuario",
+                    title: "Cliente",
+                    width: "150px",
+                    filterable: {
+                        extra: false,
+                        operators: {
+                            string: {
+                                contains: "Contiene",
+                                eq: "Es igual a",
+                                neq: "No es igual a"
+                            }
+                        },
+                        messages: {
+                            info: "Filtrar por cliente: ",
+                            filter: "Filtrar",
+                            clear: "Limpiar"
+                        }
+                    }
+            },
+                {
+                    field: "tar_dat_fchcreacion",
+                    title: "F. Creación",
+                    template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
+                    width: "120px",
+                    filterable: {
+                        messages: {
+                            info: "Rango de creación: "
                         }
                     },
-                    messages: {
-                        info: "Filtrar por: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
+                    format: "{0:MM/dd/yyyy}"
             },
-            {
-                field: "Usuario",
-                title: "Cliente",
-                width: "150px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
+                {
+                    field: "tar_dat_fchlimite",
+                    title: "F. Límite",
+                    template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
+                    width: "120px",
+                    filterable: {
+                        messages: {
+                            info: "Rango de límite: ",
                         }
                     },
-                    messages: {
-                        info: "Filtrar por: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
+                    format: "{0:MM/dd/yyyy}"
             },
-            {
-                field: "tar_dat_fchcreacion",
-                title: "F. Creación",
-                template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
-                width: "120px",
-                filterable: {
-                    messages: {
-                        info: "Rango de fechas: "
-                    }
-                },
-                format: "{0:MM/dd/yyyy}"
-            },
-            {
-                field: "tar_dat_fchlimite",
-                title: "F. Limite",
-                template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
-                width: "120px",
-                filterable: {
-                    messages: {
-                        info: "Rango de fechas: ",
-                    }
-                },
-                format: "{0:MM/dd/yyyy}"
-            },
-            {
-                field: "tar_int_estado",
-                title: "Estado",
-                //template: '#if(tar_int_estado==1){#<span class="k-icon k-i-unlock"></span>Pendiente#}else{#<span class="k-icon k-i-lock"></span>Cerrado#}#',
-                template: '#if(tar_int_estado==1){#Pendiente#}else{#Cerrado#}#',
-                width: "100px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
+                {
+                    field: "tar_int_estado",
+                    title: "Estado",
+                    template: '#if(tar_int_estado==1){#Pendiente#}else{#Cerrado#}#',
+                    width: "100px",
+                    filterable: {
+                        extra: false,
+                        operators: {
+                            string: {
+                                contains: "Contiene",
+                                eq: "Es igual a",
+                                neq: "No es igual a"
+                            }
+                        },
+                        messages: {
+                            info: "Filtrar por estado: ",
+                            filter: "Filtrar",
+                            clear: "Limpiar"
                         }
                     }
-                }
             },
-            {
-                field: "tar_int_prioridad",
-                title: "Prioridad",
-                template: '#if(tar_int_prioridad==1){#<span class = "glyphicon glyphicon-arrow-down text-success" aria-hidden = "true" ></span>Baja#}else{if(tar_int_prioridad==3){#<span class="glyphicon glyphicon-arrow-up text-danger" aria-hidden="true"></span>Alta#}else{#<span class = "glyphicon glyphicon glyphicon-arrow-right text-warning" aria-hidden="true"></span>Media#}}#',
-                width: "110px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene"
+                {
+                    field: "tar_int_prioridad",
+                    title: "Prioridad",
+                    template: '#if(tar_int_prioridad==1){#<span class = "glyphicon glyphicon-arrow-down text-success" aria-hidden = "true" ></span>Baja#}else{if(tar_int_prioridad==3){#<span class="glyphicon glyphicon-arrow-up text-danger" aria-hidden="true"></span>Alta#}else{#<span class = "glyphicon glyphicon glyphicon-arrow-right text-warning" aria-hidden="true"></span>Media#}}#',
+                    width: "110px",
+                    filterable: {
+                        extra: false,
+                        operators: {
+                            string: {
+                                contains: "Contiene"
+                            }
+                        },
+                        messages: {
+                            info: "Filtrar por prioridad: ",
+                            filter: "Filtrar",
+                            clear: "Limpiar"
                         }
                     }
-                }
             }],
-
-        dataBound: function (e) {
-            var items = this._data;
-            var rows = e.sender.tbody.children();
-            for (var i = 0; i < rows.length; i++) {
-                var row = $(rows[i]);
-                var f1 = kendo.parseDate(items[i].tar_dat_fchlimite, 'dd-MM-yyyy');
-                var f2 = kendo.parseDate(items[i].tar_dat_fchcreacion, 'dd-MM-yyyy');
-                var diff = new Date(f1 - f2);
-                var days = diff / 1000 / 60 / 60 / 24;
-                if (days < 2) {
-                    row.addClass("danger");
-                } else if (days >= 2 && days < 7) {
-                    row.addClass("warning");
-                } else {
-                    row.addClass("default");
+            //dataBound -> para pintar la fila rojo (si es menor 2 dias), naranja (si es menor a 7 dias) y blanco (mayor a 7 dias) 
+            dataBound: function (e) {
+                var items = this._data;
+                var rows = e.sender.tbody.children();
+                for (var i = 0; i < rows.length; i++) {
+                    var row = $(rows[i]);
+                    var f1 = kendo.parseDate(items[i].tar_dat_fchlimite, 'dd-MM-yyyy');
+                    var f2 = kendo.parseDate(items[i].tar_dat_fchcreacion, 'dd-MM-yyyy');
+                    var diff = new Date(f1 - f2);
+                    var days = diff / 1000 / 60 / 60 / 24;
+                    if (days < 2) {
+                        row.addClass("danger");
+                    } else if (days >= 2 && days < 7) {
+                        row.addClass("warning");
+                    } else {
+                        row.addClass("default");
+                    }
                 }
             }
-        }
-    });
+        });
+        //filterMenu -> para configurar los filtros
+        function filterMenu(e) {
+            if (e.field == "tar_dat_fchlimite") {
+                var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+                beginOperator.value("gte");
+                beginOperator.trigger("change");
 
-    function filterMenu(e) {
-        if (e.field == "tar_dat_fchlimite") {
-            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
-            beginOperator.value("gte");
-            beginOperator.trigger("change");
+                var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+                endOperator.value("lte");
+                endOperator.trigger("change");
+                e.container.find(".k-dropdown").hide()
+            }
+            if (e.field == "tar_dat_fchcreacion") {
+                var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+                beginOperator.value("gte");
+                beginOperator.trigger("change");
 
-            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
-            endOperator.value("lte");
-            endOperator.trigger("change");
-            e.container.find(".k-dropdown").hide()
-        }
-        if (e.field == "tar_dat_fchcreacion") {
-            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
-            beginOperator.value("gte");
-            beginOperator.trigger("change");
-
-            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
-            endOperator.value("lte");
-            endOperator.trigger("change");
-            e.container.find(".k-dropdown").hide()
-        }
-        if (e.field == "tar_int_estado") {
-            //e.container.find("k-widget.k-dropdown.k-header").css("display", "none");
-            // Change the text field to a dropdownlist in the Role filter menu.
-            e.container.find(".k-textbox:first")
-                //.removeClass("k-textbox")
-                .kendoDropDownList({
-                    dataSource: new kendo.data.DataSource({
-                        data: [
-                            {
-                                title: "Pendiente",
-                                value: 1
+                var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+                endOperator.value("lte");
+                endOperator.trigger("change");
+                e.container.find(".k-dropdown").hide()
+            }
+            if (e.field == "tar_int_estado") {
+                //e.container.find("k-widget.k-dropdown.k-header").css("display", "none");
+                // Change the text field to a dropdownlist in the Role filter menu.
+                e.container.find(".k-textbox:first")
+                    //.removeClass("k-textbox")
+                    .kendoDropDownList({
+                        dataSource: new kendo.data.DataSource({
+                            data: [
+                                {
+                                    title: "Pendiente",
+                                    value: 1
                             },
-                            {
-                                title: "Cerrado",
-                                value: 0
+                                {
+                                    title: "Cerrado",
+                                    value: 0
                             }
                                 ]
-                    }),
-                    dataTextField: "title",
-                    dataValueField: "value"
-                });
-        }
-        if (e.field == "tar_int_prioridad") {
-            //e.container.find("k-widget.k-dropdown.k-header").css("display", "none");
-            // Change the text field to a dropdownlist in the Role filter menu.
-            e.container.find(".k-textbox:first")
-                //.removeClass("k-textbox")
-                .kendoDropDownList({
-                    dataSource: new kendo.data.DataSource({
-                        data: [
-                            {
-                                title: "Alta",
-                                value: 3
+                        }),
+                        dataTextField: "title",
+                        dataValueField: "value"
+                    });
+            }
+            if (e.field == "tar_int_prioridad") {
+                //e.container.find("k-widget.k-dropdown.k-header").css("display", "none");
+                // Change the text field to a dropdownlist in the Role filter menu.
+                e.container.find(".k-textbox:first")
+                    //.removeClass("k-textbox")
+                    .kendoDropDownList({
+                        dataSource: new kendo.data.DataSource({
+                            data: [
+                                {
+                                    title: "Alta",
+                                    value: 3
                             },
-                            {
-                                title: "Media",
-                                value: 2
+                                {
+                                    title: "Media",
+                                    value: 2
                             },
-                            {
-                                title: "Baja",
-                                value: 1
+                                {
+                                    title: "Baja",
+                                    value: 1
                             }
                                 ]
-                    }),
-                    dataTextField: "title",
-                    dataValueField: "value"
-                });
-        }
+                        }),
+                        dataTextField: "title",
+                        dataValueField: "value"
+                    });
+            }
 
-    };
-}
-
+        };
+    }
+    //viewFormTarea -> función para agregar nueva tarea
 function viewFormTarea() {
-    window.location.href = "#accionTarea";
-    $('#formAdd')[0].reset();
-    getSelectTipoTarea("add");
-    getSelectCliente("add");
-    $('#divBtnAdd').show();
-    $('#divBtnAccion').hide();
-    $("#divNotaVoz").html("");
-}
-
+        window.location.href = "#accionTarea";
+        $('#formAdd')[0].reset();
+        getSelectTipoTarea("add");
+        getSelectCliente("add");
+        $('#divBtnAdd').show();
+        $('#divBtnAccion').hide();
+        $("#divNotaVoz").html("");
+    $("#divEstado").hide();
+    }
+    //getSelectTipoTarea -> datos del select tipo de tarea
 function getSelectTipoTarea(accion) {
-    $("#txtidtt").kendoDropDownList({
-        dataSource: {
-            transport: {
-                read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Tareas/tipoListar",
-                    dataType: "json"
+        $("#txtidtt").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "http://www.ausa.com.pe/appmovil_test01/Tareas/tipoListar",
+                        dataType: "json"
+                    }
                 }
-            }
-        },
-        dataTextField: "tiptar_str_nombre",
-        dataValueField: "tiptar_int_id"
-    });
+            },
+            dataTextField: "tiptar_str_nombre",
+            dataValueField: "tiptar_int_id"
+        });
 
-    if (accion == "add") {
-
-    } else {
-        var dropdownlist = $("#txtidtt").data("kendoDropDownList");
-        dropdownlist.value(accion);
-    };
-}
-
+        //Si se seleccionó la fila, asignamos el valor del kendoDropDownList con el valor de accion
+        if (accion !== "add") {
+            var dropdownlist = $("#txtidtt").data("kendoDropDownList");
+            dropdownlist.value(accion);
+        };
+    }
+    //getSelectCliente -> datos del select cliente
 function getSelectCliente(accion) {
     if (!$("#txtidc").data("kendoMultiSelect")) {
         $("#txtidc").kendoMultiSelect({
@@ -312,10 +323,9 @@ function getSelectCliente(accion) {
         });
     }
 
+    //Si se seleccionó la fila, buscamos la lista de clientes y asignamos el valor del kendoMultiSelect con el valor de accion
     var values = [];
-    if (accion == "add") {
-
-    } else {
+    if (accion !== "add") {
         var dsTareaCliente = null;
         dsTareaCliente = new kendo.data.DataSource({
             transport: {
@@ -342,7 +352,7 @@ function getSelectCliente(accion) {
     }
 }
 
-//Función Agregar. Editar y Eliminar Tarea
+//accionTarea -> Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {
     var valido = true;
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
@@ -375,16 +385,19 @@ function accionTarea(accion) {
         valido = false;
     }
 
-    /* Eliminar este console log en producción
+    // Eliminar este console log en producción
 
-    console.log($('#txtidc').val());
-    console.log($('#txtidtt option:selected').val());
-    console.log($('#txtorden').val());
-    console.log($('#txtobserv').val());
-    console.log($('#txtdetalle').val());
-    console.log($('input:radio[name=txtprioridad]:checked').val());
-    console.log($('#txtflimite').val() + " 00:00:00");
-    console.log(valido);*/
+    console.log(accion);
+    console.log("txtid = " + $('#txtid').val());
+    console.log("txtidc = " + $('#txtidc').val());
+    console.log("txtidtt = " + $('#txtidtt option:selected').val());
+    console.log("txtorden = " + $('#txtorden').val());
+    console.log("txtobserv = " + $('#txtobserv').val());
+    console.log("txtdetalle = " + $('#txtdetalle').val());
+    console.log("txtprioridad = " + $('input:radio[name=txtprioridad]:checked').val());
+    console.log("txtflimite = " + $('#txtflimite').val() + " 00:00:00");
+    console.log("txtestado = " + $('#txtestado').val());
+    console.log(valido);
 
     valido && $.ajax({
         type: "POST",
@@ -397,6 +410,7 @@ function accionTarea(accion) {
             txtobserv: $('#txtobserv').val(),
             txtdetalle: $('#txtdetalle').val(),
             txtprioridad: $('input:radio[name=txtprioridad]:checked').val(),
+            txtestado: $('#txtestado').val(),
             txtflimite: $('#txtflimite').val() + " 00:00:00"
         },
         async: false,
@@ -404,8 +418,7 @@ function accionTarea(accion) {
             var data = [];
             data = JSON.parse(datos);
             var txtidc = $('#txtidc').val();
-            if (data[0].Column1 > 0) { //Si intertado es mayor que cero  
-
+            if (data[0].Column1 > 0) { //Si devuelve el valor de la tarea agregada
                 for (var i = 0; i < $('#txtidc').val().length; i++) {
                     $.ajax({ // INSERT
                         type: "post",
@@ -437,7 +450,7 @@ function accionTarea(accion) {
                 return;
             }
 
-            if ($('#txtid').val() > 0) { //Es edición  
+            if ($('#txtid').val() > 0) { //Si es edición  
                 var dsTareaCliente = new kendo.data.DataSource({
                     transport: {
                         read: {
@@ -493,9 +506,7 @@ function accionTarea(accion) {
                             }
                         });
                     };
-
                 });
-
 
                 if (valido) {
                     var notificationElement = $("#notification");
@@ -503,10 +514,10 @@ function accionTarea(accion) {
                     var notificationWidget = notificationElement.data("kendoNotification");
                     switch (accion) {
                         case "insert":
-                            notificationWidget.show("Se agregó la nueva tarea", "success");
+                            notificationWidget.show("Se agregó satisfactoriamente la tarea", "success");
                             break;
                         default:
-                            notificationWidget.show((accion == "delete" ? "Se eliminó la tarea" : "Se editó la tarea"), "success");
+                            notificationWidget.show((accion == "delete" ? "Se eliminó satisfactoriamente la tarea" : "Se guardó satisfactoriamente la información"), "success");
                     }
                     var grid = $("#tareas").data("kendoGrid");
                     grid.dataSource.read();
@@ -523,6 +534,7 @@ function accionTarea(accion) {
     });
 }
 
+//Agregamos audio
 function addNotaVoz() {
     $("#divNotaVoz").append('<span class="font-cuerpo">Audio01 <span type="xxx" class="glyphicon glyphicon-remove"></span>&nbsp&nbsp&nbsp</span>');
 }
@@ -532,8 +544,7 @@ $(document).on("click", "span[type='xxx']", function () {
     $(this).parent().remove();
 });
 
-
-
+//selectGrid-> Si se selecciona una fila del grid
 function selectGrid() {
     window.location.href = "#accionTarea";
     var seleccion = $(".k-state-selected").select();
@@ -562,14 +573,18 @@ function selectGrid() {
     var tar_dat_fchlimite = kendo.toString(kendo.parseDate(this.dataItem(seleccion).tar_dat_fchlimite, 'dd-MM-yyyy'), 'yyyy-MM-dd');
     $('#txtflimite').val(tar_dat_fchlimite);
 
+    $('#txtestado').val(this.dataItem(seleccion).tar_int_estado);
+
     $('#divBtnAdd').hide();
     $('#divBtnAccion').show();
 
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
     $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
     $("#divNotaVoz").html("");
+    $("#divEstado").show();
 }
 
+//addTipoTarea -> Agregamos un nuevo tipo de tarea
 function addTipoTarea() {
     var valido = true;
     $('#txtnombre, #txtdescripcion').parent().parent().removeClass("has-error");
@@ -616,7 +631,6 @@ function addTipoTarea() {
     });
 }
 
-
 //Para mantener active el button-group
 $(document).on("change", "input[type='radio']", function () {
     $("input[type='radio']").parent().removeClass("active");
@@ -624,4 +638,20 @@ $(document).on("change", "input[type='radio']", function () {
     $("span[type='btnCheck']").remove();
     $(this).parent().prepend('<span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
 });
-// END_CUSTOM_CODE_funcionalidad03 17/11/2015 12.32 pm
+
+function tag_estado() {
+    if ($("#txtestado").val() == 2) {
+        $("#txtestado").val(1);
+        $("#txtestado").removeClass('text-success');
+        $("#txtestado").addClass('fa-rotate-180');
+        $("#txtestado").addClass('text-muted');
+        $("#tag_estado").text('Pendiente');
+    } else {
+        $("#txtestado").val(2);
+        $("#txtestado").removeClass('text-muted');
+        $("#txtestado").removeClass('fa-rotate-180');
+        $("#txtestado").addClass('text-success');
+        $("#tag_estado").text('Cerrado');
+    }
+    console.log($("#txtestado").val());
+};
