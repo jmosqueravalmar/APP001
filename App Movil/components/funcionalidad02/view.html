@@ -20,7 +20,7 @@
         </br>
         <button type="button" class="btn btn-primary btn-lg" onclick="getOrden($('#year').val(),$('#order').val());"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
     </div>
-    <div id="appendto" class="demo-section k-content"></div>
+    <!--div id="appendto" class="demo-section k-content"></div-->
 </div>
 <!-- Detalle -->
 <div data-role="view" id="det-orden1" data-title="Seguimiento">
@@ -30,6 +30,7 @@
     </div>
     <ul id="det-orden" data-role="listview" class="col-md-12">
     </ul>
+    <h5 class="text-cuerpo"><span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> : Realizado &nbsp&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> : Pendiente</h5>
 </div>
 <!-- Templates -->
 <script type="text/x-kendo-tmpl" id="temp01">
@@ -39,6 +40,20 @@
         <div class="panel-heading centrar">IMPORTACIÓN</div>
         <div class="panel-body">
             <p>Nro de la Órden: #:Orden#</p>
+            #if(Via=="MARITIMO"){#
+            <p>Vía: <i class="fa fa-ship text-muted"></i> #:Via#</p>
+            #} else if (Via=="TERRESTRE"){#
+            <p>Vía: <i class="fa fa-truck text-muted"></i> #:Via#</p>
+            #}else{#
+            <p>Vía: <i class="fa fa-plane text-muted"></i> #:Via#</p>
+            #}# #if(Canal=="V"){#
+            <p>Canal: <i class="fa fa-circle text-success"></i> #:Canal#</p>
+            #} else if (Canal=="N"){#
+            <p>Canal: <i class="fa fa-circle text-warning"></i> #:Canal#</p>
+            #}else{#
+            <p>Canal: <i class="fa fa-circle text-danger"></i> #:Canal#</p>
+            #}#
+            <p>T. Despacho: #:TipoDespacho#</p>
             <p>Nro de Referencia: #:Referencia#</p>
             <p>Mercadería: #:Mercaderia#</p>
         </div>
@@ -101,21 +116,34 @@
         <div class="panel-heading">EXPORTACIÓN</div>
         <div class="panel-body">
             <p>Nro de la Órden: #:Orden#</p>
+            #if(Via=="MARITIMO"){#
+            <p>Vía: <i class="fa fa-ship text-muted"></i> #:Via#</p>
+            #} else if (Via=="TERRESTRE"){#
+            <p>Vía: <i class="fa fa-truck text-muted"></i> #:Via#</p>
+            #}else{#
+            <p>Vía: <i class="fa fa-plane text-muted"></i> #:Via#</p>
+            #}# #if(Canal=="V"){#
+            <p>Canal: <i class="fa fa-circle text-success"></i> #:Canal#</p>
+            #} else if (Canal=="N"){#
+            <p>Canal: <i class="fa fa-circle text-warning"></i> #:Canal#</p>
+            #}else{#
+            <p>Canal: <i class="fa fa-circle text-danger"></i> #:Canal#</p>
+            #}#
             <p>Nro de Referencia: #:Referencia#</p>
             <p>Mercadería: #:Mercaderia#</p>
         </div>
     </div>
     <div class="list-group">
         #if(IniciarTramite==null){#
-        <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> Se recibieron instrucciones para iniciar el tramite</button>
+        <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> Se recibieron instrucciones para iniciar el trámite</button>
         #}else{#
-        <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> Se recibieron instrucciones para iniciar el tramite #:kendo.toString(data.IniciarTramite, "dd/MM/yyyy h:mm:ss tt")#</button>
+        <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> Se recibieron instrucciones para iniciar el trámite #:kendo.toString(data.IniciarTramite, "dd/MM/yyyy h:mm:ss tt")#</button>
         #}# #if(ESC==null){#
         <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> ESC instruye ingreso / llenado</button>
         #}else{#
         <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> ESC instruye ingreso / llenado #:kendo.toString(data.ESC, "dd/MM/yyyy h:mm:ss tt")#</button>
         #}# #if(DAM==null){#
-        <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> DAM provisional numerada</button>
+        <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> DAM numerada provisional</button>
         #}else{#
         <button type="button" class="list-group-item"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> DAM provisional numerada #:kendo.toString(data.DAM, "dd/MM/yyyy h:mm:ss tt")#</button>
         #}# #if(DAMFisico==null){#
