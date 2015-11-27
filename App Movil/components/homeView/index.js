@@ -16,9 +16,9 @@ function LoginDS(){
     * jlcornejo - 123
     * rmanrique - rm0112ue
     */
-   txtsUsuario = $("#txtsUsuario").val();
-   txtsContrasenia = $("#txtsContrasenia").val();
-   console.log("fx Login2() pars >>> usr: " + txtsUsuario + " pwd: " + txtsContrasenia);
+   	txtsUsuario = $("#txtsUsuario").val();
+   	txtsContrasenia = $("#txtsContrasenia").val();
+   	//console.log("fx Login2() pars >>> usr: " + txtsUsuario + " pwd: " + txtsContrasenia);
     
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
@@ -62,7 +62,7 @@ function LoginDS(){
     
     dsLogin.fetch(function(){
         var data = this.data();
-        console.log("Res Login2() >>> Id: " + data[0].Id + " Tipo: " + data[0].Tipo + " Ejecucion: " + data[0].Ejecucion);
+        //console.log("Res Login2() >>> Id: " + data[0].Id + " Tipo: " + data[0].Tipo + " Ejecucion: " + data[0].Ejecucion);
         /*
         * data[0].Ejecucion --> status autenticacion
         * VALORES 
@@ -73,9 +73,17 @@ function LoginDS(){
         resLogin = data[0].Ejecucion;
         
         if (resLogin === 0){
-          $('.iconoMenu').show();
-          notificationWidget.show("Autenticacion exitosa", "success");
+          //notificationWidget.show("Autenticacion exitosa", "success");
+          /*
+          * TODO-FIX: enable dynamically the Swipe to Open fx on the drawer (data-role) element look @ tag div id="appDrawer" index.html
+          * TODO-WIP: implement function menu dynamically based on user role
+          */
           $("#MenuPrincipal").show();
+          //Store UsuarioID global js var app.js file
+          UsuarioID = data[0].Id;
+          $("#NombreUsuario").html(txtsUsuario);
+          $("#UsuarioID").html(UsuarioID);
+          window.location.href = "#AutenticacionOK";
         }
         
         if (resLogin === 1){
@@ -84,40 +92,10 @@ function LoginDS(){
         }
         
     });
-    
-    
-    
 }
 
 function isEmpty(str){
     return (!str || 0 === str.length);
-}
-
-function Login(){
-    /*
-    * DATOS PRUEBAS
-    * jlcornejo - 123
-    * rmanrique - rm0112ue
-    */
-   txtsUsuario = $("#txtsUsuario").val();
-   txtsContrasenia = $("#txtsContrasenia").val();
-   console.log("fx Login() jQuery post pars >>> usr: " + txtsUsuario + " pwd: " + txtsContrasenia);
-    
-    $.post(
-        "http://54.213.238.161/wsAusa/Inicio/AutentificaUsuario",
-         {txtsUsuario: txtsUsuario, txtsContrasenia: txtsContrasenia},
-         function(data,status,xhr){
-             
-             $("#LoginResponse").html(data);
-             $("#StatusPost").append(status);
-             $("#XHRObj").append(xhr);
-             
-             //Enable main menu
-             $("#MenuPrincipal").show();
-         },
-         /* use dataType "json" */
-        "text"
-    );
 }
 
 // END_CUSTOM_CODE_homeView
