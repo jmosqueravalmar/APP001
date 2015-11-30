@@ -2,7 +2,7 @@
 app.funcionalidad03 = kendo.observable({
     onShow: function () {
         //Carga JavaScript 3st
-    }, 
+    },
     afterShow: function () {
         //Carga JavaScript 4st        
     }
@@ -260,7 +260,7 @@ function viewFormTarea() {
         $('#divBtnAdd').show();
         $('#divBtnAccion').hide();
         $("#divNotaVoz").html("");
-    $("#divEstado").hide();
+        $("#divEstado").hide();
     }
     //getSelectTipoTarea -> datos del select tipo de tarea
 function getSelectTipoTarea(accion) {
@@ -575,53 +575,6 @@ function selectGrid() {
     $("#divEstado").show();
 }
 
-//addTipoTarea -> Agregamos un nuevo tipo de tarea
-function addTipoTarea() {
-    var valido = true;
-    $('#txtnombre, #txtdescripcion').parent().parent().removeClass("has-error");
-    if ($('#txtnombre').val() == "") {
-        $('#txtnombre').parent().parent().addClass("has-error");
-        valido = false;
-    }
-    if ($('#txtdescripcion').val() == "") {
-        $('#txtdescripcion').parent().parent().addClass("has-error");
-        valido = false;
-    }
-    valido && $.ajax({
-        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/tipoInsert',
-        type: "post",
-        data: {
-            txtnombre: $('#txtnombre').val(),
-            txtdescripcion: $('#txtdescripcion').val(),
-            txtuserid: 668
-        },
-        async: false,
-        success: function (datos) {
-            var data = [];
-            data = JSON.parse(datos);
-            if (data[0].Ejecucion == 0) {
-                getSelectTipoTarea("add");
-                var notificationElement = $("#notification");
-                notificationElement.kendoNotification();
-                var notificationWidget = notificationElement.data("kendoNotification");
-                notificationWidget.show("Se agregó nuevo tipo de tarea", "success");
-                $("#modalAddTipoTarea").data("kendoMobileModalView").close();
-            } else {
-                var notificationElement = $("#notification");
-                notificationElement.kendoNotification();
-                var notificationWidget = notificationElement.data("kendoNotification");
-                notificationWidget.show("No se pudo agregar el tipo de tarea", "error");
-            }
-        },
-        error: function () {
-            var notificationElement = $("#notification");
-            notificationElement.kendoNotification();
-            var notificationWidget = notificationElement.data("kendoNotification");
-            notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
-        }
-    });
-}
-
 //Para mantener active el button-group
 $(document).on("change", "input[type='radio']", function () {
     $("input[type='radio']").parent().removeClass("active");
@@ -644,5 +597,204 @@ function tag_estado() {
         $("#txtestado").addClass('text-success');
         $("#tag_estado").text('Cerrado');
     }
-    console.log($("#txtestado").val());
 };
+
+//add edit delete tipo de tarea
+function accionTT(tipo) {
+    $('#modalAddTipoTarea').data('kendoMobileModalView').open();
+    $("#btnTT").removeAttr("disabled");
+    switch (tipo) {
+        case "tipoUpdate":
+            $('#btnTT').val('tipoUpdate');
+            $('#btnTT').html('<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar');
+            break;
+        default:
+            $('#btnTT').val('tipoInsert');
+            $('#btnTT').html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar');
+            $('#txtnombre').val("");
+            $('#txtdescripcion').val("");
+            $('#txtidTT').val("");
+    }
+}
+
+function adminTT() {
+    var tiptar_int_usrcreacion = 668;
+    window.location.href = "#vistaTipoTareas";
+    $("#administrarTipoTareas").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Tareas/tipoListar",
+                    dataType: "json",
+                    type: "get"
+                }
+            },
+            //schema -> para mantener los filtror y para el formato date
+            schema: {
+                model: {
+                    fields: {
+                        tiptar_int_id: {
+                            type: "number",
+                            width: "15"
+                        },
+                        tiptar_str_nombre: {
+                            type: "string"
+                        },
+                        tiptar_dat_ultimamodif: {
+                            type: "date"
+                        }
+                    }
+                }
+            }
+        },
+        selectable: "row",
+        change: function (e) {
+            $('#modalAddTipoTarea').data('kendoMobileModalView').open();
+
+            var selectedRows = this.select();
+            var selectedDataItems = [];
+            for (var i = 0; i < selectedRows.length; i++) {
+                var dataItem = this.dataItem(selectedRows[i]);
+            }
+            var seleccion = $(".k-state-selected").select();
+            accionTT('tipoUpdate');
+            $('#txtnombre').val(dataItem.tiptar_str_nombre);
+            $('#txtdescripcion').val(dataItem.tiptar_str_descripcion);
+            $('#txtidTT').val(dataItem.tiptar_int_id);
+            //Sólo el usuario creador puede eliminar el tipo de tarea, si no lo es -> btnTT disabled
+            if (tiptar_int_usrcreacion == dataItem.tiptar_int_usrcreacion) {
+                $("#btnTT").removeAttr("disabled");
+            } else {
+                $("#btnTT").attr("disabled", "disabled");
+            }
+        },
+        columns: [{
+                //define template column with checkbox and attach click event handler
+                title: "Nro",
+                width: "50px"
+            },
+            {
+                hidden: true,
+                field: "tiptar_int_id",
+                title: "ID"
+            }, {
+                field: "tiptar_str_nombre",
+                title: "Tipo de Tareas"
+            }, {
+                field: "tiptar_dat_ultimamodif",
+                title: "Fecha de Creación",
+                format: "{0:dd-MM-yyyy}"
+            }],
+        dataBound: function (e) {
+            var rows = e.sender.tbody.children();
+            for (var i = 0; i < rows.length; i++) {
+                var row = $(rows[i]);
+                var cell = row.children().eq(0);
+                cell.html(i + 1 + "&nbsp <input type='checkbox' id='cb" + i + "'>");
+            }
+        }
+    });
+
+}
+
+
+//addTipoTarea -> Agregamos un nuevo tipo de tarea
+function accionTipoTarea(accion) {
+    var tiptar_int_usrcreacion = 668;
+    if (accion == "tipoDelete") {
+        var grid = $('#administrarTipoTareas').data('kendoGrid')._data;
+        for (var i = 0; i < grid.length; i++) {
+            if ($("#cb" + i).is(':checked') && grid[i]["tiptar_int_usrcreacion"] == tiptar_int_usrcreacion) {
+                $.ajax({
+                    url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
+                    type: "post",
+                    data: {
+                        txtid: grid[i]["tiptar_int_id"],
+                        txtuserid: tiptar_int_usrcreacion
+                    },
+                    async: false,
+                    success: function (datos) {
+                        var data = [];
+                        data = JSON.parse(datos);
+                        if (data[0].Ejecucion == 0) {
+                            var notificationElement = $("#notification");
+                            notificationElement.kendoNotification();
+                            var notificationWidget = notificationElement.data("kendoNotification");
+                            notificationWidget.show("Se eliminó el tipo de tarea", "success");
+                        } else {
+                            var notificationElement = $("#notification");
+                            notificationElement.kendoNotification();
+                            var notificationWidget = notificationElement.data("kendoNotification");
+                            notificationWidget.show("No se pudo eliminar el tipo de tarea", "error");
+                        }
+                    },
+                    error: function () {
+                        var notificationElement = $("#notification");
+                        notificationElement.kendoNotification();
+                        var notificationWidget = notificationElement.data("kendoNotification");
+                        notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
+                    }
+                });
+            }
+
+            if (grid[i]["tiptar_int_usrcreacion"] !== tiptar_int_usrcreacion) {
+                var notificationElement = $("#notification");
+                notificationElement.kendoNotification();
+                var notificationWidget = notificationElement.data("kendoNotification");
+                notificationWidget.show("No es usuario creador", "warning");
+            }
+        };
+        $("#modalConfirmarDeleteTT").data("kendoMobileModalView").close();
+        $('#administrarTipoTareas').data('kendoGrid').dataSource.read();
+        $('#administrarTipoTareas').data('kendoGrid').refresh();
+        return;
+    }
+
+    var valido = true;
+    $('#txtnombre, #txtdescripcion').parent().parent().removeClass("has-error");
+    if ($('#txtnombre').val() == "") {
+        $('#txtnombre').parent().parent().addClass("has-error");
+        valido = false;
+    }
+    if ($('#txtdescripcion').val() == "") {
+        $('#txtdescripcion').parent().parent().addClass("has-error");
+        valido = false;
+    }
+    valido && $.ajax({
+        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
+        type: "post",
+        data: {
+            txtid: $('#txtidTT').val(),
+            txtnombre: $('#txtnombre').val(),
+            txtdescripcion: $('#txtdescripcion').val(),
+            txtuserid: 668
+        },
+        async: false,
+        success: function (datos) {
+            var data = [];
+            data = JSON.parse(datos);
+            if (data[0].Ejecucion == 0) {
+                $("#modalAddTipoTarea").data("kendoMobileModalView").close();
+                getSelectTipoTarea("add");
+                var notificationElement = $("#notification");
+                notificationElement.kendoNotification();
+                var notificationWidget = notificationElement.data("kendoNotification");
+                notificationWidget.show("Se agregó nuevo tipo de tarea", "success");
+
+                $('#administrarTipoTareas').data('kendoGrid').dataSource.read();
+                $('#administrarTipoTareas').data('kendoGrid').refresh();
+            } else {
+                var notificationElement = $("#notification");
+                notificationElement.kendoNotification();
+                var notificationWidget = notificationElement.data("kendoNotification");
+                notificationWidget.show("No se pudo agregar el tipo de tarea", "error");
+            }
+        },
+        error: function () {
+            var notificationElement = $("#notification");
+            notificationElement.kendoNotification();
+            var notificationWidget = notificationElement.data("kendoNotification");
+            notificationWidget.show("No se puede establecer la conexión al servicio", "warning");
+        }
+    });
+}
