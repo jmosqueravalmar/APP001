@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; 
 app.funcionalidad05 = kendo.observable({
     onShow: function () {
         //Carga JavaScript 3st
