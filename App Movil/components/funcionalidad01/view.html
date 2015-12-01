@@ -242,7 +242,7 @@
            </div>
            <div class="row MarginBotton5">
                <div class="col-xs-8">
-                 - ACUMULADO DEL MES
+                 - PROMEDIO DEL MES
                </div>
                <div class="col-xs-2">
                  <b id="PorcDespachosVigentes">xy.z%</b>
@@ -282,7 +282,7 @@
            </div>           
            <div class="row  MarginBotton5">
                <div class="col-xs-8">
-                 - ACUMULADO DEL MES
+                 - PROMEDIO DEL MES
                </div>
                <div class="col-xs-2">
                  <b id="PorcFOBVigente">xy.z%</b>
@@ -322,7 +322,7 @@
            </div>
            <div class="row MarginBotton5">
                <div class="col-xs-8">
-                 - ACUMULADO DEL MES
+                 - PROMEDIO DEL MES
                </div>
                <div class="col-xs-2">
                  <b id="PorcCIFVigente">xy.z%</b>
@@ -423,7 +423,7 @@
             </div>
             <div class="row MarginBotton5">
                 <div class="col-xs-9">
-                   <b>ACUMULADO DEL MES</b>
+                   <b>PROMEDIO DEL MES</b>
                 </div>
                 <div  class="col-xs-1">
                     <b id="PartDespachoAcumuladoMes">$yzu.wx</b>
@@ -434,7 +434,7 @@
             </div>
             <div class="row MarginBotton5">
                 <div class="col-xs-9">
-                    <b>ACUMULADO ULTIMOS 3 MESES</b>
+                    <b>PROMEDIO ULTIMOS 3 MESES</b>
                 </div>
                 <div class="col-xs-1">
                     <b id="PartDespachoAcumuladoTresMeses">$zuw.xy</b>
@@ -479,7 +479,7 @@
             </div>
             <div class="row MarginBotton5">
                 <div class="col-xs-9">
-                    <b>ACUMULADO DEL MES</b>
+                    <b>PROMEDIO DEL MES</b>
                 </div>
                 <div class="col-xs-3">
                     <b  id="PartAduanaAcumuladoMes">$yzu.wx</b>
@@ -487,7 +487,7 @@
             </div>
             <div class="row MarginBotton5">
                 <div class="col-xs-9">
-                    <b>ACUMULADO ULTIMOS 3 MESES</b>
+                    <b>PROMEDIO ULTIMOS 3 MESES</b>
                 </div>
                 <div class="col-xs-3">
                     <b id="PartAduanaAcumuladoTresMeses">$zuw.xy</b>
@@ -871,7 +871,7 @@
     
 </div>
 
-<div data-role="modalview" id="ModTarifas" class="PopUpTarifas">
+<div data-role="modalview" id="ModTarifas" class="PopUpTarifas" data-zoom="true" style="width: 100% !important; height: 60% !important;">
     <div class="container-fluid">
         <div class="row">
              <div class="col-xs-12 TitlePopUp">
@@ -883,16 +883,10 @@
                      <br><b>Observaciones</b><br><br>
              </div>
         </div>
-        <div class="row">
-             <div class="col-xs-1">
-                 &nbsp;
-             </div>
-             <div class="col-xs-10">
-                     <textarea id="ModTarifasObservaciones" readonly rows="20" cols="35"> </textarea>
-             </div>
-             <div class="col-xs-1">
-                 &nbsp;
-             </div>
+        <div class="row"> 
+             <div class="col-xs-12">
+                     <textarea id="ModTarifasObservaciones" readonly rows="20" cols="65" style="font-size: 2px !important;"> </textarea>
+             </div> 
         </div>                
         <br>                
         <div class="row">

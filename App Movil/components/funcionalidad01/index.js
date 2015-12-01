@@ -181,8 +181,10 @@ app.funcionalidad01 = kendo.observable({
              for (var i = 0; i < view1.length; i++) {
                  //strHTML += "<dd> Agencias " + i + "</dd>"; 
                  strHTML += "<dd><b>";
-                 strHTML += view1[i].Agente;
-                 strHTML += " ("+view1[i].PorcDespachosAnterior+"%)";
+                 strHTML += view1[i].Agente+"<br>";
+                 strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% Despacho ("+view1[i].PorcDespachosAnterior+"%)<br>";
+                 strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% CIF ("+view1[i].PorcCIFAnterior+"%)<br>"; 
+                 strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% FOB ("+view1[i].PorcFOBAnterior+"%)<br>"; 
                  strHTML += "</b></dd>";
              }
              $("#ParticipacionOtrasAgencias").html(strHTML);
