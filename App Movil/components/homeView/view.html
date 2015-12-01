@@ -1,4 +1,4 @@
-<div id="homeView" data-role="view" data-title="Home View" data-layout="main" data-model="app.homeView" data-show="app.homeView.onShow" data-after-show="app.homeView.afterShow">
+<div id="homeView" data-role="view" data-title="Iniciar Sesión" data-layout="main" data-model="app.homeView" data-show="app.homeView.onShow" data-after-show="app.homeView.afterShow">
     <!-- START_CUSTOM_CODE_homeView -->
     <!-- END_CUSTOM_CODE_homeView -->
     
@@ -7,25 +7,33 @@
           <li>
               <label>
                   Username:
-                  <input type="text" id="txtsUsuario" style="border: solid;"/>
+                  <input type="text" id="txtsUsuario" placeholder="usuario" style="text-align: center;" />
               </label>
           </li>
           <li>
               <label>
                   Password:
-                  <input type="password" id="txtsContrasenia" style="border: solid;" />
+                  <input type="password" id="txtsContrasenia" placeholder="contraseña" style="text-align: center;" />
               </label>
-          </li>
+          </li> 
           <li>
-              <div id="GoLogin" onclick="LoginDS();" style="border: solid;">Login</div>
+          	 <div class="divBotones" style="margin-right: 5%;"> 
+                  <button id="GoLogin" data-role="button" class="km-primary km-widget km-button" style="opacity: 1;" onclick="LoginDS();">
+                      <span class="km-text">Iniciar Sesión</span>
+                  </button> 
+              </div>
+              <div class="divBotones">
+                  <button id="GoClean" data-role="button" class="km-primary km-widget km-button" style="opacity: 1;" onclick="CleanDS();">
+                      <span class="km-text">Resetear</span>
+                  </button>  
+              </div> 
           </li>
       </ul>
 </div>
 
-<div id="AutenticacionOK" data-role="view" data-title="Bienvenido" data-layout="main">
-    <label>
-       <br><br>
-        Bienvenido: <span id="NombreUsuario"></span><br>
-        Usuario ID: <span id="UsuarioID"></span>
-    </label>
+<div id="AutenticacionOK" data-role="view" data-title="Bienvenido" data-layout="main" >
+    <div style=" widht:100; padding: 10%; text-align: center;" >
+        <img class="logoBase" src="images/ausa.png"><br><br><br>
+        <b><span id="NombreUsuario"></span></b>
+    </div>
 </div>

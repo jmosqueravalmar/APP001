@@ -219,6 +219,26 @@ h1 {
         margin: 5px 0px !important
 }
 
+.b_color_1 {
+    background-color: #0053B3 !important;
+}
+
+.b_color_2 {
+    background-color: #EF7A0D !important;
+}
+
+.border_1 {
+    border-color: #0053B3 !important;
+}
+
+.color_1 {
+    color: #0053B3 !important;
+}
+
+.color_2 {
+    color: #EF7A0D !important;
+}
+
 /*
 naranja : #EF7A0D
 
@@ -257,6 +277,18 @@ h1 {
     text-align:center !important;
 } 
 
+.divBotones {
+    width:46% !important; 
+    float:left;
+}
+
+#GoLogin, #GoClean {
+    width: 100% !important;
+    background-color: #EF7A0D;
+    color: white;
+    font-weight: bold;
+}
+
 /* standar */
 
 /*  funcionalidad 2 */
@@ -268,3 +300,20 @@ h1 {
 .input-group input {
     text-align:center;
 }
+
+.icono_centrado {
+    float: left;
+    width: 10%;
+    height: 20px; 
+}
+
+.icono_sep {
+    padding-top: 7px;
+}
+
+.span_centro {
+    width: 90%;
+    float: right;
+}
+
+/* funcionalidad 2 */

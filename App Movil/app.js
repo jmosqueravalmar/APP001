@@ -65,5 +65,12 @@
 }());
 
 // START_CUSTOM_CODE_kendoUiMobileApp
-var UsuarioID = -1;
+//var UsuarioID = -1;
+
+sessionStorage.sessionUSER = "SessionData";
+
+function cerrar_session(){
+    $("#MenuPrincipal").hide();
+}
+ 
 // END_CUSTOM_CODE_kendoUiMobileApp

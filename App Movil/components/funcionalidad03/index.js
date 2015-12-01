@@ -7,41 +7,45 @@ app.funcionalidad03 = kendo.observable({
         //Carga JavaScript 4st        
     }
 });
-//dsTareas -> obtenemos la lista de tareas
-var dsTareas = new kendo.data.DataSource({
-    transport: {
-        read: {
-            url: "http://www.ausa.com.pe/appmovil_test01/Tareas/listar",
-            dataType: "json",
-            type: "post",
-            data: {
-                txtid: 668
-            }
-        }
-    },
-    //schema -> para mantener los filtror y para el formato date
-    schema: {
-        model: {
-            fields: {
-                tar_dat_fchcreacion: {
-                    type: "date"
-                },
-                tar_dat_fchlimite: {
-                    type: "date"
-                },
-                tar_int_estado: {
-                    type: "string"
-                },
-                tar_int_prioridad: {
-                    type: "string"
-                }
-            }
-        }
-    },
-    pageSize: 10
-});
+
 //getTareas -> cargamos el grid tareas
 function getTareas() {
+    	
+    	//dsTareas -> obtenemos la lista de tareas
+        var idSS2 = sessionStorage.getItem("sessionUSER");
+        var dsTareas = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Tareas/listar",
+                    dataType: "json",
+                    type: "post",
+                    data: {
+                        txtid: idSS2 //668
+                    }
+                }
+            },
+            //schema -> para mantener los filtror y para el formato date
+            schema: {
+                model: {
+                    fields: {
+                        tar_dat_fchcreacion: {
+                            type: "date"
+                        },
+                        tar_dat_fchlimite: {
+                            type: "date"
+                        },
+                        tar_int_estado: {
+                            type: "string"
+                        },
+                        tar_int_prioridad: {
+                            type: "string"
+                        }
+                    }
+                }
+            },
+            pageSize: 10
+        });
+
         if (!$("#tareas").data("kendoGrid")) {
             document.addEventListener("deviceready", onDeviceReady, false);
         };
@@ -389,12 +393,14 @@ function accionTarea(accion) {
     console.log("txtflimite = " + $('#txtflimite').val() + " 00:00:00");
     console.log("txtestado = " + $('#txtestado').val());
     console.log(valido);*/
-
+	
+    var idSS = sessionStorage.getItem("sessionUSER");
+    
     valido && $.ajax({
         type: "POST",
         url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
         data: {
-            txtuserid: 668,
+            txtuserid: idSS, //668,
             txtid: $('#txtid').val(),
             txtidtt: $('#txtidtt option:selected').val(),
             txtorden: $('#txtorden').val(),
@@ -587,13 +593,16 @@ function addTipoTarea() {
         $('#txtdescripcion').parent().parent().addClass("has-error");
         valido = false;
     }
+    
+    var idSS = sessionStorage.getItem("sessionUSER");
+    
     valido && $.ajax({
         url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/tipoInsert',
         type: "post",
         data: {
             txtnombre: $('#txtnombre').val(),
             txtdescripcion: $('#txtdescripcion').val(),
-            txtuserid: 668
+            txtuserid: idSS //668
         },
         async: false,
         success: function (datos) {

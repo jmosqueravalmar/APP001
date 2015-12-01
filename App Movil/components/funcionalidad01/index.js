@@ -2,12 +2,12 @@
 
 app.funcionalidad01 = kendo.observable({
     beforeShow: function() {
-        //console.log("DFC > beforeShow ");        
+        //console.log("DFC > beforeShow ");    
     },
-    onShow: function() {
-
+    onShow: function() { 
     },
-    afterShow: function() {},    
+    afterShow: function() {  
+    },    
     MostraDetalleCliente: function() {
         console.log("DFC > MostraDetalleCliente ");
         console.log("Detalle Cliente ClienteID > " + ClienteID);
@@ -72,6 +72,8 @@ app.funcionalidad01 = kendo.observable({
                 // ContactoFechaCumpleanos
                 // get the dataItem corresponding to the selectedIndex.
                 $("#FechaCumpleanos").html($.trim(this.dataItem().ContactoFechaCumpleanos)); 
+                $("#MailCli").html($.trim(this.dataItem().ContactoEmail));
+                $("#CargoCli").html($.trim(this.dataItem().Cargo));
             },
             dataBound: function(e) {
                 //console.log("ContactosCliente >> dataBound");
@@ -80,6 +82,8 @@ app.funcionalidad01 = kendo.observable({
                 // console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
                 // ContactoFechaCumpleanos
                 $("#FechaCumpleanos").html($.trim(this.dataItem(0).ContactoFechaCumpleanos));
+                $("#MailCli").html($.trim(this.dataItem().ContactoEmail));
+                $("#CargoCli").html($.trim(this.dataItem().Cargo));
             }
          });
         
@@ -491,29 +495,7 @@ app.funcionalidad01 = kendo.observable({
 });
 
 // START_CUSTOM_CODE_funcionalidad01
-UsuarioID = "305";
 
-var dsCliente = new kendo.data.DataSource({
-    transport: {
-        // OK funziona, ottimizzare per grandi vol. di dati || paginazione
-        // Parametrizzare la URL con una variabile idUsuario
-        read: {
-            url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/"+UsuarioID,
-            dataType: "json"
-        },        
-     },
-    schema: {
-        model: {
-            id: "ClienteID",
-            fields: {
-                ClienteID: { editable: false, nullable: true, type: "number" },
-                ClienteRazonSocial: {type: "string"},
-            }
-        }
-    },
-    // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-     filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
-});
 
 var UsuarioID = "";
 var ClienteID = "";
@@ -526,6 +508,60 @@ var dsCondicionesDePago = null;
 var dsTarifas = null;
 var dsCondicionesDePagoMUL = null;
 
+function cargaPrincipal(){
+    //UsuarioID = "305";   
+    var idsessionCl = sessionStorage.getItem("sessionUSER");
+    var dsCliente = new kendo.data.DataSource({
+        transport: {
+            // OK funziona, ottimizzare per grandi vol. di dati || paginazione
+            // Parametrizzare la URL con una variabile idUsuario
+            read: {
+                url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/"+idsessionCl,
+                dataType: "json"
+            },        
+         },
+        schema: {
+            model: {
+                id: "ClienteID",
+                fields: {
+                    ClienteID: { editable: false, nullable: true, type: "number" },
+                    ClienteRazonSocial: {type: "string"},
+                }
+            }
+        },
+        // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
+        filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
+    }); 
+    
+    $("#lstCliente").kendoListView({
+                dataSource: dsCliente,
+                template: kendo.template($("#tmpLstCliente").html()),
+                selectable: true,
+                change: function(e) {
+                    
+                    var row = $(".k-state-selected").select();
+                    console.log("List View ClienteID > " + this.dataItem(row).ClienteID);
+                    $("#det-nombre").html($.trim(this.dataItem(row).ClienteRazonSocial));
+                    ClienteID = this.dataItem(row).ClienteID;
+                    //console.log("E > data: " + e.dataItem);
+
+                    /*
+                    *** hooks to handle kendoMobileListView data structure ***
+                    $("#det-nombre").html(e.dataItem.nombre);
+                    $("#det-rubro").html(e.dataItem.rubro);
+                    get_Contactos_Clientes(e.dataItem.id);
+                    */                    
+
+                    //Apply the filter to the Custormer's contact list                    
+                    // dsContactosCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
+                    
+                    //Change view to detail
+                    window.location.href = "#det-cliente";
+                    //window.location.href = "components/funcionalidad01/viewDetalle.html";
+                }
+            });
+}
+    
 function AlertaProcentageRangos(valorIndicador,elementoAlerta){
     console.log("AlertaProcentageRangos >>> nivelAlerta: " + valorIndicador + " elementoAlerta: " + elementoAlerta);
     var colorAlerta = "";
