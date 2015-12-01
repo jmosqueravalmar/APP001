@@ -48,7 +48,7 @@
 <script src="components/funcionalidad03/addVos.js"></script>
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas" data-zoom="true">
     </br>
-    <button type="button" class="btn btn-default font-boton" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
+    <button style="margin:-10px 0px 5px 5px;" type="button" class="btn btn-default font-boton" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
     </br>
     <div id="tareas">
     </div>
@@ -82,7 +82,7 @@
             <div class="form-group col-xs-5">
                 <label class="control-label font-cuerpo" for="txtorden">Órden</label>
                 <div>
-                    <input id="txtorden" type="text" placeholder="Órden" class="form-control input-md font-cuerpo" required="">
+                    <input id="txtorden" type="text" placeholder="Órden" class="form-control input-md font-cuerpo" >
                 </div>
             </div>
             <div class="col-xs-7" align="right">
@@ -95,7 +95,7 @@
         <div class="form-group">
             <label class="control-label font-cuerpo" for="txtobserv">Observación</label>
             <div>
-                <input id="txtobserv" class="form-control input-md font-cuerpo" placeholder="Observación" required="">
+                <input id="txtobserv" class="form-control input-md font-cuerpo" placeholder="Observación" >
             </div>
         </div>
         <div class="form-group">
@@ -147,7 +147,7 @@
         </div>
     </div>
     <!-- Template Modal Add Tipo de Tarea-->
-    <div data-role="modalview" id="modalAddTipoTarea" style="width: 300px; height: 300px">
+    <div data-role="modalview" id="modalAddTipoTarea" style="width: 300px; height: 170px">
         </br>
         <form class="col-md-12">
             <div class="form-group">
@@ -156,7 +156,7 @@
                     <input id="txtnombre" type="text" placeholder="Tipo de tarea" class="form-control input-md font-cuerpo" required="">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none;">
                 <label class="control-label font-cuerpo" for="txtdescripcion">Descripción</label>
                 <div>
                     <textarea id="txtdescripcion" class="form-control font-cuerpo" rows="5" placeholder="Descripción de tarea"></textarea>
