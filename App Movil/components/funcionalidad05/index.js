@@ -141,15 +141,34 @@ function selectGridOperaciones() {
     var seleccion = $(".k-state-selected").select();
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({
-        data: datos
-
+        transport: {
+            read: {
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Detalle/" + this.dataItem(seleccion).NumOperacion, //226667
+                dataType: "json",
+                type: "get"
+            }
+        }
     });
+    var Orden = this.dataItem(seleccion).Orden;
+    var OperacionID = this.dataItem(seleccion).OperacionID;
+    var FechaInicio = this.dataItem(seleccion).FechaInicio;
+    var HoraInicio = this.dataItem(seleccion).HoraInicio;
+    var Operacion = this.dataItem(seleccion).Operacion;
+    var Estado = this.dataItem(seleccion).Estado;
+
     dsOperaciones.fetch(function () {
         $("#det-op").kendoListView({
             dataSource: dsOperaciones,
             template: kendo.template($("#tempOP").html())
         });
+        $("#OperacionID").text(OperacionID);
+        $("#Orden").text(Orden);
+        $("#FechaInicio").text(FechaInicio);
+        $("#HoraInicio").text(HoraInicio);
+        $("#Operacion").text(Operacion);
+        $("#Estado").text(Estado);
     });
+
 }
 
 function cambioClase() {

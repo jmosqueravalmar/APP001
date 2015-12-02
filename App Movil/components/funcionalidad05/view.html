@@ -1,8 +1,8 @@
 <!-- Listado Operaciones -->
 <div id="operaciones1" data-role="view" data-title="Seguimiento Operaciones" data-layout="main" data-model="app.funcionalidad05" data-show="getOperaciones" data-zoom="true">
     </br>
-    <button type="button" class="btn btn-default font-boton" onclick="cambioClase();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
-<p class="xxx font-cuerpo">Click me to increase font-size !</p>
+    <button type="button" class="btn btn-default font-boton" onclick="cambioClase();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aumentar</button>
+<p class="xxx font-cuerpo">Prueba aumento de letra!!!</p>
     
 </br>
     <div id="operaciones" class="font-cuerpo">
@@ -22,23 +22,23 @@
 <!-- Template Detalle de Operación -->
 <script type="text/x-kendo-tmpl" id="tempOP">
     <div class="list-group">
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tipo de Órden: </strong>#:tipoOrden#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Creación: </strong>#:fechaCreacion#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Id Operación: </strong>#:idOperacion#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Cliente: </strong>#:cliente#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Despachador: </strong>#:despachador#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Almacén: </strong>#:almacen#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Núm órden: </strong>#:numOrden#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tipo Carga: </strong>#:tipoCarga#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Núm Matrícula: </strong>#:numMatricula#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Cantidad: </strong>#:cantidad#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tiempo Transcurrido: </strong>#:tiempoTranscurrido#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Inicio: </strong>#:fechaInicio#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Actividad: </strong>#:actividad#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Inicio: </strong>#:horaInicio#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Fin: </strong>#:horaFin#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Estado: </strong>#:estado#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Detalle: </strong>#:detalle#</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Régimen: </strong>Falta Para definir IMPO EXPO??? </button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Creación: </strong>unir: Fecha Creación</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Id Operación: </strong><tag id="OperacionID"></tag></button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Cliente: </strong>#:Cliente#</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Despachador: </strong>#:Despachador#</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Almacén: </strong>#:Almacen#</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Núm órden: </strong><tag id="Orden"></tag></button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Tipo Carga: </strong>unir: Tipo Carga</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Núm Matrícula: </strong>????</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Cantidad: </strong>#:Cantidad#</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Tiempo Transcurrido: </strong>Cómo obtenerlo???</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Inicio: </strong><tag id="FechaInicio"></tag></button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Actividad: </strong>Actividad es Operación? -> <tag id="Operacion"></tag></button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Inicio: </strong><tag id="HoraInicio"></tag></button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Fin: </strong>????</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Estado: </strong><tag id="Estado"></tag></button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Detalle: </strong>????</button>
     </div>
 </script>
 <!--End -->

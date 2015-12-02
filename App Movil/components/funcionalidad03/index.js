@@ -1,5 +1,4 @@
 'use strict';
-
 app.funcionalidad03 = kendo.observable({
     onShow: function () {
         //Carga JavaScript 3st
@@ -8,7 +7,6 @@ app.funcionalidad03 = kendo.observable({
         //Carga JavaScript 4st        
     }
 });
-
 //getTareas -> cargamos el grid tareas
 function getTareas() {
         var idSS2 = sessionStorage.getItem("sessionUSER");
