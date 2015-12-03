@@ -1,5 +1,5 @@
 'use strict';
-app.funcionalidad04= kendo.observable({
+app.funcionalidad04 = kendo.observable({
     onShow: function () {
         //Carga JavaScript 3st
     },
@@ -27,19 +27,33 @@ function f04getOperaciones() {
                 }
             }
         },
+        schema: {
+            model: {
+                fields: {
+                    FechaCreacionOperacion: {
+                        type: "date"
+                    }
+                }
+            },
+            pageSize: 10
+        },
         filterable: true,
         sortable: true,
         pageable: true,
         scrollable: false,
         selectable: "row",
-        change: selectGridOperaciones,
-        columns: [{
+        change: f04SelectGridOperaciones,
+        filterMenuInit: filterMenux, //llamamos a la función de configuración de los filtros
+        columns: [
+            //COL_1 NumOperacion
+            { 
                 field: "NumOperacion",
-                title: "Nro",
+                title: "Id",
                 width: "40px",
                 filterable: false
             },
-            {
+            //COL2 Cliente
+            { 
                 field: "ClienteAlias",
                 title: "Cliente",
                 width: "120px",
@@ -58,12 +72,51 @@ function f04getOperaciones() {
                         clear: "Limpiar"
                     }
                 }
-            }, {
+            },
+            //COL3 Despachador
+            { 
+                field: "Despachador",
+                title: "Despachador",
+                width: "120px",
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            contains: "Contiene",
+                            eq: "Es igual a",
+                            neq: "No es igual a"
+                        }
+                    },
+                    messages: {
+                        info: "Filtrar por Cliente: ",
+                        filter: "Filtrar",
+                        clear: "Limpiar"
+                    }
+                }
+            },
+            //COL4 Almacén
+            { 
                 field: "Almacen",
                 title: "Almacén",
                 width: "120px",
-                filterable: false
-            }, {
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            contains: "Contiene",
+                            eq: "Es igual a",
+                            neq: "No es igual a"
+                        }
+                    },
+                    messages: {
+                        info: "Filtrar por Almacén: ",
+                        filter: "Filtrar",
+                        clear: "Limpiar"
+                    }
+                }
+            }, 
+            //COL5 #Órden
+            {
                 field: "Orden",
                 title: "#Órden",
                 width: "120px",
@@ -82,17 +135,63 @@ function f04getOperaciones() {
                         clear: "Limpiar"
                     }
                 }
-            }, {
+            }, 
+            //COL6 Operacion
+            {
                 field: "Operacion",
                 title: "Operación",
                 width: "120px",
-                filterable: false
-            }, {
-                field: "Estado",
-                title: "Tiempo",
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            contains: "Contiene",
+                            eq: "Es igual a",
+                            neq: "No es igual a"
+                        }
+                    },
+                    messages: {
+                        info: "Filtrar por Operación: ",
+                        filter: "Filtrar",
+                        clear: "Limpiar"
+                    }
+                }
+            }, 
+            //COL7 Tiempo Trascurrido
+            {
+                field: "HoraFin",
+                title: "Tiempo Trascurrido",
                 width: "120px",
-                filterable: false
-            }, {
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            contains: "Contiene",
+                            eq: "Es igual a",
+                            neq: "No es igual a"
+                        }
+                    },
+                    messages: {
+                        info: "Filtrar por Tiempo Trascurrido: ",
+                        filter: "Filtrar",
+                        clear: "Limpiar"
+                    }
+                }
+            },
+            //COL8 Fecha de creacion
+            {
+                field: "FechaCreacionOperacion",
+                title: "Fecha de creacion",
+                template: "#= kendo.toString(kendo.parseDate(FechaCreacionOperacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
+                width: "120px",
+                filterable: {
+                    messages: {
+                        info: "Rango de creación: AAA"
+                    }
+                },
+                format: "{0:MM/dd/yyyy}"
+            },
+            {
                 field: "Estado",
                 title: "Estado",
                 width: "120px",
@@ -111,12 +210,28 @@ function f04getOperaciones() {
                         clear: "Limpiar"
                     }
                 }
-            }]
+            }
+        ]
     });
+    //filterMenu -> para configurar los filtros
+    function filterMenux(e) {
+        console.log("DFC >>> filterMenux");
+        if (e.field == "FechaCreacionOperacion") {
+            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+            beginOperator.value("gte");
+            beginOperator.trigger("change");
+
+            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+            endOperator.value("lte");
+            endOperator.trigger("change");
+            e.container.find(".k-dropdown").hide()
+            console.log("DFC >>> filterMenux >>> FIN");
+        }
+    }
 }
 
 //selectGrid-> Si se selecciona una fila del grid
-function selectGridOperaciones() {
+function f04SelectGridOperaciones() {
     var datos = [{
         "tipoOrden": "Impo",
         "fechaCreacion": "27/10/2015",
@@ -178,3 +293,4 @@ function cambioClase() {
         'font-size': fontSize
     });
 }
+
