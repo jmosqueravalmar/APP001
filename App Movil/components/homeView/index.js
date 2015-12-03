@@ -117,6 +117,8 @@ function LoginDS() {
             $("#fun01").show();
             $("#fun02").show();
             $("#fun03").show();
+            $("#fun04").show();
+            $("#fun05").show();
 
             /*
             funciones para roles y mostrar ocultar segun sea el caso
