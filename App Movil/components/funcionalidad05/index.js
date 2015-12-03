@@ -25,6 +25,16 @@ function getOperaciones() {
                         txtestado: 9
                     }
                 }
+            },
+            //schema -> para mantener los filtror y para el formato date
+            schema: {
+                model: {
+                    fields: {
+                        FechaCreacionOperacion: {
+                            type: "date"
+                        }
+                    }
+                }
             }
         },
         filterable: true,
@@ -111,8 +121,33 @@ function getOperaciones() {
                         clear: "Limpiar"
                     }
                 }
-            }]
+            }, {
+                field: "FechaCreacionOperacion",
+                title: "F. Creación",
+                width: "120px",
+                filterable: {
+                    messages: {
+                        info: "Rango de creación: "
+                    }
+                },
+                format: "{0:MM/dd/yyyy}"
+            }
+                 ]
     });
+
+
+    function filterMenu(e) {
+        if (e.field == "FechaCreacionOperacion") {
+            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+            beginOperator.value("gte");
+            beginOperator.trigger("change");
+
+            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+            endOperator.value("lte");
+            endOperator.trigger("change");
+            e.container.find(".k-dropdown").hide()
+        }
+    };
 }
 
 //selectGrid-> Si se selecciona una fila del grid

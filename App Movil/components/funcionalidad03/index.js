@@ -56,7 +56,9 @@ function getTareas() {
             selectable: "row",
             change: selectGrid,
             filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
-            columns: [{
+            columns: [
+                //col1 tipo de tarea
+                {
                     field: "tipotarea",
                     title: "Nombre de Tarea",
                     width: "360px",
@@ -75,7 +77,8 @@ function getTareas() {
                             clear: "Limpiar"
                         }
                     }
-            },
+                },
+                //col2 usuario
                 {
                     field: "Usuario",
                     title: "Cliente",
@@ -95,11 +98,11 @@ function getTareas() {
                             clear: "Limpiar"
                         }
                     }
-            },
+                },
+                //col3 fecha de creación
                 {
                     field: "tar_dat_fchcreacion",
                     title: "F. Creación",
-                    template: "#= kendo.toString(kendo.parseDate(tar_dat_fchcreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
                     width: "120px",
                     filterable: {
                         messages: {
@@ -107,11 +110,11 @@ function getTareas() {
                         }
                     },
                     format: "{0:MM/dd/yyyy}"
-            },
+                },
+                //col4 fecha límite
                 {
                     field: "tar_dat_fchlimite",
                     title: "F. Límite",
-                    template: "#= kendo.toString(kendo.parseDate(tar_dat_fchlimite, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
                     width: "120px",
                     filterable: {
                         messages: {
@@ -119,7 +122,8 @@ function getTareas() {
                         }
                     },
                     format: "{0:MM/dd/yyyy}"
-            },
+                },
+                //col5 estado
                 {
                     field: "tar_int_estado",
                     title: "Estado",
@@ -140,7 +144,8 @@ function getTareas() {
                             clear: "Limpiar"
                         }
                     }
-            },
+                },
+                //col6 prioridad
                 {
                     field: "tar_int_prioridad",
                     title: "Prioridad",
@@ -159,7 +164,8 @@ function getTareas() {
                             clear: "Limpiar"
                         }
                     }
-            }],
+                }
+            ],
             //dataBound -> para pintar la fila rojo (si es menor 2 dias), naranja (si es menor a 7 dias) y blanco (mayor a 7 dias) 
             dataBound: function (e) {
                 var items = this._data;
@@ -691,9 +697,9 @@ function adminTT() {
 //addTipoTarea -> Agregamos un nuevo tipo de tarea
 function accionTipoTarea(accion) {
     var idSS = sessionStorage.getItem("sessionUSER");
-    
+
     var valido = true;
-    
+
     //Notificaciones 
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
