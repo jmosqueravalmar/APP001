@@ -25,25 +25,25 @@ function f04getOperaciones() {
                         txtestado: 9
                     }
                 }
-            }
-        },
-        schema: {
-            model: {
-                fields: {
-                    FechaCreacionOperacion: {
-                        type: "date"
+            },
+            schema: {
+                model: {
+                    fields: {
+                        FechaCreacionOperacion: {
+                            type: "date"
+                        }
                     }
                 }
             },
-            pageSize: 10
         },
         filterable: true,
         sortable: true,
         pageable: true,
+        pageSize: 2,
         scrollable: false,
         selectable: "row",
         change: f04SelectGridOperaciones,
-        filterMenuInit: filterMenux, //llamamos a la función de configuración de los filtros
+        filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
         columns: [
             //COL_1 NumOperacion
             { 
@@ -182,14 +182,13 @@ function f04getOperaciones() {
             {
                 field: "FechaCreacionOperacion",
                 title: "Fecha de creacion",
-                template: "#= kendo.toString(kendo.parseDate(FechaCreacionOperacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #",
                 width: "120px",
                 filterable: {
                     messages: {
                         info: "Rango de creación: AAA"
                     }
                 },
-                format: "{0:MM/dd/yyyy}"
+                format: "{0:dd/MM/yyyy}"
             },
             {
                 field: "Estado",
@@ -214,8 +213,8 @@ function f04getOperaciones() {
         ]
     });
     //filterMenu -> para configurar los filtros
-    function filterMenux(e) {
-        console.log("DFC >>> filterMenux");
+    function filterMenu(e) {
+        console.log("DFC >>> filterMenu");
         if (e.field == "FechaCreacionOperacion") {
             var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
             beginOperator.value("gte");
@@ -225,7 +224,7 @@ function f04getOperaciones() {
             endOperator.value("lte");
             endOperator.trigger("change");
             e.container.find(".k-dropdown").hide()
-            console.log("DFC >>> filterMenux >>> FIN");
+            console.log("DFC >>> filterMenu >>> FIN");
         }
     }
 }
