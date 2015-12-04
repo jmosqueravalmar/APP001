@@ -530,9 +530,9 @@ function cargaPrincipal(){
                     ClienteRazonSocial: {type: "string"},
                 }
             }
-        },
+        }//,
         // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-        filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
+        //filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
     }); 
     
     $("#lstCliente").kendoListView({

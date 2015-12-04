@@ -289,6 +289,18 @@ h1 {
     font-weight: bold;
 }
 
+.divOculto {
+    width: 100%;
+    background-color: #0053B3;
+    height: 43px;
+    z-index: 10;
+    position: absolute;
+    color: white;
+    text-align: center;
+    font-weight: lighter;
+    font-size: 18px;
+    line-height: 43px;
+}
 /* standar */
 
 /*  funcionalidad 2 */
@@ -317,3 +329,15 @@ h1 {
 }
 
 /* funcionalidad 2 */
+
+/*
+#txtidtt-list div ul li.selected, #txtidtt-list div ul li:hover, #txtidtt-list div ul li:focus {
+ 	background-color:red !important;
+}
+
+
+li .k-item .k-state-selected .k-state-focused {
+    background-color:green !important;
+}
+*/
+

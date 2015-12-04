@@ -69,8 +69,22 @@
 
 sessionStorage.sessionUSER = "SessionData";
 
-function cerrar_session(){
-    $("#MenuPrincipal").hide();
+function iniciar_ss(){
+    $("#IconoMenu").show();
 }
+
+function cerrar_ss(){
+    $("#IconoMenu").hide();
+    sessionStorage.setItem("sessionUSER", "");
+    window.location.href = "#homeView";
+} 
+/*
+function MostrarMenu(){
+    $("#appDrawer").data("kendoMobileDrawer").show(); 
+}
+
+function OcultarMenu(){
+    $("#appDrawer").data("kendoMobileDrawer").hide();
+}*/
  
 // END_CUSTOM_CODE_kendoUiMobileApp

@@ -309,13 +309,13 @@ function getSelectCliente(accion) {
                             }
                         }
                     }
-                },
+                }//,
                 // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-                filter: {
+                /*filter: {
                     field: "ClienteRazonSocial",
                     operator: "startswith",
                     value: "EX"
-                }
+                }*/
 
             },
             dataTextField: "ClienteRazonSocial",
