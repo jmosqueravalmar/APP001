@@ -10,6 +10,7 @@ app.funcionalidad04 = kendo.observable({
 
 //getOperaciones -> cargamos el grid tareas
 function f04getOperaciones() {
+    var idSS2 = sessionStorage.getItem("sessionUSER");
     $("#f04operaciones").kendoGrid({
         dataSource: {
             transport: {
@@ -18,7 +19,7 @@ function f04getOperaciones() {
                     dataType: "json",
                     type: "post",
                     data: {
-                        txtdespachador: 3091,
+                        txtdespachador: idSS2, //3091,
                         txtcliente: 0,
                         txtorden: 0,
                         txtalmacen: 0,
