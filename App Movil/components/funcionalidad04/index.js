@@ -215,7 +215,6 @@ function f04getOperaciones() {
     });
     //filterMenu -> para configurar los filtros
     function filterMenu(e) {
-        console.log("DFC >>> filterMenu");
         if (e.field == "FechaCreacionOperacion") {
             var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
             beginOperator.value("gte");
@@ -224,33 +223,14 @@ function f04getOperaciones() {
             var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
             endOperator.value("lte");
             endOperator.trigger("change");
-            e.container.find(".k-dropdown").hide()
-            console.log("DFC >>> filterMenu >>> FIN");
+            e.container.find(".k-dropdown").hide();
         }
     }
 }
 
 //selectGrid-> Si se selecciona una fila del grid
 function f04SelectGridOperaciones() {
-    var datos = [{
-        "tipoOrden": "Impo",
-        "fechaCreacion": "27/10/2015",
-        "idOperacion": 2,
-        "cliente": "Cliente 2",
-        "despachador": "Despachador2",
-        "almacen": "2",
-        "numOrden": 10604,
-        "tipoCarga": "Contenedor Refrierado",
-        "numMatricula": "$UDU 181500",
-        "cantidad": "8 unidades",
-        "tiempoTranscurrido": "00:00:00",
-        "fechaInicio": "00/00/0000",
-        "actividad": "Aforo",
-        "horaInicio": "00:00:00",
-        "horaFin": "00:00:00",
-        "estado": "Pendiente",
-        "detalle": "Según el tipo de operación se dispondrá de distintos botones para su seguimiento en el detalle de la operación"
-    }]
+
     window.location.href = "#f04accionOperacion";
     //EFECTOS kendo.fx($("#accionOperacion")).zoom("in").play();
     var seleccion = $(".k-state-selected").select();
@@ -261,27 +241,34 @@ function f04SelectGridOperaciones() {
                 url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Detalle/" + this.dataItem(seleccion).NumOperacion, //226667
                 dataType: "json",
                 type: "get"
-            }
+            },
         }
     });
-    var Orden = this.dataItem(seleccion).Orden;
-    var OperacionID = this.dataItem(seleccion).OperacionID;
-    var FechaInicio = this.dataItem(seleccion).FechaInicio;
+
+    //INFORMACIONES DE PA /Operaciones/Listar
+    var Actividad = this.dataItem(seleccion).Operacion;
     var HoraInicio = this.dataItem(seleccion).HoraInicio;
-    var Operacion = this.dataItem(seleccion).Operacion;
     var Estado = this.dataItem(seleccion).Estado;
+    var TiempoTranscurrido = this.dataItem(seleccion).TiempoTranscurrido;
 
     dsOperaciones.fetch(function () {
         $("#f04det-op").kendoListView({
             dataSource: dsOperaciones,
             template: kendo.template($("#f04tempOP").html())
         });
-        $("#f04OperacionID").text(OperacionID);
-        $("#f04Orden").text(Orden);
-        $("#f04FechaInicio").text(FechaInicio);
-        $("#f04HoraInicio").text(HoraInicio);
-        $("#f04Operacion").text(Operacion);
-        $("#f04Estado").text(Estado);
+        var data = this.data();
+        var dateFechaCreacion = eval(" new "+data[0].FechaCreacion.replace(/\//g,'')+";");
+        
+        var day = dateFechaCreacion.getDate();
+        var month = dateFechaCreacion.getMonth() + 1 ;
+        var year = dateFechaCreacion.getFullYear();
+        $("#f04FechaCreacion").text(day+"/"+month+"/"+year);
+        
+        $("#f04LVOperacion").text(Actividad);
+        $("#f04LVHoraInicio").text(HoraInicio);
+        $("#f04LVEstado").text(Estado);
+        $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido);
+
     });
 
 }

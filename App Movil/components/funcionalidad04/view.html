@@ -22,38 +22,62 @@
 <!-- Template Detalle de Operación -->
 <script type="text/x-kendo-tmpl" id="f04tempOP">
     <div class="list-group">
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Fecha Creación: </b></span>
+            <span id="f04FechaCreacion"></span>
+        </div>
+        
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Id Operación: </b></span>
+            <span>#:NumOperacion#</span>
+        </div>
+        
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Cliente: </b></span>
+            <span>#:Cliente#</span>
+        </div>
 
-        <button type="button" class="list-group-item font-cuerpo">
-        	<b class="color_1">Fecha Creación: </b>	
-        	unir: Fecha Creación
-    	</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Id Operación: </strong>
-        	<p id="f04OperacionID"></p>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Cliente: </strong>#:Cliente#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Despachador: </strong>#:Despachador#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Almacén: </strong>#:Almacen#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Núm órden: </strong>
-        	<p id="f04Orden"></p>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tipo Carga: </strong>unir: Tipo Carga</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Núm Matrícula: </strong>????</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Cantidad: </strong>#:Cantidad#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tiempo Transcurrido: </strong>Cómo obtenerlo???</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Inicio: </strong>
-        	<p id="f04FechaInicio"></p>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Actividad: </strong>Actividad es Operación? ->
-        	<p id="f04Operacion"></p>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Inicio: </strong>
-        	<p id="f04HoraInicio"></p>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Fin: </strong>????</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Estado: </strong>
-        	<p id="f04Estado"></p>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Detalle: </strong>????</button>
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Despachador: </b></span>
+            <span>#:Despachador# **LISTAR**</span>
+        </div>
+
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Almacén: </b></span>
+            <span>#:Almacen#</span>
+        </div>
+
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Núm órden: </b></span>
+            <span>#:Orden#</span>
+        </div>
+
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Tiempo Trasncurrido: </b></span>
+            <span id="f04LVTiempoTrasncurrido">Tiempo Trasn FF from ListView</span>
+        </div>
+        
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Actividad: </b></span>
+            <span id="f04LVOperacion"></span>
+        </div>
+
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Hora inicio: </b></span>
+            <span id="f04LVHoraInicio"></span>
+        </div>
+
+       <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Estado: </b></span>
+            <span id="f04LVEstado"></span>
+        </div>
+
+       <div class="list-group-item font-cuerpo">
+            <span class="color_1"><b>Detalle: </b></span>
+            <br>
+            <textarea readonly rows="20" cols="65">#:Detalle#</textarea>            
+        </div>
+
     </div>
 </script>
 <!--End -->
