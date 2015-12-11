@@ -1,10 +1,9 @@
 <!-- Listado Operaciones -->
-<div id="operaciones1" data-role="view" data-title="Seguimiento Operaciones" data-layout="main" data-model="app.funcionalidad05" data-show="getOperaciones" data-zoom="true">
+<div id="operaciones1" data-role="view" data-title="Seguimiento Operaciones" data-layout="main" data-model="app.funcionalidad05" data-show="getOperacion" data-zoom="true">
     </br>
     <button type="button" class="btn btn-default font-boton" onclick="cambioClase();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aumentar</button>
-<p class="font-cuerpo">Prueba aumento de letra!!!</p>
-    
-</br>
+    <p class="font-cuerpo">Prueba aumento de letra!!!</p>
+    </br>
     <div id="operaciones" class="font-cuerpo">
     </div>
 </div>
@@ -15,30 +14,62 @@
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#operaciones1"><span class="k-icon k-i-undo"></a>
     </div>
+    <ul id="divBotonera" class="col-md-12">
+        </br>
+        <button class="btn btn-default font-boton btn-block" id="btnOpcion1" onclick="tipoFuncion('Iniciar',this.value);" disabled> <span id="spanBtn1" class="fa fa-lock" aria-hidden="true"></span> Inicio</button>
+        <button class="btn btn-default font-boton btn-block" id="btnOpcion2" onclick="tipoFuncion('Permiso',this.value);" disabled> <span id="spanBtn2" class="fa fa-lock" aria-hidden="true"></span> Permiso Ok</button>
+        <button class="btn btn-default font-boton btn-block" id="btnOpcion3" onclick="tipoFuncion('Solicitar',this.value);" disabled> <span id="spanBtn3" class="fa fa-lock" aria-hidden="true"></span> Sol Transporte</button>
+        <button class="btn btn-default font-boton btn-block" id="btnOpcion7" onclick="tipoFuncion('Terminar',this.value);" disabled> <span id="spanBtn7" class="fa fa-lock" aria-hidden="true"></span> Fin</button>
+        </br>
+    </ul>
     <ul id="det-op" data-role="listview" class="col-md-12">
     </ul>
+    <!--     Modal confirmación -->
+    <div id="dialog">
+        <p id="cuerpoModal"></p>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="btnFuncion" type="button" class="btn btn-default btn-block font-boton" onclick="">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!--     End -->
 </div>
 <!--End-->
 <!-- Template Detalle de Operación -->
 <script type="text/x-kendo-tmpl" id="tempOP">
     <div class="list-group">
-        <button type="button" class="list-group-item font-cuerpo"><strong>Régimen: </strong>Falta Para definir IMPO EXPO??? </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Creación: </strong>unir: Fecha Creación</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Id Operación: </strong><tag id="OperacionID"></tag></button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Creación: </strong>#= kendo.toString(kendo.parseDate(FechaCreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Id Operación: </strong>#:NumOperacion#</button>
         <button type="button" class="list-group-item font-cuerpo"><strong>Cliente: </strong>#:Cliente#</button>
         <button type="button" class="list-group-item font-cuerpo"><strong>Despachador: </strong>#:Despachador#</button>
         <button type="button" class="list-group-item font-cuerpo"><strong>Almacén: </strong>#:Almacen#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Núm órden: </strong><tag id="Orden"></tag></button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tipo Carga: </strong>unir: Tipo Carga</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Núm Matrícula: </strong>????</button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Núm órden: </strong>
+            <tag id="Orden"></tag>
+        </button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Tipo Carga: </strong>#:TipoCarga#</button>
+        <!--button type="button" class="list-group-item font-cuerpo"><strong>Núm Matrícula: </strong>????</button-->
         <button type="button" class="list-group-item font-cuerpo"><strong>Cantidad: </strong>#:Cantidad#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tiempo Transcurrido: </strong>Cómo obtenerlo???</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Inicio: </strong><tag id="FechaInicio"></tag></button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Actividad: </strong>Actividad es Operación? -> <tag id="Operacion"></tag></button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Inicio: </strong><tag id="HoraInicio"></tag></button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Fin: </strong>????</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Estado: </strong><tag id="Estado"></tag></button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Detalle: </strong>????</button>
+        <!--button type="button" class="list-group-item font-cuerpo"><strong>Tiempo Transcurrido: </strong>Cómo obtenerlo???</button-->
+        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Inicio: </strong>
+            <tag id="FechaInicio"></tag>
+        </button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Operación: </strong>
+            <tag id="Operacion"></tag>
+        </button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Inicio: </strong>
+            <tag id="HoraInicio"></tag>
+        </button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Fin: </strong>
+            <tag id="HoraFin"></tag>
+        </button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Estado: </strong>
+            <tag id="Estado"></tag>
+        </button>
+        <button type="button" class="list-group-item font-cuerpo"><strong>Detalle: </strong>#:Detalle#</button>
     </div>
 </script>
 <!--End -->
