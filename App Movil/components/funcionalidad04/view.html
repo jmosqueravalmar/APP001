@@ -16,9 +16,39 @@
     </div>
     <ul id="f04det-op" data-role="listview" class="col-md-12">
     </ul>
+
+<div class="container-fluid">
+     <div class="row">
+         <div class="cols-xs-12">
+             <b>Detalle: </b>
+         </div>
+      </div>
+      <div class="row">
+         <div class="cols-xs-12">
+            <textarea name="" id="" cols="30" rows="10">
+                #:Detalle#
+            </textarea>
+         </div>
+     </div>
+ </div>
+        
+<ul class="col-md-12">
+    <div class="list-group">
+        <div class="list-group-item font-cuerpo">
+            <span class="color_1">
+                <b>Detalle(2): </b>
+            </span>
+            <div>
+                <textarea name="" id="" cols="30" rows="10">
+                    #:Detalle#
+                </textarea>
+            </div>
+        </div>
+    </div>
+</ul>
+    
 </div>
 <!--End-->
-    
 <!-- Template Detalle de Operación -->
 <script type="text/x-kendo-tmpl" id="f04tempOP">
     <div class="list-group">
@@ -39,7 +69,10 @@
 
         <div class="list-group-item font-cuerpo">
             <span class="color_1"><b>Despachador: </b></span>
-            <span>#:Despachador# **LISTAR**</span>
+            <span>
+            	<b>[+]</b>
+                <button id="txtIdDespachador"/>
+    		</span>            
         </div>
 
         <div class="list-group-item font-cuerpo">
@@ -70,14 +103,23 @@
        <div class="list-group-item font-cuerpo">
             <span class="color_1"><b>Estado: </b></span>
             <span id="f04LVEstado"></span>
-        </div>
-
-       <div class="list-group-item font-cuerpo">
+       </div>
+       
+       <div class="list-group-item font-cuerpo" style="height:100%">
             <span class="color_1"><b>Detalle: </b></span>
-            <br>
-            <textarea readonly rows="20" cols="65">#:Detalle#</textarea>            
-        </div>
+            <div>
+            	#:Detalle#
+    		</div>            
+       </div>
+       
+    </div>  
 
-    </div>
+    
+
 </script>
 <!--End -->
+    
+
+    
+
+    

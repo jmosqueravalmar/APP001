@@ -10,7 +10,7 @@ app.funcionalidad04 = kendo.observable({
 
 //getOperaciones -> cargamos el grid tareas
 function f04getOperaciones() {
-    var idSS2 = sessionStorage.getItem("sessionUSER");
+    var idSS = sessionStorage.getItem("sessionUSER");
     $("#f04operaciones").kendoGrid({
         dataSource: {
             transport: {
@@ -19,7 +19,7 @@ function f04getOperaciones() {
                     dataType: "json",
                     type: "post",
                     data: {
-                        txtdespachador: idSS2, //3091,
+                        txtdespachador: idSS, //3091,
                         txtcliente: 0,
                         txtorden: 0,
                         txtalmacen: 0,
@@ -47,14 +47,14 @@ function f04getOperaciones() {
         filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
         columns: [
             //COL_1 NumOperacion
-            { 
+            {
                 field: "NumOperacion",
                 title: "Id",
                 width: "40px",
                 filterable: false
             },
             //COL2 Cliente
-            { 
+            {
                 field: "ClienteAlias",
                 title: "Cliente",
                 width: "120px",
@@ -75,7 +75,7 @@ function f04getOperaciones() {
                 }
             },
             //COL3 Despachador
-            { 
+            {
                 field: "Despachador",
                 title: "Despachador",
                 width: "120px",
@@ -96,7 +96,7 @@ function f04getOperaciones() {
                 }
             },
             //COL4 Almacén
-            { 
+            {
                 field: "Almacen",
                 title: "Almacén",
                 width: "120px",
@@ -115,7 +115,7 @@ function f04getOperaciones() {
                         clear: "Limpiar"
                     }
                 }
-            }, 
+            },
             //COL5 #Órden
             {
                 field: "Orden",
@@ -136,7 +136,7 @@ function f04getOperaciones() {
                         clear: "Limpiar"
                     }
                 }
-            }, 
+            },
             //COL6 Operacion
             {
                 field: "Operacion",
@@ -157,7 +157,7 @@ function f04getOperaciones() {
                         clear: "Limpiar"
                     }
                 }
-            }, 
+            },
             //COL7 Tiempo Trascurrido
             {
                 field: "HoraFin",
@@ -186,7 +186,7 @@ function f04getOperaciones() {
                 width: "120px",
                 filterable: {
                     messages: {
-                        info: "Rango de creación: AAA"
+                        info: "Rango de creación: "
                     }
                 },
                 format: "{0:dd/MM/yyyy}"
@@ -258,18 +258,22 @@ function f04SelectGridOperaciones() {
         });
         var data = this.data();
         var dateFechaCreacion = eval(" new "+data[0].FechaCreacion.replace(/\//g,'')+";");
-        
+
         var day = dateFechaCreacion.getDate();
         var month = dateFechaCreacion.getMonth() + 1 ;
         var year = dateFechaCreacion.getFullYear();
         $("#f04FechaCreacion").text(day+"/"+month+"/"+year);
-        
+
         $("#f04LVOperacion").text(Actividad);
         $("#f04LVHoraInicio").text(HoraInicio);
         $("#f04LVEstado").text(Estado);
-        $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido);
+        $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido + " dias. ");
+        
+        getDespachador();
 
     });
+    
+    
 
 }
 
@@ -281,3 +285,27 @@ function cambioClase() {
     });
 }
 
+//getDespachador -> datos del select tipo de tarea
+function getDespachador() {
+    var idSS = sessionStorage.getItem("sessionUSER");
+        $("#txtIdDespachador").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Despachadores",
+                        dataType: "json",
+                        type: "get",
+                    }
+                }
+            },
+            dataTextField: "nomDespachador",
+            dataValueField: "idDespachador",
+            value: idSS
+        });
+
+        //Si se seleccionó la fila, asignamos el valor del kendoDropDownList con el valor de accion
+        // if (accion !== "add") {
+        //     var dropdownlist = $("#txtidtt").data("kendoDropDownList");
+        //     dropdownlist.value(accion);
+        // };
+}
