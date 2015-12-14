@@ -255,23 +255,23 @@ function f04SelectGridDetOperacion() {
         var day = dateFechaCreacion.getDate();
         var month = dateFechaCreacion.getMonth() + 1 ;
         var year = dateFechaCreacion.getFullYear();
-        $("#f04FechaCreacionAAA").text(day+"/"+month+"/"+year);
+        $("#f04FechaCreacion").text(day+"/"+month+"/"+year);
         
-        $("#f04NumOperacionAAA").text(data[0].NumOperacion);
-        $("#f04ClienteAAA").text(data[0].Cliente);
+        $("#f04NumOperacion").text(data[0].NumOperacion);
+        $("#f04Cliente").text(data[0].Cliente);
         
         getDespachador();
         
-        $("#f04AlmacenAAA").text(data[0].Almacen);
-        $("#f04OrdenAAA").text(data[0].Orden);
+        $("#f04Almacen").text(data[0].Almacen);
+        $("#f04Orden").text(data[0].Orden);
         
         //INFORMACIONES DE PA /Operaciones/Listar
-        $("#f04LVTiempoTrasncurridoAAA").text(TiempoTranscurrido + " dias. ");
-        $("#f04LVOperacionAAA").text(Actividad);
-        $("#f04LVHoraInicioAAA").text(HoraInicio);
-        $("#f04LVEstadoAAA").text(Estado);
+        $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido + " dias. ");
+        $("#f04LVOperacion").text(Actividad);
+        $("#f04LVHoraInicio").text(HoraInicio);
+        $("#f04LVEstado").text(Estado);
         
-        $("#f04DetalleAAA").text(data[0].Detalle);        
+        $("#f04Detalle").text(data[0].Detalle);        
 
     });
 }
@@ -307,4 +307,31 @@ function getDespachador() {
         //     var dropdownlist = $("#txtidtt").data("kendoDropDownList");
         //     dropdownlist.value(accion);
         // };
+}
+
+function Reasignar(){
+    console.log("DFC >>> ACCION Reasignar");
+    console.log("DFC >>> OP ID: "+$("#f04NumOperacion").html());
+    var ddLDespachador = $("#txtIdDespachador").data("kendoDropDownList");
+    var dataItem = ddLDespachador.dataItem();
+    console.log("DFC >>> DESPACHADOR ID: "+dataItem.idDespachador+" NOMBRE: "+dataItem.nomDespachador);
+    console.log("DFC >>> DETALLE ID: "+$("#f04Detalle").val());
+    var dsReasignar = new kendo.data.DataSource({
+        transport: {
+        	read: {
+        		url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/",
+        		dataType: "json",
+        		type: "post",
+        		data: {
+        			txtid: parseInt($("#f04NumOperacion").html()), 
+        			txtdespachador: parseInt(dataItem.idDespachador), 
+                    txtobservacion: $("#f04Detalle").val()
+        		}
+        	},
+        },
+        error: function (e) {
+            console.log("DFC Reasignar UPDATE ERR:" + e.status + "; ERROR Message: " + e.errorThrown);
+        }
+    });
+    dsReasignar.fetch();
 }
