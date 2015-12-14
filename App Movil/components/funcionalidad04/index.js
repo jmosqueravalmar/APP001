@@ -43,7 +43,7 @@ function f04getOperaciones() {
         pageSize: 2,
         scrollable: false,
         selectable: "row",
-        change: f04SelectGridOperaciones,
+        change: f04SelectGridDetOperacion, //f04SelectGridOperaciones,
         filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
         columns: [
             //COL_1 NumOperacion
@@ -228,11 +228,9 @@ function f04getOperaciones() {
     }
 }
 
-//selectGrid-> Si se selecciona una fila del grid
-function f04SelectGridOperaciones() {
 
+function f04SelectGridDetOperacion() {
     window.location.href = "#f04accionOperacion";
-    //EFECTOS kendo.fx($("#accionOperacion")).zoom("in").play();
     var seleccion = $(".k-state-selected").select();
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({
@@ -244,7 +242,6 @@ function f04SelectGridOperaciones() {
             },
         }
     });
-
     //INFORMACIONES DE PA /Operaciones/Listar
     var Actividad = this.dataItem(seleccion).Operacion;
     var HoraInicio = this.dataItem(seleccion).HoraInicio;
@@ -252,29 +249,31 @@ function f04SelectGridOperaciones() {
     var TiempoTranscurrido = this.dataItem(seleccion).TiempoTranscurrido;
 
     dsOperaciones.fetch(function () {
-        $("#f04det-op").kendoListView({
-            dataSource: dsOperaciones,
-            template: kendo.template($("#f04tempOP").html())
-        });
         var data = this.data();
         var dateFechaCreacion = eval(" new "+data[0].FechaCreacion.replace(/\//g,'')+";");
 
         var day = dateFechaCreacion.getDate();
         var month = dateFechaCreacion.getMonth() + 1 ;
         var year = dateFechaCreacion.getFullYear();
-        $("#f04FechaCreacion").text(day+"/"+month+"/"+year);
-
-        $("#f04LVOperacion").text(Actividad);
-        $("#f04LVHoraInicio").text(HoraInicio);
-        $("#f04LVEstado").text(Estado);
-        $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido + " dias. ");
+        $("#f04FechaCreacionAAA").text(day+"/"+month+"/"+year);
+        
+        $("#f04NumOperacionAAA").text(data[0].NumOperacion);
+        $("#f04ClienteAAA").text(data[0].Cliente);
         
         getDespachador();
+        
+        $("#f04AlmacenAAA").text(data[0].Almacen);
+        $("#f04OrdenAAA").text(data[0].Orden);
+        
+        //INFORMACIONES DE PA /Operaciones/Listar
+        $("#f04LVTiempoTrasncurridoAAA").text(TiempoTranscurrido + " dias. ");
+        $("#f04LVOperacionAAA").text(Actividad);
+        $("#f04LVHoraInicioAAA").text(HoraInicio);
+        $("#f04LVEstadoAAA").text(Estado);
+        
+        $("#f04DetalleAAA").text(data[0].Detalle);        
 
     });
-    
-    
-
 }
 
 function cambioClase() {

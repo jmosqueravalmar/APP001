@@ -16,110 +16,60 @@
     </div>
     <ul id="f04det-op" data-role="listview" class="col-md-12">
     </ul>
-
-<div class="container-fluid">
-     <div class="row">
-         <div class="cols-xs-12">
-             <b>Detalle: </b>
-         </div>
-      </div>
-      <div class="row">
-         <div class="cols-xs-12">
-            <textarea name="" id="" cols="30" rows="10">
-                #:Detalle#
-            </textarea>
-         </div>
-     </div>
- </div>
-        
-<ul class="col-md-12">
-    <div class="list-group">
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1">
-                <b>Detalle(2): </b>
+    <ul class="col-md-12">
+        <div class="list-group">
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Fecha Creación: </b></span>
+                <span id="f04FechaCreacionAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Id Operación: </b></span>
+                <span id="f04NumOperacionAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Cliente: </b></span>
+                <span id="f04ClienteAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Despachador: </b></span>
+                <span>
+                    <input id="txtIdDespachador"/>
+                </span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Almacén: </b></span>
+                <span id="f04AlmacenAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Núm órden: </b></span>
+                <span id="f04OrdenAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Tiempo Trasncurrido: </b></span>
+                <span id="f04LVTiempoTrasncurridoAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Actividad: </b></span>
+                <span id="f04LVOperacionAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Hora inicio: </b></span>
+                <span id="f04LVHoraInicioAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Estado: </b></span>
+                <span id="f04LVEstadoAAA"></span>
+            </div>
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1">
+                <b>Detalle: </b>
             </span>
-            <div>
-                <textarea name="" id="" cols="30" rows="10">
-                    #:Detalle#
-                </textarea>
+                <div>
+                    <textarea name="" id="f04DetalleAAA" cols="40" rows="10"> 
+                    </textarea>
+                </div>
             </div>
         </div>
-    </div>
-</ul>
-    
+    </ul>
 </div>
 <!--End-->
-<!-- Template Detalle de Operación -->
-<script type="text/x-kendo-tmpl" id="f04tempOP">
-    <div class="list-group">
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Fecha Creación: </b></span>
-            <span id="f04FechaCreacion"></span>
-        </div>
-        
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Id Operación: </b></span>
-            <span>#:NumOperacion#</span>
-        </div>
-        
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Cliente: </b></span>
-            <span>#:Cliente#</span>
-        </div>
-
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Despachador: </b></span>
-            <span>
-            	<b>[+]</b>
-                <button id="txtIdDespachador"/>
-    		</span>            
-        </div>
-
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Almacén: </b></span>
-            <span>#:Almacen#</span>
-        </div>
-
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Núm órden: </b></span>
-            <span>#:Orden#</span>
-        </div>
-
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Tiempo Trasncurrido: </b></span>
-            <span id="f04LVTiempoTrasncurrido">Tiempo Trasn FF from ListView</span>
-        </div>
-        
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Actividad: </b></span>
-            <span id="f04LVOperacion"></span>
-        </div>
-
-        <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Hora inicio: </b></span>
-            <span id="f04LVHoraInicio"></span>
-        </div>
-
-       <div class="list-group-item font-cuerpo">
-            <span class="color_1"><b>Estado: </b></span>
-            <span id="f04LVEstado"></span>
-       </div>
-       
-       <div class="list-group-item font-cuerpo" style="height:100%">
-            <span class="color_1"><b>Detalle: </b></span>
-            <div>
-            	#:Detalle#
-    		</div>            
-       </div>
-       
-    </div>  
-
-    
-
-</script>
-<!--End -->
-    
-
-    
-
-    
