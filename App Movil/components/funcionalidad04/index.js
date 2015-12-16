@@ -1,31 +1,62 @@
 'use strict';
 app.funcionalidad04 = kendo.observable({
     onShow: function () {
-        //Carga JavaScript 3st
+
     },
     afterShow: function () {
-        //Carga JavaScript 4st        
-    }
+
+    },
 });
 
+function f04FechaAtencionConsilidato() {
+    $("#f04FchAtencionConsilidato").kendoDatePicker({
+        culture: "es-PE",
+        value: new Date(),
+        change: function () {
+            
+            var valueDate = this.value();
+            var day = valueDate.getDate();
+            var month = valueDate.getMonth() + 1;
+            var year = valueDate.getFullYear();
+            var strValueDate = year + "/" + month + "/" + day ;
+
+            console.log("DFC 1>>> value changed txtfecha: " +strValueDate); //value is the selected date in the datepicker
+            f04getOperaciones(strValueDate);
+        }
+    });
+    console.log("DFC 2>>> txtfecha: " + $("#f04FchAtencionConsilidato").val());
+    var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
+    f04getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" +  strDateSplit[0]);
+}
+
 //getOperaciones -> cargamos el grid tareas
-function f04getOperaciones() {
+function f04getOperaciones(f04FchAtencionConsilidato) {
+    console.log("DFC >>> param fx " + f04FchAtencionConsilidato);
+
     var idSS = sessionStorage.getItem("sessionUSER");
+
     $("#f04operaciones").kendoGrid({
         dataSource: {
             transport: {
                 read: {
+                    // http://54.213.238.161/wsAusa//Operaciones/Listar
+                    // http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar
                     url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
                     dataType: "json",
                     type: "post",
                     data: {
-                        txtdespachador: idSS, //3091,
+                        txtdespachador: idSS,
                         txtcliente: 0,
                         txtorden: 0,
                         txtalmacen: 0,
-                        txtestado: 9
+                        txtestado: 9,
+                        txtfecha: f04FchAtencionConsilidato,
                     }
                 }
+            },
+            error: function (e) {
+                // handle error
+                console.log("Status: " + e.status + "; Error message: " + e.errorThrown);
             },
             schema: {
                 model: {
@@ -250,28 +281,28 @@ function f04SelectGridDetOperacion() {
 
     dsOperaciones.fetch(function () {
         var data = this.data();
-        var dateFechaCreacion = eval(" new "+data[0].FechaCreacion.replace(/\//g,'')+";");
+        var dateFechaCreacion = eval(" new " + data[0].FechaCreacion.replace(/\//g, '') + ";");
 
         var day = dateFechaCreacion.getDate();
-        var month = dateFechaCreacion.getMonth() + 1 ;
+        var month = dateFechaCreacion.getMonth() + 1;
         var year = dateFechaCreacion.getFullYear();
-        $("#f04FechaCreacion").text(day+"/"+month+"/"+year);
-        
+        $("#f04FechaCreacion").text(day + "/" + month + "/" + year);
+
         $("#f04NumOperacion").text(data[0].NumOperacion);
         $("#f04Cliente").text(data[0].Cliente);
-        
+
         getDespachador();
-        
+
         $("#f04Almacen").text(data[0].Almacen);
         $("#f04Orden").text(data[0].Orden);
-        
+
         //INFORMACIONES DE PA /Operaciones/Listar
         $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido + " dias. ");
         $("#f04LVOperacion").text(Actividad);
         $("#f04LVHoraInicio").text(HoraInicio);
         $("#f04LVEstado").text(Estado);
-        
-        $("#f04Detalle").text(data[0].Detalle);        
+
+        $("#f04Detalle").text(data[0].Detalle);
 
     });
 }
@@ -282,56 +313,49 @@ function cambioClase() {
     $('.font-cuerpo').css({
         'font-size': fontSize
     });
+    console.log("DFC >>> cambioClase font");
 }
 
 //getDespachador -> datos del select tipo de tarea
 function getDespachador() {
     var idSS = sessionStorage.getItem("sessionUSER");
-        $("#txtIdDespachador").kendoDropDownList({
-            dataSource: {
-                transport: {
-                    read: {
-                        url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Despachadores",
-                        dataType: "json",
-                        type: "get",
-                    }
+    $("#txtIdDespachador").kendoDropDownList({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Despachadores",
+                    dataType: "json",
+                    type: "get",
                 }
-            },
-            dataTextField: "nomDespachador",
-            dataValueField: "idDespachador",
-            value: idSS
-        });
-
-        //Si se seleccionó la fila, asignamos el valor del kendoDropDownList con el valor de accion
-        // if (accion !== "add") {
-        //     var dropdownlist = $("#txtidtt").data("kendoDropDownList");
-        //     dropdownlist.value(accion);
-        // };
+            }
+        },
+        dataTextField: "nomDespachador",
+        dataValueField: "idDespachador",
+        value: idSS
+    });
 }
 
-function Reasignar(){
-    console.log("DFC >>> ACCION Reasignar");
-    console.log("DFC >>> OP ID: "+$("#f04NumOperacion").html());
+function Reasignar() {
     var ddLDespachador = $("#txtIdDespachador").data("kendoDropDownList");
     var dataItem = ddLDespachador.dataItem();
-    console.log("DFC >>> DESPACHADOR ID: "+dataItem.idDespachador+" NOMBRE: "+dataItem.nomDespachador);
-    console.log("DFC >>> DETALLE ID: "+$("#f04Detalle").val());
+
     var dsReasignar = new kendo.data.DataSource({
         transport: {
-        	read: {
-        		url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/",
-        		dataType: "json",
-        		type: "post",
-        		data: {
-        			txtid: parseInt($("#f04NumOperacion").html()), 
-        			txtdespachador: parseInt(dataItem.idDespachador), 
+            read: {
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/",
+                dataType: "json",
+                type: "post",
+                data: {
+                    txtid: parseInt($("#f04NumOperacion").html()),
+                    txtdespachador: parseInt(dataItem.idDespachador),
                     txtobservacion: $("#f04Detalle").val()
-        		}
-        	},
+                }
+            },
         },
         error: function (e) {
             console.log("DFC Reasignar UPDATE ERR:" + e.status + "; ERROR Message: " + e.errorThrown);
         }
     });
     dsReasignar.fetch();
+    window.location.href = "#f04ContenedorOperaciones";
 }
