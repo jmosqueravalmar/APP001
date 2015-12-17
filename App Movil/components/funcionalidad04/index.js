@@ -8,25 +8,29 @@ app.funcionalidad04 = kendo.observable({
     },
 });
 
+// Para la primera carga usa la fecha actual
+var f04DateAtencionConsilidato = new Date();
+
 function f04FechaAtencionConsilidato() {
     $("#f04FchAtencionConsilidato").kendoDatePicker({
         culture: "es-PE",
-        value: new Date(),
-        change: function () {
-            
+        value: f04DateAtencionConsilidato,
+        change: function () {            
             var valueDate = this.value();
             var day = valueDate.getDate();
+            // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
             var month = valueDate.getMonth() + 1;
             var year = valueDate.getFullYear();
-            var strValueDate = year + "/" + month + "/" + day ;
-
-            console.log("DFC 1>>> value changed txtfecha: " +strValueDate); //value is the selected date in the datepicker
+            var strValueDate = year+"/"+month+"/"+day;
+            console.log("DFC 1>>> value changed txtfecha: " + strValueDate);
             f04getOperaciones(strValueDate);
+            // guardar el valor de la ultima fecha selecionada
+            f04DateAtencionConsilidato = new Date(year, month -1, day);
         }
     });
     console.log("DFC 2>>> txtfecha: " + $("#f04FchAtencionConsilidato").val());
     var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
-    f04getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" +  strDateSplit[0]);
+    f04getOperaciones(strDateSplit[2]+"/"+strDateSplit[1]+"/"+strDateSplit[0]);
 }
 
 //getOperaciones -> cargamos el grid tareas
@@ -34,7 +38,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
     console.log("DFC >>> param fx " + f04FchAtencionConsilidato);
 
     var idSS = sessionStorage.getItem("sessionUSER");
-
+    
     $("#f04operaciones").kendoGrid({
         dataSource: {
             transport: {
@@ -50,7 +54,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                         txtorden: 0,
                         txtalmacen: 0,
                         txtestado: 9,
-                        txtfecha: f04FchAtencionConsilidato,
+                        txtfecha: f04FchAtencionConsilidato, //"2015/09/24", //f04FchAtencionConsilidato,
                     }
                 }
             },
@@ -261,8 +265,10 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
 
 
 function f04SelectGridDetOperacion() {
-    window.location.href = "#f04accionOperacion";
+    
     var seleccion = $(".k-state-selected").select();
+    
+    console.log("DFC 3 >>> "+seleccion);
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({
         transport: {
@@ -305,6 +311,7 @@ function f04SelectGridDetOperacion() {
         $("#f04Detalle").text(data[0].Detalle);
 
     });
+    window.location.href = "#f04accionOperacion";
 }
 
 function cambioClase() {
