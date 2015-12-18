@@ -266,24 +266,29 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
 
 function f04SelectGridDetOperacion() {
     
-    var seleccion = $(".k-state-selected").select();
+    //var seleccion = $(".k-state-selected").select();
+    //f04operaciones
+    var grid = $("#f04operaciones").data("kendoGrid");
+    var selectedRows = grid.select();
+    var dataItem = this.dataItem(selectedRows[0]);
     
-    console.log("DFC 3 >>> "+seleccion);
+    //console.log("DFC 3 >>> "+seleccion);
+    
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Detalle/" + this.dataItem(seleccion).NumOperacion, //226667
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Detalle/" + dataItem.NumOperacion, //226667
                 dataType: "json",
                 type: "get"
             },
         }
     });
     //INFORMACIONES DE PA /Operaciones/Listar
-    var Actividad = this.dataItem(seleccion).Operacion;
-    var HoraInicio = this.dataItem(seleccion).HoraInicio;
-    var Estado = this.dataItem(seleccion).Estado;
-    var TiempoTranscurrido = this.dataItem(seleccion).TiempoTranscurrido;
+    var Actividad = dataItem.Operacion;
+    var HoraInicio = dataItem.HoraInicio;
+    var Estado = dataItem.Estado;
+    var TiempoTranscurrido = dataItem.TiempoTranscurrido;
 
     dsOperaciones.fetch(function () {
         var data = this.data();
