@@ -1,13 +1,19 @@
 <!-- Listado Operaciones -->
-<div id="f04ContenedorOperaciones" data-role="view" data-title="Reasignación operaciones" data-layout="main" data-model="app.funcionalidad04" data-show=" f04FechaAtencionConsilidato" data-zoom="true">
-    </br>
-    <button type="button" class="btn btn-default font-boton" onclick="cambioClase();"> 
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aumentar
-    </button>
-    <p class="font-cuerpo">Prueba aumento de letra!!!</p>
-    <input id="f04FchAtencionConsilidato" />
-    </br>
-    <div id="f04operaciones" class="font-cuerpo">
+<div id="f04ContenedorOperaciones" data-role="view" data-title="Reasignación operaciones" data-layout="main" data-model="app.funcionalidad04" data-show="f04FechaAtencionConsilidato" data-zoom="true">
+    <div class="row">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default font-boton" onclick="cambioClase();">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aumentar
+            </button>
+        </div>
+        <div class="col-xs-6">
+            <input id="f04FchAtencionConsilidato"  style="width:100%">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="f04operaciones" class="font-cuerpo"> </div>            
+        </div>
     </div>
 </div>
 <!-- End -->
@@ -17,10 +23,14 @@
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#f04ContenedorOperaciones"><span class="k-icon k-i-undo"></a>
     </div>
-    <ul id="f04det-op" data-role="listview" class="col-md-12">
-    </ul>
-    <ul class="col-md-12">
+    <div class="col-md-12">
         <div class="list-group">
+            <div class="list-group-item font-cuerpo">
+                <span class="color_1"><b>Despachador: </b></span>
+                <span>
+                    <input id="txtIdDespachador">
+                </span>
+            </div>
             <div class="list-group-item font-cuerpo">
                 <span class="color_1"><b>Fecha Creación: </b></span>
                 <span id="f04FechaCreacion"></span>
@@ -32,12 +42,6 @@
             <div class="list-group-item font-cuerpo">
                 <span class="color_1"><b>Cliente: </b></span>
                 <span id="f04Cliente"></span>
-            </div>
-            <div class="list-group-item font-cuerpo">
-                <span class="color_1"><b>Despachador: </b></span>
-                <span>
-                    <input id="txtIdDespachador"/>
-                </span>
             </div>
             <div class="list-group-item font-cuerpo">
                 <span class="color_1"><b>Almacén: </b></span>
@@ -81,6 +85,6 @@
                 </span>
             </div>
         </div>
-    </ul>
+    </div>
 </div>
 <!--End-->

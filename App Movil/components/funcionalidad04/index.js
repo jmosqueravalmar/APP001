@@ -22,13 +22,14 @@ function f04FechaAtencionConsilidato() {
             var month = valueDate.getMonth() + 1;
             var year = valueDate.getFullYear();
             var strValueDate = year+"/"+month+"/"+day;
-            console.log("DFC 1>>> value changed txtfecha: " + strValueDate);
+            console.log("DFC 1 >>> >>> f04FchAtencionConsilidato __CHANGE__: " + strValueDate);
             f04getOperaciones(strValueDate);
             // guardar el valor de la ultima fecha selecionada
-            f04DateAtencionConsilidato = new Date(year, month -1, day);
+            f04DateAtencionConsilidato = new Date(year, month -1, day);            
         }
     });
-    console.log("DFC 2>>> txtfecha: " + $("#f04FchAtencionConsilidato").val());
+    console.log("DFC 2 >>> f04FchAtencionConsilidato __NO__ CHANGE: " + $("#f04FchAtencionConsilidato").val());
+    getDespachador();    
     var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
     f04getOperaciones(strDateSplit[2]+"/"+strDateSplit[1]+"/"+strDateSplit[0]);
 }
@@ -78,7 +79,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
         pageSize: 2,
         scrollable: false,
         selectable: "row",
-        change: f04SelectGridDetOperacion, //f04SelectGridOperaciones,
+        change: f04SelectGridDetOperacion, 
         filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
         columns: [
             //COL_1 NumOperacion
@@ -266,29 +267,41 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
 
 function f04SelectGridDetOperacion() {
     
-    //var seleccion = $(".k-state-selected").select();
-    //f04operaciones
-    var grid = $("#f04operaciones").data("kendoGrid");
-    var selectedRows = grid.select();
-    var dataItem = this.dataItem(selectedRows[0]);
+    //getDespachador();
     
-    //console.log("DFC 3 >>> "+seleccion);
+    var seleccion = $(".k-state-selected").select();
     
+    console.log("DFC 3 >>> "+seleccion);
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Detalle/" + dataItem.NumOperacion, //226667
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Detalle/" + this.dataItem(seleccion).NumOperacion, //226667
                 dataType: "json",
                 type: "get"
             },
         }
     });
     //INFORMACIONES DE PA /Operaciones/Listar
-    var Actividad = dataItem.Operacion;
-    var HoraInicio = dataItem.HoraInicio;
-    var Estado = dataItem.Estado;
-    var TiempoTranscurrido = dataItem.TiempoTranscurrido;
+    var Actividad = "N/A";
+    if (this.dataItem(seleccion).Operacion) {
+        Actividad = this.dataItem(seleccion).Operacion;
+    }        
+    
+    var HoraInicio = "N/A";
+    if (this.dataItem(seleccion).HoraInicio){
+        HoraInicio = this.dataItem(seleccion).HoraInicio;
+    }
+
+    var Estado  = "N/A";
+    if ( this.dataItem(seleccion).Estado) {
+        Estado  = this.dataItem(seleccion).Estado;
+    }        
+    
+    var TiempoTranscurrido = "N/A";
+    if (this.dataItem(seleccion).TiempoTranscurrido){
+        TiempoTranscurrido = this.dataItem(seleccion).TiempoTranscurrido + " dias. ";
+    }
 
     dsOperaciones.fetch(function () {
         var data = this.data();
@@ -302,13 +315,11 @@ function f04SelectGridDetOperacion() {
         $("#f04NumOperacion").text(data[0].NumOperacion);
         $("#f04Cliente").text(data[0].Cliente);
 
-        getDespachador();
-
         $("#f04Almacen").text(data[0].Almacen);
         $("#f04Orden").text(data[0].Orden);
 
         //INFORMACIONES DE PA /Operaciones/Listar
-        $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido + " dias. ");
+        $("#f04LVTiempoTrasncurrido").text(TiempoTranscurrido);
         $("#f04LVOperacion").text(Actividad);
         $("#f04LVHoraInicio").text(HoraInicio);
         $("#f04LVEstado").text(Estado);
@@ -325,11 +336,11 @@ function cambioClase() {
     $('.font-cuerpo').css({
         'font-size': fontSize
     });
-    console.log("DFC >>> cambioClase font");
 }
 
 //getDespachador -> datos del select tipo de tarea
 function getDespachador() {
+    console.log(" DFC >>> getDespachador()");
     var idSS = sessionStorage.getItem("sessionUSER");
     $("#txtIdDespachador").kendoDropDownList({
         dataSource: {
