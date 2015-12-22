@@ -1,3 +1,5 @@
+f03getAudios();
+
 function id(element) {
         return document.getElementById(element);
     }
@@ -40,11 +42,6 @@ function id(element) {
 
     }());
 
-function addNotaVoz() {
-    window.location.href = "#listaAudios";
-    f03getAudios();
-}
-
 // on a global level
 var isAudioPlaying = false;
 var isAudioPause = 0;
@@ -60,16 +57,15 @@ function playAudio(ID) {
         //alert("Link Ausa: " + src);
     } else {
         src = src.replace("file:/", "");
-        //src = src.substring(0, src.lastIndexOf('/') + 1); //get name file
-        //         src = src.replace("3gpp", "wav");
-        //alert("Path Local: " + src);    
-        //src = '/android_asset/www/' + src;
+        src = src.replace("%20"," ");
+        src = src.replace("%20"," ");
+        src = src.replace("%20"," ");
     }
-    alert(src);
     if (isAudioPlaying) {
         if (isAudioPause == ID) {
-            if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") {
-                $("#iconBtn" + ID).attr("class", "fa fa-play");
+            alert($("#iconBtn" + ID).attr("class"));
+            if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") {//si se está reproduciendo
+                $("#iconBtn" + ID).attr("class", "fa fa-play");//agregamos icono play
                 isAudioPause = ID;
                 mediaContent.pause();
                 return;
@@ -84,7 +80,7 @@ function playAudio(ID) {
             mediaContent.stop();
         }
     } else {
-        $("#iconBtn" + ID).attr("class", "fa fa-pause");
+        $("#iconBtn" + ID).attr("class", "fa fa-pause"); //se reproduce por primera vez
     }
     mediaContent = new Media(src,
         function () {
@@ -115,7 +111,7 @@ function f03getAudios() {
                 dataType: "json",
                 type: "post",
                 data: {
-                    txtid: 1 // idTarea
+                    txtid: $('#txtid').val() // 1 idTarea
                 }
             }
         }
@@ -127,13 +123,7 @@ function f03getAudios() {
             template: kendo.template($("#f03TemLA").html())
         });
     });
-
-    $("#dialog").kendoWindow({
-        title: "Confirmación",
-        scrollable: false,
-        modal: true,
-        visible: false
-    });
+    
 }
 
 function f03enviarBackend() {
@@ -186,22 +176,29 @@ function f03newAudio(archivo) {
     }
     //Delete new audio
 $(document).on("click", "a[type='newAudio']", function () {
+    
     //$(this).parent().remove();
     idnota = $(this).parent().attr("id").replace("btn", "");
-    $("#dialog").data("kendoWindow").open();
-    $("#dialog").data("kendoWindow").center();
+    $("#dialogAudio").data("kendoWindow").open();
+    $("#dialogAudio").data("kendoWindow").center();
     $("#divMensajeConf").text("¿Desea eliminar el audio " + idnota + " de la tarea?");
     $("#accionAudio").attr('onclick', 'f03deleteAudio( idnota )');
 });
 
 function f03deleteAudio(idAudio) {
+    $("#dialogAudio").kendoWindow({
+        title: "Confirmación",
+        scrollable: false,
+        modal: true,
+        visible: false
+    });
     if ($.isNumeric(idAudio)) {
-        $("#dialog").data("kendoWindow").open();
-        $("#dialog").data("kendoWindow").center();
+        $("#dialogAudio").data("kendoWindow").open();
+        $("#dialogAudio").data("kendoWindow").center();
         $("#divMensajeConf").text("¿Desea eliminar el audio " + idAudio + " de la tarea?");
         $("#accionAudio").attr('onclick', 'f03accionAudio("ndelete","",' + idAudio + ',"")');
     } else {
-        $('#dialog').data('kendoWindow').close();
+        $('#dialogAudio').data('kendoWindow').close();
         $("#btn" + idAudio).remove();
         if ($('a[type="newAudio"]').length == 0) {
             $("#btnSendBS").attr("disabled", "disabled");
@@ -232,7 +229,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                     url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ninsert',
                     data: {
                         txtidnota: idNota,
-                        txtidtarea: 1
+                        txtidtarea: $('#txtid').val()
                     },
                     async: false,
                     success: function (datos) {
@@ -247,7 +244,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                                 id: idNota,
                                 url: FileUri,
                                 tipo: 1,
-                                subPath: 1
+                                subPath: $('#txtid').val()
                             },
                             async: false,
                             success: function (datos) {
@@ -300,7 +297,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
         url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ndelete',
         data: {
             txtnota: idAudio,
-            txttarea: 1
+            txttarea: $('#txtid').val()
         },
         async: false,
         success: function (datos) {
@@ -314,7 +311,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
             } else {
                 notificationWidget.show("No se eliminó la nota correctamente", "danger");
             }
-            $('#dialog').data('kendoWindow').close();
+            $('#dialogAudio').data('kendoWindow').close();
         },
         error: function () {
             notificationWidget.show("No se puede establecer la conexión al servicio", "danger");

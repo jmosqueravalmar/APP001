@@ -29,14 +29,13 @@
         background-color: #fff;
     }
 </style>
-<script src="components/funcionalidad03/addVos.js"></script>
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas" data-zoom="true">
     <div class="row">
         <div class="col-xs-6">
             <button type="button" class="btn btn-default btn-block font-boton" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
         </div>
         <div class="col-xs-6">
-            <button type="button" class="btn btn-default btn-block font-boton" onclick="adminTT();"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Administrar tipos</button>
+            <button type="button" class="btn btn-default btn-block font-boton" onclick="adminTT();"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Tipos Tareas</button>
         </div>
     </div>
     <div id="tareas" class="font-cuerpo">
@@ -169,9 +168,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <label class="control-label font-cuerpo" for="">Grabar</label>
-                <button type="button" class="btn btn-default btn-block font-boton" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
-                <button id="captureAudio" style="display:none;" class="font-cuerpo">Capture Audio</button>
-                <div id="media" style="display:none;" class="font-cuerpo"></div>
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="kendo.mobile.application.navigate('components/funcionalidad03/captureView.html');"><span class="fa fa-microphone" aria-hidden="true"></span> Nota de Voz</button>
             </div>
             <div class="col-xs-6" align="right" id="divEstado">
                 <label class="control-label font-cuerpo" for=""></label>

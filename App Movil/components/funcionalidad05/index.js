@@ -199,7 +199,6 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
     }
     //selectGrid-> Si se selecciona una fila del grid
 function selectGridOperac(selectedDataItems) {
-
     //EFECTOS kendo.fx($("#accionOperacion")).zoom("in").play();
     var seleccion = selectedDataItems; //$(".k-state-selected").select();
     var Orden = seleccion[0].Orden;
