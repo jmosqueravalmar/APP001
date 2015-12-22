@@ -56,7 +56,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                         txtalmacen: 0,
                         txtestado: 9,
                         txtfecha: f04FchAtencionConsilidato, //"2015/09/24", //f04FchAtencionConsilidato,
-                    }
+                    },
                 }
             },
             error: function (e) {
@@ -73,6 +73,19 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                 }
             },
             pageSize: 10,
+            requestStart: function(e) {
+                kendo.ui.progress($("#homeView"), true);
+				/*
+                * !!!NO FUNCIONA CON LLAMADA AJAX DUPLICADAS!!!
+                	setTimeout(function () {
+                    	kendo.ui.progress($("#homeView"), false);
+                    	alert("El Servicio no esta Disponible.");
+                    }, 10000);
+                */
+            },
+			requestEnd: function(e) {
+                kendo.ui.progress($("#homeView"), false);
+            },
         },
         filterable: true,
         sortable: true,
@@ -330,9 +343,17 @@ function f04SelectGridDetOperacion() {
     window.location.href = "#f04accionOperacion";
 }
 
-function cambioClase() {
+function aumentarFont() {
     var fontSize = parseInt($(".font-cuerpo").css("font-size"));
     fontSize = fontSize + 1 + "px";
+    $('.font-cuerpo').css({
+        'font-size': fontSize
+    });
+}
+
+function disminuirFont() {
+    var fontSize = parseInt($(".font-cuerpo").css("font-size"));
+    fontSize = fontSize - 1 + "px";
     $('.font-cuerpo').css({
         'font-size': fontSize
     });
