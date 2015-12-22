@@ -1,9 +1,15 @@
 <!-- Listado Operaciones -->
-<div id="operaciones1" data-role="view" data-title="Seguimiento Operaciones" data-layout="main" data-model="app.funcionalidad05" data-show="getOperacion" data-zoom="true">
-    </br>
-    <button type="button" class="btn btn-default font-boton" onclick="cambioClase();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aumentar</button>
-    <p class="font-cuerpo">Prueba aumento de letra!!!</p>
-    </br>
+<div id="operaciones1" data-role="view" data-title="Seguimiento Operaciones" data-layout="main" data-model="app.funcionalidad05" data-show="f05FechaAtencionConsilidato" data-zoom="true">
+    <div class="row">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default font-boton" onclick="cambioClase();">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aumentar
+            </button>
+        </div>
+        <div class="col-xs-6">
+            <input id="f05FchAtencionConsilidato" style="width:100%">
+        </div>
+    </div>
     <div id="operaciones" class="font-cuerpo">
     </div>
 </div>
@@ -16,7 +22,7 @@
     </div>
     <ul id="det-op" data-role="listview" class="col-md-12"></ul>
     <!--     Modal confirmación -->
-    <div id="dialog">
+    <div id="dialog" style="display:none;">
         <div id="cuerpoModal" class="form-group" align="center"></div>
         <div class="row">
             <div class="col-xs-6">

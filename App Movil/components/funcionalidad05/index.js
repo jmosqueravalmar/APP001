@@ -8,10 +8,37 @@ app.funcionalidad05 = kendo.observable({
     }
 });
 
+// Para la primera carga usa la fecha actual
+var f05DateAtencionConsilidato = new Date();
+
+function f05FechaAtencionConsilidato() {
+    $("#f05FchAtencionConsilidato").kendoDatePicker({
+        culture: "es-PE",
+        value: f05DateAtencionConsilidato,
+        change: function () {            
+            var valueDate = this.value();
+            var day = valueDate.getDate();
+            // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
+            var month = valueDate.getMonth() + 1;
+            var year = valueDate.getFullYear();
+            var strValueDate = year+"/"+month+"/"+day;
+            console.log("DFC 1 >>> >>> f04FchAtencionConsilidato __CHANGE__: " + strValueDate);
+            f05getOperaciones(strValueDate);
+            // guardar el valor de la ultima fecha selecionada
+            f05DateAtencionConsilidato = new Date(year, month -1, day);            
+        }
+    }); 
+    var strDateSplit = $("#f05FchAtencionConsilidato").val().split("/");
+    f05getOperaciones(strDateSplit[2]+"/"+strDateSplit[1]+"/"+strDateSplit[0]);
+}
+
+
 //getOperaciones -> cargamos el grid tareas
 var selectedDataItems = [];
-
-function getOperacion() {
+function f05getOperaciones(f05FchAtencionConsilidato) {
+    console.log(f05FchAtencionConsilidato);
+    var idSS = sessionStorage.getItem("sessionUSER");
+    
         $("#operaciones").kendoGrid({
             dataSource: {
                 transport: {
@@ -20,12 +47,12 @@ function getOperacion() {
                         dataType: "json",
                         type: "post",
                         data: {
-                            txtdespachador: 4358,//3091,4358
+                            txtdespachador: idSS,//3091,4358,3358
                             txtcliente: 0,
                             txtorden: 0,
                             txtalmacen: 0,
                             txtestado: 9,
-                            txtfecha: "24/09/2015"
+                            txtfecha: f05FchAtencionConsilidato //"2015/09/24", //f04FchAtencionConsilidato, "24/09/2015"
                         }
                     }
                 },
@@ -288,6 +315,7 @@ function selectGridOperac(selectedDataItems) {
 
 function tipoFuncion(accion, NumOperacion, Ultimo) {
     // Definimos el modal de confirmación aquí
+    $("#dialog").css("display","block");
     $("#dialog").kendoWindow({
         scrollable: false,
         modal: true,
