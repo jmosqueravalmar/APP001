@@ -14,19 +14,10 @@
         <span data-role="view-title"></span>
         <a data-role="button" data-align="right" href="#operaciones1"><span class="k-icon k-i-undo"></a>
     </div>
-    <ul id="divBotonera" class="col-md-12">
-        </br>
-        <button class="btn btn-default font-boton btn-block" id="btnOpcion1" onclick="tipoFuncion('Iniciar',this.value);" disabled> <span id="spanBtn1" class="fa fa-lock" aria-hidden="true"></span> Inicio</button>
-        <button class="btn btn-default font-boton btn-block" id="btnOpcion2" onclick="tipoFuncion('Permiso',this.value);" disabled> <span id="spanBtn2" class="fa fa-lock" aria-hidden="true"></span> Permiso Ok</button>
-        <button class="btn btn-default font-boton btn-block" id="btnOpcion3" onclick="tipoFuncion('Solicitar',this.value);" disabled> <span id="spanBtn3" class="fa fa-lock" aria-hidden="true"></span> Sol Transporte</button>
-        <button class="btn btn-default font-boton btn-block" id="btnOpcion7" onclick="tipoFuncion('Terminar',this.value);" disabled> <span id="spanBtn7" class="fa fa-lock" aria-hidden="true"></span> Fin</button>
-        </br>
-    </ul>
-    <ul id="det-op" data-role="listview" class="col-md-12">
-    </ul>
+    <ul id="det-op" data-role="listview" class="col-md-12"></ul>
     <!--     Modal confirmación -->
     <div id="dialog">
-        <p id="cuerpoModal"></p>
+        <div id="cuerpoModal" class="form-group" align="center"></div>
         <div class="row">
             <div class="col-xs-6">
                 <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
@@ -41,6 +32,12 @@
 <!--End-->
 <!-- Template Detalle de Operación -->
 <script type="text/x-kendo-tmpl" id="tempOP">
+    </br>
+    <button class="btn btn-default btn-block font-boton" id="btnAddFoto" onclick="addFoto();"> <span class="fa fa-camera" aria-hidden="true"></span> Agregar foto </button>
+    </br>
+    <div id="divBotonera">
+    </div>
+    </br>
     <div class="list-group">
         <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Creación: </strong>#= kendo.toString(kendo.parseDate(FechaCreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #</button>
         <button type="button" class="list-group-item font-cuerpo"><strong>Id Operación: </strong>#:NumOperacion#</button>

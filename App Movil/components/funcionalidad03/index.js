@@ -2,6 +2,7 @@
 app.funcionalidad03 = kendo.observable({
     onShow: function () {
         //Carga JavaScript 3st
+
     },
     afterShow: function () {
         //Carga JavaScript 4st        
@@ -44,9 +45,9 @@ function getTareas() {
             pageSize: 10
         });
 
-        if (!$("#tareas").data("kendoGrid")) {
-            document.addEventListener("deviceready", onDeviceReady, false);
-        };
+        // if (!$("#tareas").data("kendoGrid")) {
+        //     document.addEventListener("deviceready", onDeviceReady, false);
+        // };
         $("#tareas").kendoGrid({
             dataSource: dsTareas,
             filterable: true,
@@ -263,6 +264,12 @@ function viewFormTarea() {
         $('#divBtnAccion').hide();
         $("#divNotaVoz").html("");
         $("#divEstado").hide();
+        $("#dialog").kendoWindow({
+            title: "Confirmación",
+            scrollable: false,
+            modal: true,
+            visible: false
+        });
     }
     //getSelectTipoTarea -> datos del select tipo de tarea
 function getSelectTipoTarea(accion) {
@@ -309,7 +316,7 @@ function getSelectCliente(accion) {
                             }
                         }
                     }
-                }//,
+                } //,
                 // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
                 /*filter: {
                     field: "ClienteRazonSocial",
@@ -353,8 +360,30 @@ function getSelectCliente(accion) {
     }
 }
 
+function modalTarea(accion) {
+    $("#dialog").data("kendoWindow").center();
+    $('#dialog').data('kendoWindow').open();
+    switch (accion) {
+        case 'insert':
+            $("#divMensaje").text("¿Realmente desea agregar la tarea?");
+            $("#btnAccionModal").attr("onclick", "accionTarea('insert');");
+            break;
+        case 'update':
+            $("#divMensaje").text("¿Realmente desea editar la tarea?");
+            $("#btnAccionModal").attr("onclick", "accionTarea('update');");
+            break;
+        default:
+            $("#divMensaje").text("¿Realmente desea eliminar la tarea?");
+            $("#btnAccionModal").attr("onclick", "accionTarea('delete');");
+            break;
+    }
+    $("#btnAccionModal").removeAttr("disabled");
+}
+
 //accionTarea -> Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {
+    $("#btnAccionModal").attr("disabled","disabled");
+    $('#dialog').data('kendoWindow').close();
     var idSS = sessionStorage.getItem("sessionUSER");
     //Notificaciones
     var notificationElement = $("#notification");
@@ -434,15 +463,15 @@ function accionTarea(accion) {
                     });
                 };
                 if (valido) {
-                    notificationWidget.show((accion == "insert" ? "Se agregó la nueva tarea" + $('#txtidtt option:selected').text() : "Se editó la tarea" + $('#txtidtt option:selected').text()), "success");
+                    notificationWidget.show((accion == "insert" ? "Se agregó la nueva tarea: " + $('#txtidtt option:selected').text() : "Se editó la tarea" + $('#txtidtt option:selected').text()), "success");
                     var grid = $("#tareas").data("kendoGrid");
                     grid.dataSource.read();
                     window.location.href = "#tareas1";
                 };
-                return;
+
             }
 
-            if ($('#txtid').val() > 0) { //Si es edición  
+            if ($('#txtid').val() > 0) { //Si es edición  o delete
                 var dsTareaCliente = new kendo.data.DataSource({
                     transport: {
                         read: {
@@ -493,15 +522,8 @@ function accionTarea(accion) {
                         });
                     };
                 });
-
                 if (valido) {
-                    switch (accion) {
-                        case "insert":
-                            notificationWidget.show("Se agregó la tarea: " + $('#txtidtt option:selected').text(), "success");
-                            break;
-                        default:
-                            notificationWidget.show((accion == "delete" ? "Se eliminó la tarea: " + $('#txtidtt option:selected').text() : "Se guardó la información de: " + $('#txtidtt option:selected').text()), "success");
-                    }
+                    notificationWidget.show((accion == "delete" ? "Se eliminó la tarea: " + $('#txtidtt option:selected').text() : "Se guardó la información de: " + $('#txtidtt option:selected').text()), "success");
                     var grid = $("#tareas").data("kendoGrid");
                     grid.dataSource.read();
                     window.location.href = "#tareas1";
@@ -562,6 +584,13 @@ function selectGrid() {
     $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
     $("#divNotaVoz").html("");
     $("#divEstado").show();
+
+    $("#dialog").kendoWindow({
+        title: "Confirmación",
+        scrollable: false,
+        modal: true,
+        visible: false
+    });
 }
 
 //Para mantener active el button-group
@@ -588,7 +617,7 @@ function tag_estado() {
     }
 };
 
-//add edit delete tipo de tarea
+// edit delete tipo de tarea
 function accionTT(tipo) {
     $('#modalAddTipoTarea').data('kendoMobileModalView').open();
     kendo.fx($("#modalAddTipoTarea")).zoom("in").play(); //Sirve para eliminar el bug del click en la misma posición del btn cancelar, que hace que al seleccionar se cierre inmediatamente el modal
@@ -691,9 +720,9 @@ function adminTT() {
 //addTipoTarea -> Agregamos un nuevo tipo de tarea
 function accionTipoTarea(accion) {
     var idSS = sessionStorage.getItem("sessionUSER");
-    
+
     var valido = true;
-    
+
     //Notificaciones 
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
