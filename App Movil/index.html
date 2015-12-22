@@ -22,6 +22,7 @@
     <script src="bower_components/kendo-ui-appbuilder-core/js/kendo.all.min.js"></script>
     <script src="bower_components/everlive/min/everlive.all.min.js"></script>
     <script src="lib/progress/progress.all.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2015.3.930/js/cultures/kendo.culture.es-PE.min.js"></script>
     <script src="app.js"></script> 
     <!--Descargar los íconos en producción-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -30,16 +31,16 @@
 <body id="kendoUiMobileApp">
     <script src="components/PruebaTareas/index.js"></script>
     <script src="components/funcionalidad05/index.js"></script>
+    <script src="components/funcionalidad04/index.js"></script>
     <script src="components/funcionalidad03/index.js"></script>
-    <script src="components/funcionalidad03/addVos.js"></script>
     <script src="components/funcionalidad02/index.js"></script>
     <script src="components/funcionalidad01/index.js"></script>
     <script src="components/homeView/index.js"></script>
     <div id="layoutMain" data-role="layout" data-id="main">
         <header data-role="header">
-            <div data-role="navbar" id="NavBarHeader">
+            <div data-role="navbar">
                 <span data-role="view-title"></span>
-                <a id="IconoMenu" style="display:none;" data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
+                <a id="MenuPrincipal" data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             </div>
         </header>
         <!-- application views will be rendered here -->
@@ -68,15 +69,19 @@
             </li>
             <li id="fun03" style="display:none;"><a href="components/funcionalidad03/view.html" data-icon="compose">Seguimiento Tareas</a>
             </li>
+            <li id="fun04" style="display:none;"><a href="components/funcionalidad04/view.html" data-icon="toprated">Reasignación operaciones</a>
+            </li>
             <li id="fun05" style="display:none;"><a href="components/funcionalidad05/view.html" data-icon="compose">Seguimiento Órdenes</a>
             </li>
             
-            <li><a href="components/homeView/view.html" data-icon="contacts" onclick="cerrar_ss();">Cerrar Sesión</a>
-            </li>
+            <li id="funCS" style="display:none;"><a href="components/homeView/view.html#cerrar" data-icon="contacts" >Cerrar Sesión</a>
+            </li> 
+            
+            <li id="funSS" style="display:block;"><a href="components/homeView/view.html" data-icon="contacts" >Iniciar Sesión</a>
+            </li> 
         </ul>
         <footer>
-            <div class="footerUsuario" id="fUsuario">
-            </div>
+            <div class="footerUsuario" id="fUsuario"></div> 
         </footer>
     </div>
     <!-- Alertas y Notificaciones -> id="notification" -->

@@ -6,7 +6,7 @@ app.funcionalidad02 = kendo.observable({
 });
 
 function getOrden(year, order) {
-    var cliente = $("#id_usuario").val();
+    var cliente = sessionStorage.getItem("sessionUSER");
     if(cliente>0){
         
     }else{
@@ -127,7 +127,7 @@ function getOrden(year, order) {
                         template: kendo.template($("#temp02").html())
                     });
                 }
-            });
+            }); 
             window.location.href = "#det-orden1";
         } else {
             var notificationElement = $("#notification");

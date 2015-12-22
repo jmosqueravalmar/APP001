@@ -269,7 +269,7 @@ h1 {
 }
 
 .font-cuerpo {
-	font-size: 13px !important;
+	font-size: 13px;
     font-weight: normal !important;
 }
 
@@ -289,18 +289,6 @@ h1 {
     font-weight: bold;
 }
 
-.divOculto {
-    width: 100%;
-    background-color: #0053B3;
-    height: 43px;
-    z-index: 10;
-    position: absolute;
-    color: white;
-    text-align: center;
-    font-weight: lighter;
-    font-size: 18px;
-    line-height: 43px;
-}
 /* standar */
 
 /*  funcionalidad 2 */
@@ -328,16 +316,9 @@ h1 {
     float: right;
 }
 
+.cabecera_usuario {
+	margin: 5px 15px;
+    background-color: white;    
+}
+
 /* funcionalidad 2 */
-
-/*
-#txtidtt-list div ul li.selected, #txtidtt-list div ul li:hover, #txtidtt-list div ul li:focus {
- 	background-color:red !important;
-}
-
-
-li .k-item .k-state-selected .k-state-focused {
-    background-color:green !important;
-}
-*/
-

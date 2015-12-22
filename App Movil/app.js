@@ -64,27 +64,21 @@
     };
 }());
 
-// START_CUSTOM_CODE_kendoUiMobileApp
-//var UsuarioID = -1;
+// START_CUSTOM_CODE_kendoUiMobileApp 
 
 sessionStorage.sessionUSER = "SessionData";
 
-function iniciar_ss(){
-    $("#IconoMenu").show();
-}
+//function cerrar_session(){
+    //$("#MenuPrincipal").hide();
+   // $("#appDrawer").data("kendoMobileDrawer").destroy(); 
+    //$("fun01").attr('disabled','enabled');
+    //$("fun01").attr('style','display:block');
+   // $("#fun01").css("display", "block");
+//}
 
-function cerrar_ss(){
-    $("#IconoMenu").hide();
-    sessionStorage.setItem("sessionUSER", "");
-    window.location.href = "#homeView";
-} 
-/*
-function MostrarMenu(){
-    $("#appDrawer").data("kendoMobileDrawer").show(); 
-}
-
-function OcultarMenu(){
-    $("#appDrawer").data("kendoMobileDrawer").hide();
-}*/
+//function iniciar_session(){
+ 	//new kendo.mobile.Application();
+   // $("#appDrawer").kendoMobileDrawer();
+//}
  
 // END_CUSTOM_CODE_kendoUiMobileApp
