@@ -1,48 +1,3 @@
-<style>
-    .k-dropdown .k-input,
-    .k-selectbox .k-input {
-        background: #fff;
-    }
-    .form-control.k-widget {
-        padding: 0;
-        background-color: rgba(255, 255, 255, 0);
-        border-color: rgba(255, 255, 255, 0);
-    }
-    .k-textbox>input,
-    .k-autocomplete .k-input,
-    .k-picker-wrap .k-input,
-    .k-numeric-wrap .k-input,
-    .k-dropdown-wrap .k-input,
-    .k-selectbox .k-input {
-        padding: 0.40em 0;
-    }
-    .k-state-default>.k-select {
-        background-color: #fff;
-    }
-    .warning {
-        background-color: #fcf8e3;
-    }
-    .danger {
-        background-color: #f2dede;
-    }
-    .default {
-        background-color: #fff;
-    }
-</style>
-<script src="components/funcionalidad03/addVos.js"></script>
-<div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-show="getTareas" data-zoom="true">
-    <div class="row">
-        <div class="col-xs-6">
-            <button type="button" class="btn btn-default btn-block font-boton" onclick="viewFormTarea();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</button>
-        </div>
-        <div class="col-xs-6">
-            <button type="button" class="btn btn-default btn-block font-boton" onclick="adminTT();"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Administrar tipos</button>
-        </div>
-    </div>
-    <div id="tareas" class="font-cuerpo">
-    </div>
-</div>
-<!-- Fin Listado Tareas -->
 <!-- Acción Tipo de Tarea: Add Insert Delete -->
 <div data-role="view" id="vistaTipoTareas" data-title="Tipos de Tarea">
     <div data-role="navbar">
@@ -169,9 +124,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <label class="control-label font-cuerpo" for="">Grabar</label>
-                <button type="button" class="btn btn-default btn-block font-boton" onclick="addNotaVoz();"> <span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Nota de Voz</button>
-                <button id="captureAudio" style="display:none;" class="font-cuerpo">Capture Audio</button>
-                <div id="media" style="display:none;" class="font-cuerpo"></div>
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="addNotaVoz();"><span class="fa fa-microphone" aria-hidden="true"></span> Nota de Voz</button>
             </div>
             <div class="col-xs-6" align="right" id="divEstado">
                 <label class="control-label font-cuerpo" for=""></label>
@@ -197,7 +150,8 @@
     <!--     modal confirmación -->
     <div id="dialog">
         <tag id="divMensaje" class="font-cuerpo"></tag>
-        </br></br>
+        </br>
+        </br>
         <div class="row">
             <div class="col-xs-6">
                 <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
@@ -210,3 +164,56 @@
     <!--     End -->
 </div>
 <!-- Fin Acción Tarea -->
+
+<div data-role="view" id="listaAudios" data-title="Lista Audios" data-model="captureAudioModel">
+    <!--     Send to back -->
+    <div data-role="navbar">
+        <span data-role="view-title"></span>
+        <a data-role="button" data-align="right" href="#accionTarea">Regresar</a>
+    </div>
+    <!--     End -->
+    <div class="container">
+        </br>
+        <div class="row">
+            <div class="col-xs-6">
+                <button id="captureAudio" class="btn btn-default btn-block" data-bind="events: {click: capureAudio}"><span class="fa fa-microphone" aria-hidden="true"></span>&nbsp&nbsp&nbsp Grabar Audio</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="btnSendBS" onclick="f03enviarBackend();" class="btn btn-default btn-block" disabled><span class="fa fa-cloud" aria-hidden="true"></span>&nbsp&nbsp&nbsp Guardar</button>
+            </div>
+        </div>
+        </br>
+        <div id="newAudio" class="list-group">
+        </div>
+        <div id="f03viewAudios" data-role="listview" style="border-color:transparent;background-color:transparent;">
+            <div class="list-group">
+            </div>
+        </div>
+        </br>
+    </div>
+    <!--     modal confirmación -->
+    <div id="dialog">
+        <div id="divMensajeConf"></div>
+        <div class="row">
+            <div class="col-xs-6">
+                <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="accionAudio" type="button" class="btn btn-default btn-block font-boton" onclick="">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <!--     End -->
+</div>
+<!-- Template List Audios -->
+<script type="text/x-kendo-tmpl" id="f03TemLA">
+    <button type="button" class="list-group-item">
+        <a class="btn btn-default btn-xs" onclick="f03deleteAudio(#:idnota#)"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-cloud text-muted"></i> Audio: #:idnota#
+        <tag id="divAccion#:idnota#" type="divIsPlay" align="center"></tag>
+        <span style="float:right">
+        <input value="#:archivo#" id="archivo#:idnota#" type="hidden"></input>
+        <a class="btn btn-info btn-xs" onclick="playAudio(#:idnota#)"><i id="iconBtn#:idnota#" type="iconBtn" class="fa fa-play"></i></a>
+    </span>
+    </button>
+</script>
+<!--End -->

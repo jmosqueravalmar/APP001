@@ -1,8 +1,12 @@
 .logoBase
 {
-    width: 43%;
-    background-color: white;
+    width: 70%; 
     margin: 0px 0px -11px 0px;
+}
+
+.logoBase2 {
+   width: 45%;
+   margin: 0px 0px -5px 0px;
 }
 
 .footerUsuario
