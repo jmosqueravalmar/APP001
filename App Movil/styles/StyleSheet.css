@@ -316,4 +316,9 @@ h1 {
     float: right;
 }
 
+.cabecera_usuario {
+	margin: 5px 15px;
+    background-color: white;    
+}
+
 /* funcionalidad 2 */

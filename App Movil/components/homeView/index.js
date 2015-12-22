@@ -81,7 +81,7 @@ function LoginDS() {
                 //console.log("Log=>"+data[0].Column1);
                 datos = data[0].Column1;
                 $("#NombreUsuario").html("Usuario: " + datos);
-                $("#fUsuario").html("Usuario: " +datos);
+                $("#fUsuario").html("Usuario: " +datos);  
             });
 
             sessionStorage.setItem("sessionUSER",userID); 
@@ -134,7 +134,7 @@ function validarRoles(id, visual){
         dsRoles.fetch(function () {
             var data = this.data(); 
             for (var i=0;i<dsRoles.total();i++){
-                console.log("Itera: "+i+" - Rol:"+data[i].Rol);
+                //console.log("Itera: "+i+" - Rol:"+data[i].Rol);
                 switch(data[i].Rol){
                     case "Datos del cliente":
                         //habilitar opciones
@@ -169,7 +169,8 @@ function cerrarSesion(){
     $("#funSS").css("display", "block");  
     $("#funCS").css("display", "none"); 
     $("#fUsuario").css("display", "none"); 
-    window.location.href = "#AutenticacionOK";
+    sessionStorage.setItem("sessionUSER",""); 
+    window.location.href = "#homeView";
 } 
 
 function isEmpty(str) {
