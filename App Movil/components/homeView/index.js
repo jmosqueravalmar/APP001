@@ -9,7 +9,7 @@ app.homeView = kendo.observable({
 var txtsUsuario = "";
 var txtsContrasenia = "";
 var dsLogin = null;
-var DSroles, DSdatos, datos, roles;
+var DSroles, DSdatos, datos, dsRoles;
 
 function CleanDS() {
     $("#txtsUsuario").val("");
@@ -52,46 +52,19 @@ function LoginDS() {
                     txtsContrasenia: txtsContrasenia
                 }
             }
-        },
-        schema: {
-            model: {
-                fields: {
-                    Id: {
-                        editable: false,
-                        nullable: true,
-                        type: "number"
-                    },
-                    Tipo: {
-                        type: "string"
-                    },
-                    Ejecucion: {
-                        type: "number"
-                    },
-                }
-            }
-        },
-        requestEnd: function (e) {
-            //console.log("dsLogin >> requestEnd");
-
-        },
+        }
     });
 
     dsLogin.fetch(function () {
         var data = this.data();
         /*
-         * data[0].Ejecucion --> status autenticacion
-         * VALORES
          * --> 0 ERROR usuario autenticado correctamente
          * --> 1 ERROR usuario no autenticado
          */
         var resLogin = 1;
         resLogin = data[0].Ejecucion;
 
-        if (resLogin === 0) {
-            $("#MenuPrincipal").show();
-
-            //Store UsuarioID global js var app.js file
-            //UsuarioID = data[0].Id;
+        if (resLogin === 0) { 
             var userID = data[0].Id;
 			
             DSdatos = new kendo.data.DataSource({
@@ -111,24 +84,22 @@ function LoginDS() {
                 $("#fUsuario").html("Usuario: " +datos);
             });
 
-            $("#UsuarioSesion").val(userID);
-			sessionStorage.setItem("sessionUSER",userID); 
-            //console.log("user:"+sessionStorage.getItem("sessionUSER"));
-            $("#fun01").show();
-            $("#fun02").show();
-            $("#fun03").show();
-            $("#fun04").show();
-            $("#fun05").show();
-
+            sessionStorage.setItem("sessionUSER",userID); 
+            
             /*
             funciones para roles y mostrar ocultar segun sea el caso
             */
+            validarRoles(userID,"block");
 			
             $("#txtsUsuario").val("");
             $("#txtsUsuario").html("");
             $("#txtsContrasenia").val("");
             $("#txtsContrasenia").html("");
-			 
+			
+            $("#funSS").css("display", "none");  
+            $("#funCS").css("display", "block"); 
+            $("#fUsuario").css("display", "block"); 
+            
             window.location.href = "#AutenticacionOK";
 
         }
@@ -141,9 +112,65 @@ function LoginDS() {
     });
 }
 
-/*function cargaSesion(){
-    UsuarioID = $('input:hidden[name=UsuarioSesion]').val();
-}*/
+function validarRoles(id, visual){
+    
+    if (id=="salida"){
+        $("#fun01").css("display", visual); 
+        $("#fun02").css("display", visual); 
+        $("#fun03").css("display", visual); 
+        $("#fun04").css("display", visual); 
+        $("#fun05").css("display", visual);
+    }else{
+        
+        dsRoles = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://www.ausa.com.pe/appmovil_test01/Usuarios/Roles/"+id,
+                    dataType: "json"
+                }
+            }
+        });
+        
+        dsRoles.fetch(function () {
+            var data = this.data(); 
+            for (var i=0;i<dsRoles.total();i++){
+                console.log("Itera: "+i+" - Rol:"+data[i].Rol);
+                switch(data[i].Rol){
+                    case "Datos del cliente":
+                        //habilitar opciones
+                        $("#fun01").css("display", visual); 
+                        break;
+                    case "Seguimiento despacho":
+                        //habilitar opciones
+                        $("#fun02").css("display", visual); 
+                        break; 
+                    case "Tareas":
+                        //habilitar opciones
+                        $("#fun03").css("display", visual); 
+                        break; 
+                    case "Operaciones Coordinador":
+                        //habilitar opciones
+                        $("#fun04").css("display", visual); 
+                        break;
+                    case "Operaciones Despachador":
+                        //habilitar opciones
+                        $("#fun05").css("display", visual); 
+                        break; 
+                }
+            }
+        });   
+    }
+    
+    
+}
+
+function cerrarSesion(){ 
+    validarRoles("salida","none");
+    $("#funSS").css("display", "block");  
+    $("#funCS").css("display", "none"); 
+    $("#fUsuario").css("display", "none"); 
+    window.location.href = "#AutenticacionOK";
+} 
 
 function isEmpty(str) {
     return (!str || 0 === str.length);

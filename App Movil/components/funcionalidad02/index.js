@@ -6,7 +6,7 @@ app.funcionalidad02 = kendo.observable({
 });
 
 function getOrden(year, order) {
-    var cliente = $("#id_usuario").val();
+    var cliente = sessionStorage.getItem("sessionUSER");
     if(cliente>0){
         
     }else{

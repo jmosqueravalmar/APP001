@@ -40,7 +40,7 @@
         <header data-role="header">
             <div data-role="navbar">
                 <span data-role="view-title"></span>
-                <a id="MenuPrincipal" data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" style="display: none;" data-icon="drawer-button"></a>
+                <a id="MenuPrincipal" data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             </div>
         </header>
         <!-- application views will be rendered here -->
@@ -74,13 +74,15 @@
             <li id="fun05" style="display:none;"><a href="components/funcionalidad05/view.html" data-icon="compose">Seguimiento Órdenes</a>
             </li>
             
-            <li><a href="components/homeView/view.html" data-icon="contacts" onclick="cerrar_session();">Cerrar Sesión</a>
+            <li id="funCS" style="display:none;"><a href="components/homeView/view.html#cerrar" data-icon="contacts" >Cerrar Sesión</a>
+            </li> 
+            
+            <li id="funSS" style="display:block;"><a href="components/homeView/view.html" data-icon="contacts" >Iniciar Sesión</a>
             </li> 
         </ul>
         <footer>
             <div class="footerUsuario" id="fUsuario">
-            </div>
-            <input type="hidden" id="UsuarioSesion" name="UsuarioSesion"/>
+            </div> 
         </footer>
     </div>
     <!-- Alertas y Notificaciones -> id="notification" -->
