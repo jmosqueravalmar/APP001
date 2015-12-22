@@ -58,7 +58,7 @@ function LoginDS() {
         requestStart: function(e) {
             kendo.ui.progress($("#homeView"), true);
             setTimeout(function () {
-                kendo.ui.progress(element, false);
+                kendo.ui.progress("#homeView", false);
                 alert("El Servicio no esta Disponible.");
             }, 10000);
         },
