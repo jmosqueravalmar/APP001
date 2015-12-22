@@ -40,8 +40,10 @@ function LoginDS() {
         notificationWidget.show("Ingrese la contraseña", "error");
         return;
     }
-
+    //
+    kendo.ui.progress($("#listaAudios"), true);
     dsLogin = new kendo.data.DataSource({
+
         transport: {
             read: {
                 url: "http://www.ausa.com.pe/appmovil_test01/Inicio/AutentificaUsuario",
@@ -52,6 +54,14 @@ function LoginDS() {
                     txtsContrasenia: txtsContrasenia
                 }
             }
+        }
+        ,
+        requestStart: function(e) {
+            kendo.ui.progress($("#homeView"), true);
+        },
+        requestEnd: function(e) {
+
+            kendo.ui.progress($("#homeView"), false);
         }
     });
 
