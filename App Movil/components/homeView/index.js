@@ -42,6 +42,7 @@ function LoginDS() {
     }
 
     dsLogin = new kendo.data.DataSource({
+
         transport: {
             read: {
                 url: "http://www.ausa.com.pe/appmovil_test01/Inicio/AutentificaUsuario",
@@ -52,6 +53,17 @@ function LoginDS() {
                     txtsContrasenia: txtsContrasenia
                 }
             }
+        }
+        ,
+        requestStart: function(e) {
+            kendo.ui.progress($("#homeView"), true);
+            setTimeout(function () {
+                kendo.ui.progress("#homeView", false);
+                alert("El Servicio no esta Disponible.");
+            }, 10000);
+        },
+        requestEnd: function(e) {
+            kendo.ui.progress($("#homeView"), false);
         }
     });
 
