@@ -72,11 +72,11 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                     }
                 }
             },
+            pageSize: 10,
         },
         filterable: true,
         sortable: true,
-        pageable: true,
-        pageSize: 2,
+        pageable: true,        
         scrollable: false,
         selectable: "row",
         change: f04SelectGridDetOperacion, 
