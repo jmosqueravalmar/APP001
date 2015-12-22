@@ -2,7 +2,6 @@
 app.funcionalidad03 = kendo.observable({
     onShow: function () {
         //Carga JavaScript 3st
-
     },
     afterShow: function () {
         //Carga JavaScript 4st        
@@ -295,6 +294,7 @@ function getSelectTipoTarea(accion) {
     //getSelectCliente -> datos del select cliente
 function getSelectCliente(accion) {
     var idSS2 = sessionStorage.getItem("sessionUSER");
+    
     if (!$("#txtidc").data("kendoMultiSelect")) {
         $("#txtidc").kendoMultiSelect({
             dataSource: {
@@ -537,9 +537,10 @@ function accionTarea(accion) {
 }
 
 //Agregamos audio
-function addNotaVoz() {
-    $("#divNotaVoz").append('<span class="font-cuerpo">Audio01 <span type="xxx" class="glyphicon glyphicon-remove"></span>&nbsp&nbsp&nbsp</span>');
-}
+// function addNotaVoz() {
+//     //$("#divNotaVoz").append('<span class="font-cuerpo">Audio01 <span type="xxx" class="glyphicon glyphicon-remove"></span>&nbsp&nbsp&nbsp</span>');
+//     kendo.mobile.application.navigate("components/funcionalidad03/captureView.html");
+// }
 
 //Eliminar nota de audio
 $(document).on("click", "span[type='xxx']", function () {
