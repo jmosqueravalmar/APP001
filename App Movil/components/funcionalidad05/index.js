@@ -15,30 +15,31 @@ function f05FechaAtencionConsilidato() {
     $("#f05FchAtencionConsilidato").kendoDatePicker({
         culture: "es-PE",
         value: f05DateAtencionConsilidato,
-        change: function () {            
+        change: function () {
             var valueDate = this.value();
             var day = valueDate.getDate();
             // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
             var month = valueDate.getMonth() + 1;
             var year = valueDate.getFullYear();
-            var strValueDate = year+"/"+month+"/"+day;
+            var strValueDate = year + "/" + month + "/" + day;
             console.log("DFC 1 >>> >>> f04FchAtencionConsilidato __CHANGE__: " + strValueDate);
             f05getOperaciones(strValueDate);
             // guardar el valor de la ultima fecha selecionada
-            f05DateAtencionConsilidato = new Date(year, month -1, day);            
+            f05DateAtencionConsilidato = new Date(year, month - 1, day);
         }
-    }); 
+    });
     var strDateSplit = $("#f05FchAtencionConsilidato").val().split("/");
-    f05getOperaciones(strDateSplit[2]+"/"+strDateSplit[1]+"/"+strDateSplit[0]);
+    f05getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" + strDateSplit[0]);
 }
 
 
 //getOperaciones -> cargamos el grid tareas
 var selectedDataItems = [];
+
 function f05getOperaciones(f05FchAtencionConsilidato) {
-    console.log(f05FchAtencionConsilidato);
-    var idSS = sessionStorage.getItem("sessionUSER");
-    
+        console.log(f05FchAtencionConsilidato);
+        var idSS = sessionStorage.getItem("sessionUSER");
+
         $("#operaciones").kendoGrid({
             dataSource: {
                 transport: {
@@ -47,7 +48,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                         dataType: "json",
                         type: "post",
                         data: {
-                            txtdespachador: idSS,//3091,4358,3358
+                            txtdespachador: idSS, //3091,4358,3358
                             txtcliente: 0,
                             txtorden: 0,
                             txtalmacen: 0,
@@ -81,7 +82,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                     var dataItem = this.dataItem(selectedRows[i]);
                     selectedDataItems.push(dataItem);
                 }
-                selectGridOperac(selectedDataItems);
+                selectGridOperac();
                 window.location.href = "#accionOperacion";
             },
             filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
@@ -198,17 +199,17 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
         };
     }
     //selectGrid-> Si se selecciona una fila del grid
-function selectGridOperac(selectedDataItems) {
+function selectGridOperac() {
     //EFECTOS kendo.fx($("#accionOperacion")).zoom("in").play();
-    var seleccion = selectedDataItems; //$(".k-state-selected").select();
-    var Orden = seleccion[0].Orden;
-    var FechaInicio = seleccion[0].FechaInicio;
-    var HoraInicio = seleccion[0].HoraInicio;
-    var HoraFin = seleccion[0].HoraFin;
-    var Operacion = seleccion[0].Operacion;
-    var Estado = seleccion[0].Estado;
-    var OperacionID = seleccion[0].OperacionID;
-    var NumOperacion = seleccion[0].NumOperacion;
+    var seleccion = $(".k-state-selected").select(); // selectedDataItems; //$(".k-state-selected").select();
+    var Orden = this.dataItem(seleccion).Orden;
+    var FechaInicio = this.dataItem(seleccion).FechaInicio;
+    var HoraInicio = this.dataItem(seleccion).HoraInicio;
+    var HoraFin = this.dataItem(seleccion).HoraFin;
+    var Operacion = this.dataItem(seleccion).Operacion;
+    var Estado = this.dataItem(seleccion).Estado;
+    var OperacionID = this.dataItem(seleccion).OperacionID;
+    var NumOperacion = this.dataItem(seleccion).NumOperacion;
     var dsDetOperaciones = new kendo.data.DataSource({
         transport: {
             read: {
@@ -230,7 +231,7 @@ function selectGridOperac(selectedDataItems) {
     $("#Operacion").text(Operacion);
     $("#Estado").text(Estado);
 
-    NumOperacion=227192;
+    NumOperacion = 227192;
     dsDetOperaciones.fetch(function () {
         var dsBotonera = new kendo.data.DataSource({
             transport: {
@@ -299,9 +300,9 @@ function selectGridOperac(selectedDataItems) {
                 if (activo == false && opcion.Habilitado == 1 && activo == false) {
                     activo = true;
                     if (i + 1 == dsBotonera.total()) { // si es la uúltima opración preguntar si desea agregar fotos
-                        $("#divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-primary btn-block font-boton b_color_1" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ',' + "'Ultimo'" + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
+                        $("#divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-success btn-block font-boton b_color_1" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ',' + "'Ultimo'" + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
                     } else {
-                        $("#divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-primary btn-block font-boton b_color_1" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
+                        $("#divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-success btn-block font-boton b_color_1" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
                     }
 
                 } else {
@@ -314,7 +315,7 @@ function selectGridOperac(selectedDataItems) {
 
 function tipoFuncion(accion, NumOperacion, Ultimo) {
     // Definimos el modal de confirmación aquí
-    $("#dialog").css("display","block");
+    $("#dialog").css("display", "block");
     $("#dialog").kendoWindow({
         scrollable: false,
         modal: true,
@@ -323,7 +324,11 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
     $("#dialog").data("kendoWindow").title("Confirmar: " + accion);
     $("#dialog").data("kendoWindow").center();
     $("#dialog").data("kendoWindow").open();
+
+    $("#btnFuncionFoto05").text("Cancelar");
+    $("#btnFuncionFoto05").attr("onclick", "$('#dialog').data('kendoWindow').close();");
     $("#cuerpoModal").html('');
+
     switch (accion) {
         case "Inicio":
             accion = "Iniciar";
@@ -344,7 +349,6 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
                 '</label>' +
             '</div>']);
             break;
-
         case "Permiso ok":
             accion = "Permiso";
             break;
@@ -353,14 +357,16 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
             break;
         case "Fin":
             accion = "Terminar";
+            $("#btnFuncionFoto05").html('<span class="fa fa-camera" aria-hidden="true"></span> Fotos');
+            $("#btnFuncionFoto05").attr("onclick", "addFoto();");
             break;
         default:
             break;
     }
     if (Ultimo) {
-        $("#cuerpoModal").append('<h5 class="font-cuerpo">¿Desea agregar una foto?</h5>');
+        $("#cuerpoModal").append('<h5 class="font-cuerpo">¿Desea agregar una foto?</h5><h5 class="font-cuerpo">Al dar click en fotos, podrá tomar fotos.</h5><h5 class="font-cuerpo">Al dar click en aceptar, se ejecutará la acción.</h5>');
     }
-    $("#btnFuncion").attr("onclick", "f05funcion('" + accion + "'," + NumOperacion + ");");
+    $("#btnFuncion05").attr("onclick", "f05funcion('" + accion + "'," + NumOperacion + ");");
     $('#dtpLevante').parent().removeClass("has-error");
 }
 
@@ -400,7 +406,7 @@ function f05funcion(accion, NumOperacion) {
                 }
                 notificationWidget.show(accion + " realizado correctamente", "success");
             } else {
-                notificationWidget.show("No se pudo dar " + accion + "a la operación", "error");
+                notificationWidget.show("No se pudo " + accion + " a la operación", "error");
             }
         },
         error: function () {
