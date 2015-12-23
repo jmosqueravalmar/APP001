@@ -1,10 +1,19 @@
 <!-- Listado Operaciones -->
-<div id="operaciones1" data-role="view" data-title="Seguimiento Operaciones" data-layout="main" data-model="app.funcionalidad05" data-show="f05FechaAtencionConsilidato" data-zoom="true">
+<div id="operaciones1" data-role="view" data-title="Seguimiento Oper." data-layout="main" data-model="app.funcionalidad05" data-show="f05FechaAtencionConsilidato" data-zoom="true">
     <div class="row">
         <div class="col-xs-6">
-            <button type="button" class="btn btn-default font-boton" onclick="cambioClase();">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aumentar
-            </button>
+            <span>
+                <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="aumentarFont();">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="disminuirFont();">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                </button>
+            </span>
         </div>
         <div class="col-xs-6">
             <input id="f05FchAtencionConsilidato" style="width:100%">
@@ -26,10 +35,10 @@
         <div id="cuerpoModal" class="form-group" align="center"></div>
         <div class="row">
             <div class="col-xs-6">
-                <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
+                <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
             </div>
             <div class="col-xs-6">
-                <button id="btnFuncion" type="button" class="btn btn-default btn-block font-boton" onclick="">Aceptar</button>
+                <button id="btnFuncion" type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="">Aceptar</button>
             </div>
         </div>
     </div>

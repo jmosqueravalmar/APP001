@@ -513,6 +513,7 @@ var dsCondicionesDePagoMUL = null;
 function cargaPrincipal(){
     //UsuarioID = "305";   
     var idsessionCl = sessionStorage.getItem("sessionUSER");
+    var filtroCli =  $("#filtroCliente").val();
     var dsCliente = new kendo.data.DataSource({
         transport: {
             // OK funziona, ottimizzare per grandi vol. di dati || paginazione
@@ -532,7 +533,7 @@ function cargaPrincipal(){
             }
         },
         // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-        filter: { field: "ClienteRazonSocial", operator: "startswith", value: "EX" }
+        filter: { field: "ClienteRazonSocial", operator: "contains", value: filtroCli }
     }); 
     
     $("#lstCliente").kendoListView({

@@ -326,3 +326,33 @@ h1 {
 }
 
 /* funcionalidad 2 */
+
+.contenedorBusqueda {
+    padding: 10px 0px !important;
+    margin: 0px !important;
+    background-color: white !important;
+}
+
+.tex_boton_2 {
+    color:white !important; 
+    border: #EF7A0D !important;
+}
+
+.check_bajo {
+    background-color:green !important; 
+    color:white !important;
+}
+
+.check_medio {
+    background-color:#EF7A0D !important; 
+    color:white !important;
+}
+
+.check_alto {
+    background-color:red !important; 
+    color:white !important;
+}
+
+#divBtnAccion div {
+    margin-bottom: 15px !important;
+}

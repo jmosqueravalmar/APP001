@@ -1,4 +1,15 @@
-<div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-before-show="app.funcionalidad01.beforeShow" data-show="cargaPrincipal" data-after-show="app.funcionalidad01.afterShow">
+<div id="ListaClientes" data-role="view" data-title="Lista Clientes" data-layout="main" data-model="app.funcionalidad01" data-after-show="app.funcionalidad01.afterShow">
+     
+    <div class="row contenedorBusqueda">
+        <div class="col-xs-6">
+            <input id="filtroCliente" type="text" placeholder="Nombre Cliente" class="form-control input-md font-cuerpo">
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="cargaPrincipal();"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
+        </div>
+    </div>
+    
+    
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
 
     <div id="lstCliente" class="container-fluid"></div>
