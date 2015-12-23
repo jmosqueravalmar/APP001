@@ -356,3 +356,18 @@ h1 {
 #divBtnAccion div {
     margin-bottom: 15px !important;
 }
+
+.c_login_text { 
+    width: 50%;
+    float: left;
+    height: 34px;
+    text-align: center;
+    line-height: 2;
+    font-weight: bolder;
+}
+
+.c_grupo_login {
+    width:100%; 
+    padding:5px 10px; 
+    height:40px;
+}
