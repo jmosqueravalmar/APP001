@@ -26,6 +26,17 @@ function getOrden(year, order) {
                 return data;
             }
         }
+        ,
+		 requestStart: function (e) {
+            kendo.ui.progress($("#ListaOrdenes"), true);
+        },
+        requestEnd: function (e) {
+            kendo.ui.progress($("#ListaOrdenes"), false);
+        },
+        error: function (e) {
+            kendo.ui.progress($("#ListaOrdenes"), false);
+            alert("El Servicio no esta Disponible.");
+        }
     });
 
     dsOrden.fetch(function () {
@@ -111,7 +122,18 @@ function getOrden(year, order) {
                             }
                         }
                     }
+                },
+                requestStart: function (e) {
+                    kendo.ui.progress($("#det-orden"), true);
+                },
+                requestEnd: function (e) {
+                    kendo.ui.progress($("#det-orden"), false);
+                },
+                error: function (e) {
+                    kendo.ui.progress($("#det-orden"), false);
+                    alert("El Servicio no esta Disponible.");
                 }
+                
             });
             dsDetOrden.fetch(function () {
                 var data = dsDetOrden.data();
