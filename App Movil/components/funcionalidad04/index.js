@@ -282,8 +282,9 @@ function f04SelectGridDetOperacion() {
     
     //getDespachador();
     
-    var seleccion = $(".k-state-selected").select();
-    
+    //var seleccion = $(".k-state-selected").select();
+    var grid = $("#f04operaciones").data("kendoGrid");
+    var seleccion = grid.select();
     console.log("DFC 3 >>> "+seleccion);
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({

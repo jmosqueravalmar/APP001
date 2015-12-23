@@ -103,10 +103,12 @@ function getTareas() {
                     width: "120px",
                     filterable: {
                         messages: {
-                            info: "Rango de creación: "
+                            info: "Rango de creación: ",
+                            filter: "Filtrar",
+                            clear: "Limpiar"
                         }
                     },
-                    format: "{0:MM/dd/yyyy}"
+                    format: "{0:dd/MM/yyyy}"
             },
                 {
                     field: "tar_dat_fchlimite",
@@ -256,13 +258,14 @@ function getTareas() {
     //viewFormTarea -> función para agregar nueva tarea
 function viewFormTarea() {
         window.location.href = "#accionTarea";
+
         $('#formAdd')[0].reset();
         getSelectTipoTarea("add");
         getSelectCliente("add");
         $('#divBtnAdd').show();
-        $('#divBtnAccion').hide();
-        $("#divNotaVoz").html("");
-        $("#divEstado").hide();
+        $('#divBtnAccion').css("display", "none");
+        $("#divAudioEstado").css("display", "none");
+
         $("#dialog").kendoWindow({
             title: "Confirmación",
             scrollable: false,
@@ -294,7 +297,7 @@ function getSelectTipoTarea(accion) {
     //getSelectCliente -> datos del select cliente
 function getSelectCliente(accion) {
     var idSS2 = sessionStorage.getItem("sessionUSER");
-    
+
     if (!$("#txtidc").data("kendoMultiSelect")) {
         $("#txtidc").kendoMultiSelect({
             dataSource: {
@@ -382,7 +385,7 @@ function modalTarea(accion) {
 
 //accionTarea -> Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {
-    $("#btnAccionModal").attr("disabled","disabled");
+    $("#btnAccionModal").attr("disabled", "disabled");
     $('#dialog').data('kendoWindow').close();
     var idSS = sessionStorage.getItem("sessionUSER");
     //Notificaciones
@@ -536,21 +539,16 @@ function accionTarea(accion) {
     });
 }
 
-//Agregamos audio
-// function addNotaVoz() {
-//     //$("#divNotaVoz").append('<span class="font-cuerpo">Audio01 <span type="xxx" class="glyphicon glyphicon-remove"></span>&nbsp&nbsp&nbsp</span>');
-//     kendo.mobile.application.navigate("components/funcionalidad03/captureView.html");
-// }
-
-//Eliminar nota de audio
-$(document).on("click", "span[type='xxx']", function () {
-    $(this).parent().remove();
-});
 
 //selectGrid-> Si se selecciona una fila del grid
 function selectGrid() {
     window.location.href = "#accionTarea";
-    var seleccion = $(".k-state-selected").select();
+    $("#txtestado").val(2);
+    tag_estado();
+    //var seleccion = $(".k-state-selected").select();
+    var grid = $("#tareas").data("kendoGrid");
+    var seleccion = grid.select();
+
     $('#txtid').val(this.dataItem(seleccion).tar_int_id);
     getSelectCliente(this.dataItem(seleccion).tar_int_id); // Enviamos el valor de id_tarea para que lo seleccione
     getSelectTipoTarea(this.dataItem(seleccion).tiptar_int_id); // Enviamos el valor de tiptar_int_id para que lo seleccione
@@ -584,7 +582,7 @@ function selectGrid() {
     $('#txtidc, #txtuserid, #txtidtt, #txtorden, #txtobserv, #txtdetalle, #txtflimite').parent().parent().removeClass("has-error");
     $('.k-multiselect-wrap.k-floatwrap').css("border-color", "#ccc");
     $("#divNotaVoz").html("");
-    $("#divEstado").show();
+    $("#divAudioEstado").show();
 
     $("#dialog").kendoWindow({
         title: "Confirmación",
@@ -676,7 +674,10 @@ function adminTT() {
             for (var i = 0; i < selectedRows.length; i++) {
                 var dataItem = this.dataItem(selectedRows[i]);
             }
-            var seleccion = $(".k-state-selected").select();
+            //var seleccion = $(".k-state-selected").select();
+            var grid = $("#administrarTipoTareas").data("kendoGrid");
+            var seleccion = grid.select();
+
             accionTT('tipoUpdate');
             $('#txtnombre').val(dataItem.tiptar_str_nombre);
             $('#txtdescripcion').val(dataItem.tiptar_str_descripcion);

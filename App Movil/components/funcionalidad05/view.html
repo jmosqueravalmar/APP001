@@ -1,35 +1,118 @@
-<!-- Listado Operaciones -->
-<div id="operaciones1" data-role="view" data-title="Seguimiento Oper." data-layout="main" data-model="app.funcionalidad05" data-show="f05FechaAtencionConsilidato" data-zoom="true">
+<div id="f05ContenedorOperaciones" data-role="view" data-title="Seguimiento Oper." data-layout="main" data-model="app.funcionalidad05" data-show="f05FechaAtencionConsilidato" data-zoom="true">
     <div class="row">
         <div class="col-xs-6">
             <span>
                 <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="aumentarFont();">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
             </span>
             <span>
                 <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="disminuirFont();">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                </button>
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </button>
             </span>
         </div>
         <div class="col-xs-6">
             <input id="f05FchAtencionConsilidato" style="width:100%">
         </div>
     </div>
-    <div id="operaciones" class="font-cuerpo">
+    <!-- Listado Operaciones -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="f05operaciones" class="font-cuerpo"> </div>
+        </div>
     </div>
 </div>
 <!-- End -->
 <!-- Acción Tarea: Add Insert Delete -->
-<div data-role="view" id="accionOperacion" data-title="Detalle">
-    <div data-role="navbar">
-        <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" href="#operaciones1"><span class="k-icon k-i-undo"></a>
+<div data-role="view" id="f05accionOperacion" data-title="Detalle">
+    <div class="row">
+        <div data-role="navbar" class="col-xs-12">
+            <span data-role="view-title"></span>
+            <a data-role="button" data-align="right" href="#f05ContenedorOperaciones"><span class="k-icon k-i-undo"></a>
+        </div>
     </div>
-    <ul id="det-op" data-role="listview" class="col-md-12"></ul>
+    <!--        BOTONERA -->
+    </br>
+    <button class="btn btn-default btn-block font-boton" id="btnAddFoto" onclick="addFoto();"> <span class="fa fa-camera" aria-hidden="true"></span> Agregar foto </button>
+    </br>
+    <div id="f05divBotonera">
+    </div>
+    </br>
+    <!-- FIN -->
+    <!--DETALLE REASIGNACION TAREA TEST INICIO -->
+    <div class="list-group">
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Fecha Creación: </b></span>
+            <span class="col-xs-6" id="f05FechaCreacion"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Id Operación: </b></span>
+            <span class="col-xs-6" id="f05NumOperacion"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Cliente: </b></span>
+            <span class="col-xs-6" id="f05Cliente"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Despachador: </b></span>
+            <span class="col-xs-6" id="f05Despachador"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Almacén: </b></span>
+            <span class="col-xs-6" id="f05Almacen"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Núm órden: </b></span>
+            <span class="col-xs-6" id="f05Orden"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Tipo de Carga: </b></span>
+            <span class="col-xs-6" id="f05TipoCarga"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Cantidad: </b></span>
+            <span class="col-xs-6" id="f05Cantidad"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Tiempo Transcurrido: </b></span>
+            <span class="col-xs-6" id="f05TiempoTranscurrido"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Fecha Inicio: </b></span>
+            <span class="col-xs-6" id="f05FechaInicio"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Actividad: </b></span>
+            <span class="col-xs-6" id="f05Operacion"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Hora inicio: </b></span>
+            <span class="col-xs-6" id="f05HoraInicio"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Hora fin: </b></span>
+            <span class="col-xs-6" id="f05HoraFin"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1 col-xs-6"><b>Estado: </b></span>
+            <span class="col-xs-6" id="f05Estado"></span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <span class="color_1  col-xs-12">
+                    <b>Detalle: </b>
+                </span>
+        </div>
+        <div class="list-group-item font-cuerpo row">
+            <div class="col-xs-12">
+                <textarea name="" id="f05Detalle" cols="45" rows="10">
+                </textarea>
+            </div>
+        </div>
+    </div>
+    <!--DETALLE REASIGNACION TAREA TEST FIN -->
     <!--     Modal confirmación -->
     <div id="dialog" style="display:none;">
         <div id="cuerpoModal" class="form-group" align="center"></div>
@@ -45,43 +128,3 @@
     <!--     End -->
 </div>
 <!--End-->
-<!-- Template Detalle de Operación -->
-<script type="text/x-kendo-tmpl" id="tempOP">
-    </br>
-    <button class="btn btn-default btn-block font-boton" id="btnAddFoto" onclick="addFoto();"> <span class="fa fa-camera" aria-hidden="true"></span> Agregar foto </button>
-    </br>
-    <div id="divBotonera">
-    </div>
-    </br>
-    <div class="list-group">
-        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Creación: </strong>#= kendo.toString(kendo.parseDate(FechaCreacion, 'dd-MM-yyyy'), 'dd/MM/yyyy') #</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Id Operación: </strong>#:NumOperacion#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Cliente: </strong>#:Cliente#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Despachador: </strong>#:Despachador#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Almacén: </strong>#:Almacen#</button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Núm órden: </strong>
-            <tag id="Orden"></tag>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Tipo Carga: </strong>#:TipoCarga#</button>
-        <!--button type="button" class="list-group-item font-cuerpo"><strong>Núm Matrícula: </strong>????</button-->
-        <button type="button" class="list-group-item font-cuerpo"><strong>Cantidad: </strong>#:Cantidad#</button>
-        <!--button type="button" class="list-group-item font-cuerpo"><strong>Tiempo Transcurrido: </strong>Cómo obtenerlo???</button-->
-        <button type="button" class="list-group-item font-cuerpo"><strong>Fecha Inicio: </strong>
-            <tag id="FechaInicio"></tag>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Operación: </strong>
-            <tag id="Operacion"></tag>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Inicio: </strong>
-            <tag id="HoraInicio"></tag>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Hora Fin: </strong>
-            <tag id="HoraFin"></tag>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Estado: </strong>
-            <tag id="Estado"></tag>
-        </button>
-        <button type="button" class="list-group-item font-cuerpo"><strong>Detalle: </strong>#:Detalle#</button>
-    </div>
-</script>
-<!--End -->

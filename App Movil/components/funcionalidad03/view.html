@@ -154,23 +154,23 @@
         <div class="form-group">
             <label class="control-label font-cuerpo">Prioridad</label>
             <div class="btn-group btn-group-justified" data-toggle="buttons">
-                <label class="btn btn-default font-cuerpo active check_bajo" id="txtprioridad1">
+                <label class="btn btn-success font-cuerpo active" id="txtprioridad1">
                     <input value="1" type="radio" name="txtprioridad" autocomplete="off" checked><span type="btnCheck" class="glyphicon glyphicon-ok" aria-hidden="true"></span> Baja
                 </label>
-                <label class="btn btn-default font-cuerpo check_medio" id="txtprioridad2">
+                <label class="btn btn-warning font-cuerpo" id="txtprioridad2">
                     <input value="2" type="radio" name="txtprioridad" autocomplete="off"> Media
                 </label>
-                <label class="btn btn-default font-cuerpo check_alto" id="txtprioridad3">
+                <label class="btn btn-danger font-cuerpo" id="txtprioridad3">
                     <input value="3" type="radio" name="txtprioridad" autocomplete="off"> Alta
                 </label>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="divAudioEstado">
             <div class="col-xs-6">
                 <label class="control-label font-cuerpo" for="">Grabar</label>
                 <button type="button" class="btn btn-default btn-block font-boton b_color_1 tex_boton_2" onclick="kendo.mobile.application.navigate('components/funcionalidad03/captureView.html');"><span class="fa fa-microphone" aria-hidden="true"></span> Nota de Voz</button>
             </div>
-            <div class="col-xs-6" align="right" id="divEstado">
+            <div class="col-xs-6" align="right">
                 <label class="control-label font-cuerpo" for=""></label>
                 <div style="display: table;">
                     <div style="display: table-cell; vertical-align: middle;" id="tag_estado" class="text-muted font-cuerpo">Pendiente</div>&nbsp&nbsp&nbsp<i id="txtestado" value="1" onclick="tag_estado();" class="fa fa-3x fa-rotate-180 fa-toggle-on text-muted toggler"></i>
@@ -192,7 +192,7 @@
         </div>
     </div>
     <!--     modal confirmación -->
-    <div id="dialog">
+    <div id="dialog" style="display:none;">
         <tag id="divMensaje" class="font-cuerpo"></tag>
         </br></br>
         <div class="row">
