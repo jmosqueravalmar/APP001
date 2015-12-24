@@ -523,48 +523,278 @@ function f05funcion(accion, NumOperacion) {
     }
 
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
-    txtidUsuario = 126;//borrar en producción
+    txtidUsuario = 126; //borrar en producción
 
-    $.ajax({
-        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/' + accion,
-        type: "post",
-        data: {
-            operacion: NumOperacion,
-            usuario: txtidUsuario,
-            txtid: NumOperacion, //numOperacion del detalle de la operación
-            txtidUsuario: txtidUsuario, //id del usuario
-            fecha: $('#dtpLevante').val(),
-            canal: $('input:radio[name=txtprioridad]:checked').val()
-        },
-        async: false,
-        success: function (datos) {
-            var data = [];
-            data = JSON.parse(datos);
-            switch (accion) {
-                case "Permiso":
-                    if (data[0].Ejecucion == 1) {
-                        $('#dialog').data('kendoWindow').close();
-                        getBotonera(NumOperacion);
-                        notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
-                    } else {
-                        notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
+    switch (accion) {
+        case "Iniciar":
+            $.ajax({
+                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Iniciar',
+                type: "post",
+                data: {
+                    txtid: NumOperacion, //numOperacion del detalle de la operación
+                    txtidUsuario: txtidUsuario //id del usuario
+                },
+                async: false,
+                success: function (datos) {
+                    var data = [];
+                    data = JSON.parse(datos);
+                    switch (accion) {
+                        case "Permiso":
+                            if (data[0].Ejecucion == 1) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Iniciar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Iniciar", "error")
+                            }
+                            break;
+                        default:
+                            if (data[0].Ejecucion == 0) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Iniciar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Iniciar", "error")
+                            }
+                            break;
                     }
-                    break;
-                default:
-                    if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
-                        getBotonera(NumOperacion);
-                        notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
-                    } else {
-                        notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
+                },
+                error: function () {
+                    notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+                }
+            });
+            break;
+        case "Canal":
+            $.ajax({
+                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Canal',
+                type: "post",
+                data: {
+                    operacion: NumOperacion,
+                    usuario: txtidUsuario,
+                    canal: $('input:radio[name=txtprioridad]:checked').val()
+                },
+                async: false,
+                success: function (datos) {
+                    var data = [];
+                    data = JSON.parse(datos);
+                    switch (accion) {
+                        case "Permiso":
+                            if (data[0].Ejecucion == 1) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Canal realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Canal", "error")
+                            }
+                            break;
+                        default:
+                            if (data[0].Ejecucion == 0) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Canal realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Canal", "error")
+                            }
+                            break;
                     }
-                    break;
-            }
-        },
-        error: function () {
-            notificationWidget.show("No se puede establecer la conexión al servicio", "error");
-        }
-    });
+                },
+                error: function () {
+                    notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+                }
+            });
+            break;
+        case "Permiso":
+            $.ajax({
+                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Permiso',
+                type: "post",
+                data: {
+                    txtid: NumOperacion, //numOperacion del detalle de la operación
+                    txtidUsuario: txtidUsuario //id del usuario
+                },
+                async: false,
+                success: function (datos) {
+                    var data = [];
+                    data = JSON.parse(datos);
+                    switch (accion) {
+                        case "Permiso":
+                            if (data[0].Ejecucion == 1) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Permiso realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Permiso", "error")
+                            }
+                            break;
+                        default:
+                            if (data[0].Ejecucion == 0) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Permiso realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Permiso", "error")
+                            }
+                            break;
+                    }
+                },
+                error: function () {
+                    notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+                }
+            });
+            break;
+        case "Levante":
+            $.ajax({
+                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Levante',
+                type: "post",
+                data: {
+                    operacion: NumOperacion,
+                    usuario: txtidUsuario,
+                    fecha: $('#dtpLevante').val()
+                },
+                async: false,
+                success: function (datos) {
+                    var data = [];
+                    data = JSON.parse(datos);
+                    switch (accion) {
+                        case "Permiso":
+                            if (data[0].Ejecucion == 1) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Levante realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Levante", "error")
+                            }
+                            break;
+                        default:
+                            if (data[0].Ejecucion == 0) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Levante realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Levante", "error")
+                            }
+                            break;
+                    }
+                },
+                error: function () {
+                    notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+                }
+            });
+            break;
+        case "Notificar":
+            $.ajax({
+                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Notificar',
+                type: "post",
+                data: {
+                    operacion: NumOperacion,
+                    usuario: txtidUsuario
+                },
+                async: false,
+                success: function (datos) {
+                    var data = [];
+                    data = JSON.parse(datos);
+                    switch (accion) {
+                        case "Permiso":
+                            if (data[0].Ejecucion == 1) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Notificar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Notificar", "error")
+                            }
+                            break;
+                        default:
+                            if (data[0].Ejecucion == 0) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Notificar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Notificar", "error")
+                            }
+                            break;
+                    }
+                },
+                error: function () {
+                    notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+                }
+            });
+            break;
+        case "Solicitar":
+            $.ajax({
+                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Solicitar',
+                type: "post",
+                data: {
+                    txtid: NumOperacion, //numOperacion del detalle de la operación
+                    txtidUsuario: txtidUsuario //id del usuario
+                },
+                async: false,
+                success: function (datos) {
+                    var data = [];
+                    data = JSON.parse(datos);
+                    switch (accion) {
+                        case "Permiso":
+                            if (data[0].Ejecucion == 1) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Solicitar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Solicitar", "error")
+                            }
+                            break;
+                        default:
+                            if (data[0].Ejecucion == 0) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Solicitar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Solicitar", "error")
+                            }
+                            break;
+                    }
+                },
+                error: function () {
+                    notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+                }
+            });
+            break;
+        default: //"Terminar"
+            $.ajax({
+                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Terminar',
+                type: "post",
+                data: {
+                    txtid: NumOperacion, //numOperacion del detalle de la operación
+                    txtidUsuario: txtidUsuario //id del usuario
+                },
+                async: false,
+                success: function (datos) {
+                    var data = [];
+                    data = JSON.parse(datos);
+                    switch (accion) {
+                        case "Permiso":
+                            if (data[0].Ejecucion == 1) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Terminar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Terminar", "error")
+                            }
+                            break;
+                        default:
+                            if (data[0].Ejecucion == 0) {
+                                $('#dialog').data('kendoWindow').close();
+                                getBotonera(NumOperacion);
+                                notificationWidget.show("Operación: Terminar realizado correctamente", "success");
+                            } else {
+                                notificationWidget.show("No se pudo ejecutar la operación: Terminar", "error")
+                            }
+                            break;
+                    }
+                },
+                error: function () {
+                    notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+                }
+            });
+            break;
+    }
 }
 
 
