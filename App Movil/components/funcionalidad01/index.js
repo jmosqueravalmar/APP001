@@ -532,8 +532,19 @@ function cargaPrincipal(){
                 }
             }
         },
+        requestStart: function (e) {
+            kendo.ui.progress($("#ListaClientes"), true);
+        },
+        requestEnd: function (e) {
+            kendo.ui.progress($("#ListaClientes"), false);
+        },
+        error: function (e) {
+            kendo.ui.progress($("#ListaClientes"), false);
+            alert("El Servicio no esta Disponible.");
+        },
         // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
         filter: { field: "ClienteRazonSocial", operator: "contains", value: filtroCli }
+
     }); 
     
     $("#lstCliente").kendoListView({
