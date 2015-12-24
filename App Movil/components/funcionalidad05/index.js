@@ -41,6 +41,9 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
 
     $("#f05operaciones").kendoGrid({
         dataSource: {
+            // data:{
+            //     [{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443040918253)\/","ClienteAlias":"ASA","Orden":"2015-027531","NumOperacion":241698,"Despachador":"Cesar Saavedra","Almacen":"","Operacion":"RETIRO","Detalle":"IR-001// Trans.AUSA/ /C:1/ EL CLIENTE SOLO DESCARGA CARGAS QUE LLEGUEN ANTES DE LAS 3.00 PM\r\nSOLO RE","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241698},{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443039135560)\/","ClienteAlias":"DEVANLAY","Orden":"2015-027513","NumOperacion":241691,"Despachador":"Cesar Saavedra","Almacen":"DP WORLD CALLAO S.R.L.","Operacion":"RETIRO","Detalle":"IR-001// Trans.AUSA/ /C:1/ 1. Para aforo físico favor de enviarnos las fotografías tomadas adjuntand","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241691},{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443040748653)\/","ClienteAlias":"PAMOLSA","Orden":"2015-027363","NumOperacion":241697,"Despachador":"Cesar Saavedra","Almacen":"DP WORLD CALLAO S.R.L.","Operacion":"RETIRO","Detalle":"IR-001// Trans.Cliente/ /C:1/ TRAMITAR PERMISO DE SALIDA Y ENTREGAR A TRANSPORTE DEL CLIENTE // LUAN","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241697}]
+            // },
             transport: {
                 read: {
                     // http://54.213.238.161/wsAusa//Operaciones/Listar
@@ -54,7 +57,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                         txtorden: 0,
                         txtalmacen: 0,
                         txtestado: 9,
-                        txtfecha: f05FchAtencionConsilidato, //"2015/09/24", //f05FchAtencionConsilidato,
+                        txtfecha: "2015/09/24", //f05FchAtencionConsilidato,
                     },
                 }
             },
@@ -278,10 +281,11 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
 
 
 function f05SelectGridDetOperacion() {
+
     //var seleccion = $(".k-state-selected").select();
     var grid = $("#f05operaciones").data("kendoGrid");
     var seleccion = grid.select();
-    
+
     console.log("DFC 3 >>> " + seleccion);
     console.log(this.dataItem(seleccion).NumOperacion);
     //dsOperaciones -> obtenemos la lista de tareas
@@ -359,16 +363,19 @@ function f05SelectGridDetOperacion() {
     getBotonera(NumOperacion);
     // f05dsOperaciones.fetch(function () {
     // });
+    $("#f05divBotonera").html("");
     window.location.href = "#f05accionOperacion";
+
 }
 
 function getBotonera(NumOperacion) {
+    NumOperacion = $("#NumOperacion").val();
     var f05dsBotonera = new kendo.data.DataSource({
         transport: {
             read: {
                 //Levante-Notoficacion: 239257,224322
                 //Canal: 239257,239255,227192,227840,228961,227840
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Opciones/" + NumOperacion,
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Opciones/" + NumOperacion, //NumOperacion: 78503,232302,241557,241557
                 dataType: "json",
                 type: "get"
             }
@@ -484,10 +491,13 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
         case "Sol transporte":
             accion = "Solicitar";
             break;
+        case "Notificacion":
+            accion = "Notificar";
+            break;
         case "Fin":
             accion = "Terminar";
             $("#btnFuncionFoto05").html('<span class="fa fa-camera" aria-hidden="true"></span> Fotos');
-            $("#btnFuncionFoto05").attr("onclick", "addFoto();");
+            $("#btnFuncionFoto05").attr("onclick", "kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');");
             break;
         default:
             break;
@@ -499,8 +509,8 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
     $('#dtpLevante').parent().removeClass("has-error");
 }
 
-
 function f05funcion(accion, NumOperacion) {
+    //Test: Canal=0,Permiso=1,Levante=0,Notificar=0,Solicitar=0,Iniciar=0,Terminar=0
     //Notificaciones
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
@@ -514,10 +524,13 @@ function f05funcion(accion, NumOperacion) {
 
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
     txtidUsuario = 126;//borrar en producción
+
     $.ajax({
         url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/' + accion,
         type: "post",
         data: {
+            operacion: NumOperacion,
+            usuario: txtidUsuario,
             txtid: NumOperacion, //numOperacion del detalle de la operación
             txtidUsuario: txtidUsuario, //id del usuario
             fecha: $('#dtpLevante').val(),
@@ -527,17 +540,25 @@ function f05funcion(accion, NumOperacion) {
         success: function (datos) {
             var data = [];
             data = JSON.parse(datos);
-            if (data[0].Ejecucion == 0) {
-                $('#dialog').data('kendoWindow').close();
-                // if (accion == "Terminar") {
-                //     window.location.href = "#operaciones1";
-                // } else {
-                //     getBotonera(getBotonera);
-                // }
-                getBotonera(NumOperacion);
-                notificationWidget.show(accion + " realizado correctamente", "success");
-            } else {
-                notificationWidget.show("No se pudo " + accion + " a la operación", "error");
+            switch (accion) {
+                case "Permiso":
+                    if (data[0].Ejecucion == 1) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
+                    }
+                    break;
+                default:
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
+                    }
+                    break;
             }
         },
         error: function () {
@@ -545,6 +566,75 @@ function f05funcion(accion, NumOperacion) {
         }
     });
 }
+
+
+// function f05funcion(accion, NumOperacion) {
+//     //Test: Canal=0,Permiso=1,Levante=0,Notificar=0,Solicitar=0,Iniciar=0,Terminar=0
+//     //Notificaciones
+//     var notificationElement = $("#notification");
+//     notificationElement.kendoNotification();
+//     var notificationWidget = notificationElement.data("kendoNotification");
+//     //end
+//     if ($('#dtpLevante').val() == "") {
+//         $('#dtpLevante').parent().addClass("has-error");
+//         notificationWidget.show("Ingrese la fecha", "error");
+//         return;
+//     }
+
+//     var txtidUsuario = sessionStorage.getItem("sessionUSER");
+//     //tidUsuario = 126;//borrar en producción
+
+//     $.ajax({
+//         url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/' + accion,
+//         type: "post",
+//         data: {
+//             operacion: NumOperacion,
+//             usuario: txtidUsuario,
+//             txtid: NumOperacion, //numOperacion del detalle de la operación
+//             txtidUsuario: txtidUsuario, //id del usuario
+//             fecha: $('#dtpLevante').val(),
+//             canal: $('input:radio[name=txtprioridad]:checked').val()
+//         },
+//         async: false,
+//         success: function (datos) {
+//             var data = [];
+//             data = JSON.parse(datos);
+//             switch (accion) {
+//                 case "Permiso":
+//                     if (data[0].Ejecucion == 1) {
+//                         $('#dialog').data('kendoWindow').close();
+//                         // if (accion == "Terminar") {
+//                         //     window.location.href = "#operaciones1";
+//                         // } else {
+//                         //     getBotonera(getBotonera);
+//                         // }
+//                         getBotonera(NumOperacion);
+//                         notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
+//                     } else {
+//                         notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
+//                     }
+//                     break;
+//                 default:
+//                     if (data[0].Ejecucion == 0) {
+//                         $('#dialog').data('kendoWindow').close();
+//                         // if (accion == "Terminar") {
+//                         //     window.location.href = "#operaciones1";
+//                         // } else {
+//                         //     getBotonera(getBotonera);
+//                         // }
+//                         getBotonera(NumOperacion);
+//                         notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
+//                     } else {
+//                         notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
+//                     }
+//                     break;
+//             }
+//         },
+//         error: function () {
+//             notificationWidget.show("No se puede establecer la conexión al servicio", "error");
+//         }
+//     });
+// }
 
 
 

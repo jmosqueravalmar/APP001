@@ -34,9 +34,15 @@
             <a data-role="button" data-align="right" href="#f05ContenedorOperaciones"><span class="k-icon k-i-undo"></a>
         </div>
     </div>
+    <!--     Borrar esto en producción desde aquí     -->
+    <div class="row col-xs-offset-2 col-xs-8">
+        onkeyup para cambiar el NumOperacion. Eliminar este input en producción
+        <input id="NumOperacion" placeholder="NumOperacion" value="6327" class="form-control" onkeyup="getBotonera(this.value);">
+    </div>
+    <!--         Hasta aquí -->
     <!--        BOTONERA -->
     </br>
-    <button class="btn btn-default btn-block font-boton" id="btnAddFoto" onclick="addFoto();"> <span class="fa fa-camera" aria-hidden="true"></span> Agregar foto </button>
+    <button class="btn btn-default btn-block font-boton" id="btnAddFoto" onclick="kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');"> <span class="fa fa-camera" aria-hidden="true"></span> Agregar foto </button>
     </br>
     <div id="f05divBotonera">
     </div>

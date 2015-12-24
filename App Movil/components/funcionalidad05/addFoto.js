@@ -1,15 +1,15 @@
-f03getAudios();
+f05getImage();
 
 function id(element) {
         return document.getElementById(element);
     }
     (function () {
-        window.captureAudioModel = kendo.observable({
+        window.captureImageModel = kendo.observable({
             pictureSource: null,
             destinationType: null,
-            capureAudio: function (e) {
+            capureImage: function (e) {
                 var that = this;
-                navigator.device.capture.captureAudio(that.captureSuccess, that.captureError, {
+                navigator.device.capture.captureImage(that.captureSuccess, that.captureError, {
                     limit: 1
                 });
                 //Codigo para eliminar el bug de la primera grabación (en la primera grabación no se guarda la ruta)
@@ -24,7 +24,7 @@ function id(element) {
                 for (i = 0; i < capturedFiles.length; i += 1) {
                     capturesMsg += capturedFiles[i].fullPath;
                 }
-                f03newAudio(capturesMsg);
+                f03newImage(capturesMsg);
                 if (e.preventDefault) {
                     e.preventDefault();
                 }
@@ -103,24 +103,24 @@ function playAudio(ID) {
     isAudioPause = ID;
 }
 
-function f03getAudios() {
-    var dsAudios = new kendo.data.DataSource({
+function f05getImage() {
+    var dsImage = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/nlistar/",
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos/",
                 dataType: "json",
-                type: "post",
+                type: "get",
                 data: {
-                    txtid: $('#txtid').val() // 1 idTarea
+                    operacion: parseInt($('#f05NumOperacion').text())
                 }
             }
         }
     });
 
-    dsAudios.fetch(function () {
-        $("#f03viewAudios").kendoListView({
-            dataSource: dsAudios,
-            template: kendo.template($("#f03TemLA").html())
+    dsImage.fetch(function () {
+        $("#f05viewImage").kendoListView({
+            dataSource: dsImage,
+            template: kendo.template($("#f05TemLI").html())
         });
     });
     
