@@ -7,7 +7,7 @@ app.funcionalidad05 = kendo.observable({
 
     },
 });
-
+var f05NumOperacion = 0;
 // Para la primera carga usa la fecha actual
 var f05DateAtencionConsilidato = new Date();
 
@@ -57,7 +57,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                         txtorden: 0,
                         txtalmacen: 0,
                         txtestado: 9,
-                        txtfecha: "2015/09/24", //f05FchAtencionConsilidato,
+                        txtfecha: f05FchAtencionConsilidato //"2015/09/24"
                     },
                 }
             },
@@ -339,6 +339,7 @@ function f05SelectGridDetOperacion() {
         $("#f05FechaCreacion").text(day + "/" + month + "/" + year);
 
         $("#f05NumOperacion").text(data[0].NumOperacion);
+        f05NumOperacion = data[0].NumOperacion;
         $("#f05Cliente").text(data[0].Cliente);
         $("#f05Almacen").text(data[0].Almacen);
         $("#f05Orden").text(data[0].Orden);
@@ -369,7 +370,7 @@ function f05SelectGridDetOperacion() {
 }
 
 function getBotonera(NumOperacion) {
-    NumOperacion = $("#NumOperacion").val();
+    //NumOperacion = $("#NumOperacion").val();
     var f05dsBotonera = new kendo.data.DataSource({
         transport: {
             read: {
@@ -865,7 +866,6 @@ function f05funcion(accion, NumOperacion) {
 //         }
 //     });
 // }
-
 
 
 function aumentarFont() {

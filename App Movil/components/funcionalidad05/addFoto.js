@@ -24,7 +24,8 @@ function id(element) {
                 for (i = 0; i < capturedFiles.length; i += 1) {
                     capturesMsg += capturedFiles[i].fullPath;
                 }
-                f03newImage(capturesMsg);
+                f05newImage(capturesMsg);
+
                 if (e.preventDefault) {
                     e.preventDefault();
                 }
@@ -57,15 +58,15 @@ function playAudio(ID) {
         //alert("Link Ausa: " + src);
     } else {
         src = src.replace("file:/", "");
-        src = src.replace("%20"," ");
-        src = src.replace("%20"," ");
-        src = src.replace("%20"," ");
+        src = src.replace("%20", " ");
+        src = src.replace("%20", " ");
+        src = src.replace("%20", " ");
     }
     if (isAudioPlaying) {
         if (isAudioPause == ID) {
             alert($("#iconBtn" + ID).attr("class"));
-            if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") {//si se está reproduciendo
-                $("#iconBtn" + ID).attr("class", "fa fa-play");//agregamos icono play
+            if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") { //si se está reproduciendo
+                $("#iconBtn" + ID).attr("class", "fa fa-play"); //agregamos icono play
                 isAudioPause = ID;
                 mediaContent.pause();
                 return;
@@ -104,6 +105,7 @@ function playAudio(ID) {
 }
 
 function f05getImage() {
+
     var dsImage = new kendo.data.DataSource({
         transport: {
             read: {
@@ -111,7 +113,7 @@ function f05getImage() {
                 dataType: "json",
                 type: "get",
                 data: {
-                    operacion: parseInt($('#f05NumOperacion').text())
+                    operacion: f05NumOperacion //$('#f05txtid').val()
                 }
             }
         }
@@ -123,26 +125,27 @@ function f05getImage() {
             template: kendo.template($("#f05TemLI").html())
         });
     });
-    
 }
 
-function f03enviarBackend() {
+function f05enviarBackend() {
     //Iteramos los audios grabados en la memoria de nuestros smartphone, para hacer la carga de audios en el backend services
     kendo.ui.progress($("#listaAudios"), true);
     $("a[type='newAudio']").each(function (index) {
+        alert("index: " + index);
         var fileToUpload = $(this).attr("value"); //capturedFiles[0].fullPath;
         upload(fileToUpload);
         $(this).parent().remove();
     });
-    $("#btnSendBS").attr("disabled", "disabled");
+    $("#f05btnSendBS").attr("disabled", "disabled");
 }
 
 function upload(fileToUpload) {
-    var apiKey = "9offhmwuw3dhu6vd";
+    alert("fileToUpload: " + fileToUpload);
+    var apiKey = "80i2xn90wysdmolz";
     var el = new Everlive(apiKey);
     var options = {
-        fileName: 'myAudio.wav',
-        mimeType: ' audio/wav'
+        fileName: 'myImage.jpg',
+        mimeType: ' image/jpg'
     };
     el.files.upload(fileToUpload, options).then(function (r) {
             var uploadResultArray = JSON.parse(r.response).Result;
@@ -155,7 +158,8 @@ function upload(fileToUpload) {
                 FileId: uploadedFileId
             };
             el.data("Archivos").create(newArchive, function (data) {
-                f03accionAudio("insert", uploadedFileUri, "", data.result.Id);
+                alert("data.result.Id: " + data.result.Id);
+                f05accionImage("insert", uploadedFileUri, "", data.result.Id);
             }, function (err) {
                 alert("Error al subir el archivo al backend service " + JSON.stringify(err));
             });
@@ -166,75 +170,78 @@ function upload(fileToUpload) {
 }
 var toquen = 0;
 
-function f03newAudio(archivo) {
+function f05newImage(archivo) {
         //$("#newAudio").append('<button type="button" class="list-group-item"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '" ><i class="fa fa-trash-o text-muted"></i></a> Nuevo Audio<span style="float:right"><a class="btn btn-info btn-xs" onclick="playAudio('archivo')"><i class="fa fa-play"></i></a></span></button>')
         toquen = toquen + 1;
         var idnota = "local" + toquen;
-        $("#newAudio").append('<button type="button" class="list-group-item" id="btn' + idnota + '"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-hdd-o text-muted"></i> Nuevo Audio: ' + idnota + '<tag id="divAccion' + idnota + '" type="divIsPlay" align="center"></tag><span style="float:right"><input value="' + archivo + '" id="archivo' + idnota + '" type="hidden"></input><a class="btn btn-info btn-xs" onclick="playAudio(' + "'" + idnota + "'" + ')"><i id="iconBtn' + idnota + '" type="iconBtn" class="fa fa-play"></i></a></span></button>');
+        $("#f05newImage").append('<button type="button" class="list-group-item" id="btn' + idnota + '"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-hdd-o text-muted"></i> Nueva Imagen: ' + idnota + '<tag id="divAccion' + idnota + '" type="divIsPlay" align="center"></tag><span style="float:right"><input value="' + archivo + '" id="archivo' + idnota + '" type="hidden"></input><a class="btn btn-info btn-xs" onclick="playAudio(' + "'" + idnota + "'" + ')"><i id="iconBtn' + idnota + '" type="iconBtn" class="fa fa-play"></i></a></span></button>');
 
-        $("#btnSendBS").removeAttr("disabled");
+        $("#f05btnSendBS").removeAttr("disabled");
     }
     //Delete new audio
 $(document).on("click", "a[type='newAudio']", function () {
-    
     //$(this).parent().remove();
-    idnota = $(this).parent().attr("id").replace("btn", "");
-    $("#dialogAudio").data("kendoWindow").open();
-    $("#dialogAudio").data("kendoWindow").center();
-    $("#divMensajeConf").text("¿Desea eliminar el audio " + idnota + " de la tarea?");
-    $("#accionAudio").attr('onclick', 'f03deleteAudio( idnota )');
-});
-
-function f03deleteAudio(idAudio) {
-    $("#dialogAudio").kendoWindow({
+    $("#f05dialogImage").kendoWindow({
         title: "Confirmación",
         scrollable: false,
         modal: true,
         visible: false
     });
+    idnota = $(this).parent().attr("id").replace("btn", "");
+    $("#f05dialogImage").data("kendoWindow").open();
+    $("#f05dialogImage").data("kendoWindow").center();
+    $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idnota + " de la operación?");
+    $("#f05accionImage").attr('onclick', 'f05deleteImage( idnota )');
+});
+
+function f05deleteImage(idAudio) {
     if ($.isNumeric(idAudio)) {
-        $("#dialogAudio").data("kendoWindow").open();
-        $("#dialogAudio").data("kendoWindow").center();
-        $("#divMensajeConf").text("¿Desea eliminar el audio " + idAudio + " de la tarea?");
-        $("#accionAudio").attr('onclick', 'f03accionAudio("ndelete","",' + idAudio + ',"")');
+        $("#f05dialogImage").data("kendoWindow").open();
+        $("#f05dialogImage").data("kendoWindow").center();
+        $("#f05divMensajeConf").text("¿Desea eliminar el audio " + idAudio + " de la tarea?");
+        $("#f05accionImage").attr('onclick', 'f05accionImage("ndelete","",' + idAudio + ',"")');
     } else {
-        $('#dialogAudio').data('kendoWindow').close();
+        $('#f05dialogImage').data('kendoWindow').close();
         $("#btn" + idAudio).remove();
         if ($('a[type="newAudio"]').length == 0) {
-            $("#btnSendBS").attr("disabled", "disabled");
+            $("#f05btnSendBS").attr("disabled", "disabled");
         }
     }
 }
 
-function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
+function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     //Notificaciones
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
     var notificationWidget = notificationElement.data("kendoNotification");
     //End
+    var txtidUsuario = sessionStorage.getItem("sessionUSER");
     accion == "insert" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Notas/insert',
+        //url: 'http://www.ausa.com.pe/appmovil_test01/Notas/insert',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
         data: {
-            txtruta: FileUri
+            archivo: FileUri,
+            usuario: txtidUsuario,
+            operacion: f05NumOperacion // $('#f05txtid').val()
         },
         async: false,
         success: function (datos) {
-            var data = [];
-            data = JSON.parse(datos);
-            if (data[0].Column1 > 0) {
+            alert("Agregado 1 datos: " + datos);
+            if (parseInt(datos) > 0) {
                 var idNota = data[0].Column1;
                 $.ajax({
                     type: "POST",
-                    url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ninsert',
+                    //url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ninsert',
+                    url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos',
                     data: {
-                        txtidnota: idNota,
-                        txtidtarea: $('#txtid').val()
+                        archivo: FileUri,
+                        usuario: txtidUsuario,
+                        operacion: f05NumOperacion //$('#f05txtid').val()
                     },
                     async: false,
                     success: function (datos) {
-                        var data = [];
-                        data = JSON.parse(datos);
+                        alert("Agregado 2 datos: " + datos);
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
                             type: "POST",
@@ -243,19 +250,20 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                             data: {
                                 id: idNota,
                                 url: FileUri,
-                                tipo: 1,
-                                subPath: $('#txtid').val()
+                                tipo: 2,
+                                subPath: f05NumOperacion //$('#f05txtid').val()
                             },
                             async: false,
                             success: function (datos) {
+                                alert("Agregado 3 datos: " + datos);
                                 kendo.ui.progress($("#listaAudios"), false);
                                 if (parseInt(datos) == 0) {
                                     // $('#f03viewAudios').data('kendoListView').dataSource.read();
                                     // $('#f03viewAudios').data('kendoListView').refresh();
-                                    notificationWidget.show("Se insertó correctamente la nota: " + idNota, "success");
+                                    notificationWidget.show("Se insertó correctamente la imagen: " + idNota, "success");
 
                                     //Para borrar del backend service
-                                    var el = new Everlive('9offhmwuw3dhu6vd');
+                                    var el = new Everlive('80i2xn90wysdmolz');
                                     var data = el.data('Archivos');
                                     data.destroySingle({
                                             Id: idAudioBackend
@@ -283,8 +291,8 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                         valido = false;
                     }
                 });
-                $('#f03viewAudios').data('kendoListView').dataSource.read();
-                $('#f03viewAudios').data('kendoListView').refresh();
+                $('#f05viewImage').data('kendoListView').dataSource.read();
+                $('#f05viewImage').data('kendoListView').refresh();
             }
         },
         error: function () {
@@ -294,24 +302,25 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
 
     accion == "ndelete" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ndelete',
+        //url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ndelete',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
         data: {
-            txtnota: idAudio,
-            txttarea: $('#txtid').val()
+            archivo: FileUri,
+            operacion: f05NumOperacion //$('#f05txtid').val()
         },
         async: false,
         success: function (datos) {
             var data = [];
             data = JSON.parse(datos);
             if (parseInt(data[0].Ejecucion) == 0) {
-                notificationWidget.show("Se eliminó la nota " + idAudio + " de tarea", "success");
-                $('#f03viewAudios').data('kendoListView').dataSource.read();
-                $('#f03viewAudios').data('kendoListView').refresh();
+                notificationWidget.show("Se eliminó la imagen " + idAudio + " de opración", "success");
+                $('#f05viewImage').data('kendoListView').dataSource.read();
+                $('#f05viewImage').data('kendoListView').refresh();
 
             } else {
-                notificationWidget.show("No se eliminó la nota correctamente", "danger");
+                notificationWidget.show("No se eliminó la imagen correctamente", "danger");
             }
-            $('#dialogAudio').data('kendoWindow').close();
+            $('#f05dialogImage').data('kendoWindow').close();
         },
         error: function () {
             notificationWidget.show("No se puede establecer la conexión al servicio", "danger");
