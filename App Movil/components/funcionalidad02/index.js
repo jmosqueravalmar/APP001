@@ -7,9 +7,9 @@ app.funcionalidad02 = kendo.observable({
 
 function getOrden(year, order) {
     var cliente = sessionStorage.getItem("sessionUSER");
-    if(cliente>0){
-        
-    }else{
+    if (cliente > 0) {
+
+    } else {
         alert("Ingrese id de usuario");
         return;
     }
@@ -25,9 +25,8 @@ function getOrden(year, order) {
             data: function (data) {
                 return data;
             }
-        }
-        ,
-		 requestStart: function (e) {
+        },
+        requestStart: function (e) {
             kendo.ui.progress($("#ListaOrdenes"), true);
         },
         requestEnd: function (e) {
@@ -133,7 +132,7 @@ function getOrden(year, order) {
                     kendo.ui.progress($("#det-orden"), false);
                     alert("El Servicio no esta Disponible.");
                 }
-                
+
             });
             dsDetOrden.fetch(function () {
                 var data = dsDetOrden.data();
@@ -149,7 +148,7 @@ function getOrden(year, order) {
                         template: kendo.template($("#temp02").html())
                     });
                 }
-            }); 
+            });
             window.location.href = "#det-orden1";
         } else {
             var notificationElement = $("#notification");
@@ -168,4 +167,13 @@ function getOrden(year, order) {
         //alert(date);
         //alert(date.toLocaleString());
     });*/
+}
+
+
+//funcion solo deja colocar numeros sin punto ni coma
+function soloNumeros(e) {
+    var keynum = window.event ? window.event.keyCode : e.which;
+    if ((keynum == 8))
+        return true;
+    return /\d/.test(String.fromCharCode(keynum));
 }
