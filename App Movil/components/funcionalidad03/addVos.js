@@ -138,7 +138,7 @@ function f03enviarBackend() {
 }
 
 function upload(fileToUpload) {
-    var apiKey = "9offhmwuw3dhu6vd";
+    var apiKey = "80i2xn90wysdmolz";
     var el = new Everlive(apiKey);
     var options = {
         fileName: 'myAudio.wav',
@@ -255,7 +255,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                                     notificationWidget.show("Se insertó correctamente la nota: " + idNota, "success");
 
                                     //Para borrar del backend service
-                                    var el = new Everlive('9offhmwuw3dhu6vd');
+                                    var el = new Everlive('80i2xn90wysdmolz');
                                     var data = el.data('Archivos');
                                     data.destroySingle({
                                             Id: idAudioBackend
