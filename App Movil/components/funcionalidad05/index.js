@@ -539,25 +539,12 @@ function f05funcion(accion, NumOperacion) {
                 success: function (datos) {
                     var data = [];
                     data = JSON.parse(datos);
-                    switch (accion) {
-                        case "Permiso":
-                            if (data[0].Ejecucion == 1) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Iniciar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Iniciar", "error")
-                            }
-                            break;
-                        default:
-                            if (data[0].Ejecucion == 0) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Iniciar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Iniciar", "error")
-                            }
-                            break;
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: Iniciar realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: Iniciar", "error")
                     }
                 },
                 error: function () {
@@ -578,25 +565,12 @@ function f05funcion(accion, NumOperacion) {
                 success: function (datos) {
                     var data = [];
                     data = JSON.parse(datos);
-                    switch (accion) {
-                        case "Permiso":
-                            if (data[0].Ejecucion == 1) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Canal realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Canal", "error")
-                            }
-                            break;
-                        default:
-                            if (data[0].Ejecucion == 0) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Canal realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Canal", "error")
-                            }
-                            break;
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: Canal realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: Canal", "error")
                     }
                 },
                 error: function () {
@@ -616,25 +590,12 @@ function f05funcion(accion, NumOperacion) {
                 success: function (datos) {
                     var data = [];
                     data = JSON.parse(datos);
-                    switch (accion) {
-                        case "Permiso":
-                            if (data[0].Ejecucion == 1) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Permiso realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Permiso", "error")
-                            }
-                            break;
-                        default:
-                            if (data[0].Ejecucion == 0) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Permiso realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Permiso", "error")
-                            }
-                            break;
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: Permiso realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: Permiso", "error")
                     }
                 },
                 error: function () {
@@ -655,25 +616,12 @@ function f05funcion(accion, NumOperacion) {
                 success: function (datos) {
                     var data = [];
                     data = JSON.parse(datos);
-                    switch (accion) {
-                        case "Permiso":
-                            if (data[0].Ejecucion == 1) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Levante realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Levante", "error")
-                            }
-                            break;
-                        default:
-                            if (data[0].Ejecucion == 0) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Levante realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Levante", "error")
-                            }
-                            break;
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: Levante realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: Levante", "error")
                     }
                 },
                 error: function () {
@@ -693,25 +641,12 @@ function f05funcion(accion, NumOperacion) {
                 success: function (datos) {
                     var data = [];
                     data = JSON.parse(datos);
-                    switch (accion) {
-                        case "Permiso":
-                            if (data[0].Ejecucion == 1) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Notificar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Notificar", "error")
-                            }
-                            break;
-                        default:
-                            if (data[0].Ejecucion == 0) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Notificar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Notificar", "error")
-                            }
-                            break;
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: Notificar realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: Notificar", "error")
                     }
                 },
                 error: function () {
@@ -731,25 +666,12 @@ function f05funcion(accion, NumOperacion) {
                 success: function (datos) {
                     var data = [];
                     data = JSON.parse(datos);
-                    switch (accion) {
-                        case "Permiso":
-                            if (data[0].Ejecucion == 1) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Solicitar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Solicitar", "error")
-                            }
-                            break;
-                        default:
-                            if (data[0].Ejecucion == 0) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Solicitar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Solicitar", "error")
-                            }
-                            break;
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: Solicitar realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: Solicitar", "error")
                     }
                 },
                 error: function () {
@@ -769,25 +691,12 @@ function f05funcion(accion, NumOperacion) {
                 success: function (datos) {
                     var data = [];
                     data = JSON.parse(datos);
-                    switch (accion) {
-                        case "Permiso":
-                            if (data[0].Ejecucion == 1) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Terminar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Terminar", "error")
-                            }
-                            break;
-                        default:
-                            if (data[0].Ejecucion == 0) {
-                                $('#dialog').data('kendoWindow').close();
-                                getBotonera(NumOperacion);
-                                notificationWidget.show("Operación: Terminar realizado correctamente", "success");
-                            } else {
-                                notificationWidget.show("No se pudo ejecutar la operación: Terminar", "error")
-                            }
-                            break;
+                    if (data[0].Ejecucion == 0) {
+                        $('#dialog').data('kendoWindow').close();
+                        getBotonera(NumOperacion);
+                        notificationWidget.show("Operación: Terminar realizado correctamente", "success");
+                    } else {
+                        notificationWidget.show("No se pudo ejecutar la operación: Terminar", "error")
                     }
                 },
                 error: function () {
