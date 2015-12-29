@@ -24,8 +24,8 @@ function id(element) {
                 for (i = 0; i < capturedFiles.length; i += 1) {
                     capturesMsg += capturedFiles[i].fullPath;
                 }
+                capturesMsg = capturesMsg.replace(/\%20/g, ' ');
                 f05newImage(capturesMsg);
-
                 if (e.preventDefault) {
                     e.preventDefault();
                 }
@@ -43,78 +43,34 @@ function id(element) {
 
     }());
 
-// on a global level
-var isAudioPlaying = false;
-var isAudioPause = 0;
-var mediaContent = null;
-// function play button
 function playAudio(ID) {
-    $("tag[type='divIsPlay']").hide();
-    $("#divAccion" + ID).show();
-    $("tag[type='iconBtn']").attr("class", "fa fa-play");
-    //console.log("Play with the following parameters: idnota-> " + ID + " src-> " + document.getElementById("archivo" + ID).value);
     var src = document.getElementById("archivo" + ID).value;
     if (ID > 0) {
         //alert("Link Ausa: " + src);
     } else {
-        src = src.replace("file:/", "");
-        src = src.replace("%20", " ");
-        src = src.replace("%20", " ");
-        src = src.replace("%20", " ");
+        //src = src.replace("file:/", "");
     }
-    if (isAudioPlaying) {
-        if (isAudioPause == ID) {
-            alert($("#iconBtn" + ID).attr("class"));
-            if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") { //si se está reproduciendo
-                $("#iconBtn" + ID).attr("class", "fa fa-play"); //agregamos icono play
-                isAudioPause = ID;
-                mediaContent.pause();
-                return;
-            } else {
-                $("#iconBtn" + ID).attr("class", "fa fa-pause");
-                isAudioPause = ID;
-                mediaContent.play();
-                return;
-            }
-        } else {
-            $("#iconBtn" + ID).attr("class", "fa fa-pause");
-            mediaContent.stop();
-        }
-    } else {
-        $("#iconBtn" + ID).attr("class", "fa fa-pause"); //se reproduce por primera vez
-    }
-    mediaContent = new Media(src,
-        function () {
-            $("#iconBtn" + ID).attr("class", "fa fa-play");
-            $("#divAccion" + ID).html('<i class="fa fa-volume-off"></i>');
-            //console.log("Media success"); // the media has been finished , set the flag to false, or handle any UI changes. 
-        },
-        function () {
-            $("#divAccion" + ID).html('<i class="fa fa-exclamation-triangle text-danger"></i>');
-            //console.log("Media error");
-        },
-        function () {
-            //$("#iconBtn" + ID).attr("class", "fa fa-pause");
-            $("#divAccion" + ID).html('<i class="fa fa-volume-up"></i>');
-            //console.log("Media change");
-        });
-
-    mediaContent.play();
-    isAudioPlaying = true;
-    isAudioPause = ID;
+    //src = "http://upload.wikimedia.org/wikipedia/commons/c/c3/Kendo_EM_2005_-_kote.jpg";
+    $("#f05dialogImageView").kendoWindow({
+        //content: "<img src='"+src+"' />"
+        width: "80%",
+        height: "60%",
+        title: "Imagen",
+        modal: true,
+        visible: false
+    });
+    $("#f05dialogImageView").data("kendoWindow").center();
+    $("#f05dialogImageView").data("kendoWindow").content("<img src='"+src+"' />");
+    $("#f05dialogImageView").data("kendoWindow").open();
 }
 
 function f05getImage() {
-
     var dsImage = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos/",
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
                 dataType: "json",
-                type: "get",
-                data: {
-                    operacion: f05NumOperacion //$('#f05txtid').val()
-                }
+                type: "get"
             }
         }
     });
@@ -174,7 +130,7 @@ function f05newImage(archivo) {
         //$("#newAudio").append('<button type="button" class="list-group-item"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '" ><i class="fa fa-trash-o text-muted"></i></a> Nuevo Audio<span style="float:right"><a class="btn btn-info btn-xs" onclick="playAudio('archivo')"><i class="fa fa-play"></i></a></span></button>')
         toquen = toquen + 1;
         var idnota = "local" + toquen;
-        $("#f05newImage").append('<button type="button" class="list-group-item" id="btn' + idnota + '"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-hdd-o text-muted"></i> Nueva Imagen: ' + idnota + '<tag id="divAccion' + idnota + '" type="divIsPlay" align="center"></tag><span style="float:right"><input value="' + archivo + '" id="archivo' + idnota + '" type="hidden"></input><a class="btn btn-info btn-xs" onclick="playAudio(' + "'" + idnota + "'" + ')"><i id="iconBtn' + idnota + '" type="iconBtn" class="fa fa-play"></i></a></span></button>');
+        $("#f05newImage").append('<button type="button" class="list-group-item" id="btn' + idnota + '"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-hdd-o text-muted"></i> Nueva Imagen: ' + idnota + '<tag id="divAccion' + idnota + '" type="divIsPlay" align="center"></tag><span style="float:right"><input value="' + archivo + '" id="archivo' + idnota + '" type="hidden"></input><a class="btn btn-info btn-xs" onclick="playAudio(' + "'" + idnota + "'" + ')"><i id="iconBtn' + idnota + '" type="iconBtn" class="fa fa-eye"></i></a></span></button>');
 
         $("#f05btnSendBS").removeAttr("disabled");
     }
@@ -189,8 +145,8 @@ $(document).on("click", "a[type='newAudio']", function () {
     });
     idnota = $(this).parent().attr("id").replace("btn", "");
     $("#f05dialogImage").data("kendoWindow").open();
-    $("#f05dialogImage").data("kendoWindow").center();
     $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idnota + " de la operación?");
+    $("#f05dialogImage").data("kendoWindow").center();
     $("#f05accionImage").attr('onclick', 'f05deleteImage( idnota )');
 });
 
@@ -227,9 +183,8 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
         },
         async: false,
         success: function (datos) {
-            alert("Agregado 1 datos: " + datos);
-            if (parseInt(datos) > 0) {
-                var idNota = data[0].Column1;
+            alert("Agregado 1 datos:: " + datos);
+            if (parseInt(datos) == 0) {
                 $.ajax({
                     type: "POST",
                     //url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ninsert',
