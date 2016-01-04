@@ -609,6 +609,27 @@ function OpenModTarifas(valServicio,valObservaciones){
      $('#ModTarifas').data('kendoMobileModalView').open();
 }
 
+// INICIO CAMBIO POP-UP TARIFAS DE MOBILEMODALVIEW A WINDOW DE KENDO POST REUNION 28/XII/2015
+function OpenModTarifas__NEW__(valServicio,valObservaciones){
+    $("#ModTarifas").kendoWindow({
+        scrollable: true,
+        modal: true,
+        height: "90%",
+        width: "90%",
+        minWidth: 100,
+        minHeight: 100,
+        maxWidth: 400,
+        maxHeight: 600,
+        visible: false
+    });
+    $("#ModTarifas").data("kendoWindow").title(valServicio);
+    $("#ModTarifas").data("kendoWindow").center();
+    $("#ModTarifas").data("kendoWindow").open();
+
+    $("#cuerpoModal").html(unescape(valObservaciones));
+}
+// FIN CAMBIO POP-UP TARIFAS DE MOBILEMODALVIEW A WINDOW DE KENDO 28/XII/2015
+
 function GoToDetMorosidadUtilizacionLinea(){ 
     window.location.href = "#det-MorosidadUtilizacionLinea";
 }
