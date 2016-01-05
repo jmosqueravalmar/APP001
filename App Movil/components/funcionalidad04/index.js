@@ -387,7 +387,9 @@ function Reasignar() {
     var dsReasignar = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/",
+                // http://54.213.238.161/wsAusa/Operaciones/Reasignar/
+                // http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/
+                url: "http://54.213.238.161/wsAusa/Operaciones/Reasignar/",
                 dataType: "json",
                 type: "post",
                 data: {
@@ -404,23 +406,23 @@ function Reasignar() {
     dsReasignar.fetch(
         function(){
             // CAMBIO POST REUNION 28/XII AGREGAR POP-UP CONFERMA REASIGNACION
-            // var data = this.data();
+            var data = this.data();
             // data[0].Msg
             // console.log("DFC >>> MSG REASIGNACION >>> " + data[0].Msg);
-            // $("#msgReasinacion").html('Respuesta: ' + data[0].Msg);
-            
+                        
             $("#dialogReasinacion").kendoWindow({
                 scrollable: false,
                 modal: true,
-                height: "50%",
-                width: "50%",
+                height: "30%",
+                width: "80%",
                 visible: false
             });
             $("#dialogReasinacion").data("kendoWindow").title('REASIGNACION');
             $("#dialogReasinacion").data("kendoWindow").center();
             $("#dialogReasinacion").data("kendoWindow").open();
 
-            $("#msgReasinacion").html('Accion de REASIGNACION');
+            // $("#msgReasinacion").html('Accion de REASIGNACION');
+            $("#msgReasinacion").html('Respuesta: ' + data[0].Msg);
             window.location.href = "#f04ContenedorOperaciones";            
         }
     );
