@@ -57,7 +57,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                         txtorden: 0,
                         txtalmacen: 0,
                         txtestado: 9,
-                        txtfecha: f05FchAtencionConsilidato //"2015/09/24"
+                        txtfecha: "2015/09/24" //f05FchAtencionConsilidato //"2015/09/24"
                     },
                 }
             },
@@ -431,21 +431,33 @@ function getBotonera(NumOperacion) {
         var activo = false;
         for (var i = 0; i < f05dsBotonera.total(); i++) {
             var opcion = data[i];
-            //Se insertará botones = a la cantidad de filas
-            //El botón activo será el primer botón con valor "Habilitado" == 1
             var Opcion = opcion.Opcion.toLowerCase();
             Opcion = Opcion.charAt(0).toUpperCase() + Opcion.slice(1);
-            if (activo == false && opcion.Habilitado == 1 && activo == false) {
-                activo = true;
-                if (i + 1 == f05dsBotonera.total()) { // si es la uúltima opración preguntar si desea agregar fotos
+            if (opcion.Habilitado == 1) {
+                //activo = true;
+                if (i + 1 == f05dsBotonera.total()) { // si es la uúltima operación preguntar si desea agregar fotos
                     $("#f05divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-success btn-block font-boton" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ',' + "'Ultimo'" + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
                 } else {
                     $("#f05divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-success btn-block font-boton" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
                 }
-
             } else {
                 $("#f05divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-default btn-block font-boton" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ');" disabled> <span class="fa fa-lock" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
             }
+            //->Se insertará botones = a la cantidad de filas
+            //El botón activo será el primer botón con valor "Habilitado" == 1
+
+            // if (activo == false && opcion.Habilitado == 1 && activo == false) {
+            //     activo = true;
+            //     if (i + 1 == f05dsBotonera.total()) { // si es la uúltima opración preguntar si desea agregar fotos
+            //         $("#f05divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-success btn-block font-boton" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ',' + "'Ultimo'" + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
+            //     } else {
+            //         $("#f05divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-success btn-block font-boton" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ');"> <span class="fa fa-unlock-alt" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
+            //     }
+
+            // } else {
+            //     $("#f05divBotonera").append(['<div class="btn-group btn-block"><button class="btn btn-default btn-block font-boton" onclick="tipoFuncion(' + "'" + Opcion + "'" + ',' + NumOperacion + ');" disabled> <span class="fa fa-lock" aria-hidden="true"></span> ' + Opcion + ' </button></div>']);
+            // }
+            //<-
         }
     });
 }
@@ -498,7 +510,7 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
         case "Fin":
             accion = "Terminar";
             $("#btnFuncionFoto05").html('<span class="fa fa-camera" aria-hidden="true"></span> Fotos');
-            $("#btnFuncionFoto05").attr("onclick", "kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');");
+            $("#btnFuncionFoto05").attr("onclick", "kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');$('#dialog').data('kendoWindow').close();");
             break;
         default:
             break;

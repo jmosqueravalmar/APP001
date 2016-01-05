@@ -24,7 +24,6 @@ function id(element) {
                 for (i = 0; i < capturedFiles.length; i += 1) {
                     capturesMsg += capturedFiles[i].fullPath;
                 }
-                capturesMsg = capturesMsg.replace(/\%20/g, ' ');
                 f03newAudio(capturesMsg);
                 if (e.preventDefault) {
                     e.preventDefault();
@@ -58,6 +57,9 @@ function playAudio(ID) {
         //alert("Link Ausa: " + src);
     } else {
         src = src.replace("file:/", "");
+        src = src.replace("%20"," ");
+        src = src.replace("%20"," ");
+        src = src.replace("%20"," ");
     }
     if (isAudioPlaying) {
         if (isAudioPause == ID) {

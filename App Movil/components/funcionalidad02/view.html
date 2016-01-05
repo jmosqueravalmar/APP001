@@ -1,18 +1,19 @@
 <!-- Inicio formulario -->
-<div id="ListaOrdenes" data-role="view" data-title="Seguimiento de Órden" data-layout="main" data-model="app.funcionalidad06" data-show="app.funcionalidad02.onShow" data-after-show="app.funcionalidad02.afterShow">
+<div id="ListaOrdenes" data-role="view" data-title="Seguimiento de Orden" data-layout="main" data-model="app.funcionalidad06" data-show="app.funcionalidad02.onShow" data-after-show="app.funcionalidad02.afterShow">
     <div align="center" class="jumbotron" style="background-color:#f4f4f4;">
-        <p style="font-size: 13px !important;font-weight: normal !important;">Indique los datos de la órden que desea hacer seguimiento</p>
-        <div class="input-group col-xs-8">
-            <span class="input-group-addon font-cuerpo">Año de la Órden</span>
-            <input id="year" type="number" class="form-control input-lg" placeholder="Año" value="2015">
+        <p style="font-size: 13px !important;font-weight: normal !important;">Indique los datos de la orden que desea hacer seguimiento</p>
+        <div class="input-group col-xs-9">
+            <span class="input-group-addon font-cuerpo">Año de la Orden</span>
+            <input id="f02year" type="number" class="form-control input-lg" placeholder="Año" value="2015">
         </div>
         </br>
-        <div class="input-group col-xs-8">
-            <span class="input-group-addon font-cuerpo">Nro de Órden</span>
-            <input id="order" type="text" class="form-control input-lg" placeholder="Órden" maxlength="6" onkeypress="return soloNumeros(event);">
+        <div class="input-group col-xs-9">
+            <span class="input-group-addon font-cuerpo">Nro de Orden</span>
+            <input id="f02order" type="text" class="form-control input-lg" placeholder="Orden" maxlength="6" onkeypress="return soloNumeros(event);">
         </div>
         </br>
-        <button type="button" class="btn btn-warning btn-lg b_color_2 " style="border:#EF7A0D;" onclick="getOrden($('#year').val(),$('#order').val());"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
+<input id="f02idUsuario" type="number" class="form-control input-lg" placeholder="id usuario" value="367" onkeyup="getOrden($('#f02year').val(),$('#f02order').val());">
+        <button type="button" class="btn btn-warning btn-lg b_color_2 " style="border:#EF7A0D;" onclick="getOrden($('#f02year').val(),$('#f02order').val());"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
     </div>
     <!--div id="appendto" class="demo-section k-content"></div-->
 </div>
@@ -29,10 +30,10 @@
 <script type="text/x-kendo-tmpl" id="temp01">
     <!-- temp01 = Régimen IMPO --> 
     </br>
-    <div class="panel panel-primary border_1">
-        <div class="panel-heading centrar b_color_1">IMPORTACIÓN</div>
-        <div class="panel-body font-cuerpo">
-            <p>Nro de la Órden: #:Orden#</p>
+    <div class="panel panel-primary border_1 font-cuerpo">
+        <div class="panel-heading centrar b_color_1">Régimen: #:Regimen#</div>
+        <div class="panel-body">
+            <p id="f02NumOrden"></p>
             #if(Via=="MARITIMO"){#
             <p>Vía: <i class="fa fa-ship text-muted"></i> #:Via#</p>
             #} else if (Via=="TERRESTRE"){#
@@ -51,7 +52,7 @@
             <p>Mercadería: #:Mercaderia#</p>
         </div>
     </div>
-    <div class="panel panel-primary">
+    <div class="panel panel-primary font-cuerpo">
     	<div class="panel-body">
             <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
             : Realizado &nbsp&nbsp&nbsp&nbsp
@@ -60,7 +61,7 @@
         </div>
     </div>
     
-<div class="list-group">
+<div class="list-group font-cuerpo">
         #if(Referencia==null){#
             <button type="button" class="list-group-item centrar"> 
             <span class="glyphicon glyphicon-exclamation-sign text-danger icono_centrado" aria-hidden="true"></span>
@@ -163,10 +164,10 @@
 <script type="text/x-kendo-tmpl" id="temp02">
     <!-- temp02 = Régimen EXPO --> 
     </br>
-    <div class="panel panel-primary border_1">
-        <div class="panel-heading centrar b_color_1">EXPORTACIÓN</div>
+    <div class="panel panel-primary border_1 font-cuerpo">
+        <div class="panel-heading centrar b_color_1">Régimen: #:Regimen#</div>
         <div class="panel-body">
-            <p>Nro de la Órden: #:Orden#</p>
+            <p id="f02NumOrden"></p>
             #if(Via=="MARITIMO"){#
             <p>Vía: <i class="fa fa-ship text-muted"></i> #:Via#</p>
             #} else if (Via=="TERRESTRE"){#
@@ -184,7 +185,7 @@
             <p>Mercadería: #:Mercaderia#</p>
         </div>
     </div>
-    <div class="panel panel-primary">
+    <div class="panel panel-primary font-cuerpo">
     	<div class="panel-body">
             <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
             : Realizado &nbsp&nbsp&nbsp&nbsp
@@ -193,7 +194,7 @@
         </div>
     </div>
     
-<div class="list-group">
+<div class="list-group font-cuerpo">
         #if(IniciarTramite==null){#
         <button type="button" class="list-group-item centrar">  
           <span class="glyphicon glyphicon-exclamation-sign text-danger icono_centrado" aria-hidden="true"></span> 

@@ -60,7 +60,7 @@ function playAudio(ID) {
         visible: false
     });
     $("#f05dialogImageView").data("kendoWindow").center();
-    $("#f05dialogImageView").data("kendoWindow").content("<img src='"+src+"' />");
+    $("#f05dialogImageView").data("kendoWindow").content("<img src='" + src + "' />");
     $("#f05dialogImageView").data("kendoWindow").open();
 }
 
@@ -85,7 +85,7 @@ function f05getImage() {
 
 function f05enviarBackend() {
     //Iteramos los audios grabados en la memoria de nuestros smartphone, para hacer la carga de audios en el backend services
-    kendo.ui.progress($("#listaAudios"), true);
+    kendo.ui.progress($("#f05listaImage"), true);
     $("a[type='newAudio']").each(function (index) {
         alert("index: " + index);
         var fileToUpload = $(this).attr("value"); //capturedFiles[0].fullPath;
@@ -166,24 +166,30 @@ function f05deleteImage(idAudio) {
 }
 
 function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
+
     //Notificaciones
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
     var notificationWidget = notificationElement.data("kendoNotification");
     //End
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
+    alert("FileUri: " + FileUri);
+    alert("txtidUsuario: " + txtidUsuario); 
+    alert("f05NumOperacion:" + f05NumOperacion);
     accion == "insert" && $.ajax({
         type: "POST",
-        //url: 'http://www.ausa.com.pe/appmovil_test01/Notas/insert',
-        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',       
         data: {
-            archivo: FileUri,
+            archivo: "http://tagticaweb.com/wp-content/uploads/2010/11/imagen-corporativa-tagticaweb.jpg",
             usuario: txtidUsuario,
-            operacion: f05NumOperacion // $('#f05txtid').val()
+            operacion: f05NumOperacion
         },
         async: false,
         success: function (datos) {
             alert("Agregado 1 datos:: " + datos);
+            var data = [];
+            data = JSON.parse(datos);
+            alert( data);
             if (parseInt(datos) == 0) {
                 $.ajax({
                     type: "POST",
@@ -211,7 +217,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                             async: false,
                             success: function (datos) {
                                 alert("Agregado 3 datos: " + datos);
-                                kendo.ui.progress($("#listaAudios"), false);
+                                kendo.ui.progress($("#f05listaImage"), false);
                                 if (parseInt(datos) == 0) {
                                     // $('#f03viewAudios').data('kendoListView').dataSource.read();
                                     // $('#f03viewAudios').data('kendoListView').refresh();
@@ -235,7 +241,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                                 };
                             },
                             error: function () {
-                                kendo.ui.progress($("#listaAudios"), false);
+                                kendo.ui.progress($("#f05listaImage"), false);
                                 notificationWidget.show("El servicio no está disponible", "danger");
                                 valido = false;
                             }
