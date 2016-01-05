@@ -284,6 +284,16 @@ function getSelectTipoTarea(accion) {
                     }
                 }
             },
+            requestStart: function (e) {
+                kendo.ui.progress($("#accionTarea"), true);
+            },
+            requestEnd: function (e) {
+                kendo.ui.progress($("#accionTarea"), false);
+            },
+            error: function (e) {
+                kendo.ui.progress($("#accionTarea"), false);
+                alert("El Servicio no esta Disponible.");
+            },
             dataTextField: "tiptar_str_nombre",
             dataValueField: "tiptar_int_id"
         });
@@ -319,13 +329,17 @@ function getSelectCliente(accion) {
                             }
                         }
                     }
-                } //,
-                // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-                /*filter: {
-                    field: "ClienteRazonSocial",
-                    operator: "startswith",
-                    value: "EX"
-                }*/
+                },
+                requestStart: function (e) {
+                    kendo.ui.progress($("#accionTarea"), true);
+                },
+                requestEnd: function (e) {
+                    kendo.ui.progress($("#accionTarea"), false);
+                },
+                error: function (e) {
+                    kendo.ui.progress($("#accionTarea"), false);
+                    alert("El Servicio no esta Disponible.");
+                }
 
             },
             dataTextField: "ClienteRazonSocial",
@@ -744,6 +758,7 @@ function accionTipoTarea(accion) {
                     },
                     async: false,
                     success: function (datos) {
+                        
                         var data = [];
                         data = JSON.parse(datos);
 
@@ -778,6 +793,7 @@ function accionTipoTarea(accion) {
         $('#txtdescripcion').parent().parent().addClass("has-error");
         valido = false;
     }
+
     valido && $.ajax({
         url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
         type: "post",
@@ -788,6 +804,9 @@ function accionTipoTarea(accion) {
             txtuserid: idSS //668
         },
         async: false,
+        beforeSend: function () {
+            kendo.ui.progress($("#modalAddTipoTarea"), true);
+        },
         success: function (datos) {
             var data = [];
             data = JSON.parse(datos);
@@ -801,8 +820,10 @@ function accionTipoTarea(accion) {
             } else {
                 notificationWidget.show("No se pudo agregar el tipo de tarea: " + $('#txtnombre').val(), "error");
             }
+            kendo.ui.progress($("#modalAddTipoTarea"), false);
         },
         error: function () {
+            kendo.ui.progress($("#modalAddTipoTarea"), false);
             notificationWidget.show("No se puede establecer la conexión al servicio", "error");
         }
     });

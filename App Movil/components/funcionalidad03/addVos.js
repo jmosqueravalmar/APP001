@@ -1,3 +1,4 @@
+$("#f03verCaptureView").attr("onclick","kendo.mobile.application.navigate('components/funcionalidad03/captureView.html');f03getAudios();");
 f03getAudios();
 
 function id(element) {
@@ -24,6 +25,7 @@ function id(element) {
                 for (i = 0; i < capturedFiles.length; i += 1) {
                     capturesMsg += capturedFiles[i].fullPath;
                 }
+                capturesMsg = capturesMsg.replace(/\%20/g, ' ');
                 f03newAudio(capturesMsg);
                 if (e.preventDefault) {
                     e.preventDefault();
@@ -57,13 +59,10 @@ function playAudio(ID) {
         //alert("Link Ausa: " + src);
     } else {
         src = src.replace("file:/", "");
-        src = src.replace("%20"," ");
-        src = src.replace("%20"," ");
-        src = src.replace("%20"," ");
     }
     if (isAudioPlaying) {
         if (isAudioPause == ID) {
-            alert($("#iconBtn" + ID).attr("class"));
+            //alert($("#iconBtn" + ID).attr("class"));
             if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") {//si se está reproduciendo
                 $("#iconBtn" + ID).attr("class", "fa fa-play");//agregamos icono play
                 isAudioPause = ID;
