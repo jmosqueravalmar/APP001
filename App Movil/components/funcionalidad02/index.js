@@ -6,6 +6,33 @@ app.funcionalidad02 = kendo.observable({
 });
 
 function getOrden(year, order) {
+    var notificationElement = $("#notification");
+    notificationElement.kendoNotification();
+    var notificationWidget = notificationElement.data("kendoNotification");
+
+    $('#f02order,#f02year').parent().removeClass("has-error");
+    if ($('#f02year').val() == "") {
+        $('#f02year').parent().addClass("has-error");
+        notificationWidget.show("Ingrese la fecha de orden", "error");
+        return;
+    }
+    if ($('#f02year').val().length != 4) {
+        $('#f02year').parent().addClass("has-error");
+        notificationWidget.show("Ingrese una fecha correcta", "error");
+        return;
+    }
+    if ($('#f02order').val() == "") {
+        $('#f02order').parent().addClass("has-error");
+        notificationWidget.show("Ingrese el número de orden", "error");
+        return;
+    }
+    //Para completar con ceros la cadena
+    var ceros = 6 - $("#f02order").val().length;
+    for (var i = 0; i < ceros; i++) {
+        order = "0" + $("#f02order").val();
+        $("#f02order").val(order);
+    }
+    //fin
     var cliente = sessionStorage.getItem("sessionUSER");
     if (cliente > 0) {
 
@@ -17,7 +44,7 @@ function getOrden(year, order) {
         transport: {
             read: {
                 //url: "http://54.213.238.161/WsPrueba/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + cliente,
-                url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + cliente,
+                url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + $("#f02idUsuario").val(),
                 dataType: "json"
             }
         },
@@ -39,7 +66,7 @@ function getOrden(year, order) {
     });
 
     dsOrden.fetch(function () {
-        if (dsOrden.total() > 0) { //Si existe la órden
+        if (dsOrden.total() > 0) { //Si existe la orden
             var data = dsOrden.data();
             var orden = data[0];
             var dsDetOrden = new kendo.data.DataSource({
@@ -148,13 +175,11 @@ function getOrden(year, order) {
                         template: kendo.template($("#temp02").html())
                     });
                 }
+                $("#f02NumOrden").text("Nro de la Orden: " + $("#f02year").val() + "-" + $("#f02order").val());
             });
             window.location.href = "#det-orden1";
         } else {
-            var notificationElement = $("#notification");
-            notificationElement.kendoNotification();
-            var notificationWidget = notificationElement.data("kendoNotification");
-            notificationWidget.show("La órden no existe", "error");
+            notificationWidget.show("La orden no está asignada", "error");
         }
     });
     /*dsOrden.fetch(function () {
