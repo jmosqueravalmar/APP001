@@ -401,6 +401,28 @@ function Reasignar() {
             console.log("DFC Reasignar UPDATE ERR:" + e.status + "; ERROR Message: " + e.errorThrown);
         }
     });
-    dsReasignar.fetch();
-    window.location.href = "#f04ContenedorOperaciones";
+    dsReasignar.fetch(
+        function(){
+            // CAMBIO POST REUNION 28/XII AGREGAR POP-UP CONFERMA REASIGNACION
+            // var data = this.data();
+            // data[0].Msg
+            // console.log("DFC >>> MSG REASIGNACION >>> " + data[0].Msg);
+            // $("#msgReasinacion").html('Respuesta: ' + data[0].Msg);
+            
+            $("#dialogReasinacion").kendoWindow({
+                scrollable: false,
+                modal: true,
+                height: "50%",
+                width: "50%",
+                visible: false
+            });
+            $("#dialogReasinacion").data("kendoWindow").title('REASIGNACION');
+            $("#dialogReasinacion").data("kendoWindow").center();
+            $("#dialogReasinacion").data("kendoWindow").open();
+
+            $("#msgReasinacion").html('Accion de REASIGNACION');
+            window.location.href = "#f04ContenedorOperaciones";            
+        }
+    );
+    
 }
