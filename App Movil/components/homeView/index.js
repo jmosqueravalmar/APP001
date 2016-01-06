@@ -165,7 +165,7 @@ function validarRoles(id, visual){
                         break;
                     case "Operaciones Despachador":
                         //habilitar opciones
-                        $("#fun04").css("display", visual);  
+                        $("#fun05").css("display", visual);  
                         break; 
                 }
             }

@@ -38,7 +38,7 @@ function f04FechaAtencionConsilidato() {
 function f04getOperaciones(f04FchAtencionConsilidato) {
     console.log("DFC >>> param fx " + f04FchAtencionConsilidato);
 
-    var idSS = sessionStorage.getItem("sessionUSER");
+    //var idSS = sessionStorage.getItem("sessionUSER");
     
     $("#f04operaciones").kendoGrid({
         dataSource: {
@@ -50,7 +50,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                     dataType: "json",
                     type: "post",
                     data: {
-                        txtdespachador: idSS,
+                        txtdespachador: 0,
                         txtcliente: 0,
                         txtorden: 0,
                         txtalmacen: 0,
