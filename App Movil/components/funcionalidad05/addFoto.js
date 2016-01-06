@@ -175,7 +175,6 @@ function f05deleteImage(idAudio) {
 }
 
 function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
-
     //Notificaciones
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
@@ -224,6 +223,12 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                             async: false,
                             success: function (datos) {
                                 kendo.ui.progress($("#f05listaImage"), false);
+                                
+                                alert("idArchivo: "+idArchivo);
+                                alert("FileUri: "+FileUri);
+                                alert("f05NumOperacion: "+f05NumOperacion);
+                                alert("datos: "+datos);
+                                
                                 if (parseInt(datos) == 0) {
                                     $('#f05viewImage').data('kendoListView').dataSource.read();
                                     $('#f05viewImage').data('kendoListView').refresh();
@@ -272,7 +277,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
         //url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ndelete',
         url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
         data: {
-            archivo: FileUri,
+            archivo: $("#archivo"+idAudio).val(),
             operacion: f05NumOperacion //$('#f05txtid').val()
         },
         async: false,
