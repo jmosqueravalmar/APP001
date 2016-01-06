@@ -1,3 +1,4 @@
+$("#btnAddFoto").attr("onclick","kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');f05getImage();");
 f05getImage();
 
 function id(element) {
@@ -10,7 +11,12 @@ function id(element) {
             capureImage: function (e) {
                 var that = this;
                 navigator.device.capture.captureImage(that.captureSuccess, that.captureError, {
-                    limit: 1
+                    limit: 1,
+                    quality: 50,
+                    targetWidth: 600,
+                    targetHeight: 600,
+                    encodingType: Camera.EncodingType.PNG,
+                    correctOrientation: true
                 });
                 //Codigo para eliminar el bug de la primera grabación (en la primera grabación no se guarda la ruta)
                 if (e.preventDefault) {
@@ -54,13 +60,13 @@ function playAudio(ID) {
     $("#f05dialogImageView").kendoWindow({
         //content: "<img src='"+src+"' />"
         width: "80%",
-        height: "60%",
+        height: "75%",
         title: "Imagen",
         modal: true,
         visible: false
     });
     $("#f05dialogImageView").data("kendoWindow").center();
-    $("#f05dialogImageView").data("kendoWindow").content("<img src='" + src + "' />");
+    $("#f05dialogImageView").data("kendoWindow").content("<img  style='width: 100%;' src='" + src + "' />");
     $("#f05dialogImageView").data("kendoWindow").open();
 }
 
@@ -87,7 +93,6 @@ function f05enviarBackend() {
     //Iteramos los audios grabados en la memoria de nuestros smartphone, para hacer la carga de audios en el backend services
     kendo.ui.progress($("#f05listaImage"), true);
     $("a[type='newAudio']").each(function (index) {
-        alert("index: " + index);
         var fileToUpload = $(this).attr("value"); //capturedFiles[0].fullPath;
         upload(fileToUpload);
         $(this).parent().remove();
@@ -96,12 +101,11 @@ function f05enviarBackend() {
 }
 
 function upload(fileToUpload) {
-    alert("fileToUpload: " + fileToUpload);
     var apiKey = "80i2xn90wysdmolz";
     var el = new Everlive(apiKey);
     var options = {
-        fileName: 'myImage.jpg',
-        mimeType: ' image/jpg'
+        fileName: 'myImagennn.png',
+        mimeType: ' image/png'
     };
     el.files.upload(fileToUpload, options).then(function (r) {
             var uploadResultArray = JSON.parse(r.response).Result;
@@ -114,7 +118,6 @@ function upload(fileToUpload) {
                 FileId: uploadedFileId
             };
             el.data("Archivos").create(newArchive, function (data) {
-                alert("data.result.Id: " + data.result.Id);
                 f05accionImage("insert", uploadedFileUri, "", data.result.Id);
             }, function (err) {
                 alert("Error al subir el archivo al backend service " + JSON.stringify(err));
@@ -154,7 +157,7 @@ function f05deleteImage(idAudio) {
     if ($.isNumeric(idAudio)) {
         $("#f05dialogImage").data("kendoWindow").open();
         $("#f05dialogImage").data("kendoWindow").center();
-        $("#f05divMensajeConf").text("¿Desea eliminar el audio " + idAudio + " de la tarea?");
+        $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idAudio + " de la operación?");
         $("#f05accionImage").attr('onclick', 'f05accionImage("ndelete","",' + idAudio + ',"")');
     } else {
         $('#f05dialogImage').data('kendoWindow').close();
@@ -173,24 +176,23 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     var notificationWidget = notificationElement.data("kendoNotification");
     //End
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
-    alert("FileUri: " + FileUri);
-    alert("txtidUsuario: " + txtidUsuario); 
-    alert("f05NumOperacion:" + f05NumOperacion);
     accion == "insert" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',       
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
+        //url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarFotos',
         data: {
-            archivo: "http://tagticaweb.com/wp-content/uploads/2010/11/imagen-corporativa-tagticaweb.jpg",
+            //archivo: "http://tagticaweb.com/wp-content/uploads/2010/11/imagen-corporativa-tagticaweb.jpg",
+            archivo: FileUri,
             usuario: txtidUsuario,
             operacion: f05NumOperacion
         },
         async: false,
         success: function (datos) {
-            alert("Agregado 1 datos:: " + datos);
             var data = [];
             data = JSON.parse(datos);
-            alert( data);
-            if (parseInt(datos) == 0) {
+            idArchivo = data[0].ID;
+            if (data[0].ID > 0) {
+
                 $.ajax({
                     type: "POST",
                     //url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ninsert',
@@ -202,26 +204,24 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                     },
                     async: false,
                     success: function (datos) {
-                        alert("Agregado 2 datos: " + datos);
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
                             type: "POST",
                             //url: "http://54.213.238.161/wsAusa/Notas/ReadNotaUrl",
                             url: "http://www.ausa.com.pe/appmovil_test01/Upload/UploadUrl",
                             data: {
-                                id: idNota,
+                                id: idArchivo,
                                 url: FileUri,
                                 tipo: 2,
                                 subPath: f05NumOperacion //$('#f05txtid').val()
                             },
                             async: false,
                             success: function (datos) {
-                                alert("Agregado 3 datos: " + datos);
                                 kendo.ui.progress($("#f05listaImage"), false);
                                 if (parseInt(datos) == 0) {
-                                    // $('#f03viewAudios').data('kendoListView').dataSource.read();
-                                    // $('#f03viewAudios').data('kendoListView').refresh();
-                                    notificationWidget.show("Se insertó correctamente la imagen: " + idNota, "success");
+                                    $('#f05viewImage').data('kendoListView').dataSource.read();
+                                    $('#f05viewImage').data('kendoListView').refresh();
+                                    notificationWidget.show("Se insertó correctamente la imagen: " + idArchivo, "success");
 
                                     //Para borrar del backend service
                                     var el = new Everlive('80i2xn90wysdmolz');

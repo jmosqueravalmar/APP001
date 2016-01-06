@@ -57,7 +57,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                         txtorden: 0,
                         txtalmacen: 0,
                         txtestado: 9,
-                        txtfecha: "2015/09/24" //f05FchAtencionConsilidato //"2015/09/24"
+                        txtfecha: "2015/09/24" //f05FchAtencionConsilidato
                     },
                 }
             },
@@ -281,8 +281,6 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
 
 
 function f05SelectGridDetOperacion() {
-
-    //var seleccion = $(".k-state-selected").select();
     var grid = $("#f05operaciones").data("kendoGrid");
     var seleccion = grid.select();
 
@@ -366,7 +364,6 @@ function f05SelectGridDetOperacion() {
     // });
     $("#f05divBotonera").html("");
     window.location.href = "#f05accionOperacion";
-
 }
 
 function getBotonera(NumOperacion) {

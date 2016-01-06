@@ -39,17 +39,19 @@
     </div>
     <!--     End -->
     <!--     modal ver imagen -->
-    <div id="f05dialogImageView" style="display:none;"></div>
+    <!--     <div id="f05dialogImageView" style="display:none;"></div> -->
     <!--     End -->
+    <div id="f05dialogImageView" style="display:none;">
+    </div>
 </div>
-<!-- Template List Audios -->d
+<!-- Template List Audios -->
 <script type="text/x-kendo-tmpl" id="f05TemLI">
     <button type="button" class="list-group-item">
-        <a class="btn btn-default btn-xs" onclick="f05deleteImage(#:idnota#)"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-cloud text-muted"></i> Imagen: #:idnota#
-        <tag id="divAccion#:idnota#" type="divIsPlay" align="center"></tag>
+        <a class="btn btn-default btn-xs" onclick="f05deleteImage(#:fot_int_id#)"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-cloud text-muted"></i> Imagen: #:fot_int_id#
+        <tag id="divAccion#:fot_int_id#" type="divIsPlay" align="center"></tag>
         <span style="float:right">
-        <input value="#:archivo#" id="archivo#:idnota#" type="hidden"></input>
-        <a class="btn btn-info btn-xs" onclick="playAudio(#:idnota#)"><i id="iconBtn#:idnota#" type="iconBtn" class="fa fa-eye"></i></a>
+        <input value="#:fot_str_archivo#" id="archivo#:fot_int_id#" type="hidden"></input>
+        <a class="btn btn-info btn-xs" onclick="playAudio(#:fot_int_id#)"><i id="iconBtn#:fot_int_id#" type="iconBtn" class="fa fa-eye"></i></a>
     </span>
     </button>
 </script>

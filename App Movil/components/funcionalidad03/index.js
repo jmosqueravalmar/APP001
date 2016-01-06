@@ -808,6 +808,7 @@ function accionTipoTarea(accion) {
             kendo.ui.progress($("#modalAddTipoTarea"), true);
         },
         success: function (datos) {
+            kendo.ui.progress($("#modalAddTipoTarea"), false);
             var data = [];
             data = JSON.parse(datos);
             if (data[0].Ejecucion == 0) {
@@ -820,7 +821,6 @@ function accionTipoTarea(accion) {
             } else {
                 notificationWidget.show("No se pudo agregar el tipo de tarea: " + $('#txtnombre').val(), "error");
             }
-            kendo.ui.progress($("#modalAddTipoTarea"), false);
         },
         error: function () {
             kendo.ui.progress($("#modalAddTipoTarea"), false);
