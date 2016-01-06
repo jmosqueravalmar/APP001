@@ -1,4 +1,4 @@
-$("#btnAddFoto").attr("onclick","kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');f05getImage();");
+$("#btnAddFoto").attr("onclick", "kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');f05getImage();");
 f05getImage();
 
 function id(element) {
@@ -155,6 +155,12 @@ $(document).on("click", "a[type='newAudio']", function () {
 
 function f05deleteImage(idAudio) {
     if ($.isNumeric(idAudio)) {
+        $("#f05dialogImage").kendoWindow({
+            title: "Confirmación",
+            scrollable: false,
+            modal: true,
+            visible: false
+        });
         $("#f05dialogImage").data("kendoWindow").open();
         $("#f05dialogImage").data("kendoWindow").center();
         $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idAudio + " de la operación?");
@@ -271,10 +277,8 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
         },
         async: false,
         success: function (datos) {
-            var data = [];
-            data = JSON.parse(datos);
-            if (parseInt(data[0].Ejecucion) == 0) {
-                notificationWidget.show("Se eliminó la imagen " + idAudio + " de opración", "success");
+            if (datos == 0) {
+                notificationWidget.show("Se eliminó la imagen " + idAudio + " de operación", "success");
                 $('#f05viewImage').data('kendoListView').dataSource.read();
                 $('#f05viewImage').data('kendoListView').refresh();
 
