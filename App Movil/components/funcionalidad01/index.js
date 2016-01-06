@@ -519,8 +519,13 @@ function cargaPrincipal(){
             // OK funziona, ottimizzare per grandi vol. di dati || paginazione
             // Parametrizzare la URL con una variabile idUsuario
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/"+idsessionCl,
-                dataType: "json"
+                url: "http://www.ausa.com.pe/appmovil_test01/Clientes/carteraFiltro/",
+                dataType: "json",
+                type: "post",
+                data: {
+                    id: idsessionCl,
+                    filtro: filtroCli
+                }
             },        
          },
         schema: {
@@ -541,9 +546,7 @@ function cargaPrincipal(){
         error: function (e) {
             kendo.ui.progress($("#ListaClientes"), false);
             alert("El Servicio no esta Disponible.");
-        },
-        // Filtro de prueba para desarrollo --- Eliminar en produccion!!!
-        filter: { field: "ClienteRazonSocial", operator: "contains", value: filtroCli }
+        }
 
     }); 
     
