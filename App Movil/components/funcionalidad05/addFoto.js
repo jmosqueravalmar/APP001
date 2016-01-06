@@ -51,30 +51,52 @@ function id(element) {
 
 function playAudio(ID) {
     var src = document.getElementById("archivo" + ID).value;
-    if (ID > 0) {
-        //alert("Link Ausa: " + src);
-    } else {
-        //src = src.replace("file:/", "");
-    }
-    //src = "http://upload.wikimedia.org/wikipedia/commons/c/c3/Kendo_EM_2005_-_kote.jpg";
+    $("#f05imgShow").attr("src", src);
     $("#f05dialogImageView").kendoWindow({
-        //content: "<img src='"+src+"' />"
         width: "80%",
         height: "75%",
-        title: "Imagen",
+        title: "",
         modal: true,
-        visible: false
+        scrollable: false,
+        resize: function () {
+            $("#f05dialogImageView").data("kendoWindow").center();
+        },
+        close: function (e) {
+            $("#f05dialogImageView").data("kendoWindow").restore();
+        },
+        actions: ["Maximize", "Close"]
     });
+
+    $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
     $("#f05dialogImageView").data("kendoWindow").center();
-    $("#f05dialogImageView").data("kendoWindow").content("<img  style='width: 100%;' src='" + src + "' />");
+
+    $("#f05activarZoom").css("display", "block");
+    // $(".km-scroll-container").css({
+    //     "-webkit-transform": "",
+    //     "transform-origin": ""
+    // });
+    //$(".km-touch-scrollbar").removeAttr("style");
+    // "transform-origin": "",
+    // "width": "",
+    // "transform": ""
     $("#f05dialogImageView").data("kendoWindow").open();
+
+    //determina longitud de la imagen para acomodarla
+    var img = document.getElementById('f05imgShow');
+    if (img.clientHeight < img.clientWidth) {
+        $("#f05imgShow").attr("style", "height: 100%;");
+    } else {
+        $("#f05imgShow").attr("style", "width: 100%;");
+    }
+    //fin
 }
 
 function f05getImage() {
     var dsImage = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
+                //url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
+                url: "http://54.213.238.161/wsAusa/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
                 dataType: "json",
                 type: "get"
             }
@@ -183,25 +205,30 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
     accion == "insert" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
-        //url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarFotos',
+        //url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
+        url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarFotos',
         data: {
-            //archivo: "http://tagticaweb.com/wp-content/uploads/2010/11/imagen-corporativa-tagticaweb.jpg",
             archivo: FileUri,
             usuario: txtidUsuario,
             operacion: f05NumOperacion
         },
         async: false,
         success: function (datos) {
+            alert("InsertarFotos archivo: " + FileUri);
+            alert("InsertarFotos usuario: " + txtidUsuario);
+            alert("InsertarFotos operacion: " + f05NumOperacion);
+            alert("InsertarFotos datos: " + datos);
             var data = [];
             data = JSON.parse(datos);
             idArchivo = data[0].ID;
-            if (data[0].ID > 0) {
-
+            if (data[0].Ejecucion == 1) { // Si Operaciones/InsertarFotos no se ejecutó correctamente
+                notificationWidget.show("No se insertó correctamente en la tabla fotos", "danger");
+                kendo.ui.progress($("#f05listaImage"), false);
+            } else {
                 $.ajax({
                     type: "POST",
-                    //url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ninsert',
-                    url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos',
+                    //url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos',
+                    url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarTareaFotos',
                     data: {
                         archivo: FileUri,
                         usuario: txtidUsuario,
@@ -209,10 +236,15 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                     },
                     async: false,
                     success: function (datos) {
+                        alert("InsertarTareaFotos archivo: " + FileUri);
+                        alert("InsertarTareaFotos usuario: " + txtidUsuario);
+                        alert("InsertarTareaFotos operacion: " + f05NumOperacion);
+                        alert("InsertarTareaFotos datos: " + datos);
+
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
                             type: "POST",
-                            //url: "http://54.213.238.161/wsAusa/Notas/ReadNotaUrl",
+                            //url: "http://54.213.238.161/wsAusa/Upload/UploadUrl",
                             url: "http://www.ausa.com.pe/appmovil_test01/Upload/UploadUrl",
                             data: {
                                 id: idArchivo,
@@ -222,13 +254,14 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                             },
                             async: false,
                             success: function (datos) {
+
+                                alert("UploadUrl id: " + idArchivo);
+                                alert("UploadUrl url: " + FileUri);
+                                alert("UploadUrl tipo: " + 2);
+                                alert("UploadUrl subPath: " + f05NumOperacion);
+                                alert("UploadUrl datos: " + datos);
+
                                 kendo.ui.progress($("#f05listaImage"), false);
-                                
-                                alert("idArchivo: "+idArchivo);
-                                alert("FileUri: "+FileUri);
-                                alert("f05NumOperacion: "+f05NumOperacion);
-                                alert("datos: "+datos);
-                                
                                 if (parseInt(datos) == 0) {
                                     $('#f05viewImage').data('kendoListView').dataSource.read();
                                     $('#f05viewImage').data('kendoListView').refresh();
@@ -248,7 +281,8 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                                         });
 
                                 } else {
-                                    notificationWidget.show("No se descargó el archivo del backend service", "danger");
+                                    notificationWidget.show("No se realizó correctamente el upload", "danger");
+                                    kendo.ui.progress($("#f05listaImage"), false);
                                 };
                             },
                             error: function () {
@@ -265,6 +299,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                 });
                 $('#f05viewImage').data('kendoListView').dataSource.read();
                 $('#f05viewImage').data('kendoListView').refresh();
+
             }
         },
         error: function () {
@@ -274,16 +309,16 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
 
     accion == "ndelete" && $.ajax({
         type: "POST",
-        //url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ndelete',
-        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
+        url: 'http://54.213.238.161/wsAusa/Operaciones/EliminarTareaFotos',
+        //url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
         data: {
-            archivo: $("#archivo"+idAudio).val(),
+            archivo: $("#archivo" + idAudio).val(),
             operacion: f05NumOperacion //$('#f05txtid').val()
         },
         async: false,
         success: function (datos) {
             if (datos == 0) {
-                notificationWidget.show("Se eliminó la imagen " + idAudio + " de operación", "success");
+                notificationWidget.show("Se eliminó la imagen " + idAudio + " de la operación", "success");
                 $('#f05viewImage').data('kendoListView').dataSource.read();
                 $('#f05viewImage').data('kendoListView').refresh();
 

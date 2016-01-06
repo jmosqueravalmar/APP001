@@ -6,7 +6,9 @@ app.funcionalidad05 = kendo.observable({
     afterShow: function () {
 
     },
+
 });
+
 var f05NumOperacion = 0;
 // Para la primera carga usa la fecha actual
 var f05DateAtencionConsilidato = new Date();
