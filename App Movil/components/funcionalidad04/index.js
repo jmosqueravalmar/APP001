@@ -29,7 +29,7 @@ function f04FechaAtencionConsilidato() {
         }
     });
     console.log("DFC 2 >>> f04FchAtencionConsilidato __NO__ CHANGE: " + $("#f04FchAtencionConsilidato").val());
-    getDespachador();    
+    //getDespachador();    
     var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
     f04getOperaciones(strDateSplit[2]+"/"+strDateSplit[1]+"/"+strDateSplit[0]);
 }
@@ -316,8 +316,8 @@ function f04SelectGridDetOperacion() {
     if (this.dataItem(seleccion).TiempoTranscurrido){
         TiempoTranscurrido = this.dataItem(seleccion).TiempoTranscurrido + " dias. ";
     }
-
-    dsOperaciones.fetch(function () {
+	
+    dsOperaciones.fetch(function () { 
         var data = this.data();
         var dateFechaCreacion = eval(" new " + data[0].FechaCreacion.replace(/\//g, '') + ";");
 
@@ -339,6 +339,8 @@ function f04SelectGridDetOperacion() {
         $("#f04LVEstado").text(Estado);
 
         $("#f04Detalle").text(data[0].Detalle);
+        
+        getDespachador(data[0].IdDespachador); 
 
     });
     window.location.href = "#f04accionOperacion";
@@ -361,9 +363,9 @@ function disminuirFont() {
 }
 
 //getDespachador -> datos del select tipo de tarea
-function getDespachador() {
+function getDespachador(campo) {
     console.log(" DFC >>> getDespachador()");
-    var idSS = sessionStorage.getItem("sessionUSER");
+    var idSS = campo;
     $("#txtIdDespachador").kendoDropDownList({
         dataSource: {
             transport: {
