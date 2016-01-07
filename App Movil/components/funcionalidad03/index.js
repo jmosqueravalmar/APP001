@@ -775,7 +775,8 @@ function accionTipoTarea(accion) {
                 });
             }
             if ($("#cb" + i).is(':checked') && grid[i]["tiptar_int_usrcreacion"] !== idSS && valido) { //668
-                notificationWidget.show("No es creador de: " + i + grid[i]["tiptar_str_nombre"], "error");
+                //notificationWidget.show("No es creador de: " + i + grid[i]["tiptar_str_nombre"], "error");
+                notificationWidget.show("No tiene permiso para borrar.", "error");
             }
             valido = true;
         };

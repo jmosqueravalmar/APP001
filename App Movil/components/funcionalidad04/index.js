@@ -388,10 +388,8 @@ function Reasignar() {
 
     var dsReasignar = new kendo.data.DataSource({
         transport: {
-            read: {
-                // http://54.213.238.161/wsAusa/Operaciones/Reasignar/
-                // http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/
-                url: "http://54.213.238.161/wsAusa/Operaciones/Reasignar/",
+            read: { 
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/",
                 dataType: "json",
                 type: "post",
                 data: {
