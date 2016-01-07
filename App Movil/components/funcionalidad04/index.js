@@ -43,9 +43,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
     $("#f04operaciones").kendoGrid({
         dataSource: {
             transport: {
-                read: {
-                    // http://54.213.238.161/wsAusa//Operaciones/Listar
-                    // http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar
+                read: { 
                     url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
                     dataType: "json",
                     type: "post",

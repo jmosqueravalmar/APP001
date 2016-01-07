@@ -237,7 +237,6 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
                             type: "POST",
-                            //url: "http://54.213.238.161/wsAusa/Notas/ReadNotaUrl",
                             url: "http://www.ausa.com.pe/appmovil_test01/Upload/UploadUrl",
                             data: {
                                 id: idNota,

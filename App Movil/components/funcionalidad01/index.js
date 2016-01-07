@@ -37,9 +37,7 @@ app.funcionalidad01 = kendo.observable({
          });
 
         dsTelefonosContactoCliente = new kendo.data.DataSource({
-            transport: {
-                //Esempio
-                // http://www.ausa.com.pe/appmovil_test01/Clientes/contactoT?id=199&contacto=0
+            transport: { 
                 //Parametrizzare con ContactoID
                 read: {
                     url: "http://www.ausa.com.pe/appmovil_test01/Clientes/contactoT?id="+ClienteID+"&contacto=0",

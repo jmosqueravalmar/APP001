@@ -47,9 +47,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
             //     [{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443040918253)\/","ClienteAlias":"ASA","Orden":"2015-027531","NumOperacion":241698,"Despachador":"Cesar Saavedra","Almacen":"","Operacion":"RETIRO","Detalle":"IR-001// Trans.AUSA/ /C:1/ EL CLIENTE SOLO DESCARGA CARGAS QUE LLEGUEN ANTES DE LAS 3.00 PM\r\nSOLO RE","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241698},{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443039135560)\/","ClienteAlias":"DEVANLAY","Orden":"2015-027513","NumOperacion":241691,"Despachador":"Cesar Saavedra","Almacen":"DP WORLD CALLAO S.R.L.","Operacion":"RETIRO","Detalle":"IR-001// Trans.AUSA/ /C:1/ 1. Para aforo físico favor de enviarnos las fotografías tomadas adjuntand","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241691},{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443040748653)\/","ClienteAlias":"PAMOLSA","Orden":"2015-027363","NumOperacion":241697,"Despachador":"Cesar Saavedra","Almacen":"DP WORLD CALLAO S.R.L.","Operacion":"RETIRO","Detalle":"IR-001// Trans.Cliente/ /C:1/ TRAMITAR PERMISO DE SALIDA Y ENTREGAR A TRANSPORTE DEL CLIENTE // LUAN","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241697}]
             // },
             transport: {
-                read: {
-                    // http://54.213.238.161/wsAusa//Operaciones/Listar
-                    // http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar
+                read: { 
                     url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
                     dataType: "json",
                     type: "post",

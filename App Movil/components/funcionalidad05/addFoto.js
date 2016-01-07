@@ -120,8 +120,7 @@ function f05getImage() {
     var dsImage = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
-                //url: "http://54.213.238.161/wsAusa/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion, 
                 dataType: "json",
                 type: "get"
             }
@@ -230,8 +229,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
     accion == "insert" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
-        //url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarFotos',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos', 
         data: {
             archivo: FileUri,
             usuario: txtidUsuario,
@@ -252,8 +250,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
             } else {
                 $.ajax({
                     type: "POST",
-                    url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos',
-                    //url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarTareaFotos',
+                    url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos', 
                     data: {
                         archivo: FileUri,
                         usuario: txtidUsuario,
@@ -268,8 +265,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
 
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
-                            type: "POST",
-                            //url: "http://54.213.238.161/wsAusa/Upload/UploadUrl",
+                            type: "POST", 
                             url: "http://www.ausa.com.pe/appmovil_test01/Upload/UploadUrl",
                             data: {
                                 id: idArchivo,
@@ -333,8 +329,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     });
 
     accion == "ndelete" && $.ajax({
-        type: "POST",
-        //url: 'http://54.213.238.161/wsAusa/Operaciones/EliminarTareaFotos',
+        type: "POST", 
         url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
         data: {
             archivo: $("#archivo" + idAudio).val(),
