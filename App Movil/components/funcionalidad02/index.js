@@ -44,7 +44,7 @@ function getOrden(year, order) {
         transport: {
             read: {
                 //url: "http://54.213.238.161/WsPrueba/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + cliente,
-                url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + $("#f02idUsuario").val(),
+                url: "http://www.ausa.com.pe/appmovil_test01/Ordenes/valor?fecha=" + year + "&id=" + order + "&cliente=" + cliente,
                 dataType: "json"
             }
         },
