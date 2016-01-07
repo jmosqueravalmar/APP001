@@ -10,6 +10,17 @@ function id(element) {
             destinationType: null,
             capureImage: function (e) {
                 var that = this;
+
+				//Ayuda de Telerik :(
+                // navigator.camera.getPicture(that.captureSuccess, that.captureError, {
+                //     quality: 50,
+                //     //destinationType: Camera.DestinationType.DATA_URL,
+                //     targetWidth: 600,
+                //     targetheight: 600
+                // });
+                
+                
+                
                 navigator.device.capture.captureImage(that.captureSuccess, that.captureError, {
                     limit: 1,
                     quality: 50,
@@ -18,6 +29,9 @@ function id(element) {
                     encodingType: Camera.EncodingType.PNG,
                     correctOrientation: true
                 });
+                
+                
+                
                 //Codigo para eliminar el bug de la primera grabación (en la primera grabación no se guarda la ruta)
                 if (e.preventDefault) {
                     e.preventDefault();
