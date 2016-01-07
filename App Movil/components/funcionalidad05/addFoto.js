@@ -70,6 +70,9 @@ function playAudio(ID) {
                 $("#f05imgShow").attr("style", "width: 100%;");
             }
             //fin
+            // $("#f05dialogImageView").data("kendoWindow").setOptions({
+            //     height: img.clientHeight - 20
+            // });
         },
         resize: function () {
             $("#f05dialogImageView").data("kendoWindow").center();
