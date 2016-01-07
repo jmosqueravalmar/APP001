@@ -58,6 +58,7 @@ function playAudio(ID) {
         title: "",
         modal: true,
         scrollable: false,
+        draggable: false,
         activate: function () {
             //determina longitud de la imagen para acomodarla
             var img = document.getElementById('f05imgShow');
@@ -70,12 +71,29 @@ function playAudio(ID) {
                 $("#f05imgShow").attr("style", "width: 100%;");
             }
             //fin
-            // $("#f05dialogImageView").data("kendoWindow").setOptions({
-            //     height: img.clientHeight - 20
-            // });
+            $("#f05dialogImageView").data("kendoWindow").setOptions({
+                height: img.clientHeight - 12
+            });
+            $("#f05dialogImageView").data("kendoWindow").center();
+            $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
         },
         resize: function () {
+            //determina longitud de la imagen para acomodarla
+            var img = document.getElementById('f05imgShow');
+            console.log("ancho*alto: " + img.clientWidth + " - " + img.clientHeight);
+            if (img.clientHeight < img.clientWidth) {
+                console.log("hori");
+                $("#f05imgShow").attr("style", "height: 100%;");
+            } else {
+                console.log("vert");
+                $("#f05imgShow").attr("style", "width: 100%;");
+            }
+            //fin
+            $("#f05dialogImageView").data("kendoWindow").setOptions({
+                height: img.clientHeight - 20
+            });
             $("#f05dialogImageView").data("kendoWindow").center();
+            $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
         },
         close: function (e) {
             $("#f05dialogImageView").data("kendoWindow").restore();
