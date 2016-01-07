@@ -58,6 +58,19 @@ function playAudio(ID) {
         title: "",
         modal: true,
         scrollable: false,
+        activate: function () {
+            //determina longitud de la imagen para acomodarla
+            var img = document.getElementById('f05imgShow');
+            console.log("ancho*alto: " + img.clientWidth + " - " + img.clientHeight);
+            if (img.clientHeight < img.clientWidth) {
+                console.log("hori");
+                $("#f05imgShow").attr("style", "height: 100%;");
+            } else {
+                console.log("vert");
+                $("#f05imgShow").attr("style", "width: 100%;");
+            }
+            //fin
+        },
         resize: function () {
             $("#f05dialogImageView").data("kendoWindow").center();
         },
@@ -69,7 +82,6 @@ function playAudio(ID) {
 
     $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
     $("#f05dialogImageView").data("kendoWindow").center();
-
     $("#f05activarZoom").css("display", "block");
     // $(".km-scroll-container").css({
     //     "-webkit-transform": "",
@@ -81,22 +93,14 @@ function playAudio(ID) {
     // "transform": ""
     $("#f05dialogImageView").data("kendoWindow").open();
 
-    //determina longitud de la imagen para acomodarla
-    var img = document.getElementById('f05imgShow');
-    if (img.clientHeight < img.clientWidth) {
-        $("#f05imgShow").attr("style", "height: 100%;");
-    } else {
-        $("#f05imgShow").attr("style", "width: 100%;");
-    }
-    //fin
 }
 
 function f05getImage() {
     var dsImage = new kendo.data.DataSource({
         transport: {
             read: {
-                //url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
-                url: "http://54.213.238.161/wsAusa/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
+                //url: "http://54.213.238.161/wsAusa/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
                 dataType: "json",
                 type: "get"
             }
@@ -205,8 +209,8 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
     accion == "insert" && $.ajax({
         type: "POST",
-        //url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
-        url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarFotos',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
+        //url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarFotos',
         data: {
             archivo: FileUri,
             usuario: txtidUsuario,
@@ -214,10 +218,10 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
         },
         async: false,
         success: function (datos) {
-            alert("InsertarFotos archivo: " + FileUri);
-            alert("InsertarFotos usuario: " + txtidUsuario);
-            alert("InsertarFotos operacion: " + f05NumOperacion);
-            alert("InsertarFotos datos: " + datos);
+            // alert("InsertarFotos archivo: " + FileUri);
+            // alert("InsertarFotos usuario: " + txtidUsuario);
+            // alert("InsertarFotos operacion: " + f05NumOperacion);
+            // alert("InsertarFotos datos: " + datos);
             var data = [];
             data = JSON.parse(datos);
             idArchivo = data[0].ID;
@@ -227,8 +231,8 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
             } else {
                 $.ajax({
                     type: "POST",
-                    //url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos',
-                    url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarTareaFotos',
+                    url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos',
+                    //url: 'http://54.213.238.161/wsAusa/Operaciones/InsertarTareaFotos',
                     data: {
                         archivo: FileUri,
                         usuario: txtidUsuario,
@@ -236,10 +240,10 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                     },
                     async: false,
                     success: function (datos) {
-                        alert("InsertarTareaFotos archivo: " + FileUri);
-                        alert("InsertarTareaFotos usuario: " + txtidUsuario);
-                        alert("InsertarTareaFotos operacion: " + f05NumOperacion);
-                        alert("InsertarTareaFotos datos: " + datos);
+                        // alert("InsertarTareaFotos archivo: " + FileUri);
+                        // alert("InsertarTareaFotos usuario: " + txtidUsuario);
+                        // alert("InsertarTareaFotos operacion: " + f05NumOperacion);
+                        // alert("InsertarTareaFotos datos: " + datos);
 
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
@@ -255,11 +259,11 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                             async: false,
                             success: function (datos) {
 
-                                alert("UploadUrl id: " + idArchivo);
-                                alert("UploadUrl url: " + FileUri);
-                                alert("UploadUrl tipo: " + 2);
-                                alert("UploadUrl subPath: " + f05NumOperacion);
-                                alert("UploadUrl datos: " + datos);
+                                // alert("UploadUrl id: " + idArchivo);
+                                // alert("UploadUrl url: " + FileUri);
+                                // alert("UploadUrl tipo: " + 2);
+                                // alert("UploadUrl subPath: " + f05NumOperacion);
+                                // alert("UploadUrl datos: " + datos);
 
                                 kendo.ui.progress($("#f05listaImage"), false);
                                 if (parseInt(datos) == 0) {
@@ -309,8 +313,8 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
 
     accion == "ndelete" && $.ajax({
         type: "POST",
-        url: 'http://54.213.238.161/wsAusa/Operaciones/EliminarTareaFotos',
-        //url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
+        //url: 'http://54.213.238.161/wsAusa/Operaciones/EliminarTareaFotos',
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
         data: {
             archivo: $("#archivo" + idAudio).val(),
             operacion: f05NumOperacion //$('#f05txtid').val()
