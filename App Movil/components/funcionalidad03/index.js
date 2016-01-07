@@ -173,11 +173,11 @@ function getTareas() {
                     var diff = new Date(f1 - f2);
                     var days = diff / 1000 / 60 / 60 / 24;
                     if (days < 2) {
-                        row.addClass("danger");
+                        row.addClass("row-danger");
                     } else if (days >= 2 && days < 7) {
-                        row.addClass("warning");
+                        row.addClass("row-warning");
                     } else {
-                        row.addClass("default");
+                        row.addClass("row-default");
                     }
                 }
             }
@@ -378,8 +378,8 @@ function getSelectCliente(accion) {
 }
 
 function modalTarea(accion) {
-    $("#dialog").data("kendoWindow").center();
     $('#dialog').data('kendoWindow').open();
+    $("#dialog").data("kendoWindow").center();
     switch (accion) {
         case 'insert':
             $("#divMensaje").text("¿Realmente desea agregar la tarea?");

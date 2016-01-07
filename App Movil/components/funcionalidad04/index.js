@@ -423,14 +423,14 @@ function Reasignar() {
                 modal: true,
                 visible: false,
                 //height: "10%",
-                width: "50%"     
+                width: "70%"     
             });
             $("#dialogReasinacion").data("kendoWindow").center();
             $("#dialogReasinacion").data("kendoWindow").title('REASIGNACION');
             $("#dialogReasinacion").data("kendoWindow").open();
 			
             // $("#msgReasinacion").html('Accion de REASIGNACION');
-            $("#msgReasinacion").html('Respuesta: ' + data[0].Msg + "asdjhakjdahkdjashdlkjsaghdhgvkjaghdjgsahfg sjadgjhgfjhgsd  sahdgajdgas sdhadghda sdsahdgasasd asdjaghd sagjhGLSADS DSHGJa");
+            $("#msgReasinacion").html(data[0].Msg);
             window.location.href = "#f04ContenedorOperaciones";
         }
     );
