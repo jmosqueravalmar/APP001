@@ -404,6 +404,18 @@ function Reasignar() {
             kendo.ui.progress($("#f04accionOperacion"), false);
         },
         error: function (e) {
+<<<<<<< HEAD
+=======
+            console.log("DFC Reasignar UPDATE ERR:" + e.status + "; ERROR Message: " + e.errorThrown);
+        },
+        requestStart: function (e) {
+            kendo.ui.progress($("#f04accionOperacion"), true);
+        },
+        requestEnd: function (e) {
+            kendo.ui.progress($("#f04accionOperacion"), false);
+        },
+        error: function (e) {
+>>>>>>> branch 'master' of https://github.com/jmosqueravalmar/APP001.git
             kendo.ui.progress($("#f04accionOperacion"), false);
             alert("El Servicio no esta Disponible.");
         }
@@ -418,16 +430,31 @@ function Reasignar() {
             $("#dialogReasinacion").kendoWindow({
                 scrollable: false,
                 modal: true,
+<<<<<<< HEAD
                 minHeight: "100",
                 minWidth: "250",
                 visible: false,
                 activate: function () {
                     $("#dialogReasinacion").data("kendoWindow").center();
                 }
+=======
+                visible: false,
+                //height: "10%",
+                width: "70%"     
+>>>>>>> branch 'master' of https://github.com/jmosqueravalmar/APP001.git
             });
+<<<<<<< HEAD
             $("#dialogReasinacion").data("kendoWindow").title('Reasignación');
-            $("#dialogReasinacion").data("kendoWindow").open();
+=======
             $("#dialogReasinacion").data("kendoWindow").center();
+            $("#dialogReasinacion").data("kendoWindow").title('REASIGNACION');
+>>>>>>> branch 'master' of https://github.com/jmosqueravalmar/APP001.git
+            $("#dialogReasinacion").data("kendoWindow").open();
+<<<<<<< HEAD
+            $("#dialogReasinacion").data("kendoWindow").center();
+=======
+			
+>>>>>>> branch 'master' of https://github.com/jmosqueravalmar/APP001.git
             // $("#msgReasinacion").html('Accion de REASIGNACION');
             $("#msgReasinacion").html(data[0].Msg);
             window.location.href = "#f04ContenedorOperaciones";
