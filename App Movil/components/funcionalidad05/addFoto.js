@@ -10,6 +10,17 @@ function id(element) {
             destinationType: null,
             capureImage: function (e) {
                 var that = this;
+
+				//Ayuda de Telerik :(
+                // navigator.camera.getPicture(that.captureSuccess, that.captureError, {
+                //     quality: 50,
+                //     //destinationType: Camera.DestinationType.DATA_URL,
+                //     targetWidth: 600,
+                //     targetheight: 600
+                // });
+                
+                
+                
                 navigator.device.capture.captureImage(that.captureSuccess, that.captureError, {
                     limit: 1,
                     quality: 50,
@@ -18,6 +29,9 @@ function id(element) {
                     encodingType: Camera.EncodingType.PNG,
                     correctOrientation: true
                 });
+                
+                
+                
                 //Codigo para eliminar el bug de la primera grabación (en la primera grabación no se guarda la ruta)
                 if (e.preventDefault) {
                     e.preventDefault();
@@ -52,6 +66,7 @@ function id(element) {
 function playAudio(ID) {
     var src = document.getElementById("archivo" + ID).value;
     $("#f05imgShow").attr("src", src);
+
     $("#f05dialogImageView").kendoWindow({
         width: "80%",
         height: "75%",
@@ -71,27 +86,13 @@ function playAudio(ID) {
                 $("#f05imgShow").attr("style", "width: 100%;");
             }
             //fin
-            $("#f05dialogImageView").data("kendoWindow").setOptions({
-                height: img.clientHeight - 12
-            });
+            // $("#f05dialogImageView").data("kendoWindow").setOptions({
+            //     height: img.clientHeight - 12
+            // });
             $("#f05dialogImageView").data("kendoWindow").center();
             $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
         },
         resize: function () {
-            //determina longitud de la imagen para acomodarla
-            var img = document.getElementById('f05imgShow');
-            console.log("ancho*alto: " + img.clientWidth + " - " + img.clientHeight);
-            if (img.clientHeight < img.clientWidth) {
-                console.log("hori");
-                $("#f05imgShow").attr("style", "height: 100%;");
-            } else {
-                console.log("vert");
-                $("#f05imgShow").attr("style", "width: 100%;");
-            }
-            //fin
-            $("#f05dialogImageView").data("kendoWindow").setOptions({
-                height: img.clientHeight - 20
-            });
             $("#f05dialogImageView").data("kendoWindow").center();
             $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
         },
@@ -108,10 +109,11 @@ function playAudio(ID) {
     //     "-webkit-transform": "",
     //     "transform-origin": ""
     // });
-    //$(".km-touch-scrollbar").removeAttr("style");
+    // $(".km-touch-scrollbar").removeAttr("style");
     // "transform-origin": "",
     // "width": "",
     // "transform": ""
+
     $("#f05dialogImageView").data("kendoWindow").open();
 
 }
@@ -120,7 +122,7 @@ function f05getImage() {
     var dsImage = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion, 
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/ObtenerFotos?operacion=" + f05NumOperacion,
                 dataType: "json",
                 type: "get"
             }
@@ -229,7 +231,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
     accion == "insert" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos', 
+        url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
         data: {
             archivo: FileUri,
             usuario: txtidUsuario,
@@ -250,7 +252,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
             } else {
                 $.ajax({
                     type: "POST",
-                    url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos', 
+                    url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarTareaFotos',
                     data: {
                         archivo: FileUri,
                         usuario: txtidUsuario,
@@ -265,7 +267,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
 
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
-                            type: "POST", 
+                            type: "POST",
                             url: "http://www.ausa.com.pe/appmovil_test01/Upload/UploadUrl",
                             data: {
                                 id: idArchivo,
@@ -329,7 +331,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     });
 
     accion == "ndelete" && $.ajax({
-        type: "POST", 
+        type: "POST",
         url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/EliminarTareaFotos',
         data: {
             archivo: $("#archivo" + idAudio).val(),

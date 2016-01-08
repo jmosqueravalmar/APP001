@@ -193,10 +193,22 @@ function getOrden(year, order) {
 }
 
 
-//funcion solo deja colocar numeros sin punto ni coma
-function soloNumeros(e) {
-    var keynum = window.event ? window.event.keyCode : e.which;
-    if ((keynum == 8))
-        return true;
-    return /\d/.test(String.fromCharCode(keynum));
+//funcion solo deja colocar numeros sin punto ni coma (etiketas text)
+// function soloNumeros(e) {
+//     var keynum = window.event ? window.event.keyCode : e.which;
+//     if ((keynum == 8))
+//         return true;
+//     return /\d/.test(String.fromCharCode(keynum));
+// }
+
+
+//funcion solo deja colocar numeros sin punto ni coma (etiketas number)
+function soloNumeros(evt) {
+    if ( $("#f02order").val().length > 5) {
+        return false;
+    }
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
 }
