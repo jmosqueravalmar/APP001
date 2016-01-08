@@ -15,23 +15,23 @@ function f04FechaAtencionConsilidato() {
     $("#f04FchAtencionConsilidato").kendoDatePicker({
         culture: "es-PE",
         value: f04DateAtencionConsilidato,
-        change: function () {            
+        change: function () {
             var valueDate = this.value();
             var day = valueDate.getDate();
             // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
             var month = valueDate.getMonth() + 1;
             var year = valueDate.getFullYear();
-            var strValueDate = year+"/"+month+"/"+day;
+            var strValueDate = year + "/" + month + "/" + day;
             console.log("DFC 1 >>> >>> f04FchAtencionConsilidato __CHANGE__: " + strValueDate);
             f04getOperaciones(strValueDate);
             // guardar el valor de la ultima fecha selecionada
-            f04DateAtencionConsilidato = new Date(year, month -1, day);            
+            f04DateAtencionConsilidato = new Date(year, month - 1, day);
         }
     });
     console.log("DFC 2 >>> f04FchAtencionConsilidato __NO__ CHANGE: " + $("#f04FchAtencionConsilidato").val());
     //getDespachador();    
     var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
-    f04getOperaciones(strDateSplit[2]+"/"+strDateSplit[1]+"/"+strDateSplit[0]);
+    f04getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" + strDateSplit[0]);
 }
 
 //getOperaciones -> cargamos el grid tareas
@@ -39,11 +39,11 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
     console.log("DFC >>> param fx " + f04FchAtencionConsilidato);
 
     //var idSS = sessionStorage.getItem("sessionUSER");
-    
+
     $("#f04operaciones").kendoGrid({
         dataSource: {
             transport: {
-                read: { 
+                read: {
                     url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
                     dataType: "json",
                     type: "post",
@@ -71,26 +71,26 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                 }
             },
             pageSize: 10,
-            requestStart: function(e) {
+            requestStart: function (e) {
                 kendo.ui.progress($("#homeView"), true);
-				/*
-                * !!!NO FUNCIONA CON LLAMADA AJAX DUPLICADAS!!!
-                	setTimeout(function () {
-                    	kendo.ui.progress($("#homeView"), false);
-                    	alert("El Servicio no esta Disponible.");
-                    }, 10000);
-                */
+                /*
+                            * !!!NO FUNCIONA CON LLAMADA AJAX DUPLICADAS!!!
+                            	setTimeout(function () {
+                                	kendo.ui.progress($("#homeView"), false);
+                                	alert("El Servicio no esta Disponible.");
+                                }, 10000);
+                            */
             },
-			requestEnd: function(e) {
+            requestEnd: function (e) {
                 kendo.ui.progress($("#homeView"), false);
             },
         },
         filterable: true,
         sortable: true,
-        pageable: true,        
+        pageable: true,
         scrollable: false,
         selectable: "row",
-        change: f04SelectGridDetOperacion, 
+        change: f04SelectGridDetOperacion,
         filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
         columns: [
             //COL_1 NumOperacion
@@ -277,13 +277,13 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
 
 
 function f04SelectGridDetOperacion() {
-    
+
     //getDespachador();
-    
+
     //var seleccion = $(".k-state-selected").select();
     var grid = $("#f04operaciones").data("kendoGrid");
     var seleccion = grid.select();
-    console.log("DFC 3 >>> "+seleccion);
+    console.log("DFC 3 >>> " + seleccion);
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({
         transport: {
@@ -298,24 +298,24 @@ function f04SelectGridDetOperacion() {
     var Actividad = "N/A";
     if (this.dataItem(seleccion).Operacion) {
         Actividad = this.dataItem(seleccion).Operacion;
-    }        
-    
+    }
+
     var HoraInicio = "N/A";
-    if (this.dataItem(seleccion).HoraInicio){
+    if (this.dataItem(seleccion).HoraInicio) {
         HoraInicio = this.dataItem(seleccion).HoraInicio;
     }
 
-    var Estado  = "N/A";
-    if ( this.dataItem(seleccion).Estado) {
-        Estado  = this.dataItem(seleccion).Estado;
-    }        
-    
+    var Estado = "N/A";
+    if (this.dataItem(seleccion).Estado) {
+        Estado = this.dataItem(seleccion).Estado;
+    }
+
     var TiempoTranscurrido = "N/A";
-    if (this.dataItem(seleccion).TiempoTranscurrido){
+    if (this.dataItem(seleccion).TiempoTranscurrido) {
         TiempoTranscurrido = this.dataItem(seleccion).TiempoTranscurrido + " dias. ";
     }
-	
-    dsOperaciones.fetch(function () { 
+
+    dsOperaciones.fetch(function () {
         var data = this.data();
         var dateFechaCreacion = eval(" new " + data[0].FechaCreacion.replace(/\//g, '') + ";");
 
@@ -337,8 +337,8 @@ function f04SelectGridDetOperacion() {
         $("#f04LVEstado").text(Estado);
 
         $("#f04Detalle").text(data[0].Detalle);
-        
-        getDespachador(data[0].IdDespachador); 
+
+        getDespachador(data[0].IdDespachador);
 
     });
     window.location.href = "#f04accionOperacion";
@@ -386,7 +386,7 @@ function Reasignar() {
 
     var dsReasignar = new kendo.data.DataSource({
         transport: {
-            read: { 
+            read: {
                 url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Reasignar/",
                 dataType: "json",
                 type: "post",
@@ -399,30 +399,40 @@ function Reasignar() {
         },
         error: function (e) {
             console.log("DFC Reasignar UPDATE ERR:" + e.status + "; ERROR Message: " + e.errorThrown);
+        },
+        requestStart: function (e) {
+            kendo.ui.progress($("#f04accionOperacion"), true);
+        },
+        requestEnd: function (e) {
+            kendo.ui.progress($("#f04accionOperacion"), false);
+        },
+        error: function (e) {
+            kendo.ui.progress($("#f04accionOperacion"), false);
+            alert("El Servicio no esta Disponible.");
         }
     });
     dsReasignar.fetch(
-        function(){
+        function () {
             // CAMBIO POST REUNION 28/XII AGREGAR POP-UP CONFERMA REASIGNACION
             var data = this.data();
             // data[0].Msg
             // console.log("DFC >>> MSG REASIGNACION >>> " + data[0].Msg);
-                        
+
             $("#dialogReasinacion").kendoWindow({
                 scrollable: false,
                 modal: true,
-                height: "30%",
-                width: "80%",
-                visible: false
+                visible: false,
+                //height: "10%",
+                width: "70%"     
             });
-            $("#dialogReasinacion").data("kendoWindow").title('REASIGNACION');
             $("#dialogReasinacion").data("kendoWindow").center();
+            $("#dialogReasinacion").data("kendoWindow").title('REASIGNACION');
             $("#dialogReasinacion").data("kendoWindow").open();
-
+			
             // $("#msgReasinacion").html('Accion de REASIGNACION');
-            $("#msgReasinacion").html('Respuesta: ' + data[0].Msg);
-            window.location.href = "#f04ContenedorOperaciones";            
+            $("#msgReasinacion").html(data[0].Msg);
+            window.location.href = "#f04ContenedorOperaciones";
         }
     );
-    
+
 }
