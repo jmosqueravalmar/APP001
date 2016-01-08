@@ -17,16 +17,19 @@
         padding: 0.40em 0;
     }
     .k-state-default>.k-select {
-        background-color: #fff;
+        background-color: #fcfcfc;
     }
-    .warning {
+    .row-warning {
         background-color: #fcf8e3;
     }
-    .danger {
+    .row-danger {
         background-color: #f2dede;
     }
-    .default {
+    .row-default {
         background-color: #fff;
+    }
+    .k-state-selected {
+        background-color: #f35800;
     }
 </style>
 <div id="tareas1" data-role="view" data-title="Seguimiento Tareas" data-layout="main" data-model="app.funcionalidad03" data-init="getTareas" data-zoom="true">
@@ -183,7 +186,7 @@
         <div class="text-center" id="divBtnAdd">
             <button type="button" class="btn btn-default font-boton b_color_2 tex_boton_2" onclick="modalTarea('insert');"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Nueva Tarea</button>
         </div>
-    	</br>
+        </br>
     </form>
     <div id="divBtnAccion">
         <div class="col-xs-6">
@@ -196,7 +199,8 @@
     <!--     modal confirmación -->
     <div id="dialog" style="display:none;">
         <tag id="divMensaje" class="font-cuerpo"></tag>
-        </br></br>
+        </br>
+        </br>
         <div class="row">
             <div class="col-xs-6">
                 <button type="button" class="btn btn-default btn-block font-boton" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
