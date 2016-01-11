@@ -15,7 +15,7 @@
             </span>
         </div>
         <div class="col-xs-6">
-            <input id="f05FchAtencionConsilidato" style="width:100%">
+            <input type="date" id="f05FchAtencionConsilidato" style="width:100%" class="form-control" onchange="f05getOperaciones(this.value)">
         </div>
     </div>
     <!-- Listado Operaciones -->
@@ -26,7 +26,6 @@
     </div>
 </div>
 <!-- End -->
-
 <!-- Acción Tarea: Add Insert Delete -->
 <div data-role="view" id="f05accionOperacion" data-title="Detalle">
     <div class="row">
@@ -44,11 +43,10 @@
     <!--        BOTONERA -->
     <div class="row" style="background-color:#fff;">
         <div class="col-xs-10 col-xs-offset-1">
+            <h3 id="f05Actividad" class="text-center"></h3>
+            <div id="f05divBotonera"></div>
             </br>
             <button class="btn btn-default btn-block font-boton" id="btnAddFoto" onclick="kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');"> <span class="fa fa-camera" aria-hidden="true"></span> Agregar foto </button>
-            </br>
-            <div id="f05divBotonera">
-            </div>
             </br>
         </div>
     </div>
@@ -94,10 +92,6 @@
         <div class="list-group-item font-cuerpo row">
             <span class="color_1 col-xs-6"><b>Fecha Inicio: </b></span>
             <span class="col-xs-6" id="f05FechaInicio"></span>
-        </div>
-        <div class="list-group-item font-cuerpo row">
-            <span class="color_1 col-xs-6"><b>Actividad: </b></span>
-            <span class="col-xs-6" id="f05Operacion"></span>
         </div>
         <div class="list-group-item font-cuerpo row">
             <span class="color_1 col-xs-6"><b>Hora inicio: </b></span>

@@ -1,291 +1,246 @@
 'use strict';
 app.funcionalidad05 = kendo.observable({
-    onShow: function () {
-
-    },
-    afterShow: function () {
-
-    },
-
+    onShow: function () {},
+    afterShow: function () {},
+    function () {}
 });
-
 var f05NumOperacion = 0;
-// Para la primera carga usa la fecha actual
-var f05DateAtencionConsilidato = new Date();
 
 function f05FechaAtencionConsilidato() {
-    $("#f05FchAtencionConsilidato").kendoDatePicker({
-        culture: "es-PE",
-        value: f05DateAtencionConsilidato,
-        change: function () {
-            var valueDate = this.value();
-            var day = valueDate.getDate();
-            // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
-            var month = valueDate.getMonth() + 1;
-            var year = valueDate.getFullYear();
-            var strValueDate = year + "/" + month + "/" + day;
-            console.log("DFC 1 >>> >>> f05FchAtencionConsilidato __CHANGE__: " + strValueDate);
-            f05getOperaciones(strValueDate);
-            // guardar el valor de la ultima fecha selecionada
-            f05DateAtencionConsilidato = new Date(year, month - 1, day);
-        }
-    });
-    console.log("DFC 2 >>> f05FchAtencionConsilidato __NO__ CHANGE: " + $("#f05FchAtencionConsilidato").val());
-    var strDateSplit = $("#f05FchAtencionConsilidato").val().split("/");
-    f05getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" + strDateSplit[0]);
-}
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
 
-//getOperaciones -> cargamos el grid tareas
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = year + "-" + month + "-" + day;
+        $("#f05FchAtencionConsilidato").attr("value", today);
+        f05getOperaciones(today);
+    }
+    //getOperaciones -> cargamos el grid tareas
 function f05getOperaciones(f05FchAtencionConsilidato) {
-    console.log("DFC >>> param fx " + f05FchAtencionConsilidato);
-
+    //f05FchAtencionConsilidato = f05FchAtencionConsilidato.replace(/\-/g, '/');
+    console.log("f05FchAtencionConsilidato: " + f05FchAtencionConsilidato);
     var idSS = sessionStorage.getItem("sessionUSER");
-
-    $("#f05operaciones").kendoGrid({
-        dataSource: {
-            // data:{
-            //     [{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443040918253)\/","ClienteAlias":"ASA","Orden":"2015-027531","NumOperacion":241698,"Despachador":"Cesar Saavedra","Almacen":"","Operacion":"RETIRO","Detalle":"IR-001// Trans.AUSA/ /C:1/ EL CLIENTE SOLO DESCARGA CARGAS QUE LLEGUEN ANTES DE LAS 3.00 PM\r\nSOLO RE","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241698},{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443039135560)\/","ClienteAlias":"DEVANLAY","Orden":"2015-027513","NumOperacion":241691,"Despachador":"Cesar Saavedra","Almacen":"DP WORLD CALLAO S.R.L.","Operacion":"RETIRO","Detalle":"IR-001// Trans.AUSA/ /C:1/ 1. Para aforo físico favor de enviarnos las fotografías tomadas adjuntand","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241691},{"FechaDeActualizacion":"\/Date(1450910774840)\/","FechaCreacionOperacion":"\/Date(1443040748653)\/","ClienteAlias":"PAMOLSA","Orden":"2015-027363","NumOperacion":241697,"Despachador":"Cesar Saavedra","Almacen":"DP WORLD CALLAO S.R.L.","Operacion":"RETIRO","Detalle":"IR-001// Trans.Cliente/ /C:1/ TRAMITAR PERMISO DE SALIDA Y ENTREGAR A TRANSPORTE DEL CLIENTE // LUAN","FechaInicio":null,"HoraInicio":null,"TiempoTranscurrido":null,"Estado":"Planificado","OperacionID":241697}]
-            // },
-            transport: {
-                read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
-                    dataType: "json",
-                    type: "post",
-                    data: {
-                        txtdespachador: idSS,
-                        txtcliente: 0,
-                        txtorden: 0,
-                        txtalmacen: 0,
-                        txtestado: 9,
-                        txtfecha: f05FchAtencionConsilidato //"2015/09/24"
-                    },
+    var f05dsOperaciones = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
+                dataType: "json",
+                type: "post",
+                data: {
+                    txtdespachador: idSS,
+                    txtcliente: 0,
+                    txtorden: 0,
+                    txtalmacen: 0,
+                    txtestado: 9,
+                    txtfecha: f05FchAtencionConsilidato //"2015-09-24"
                 }
-            },
-            error: function (e) {
-                // handle error
-                console.log("Status: " + e.status + "; Error message: " + e.errorThrown);
-            },
-            schema: {
-                model: {
-                    fields: {
-                        FechaCreacionOperacion: {
-                            type: "date"
-                        }
-                    }
-                }
-            },
-            pageSize: 10,
-            requestStart: function (e) {
-                kendo.ui.progress($("#homeView"), true);
-                /*
-                            * !!!NO FUNCIONA CON LLAMADA AJAX DUPLICADAS!!!
-                            	setTimeout(function () {
-                                	kendo.ui.progress($("#homeView"), false);
-                                	alert("El Servicio no esta Disponible.");
-                                }, 10000);
-                            */
-            },
-            requestEnd: function (e) {
-                kendo.ui.progress($("#homeView"), false);
-            },
+            }
         },
-        filterable: true,
-        sortable: true,
-        pageable: true,
-        scrollable: false,
-        selectable: "row",
-        change: f05SelectGridDetOperacion,
-        filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
-        columns: [
-            //COL_1 NumOperacion
-            {
-                field: "NumOperacion",
-                title: "Id",
-                width: "40px",
-                filterable: false
-            },
-            //COL2 Cliente
-            {
-                field: "ClienteAlias",
-                title: "Cliente",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Cliente: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL3 Almacén
-            {
-                field: "Almacen",
-                title: "Almacén",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Almacén: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL4 #Órden
-            {
-                field: "Orden",
-                title: "#Órden",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Órden: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL5 Operacion
-            {
-                field: "Operacion",
-                title: "Operación",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Operación: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL6 Tiempo Trascurrido
-            {
-                field: "HoraFin",
-                title: "Tiempo Trascurrido",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Tiempo Trascurrido: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL7 Estado
-            {
-                field: "Estado",
-                title: "Estado",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por estado: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL8 Fecha de creacion
-            {
-                field: "FechaCreacionOperacion",
-                title: "Fecha de creacion",
-                width: "120px",
-                filterable: {
-                    messages: {
-                        info: "Rango de creación: "
-                    }
-                },
-                format: "{0:dd/MM/yyyy}"
-            },
-            {
-                field: "Estado",
-                title: "Estado",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por estado: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
+        schema: {
+            model: {
+                fields: {
+                    FechaCreacionOperacion: {
+                        type: "date"
                     }
                 }
             }
-        ]
+        },
+        pageSize: 10,
     });
-    //filterMenu -> para configurar los filtros
-    function filterMenu(e) {
-        if (e.field == "FechaCreacionOperacion") {
-            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
-            beginOperator.value("gte");
-            beginOperator.trigger("change");
 
-            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
-            endOperator.value("lte");
-            endOperator.trigger("change");
-            e.container.find(".k-dropdown").hide();
+    f05dsOperaciones.fetch(function () {
+        if (f05dsOperaciones.total() > 0) { //        console.log("f05dsOperaciones.total:   " + f05dsOperaciones.total());
+            //grid
+
+
+            $("#f05operaciones").kendoGrid({
+                dataSource: f05dsOperaciones,
+                filterable: true,
+                sortable: true,
+                pageable: true,
+                scrollable: false,
+                selectable: "row",
+                change: f05SelectGridDetOperacion,
+                filterMenuInit: f05filterMenu, //llamamos a la función de configuración de los filtros
+                columns: [
+            //COL_1 NumOperacion
+                    {
+                        field: "NumOperacion",
+                        title: "Id",
+                        width: "40px",
+                        filterable: false
+            },
+            //COL2 Cliente
+                    {
+                        field: "ClienteAlias",
+                        title: "Cliente",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
+                                }
+                            },
+                            messages: {
+                                info: "Filtrar por Cliente: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
+                            }
+                        }
+            },
+            //COL3 Almacén
+                    {
+                        field: "Almacen",
+                        title: "Almacén",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
+                                }
+                            },
+                            messages: {
+                                info: "Filtrar por Almacén: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
+                            }
+                        }
+            },
+            //COL4 #Órden
+                    {
+                        field: "Orden",
+                        title: "#Órden",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
+                                }
+                            },
+                            messages: {
+                                info: "Filtrar por Órden: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
+                            }
+                        }
+            },
+            //COL5 Operacion
+                    {
+                        field: "Operacion",
+                        title: "Operación",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
+                                }
+                            },
+                            messages: {
+                                info: "Filtrar por Operación: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
+                            }
+                        }
+            },
+            //COL6 Tiempo Trascurrido
+                    {
+                        field: "HoraFin",
+                        title: "Tiempo Trascurrido",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
+                                }
+                            },
+                            messages: {
+                                info: "Filtrar por Tiempo Trascurrido: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
+                            }
+                        }
+            },
+            //COL7 Estado
+                    {
+                        field: "Estado",
+                        title: "Estado",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
+                                }
+                            },
+                            messages: {
+                                info: "Filtrar por estado: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
+                            }
+                        }
+            },
+            //COL8 Fecha de creacion
+                    {
+                        field: "FechaCreacionOperacion",
+                        title: "Fecha de creacion",
+                        width: "120px",
+                        filterable: {
+                            messages: {
+                                info: "Rango de creación: "
+                            }
+                        },
+                        format: "{0:dd/MM/yyyy}"
+            }
+        ]
+            });
+            //filterMenu -> para configurar los filtros
+            function f05filterMenu(e) {
+                if (e.field == "FechaCreacionOperacion") {
+                    var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+                    beginOperator.value("gte");
+                    beginOperator.trigger("change");
+
+                    var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+                    endOperator.value("lte");
+                    endOperator.trigger("change");
+                    e.container.find(".k-dropdown").hide();
+                }
+            }
+        } else {
+            var notificationElement = $("#notification");
+            notificationElement.kendoNotification();
+            var notificationWidget = notificationElement.data("kendoNotification");
+            notificationWidget.show("No se encontraron operaciones el " + f05FchAtencionConsilidato, "error");
         }
-    }
-}
+    });
 
+}
 
 function f05SelectGridDetOperacion() {
     var grid = $("#f05operaciones").data("kendoGrid");
     var seleccion = grid.select();
 
-    console.log("DFC 3 >>> " + seleccion);
-    console.log(this.dataItem(seleccion).NumOperacion);
     //dsOperaciones -> obtenemos la lista de tareas
     var f05dsOperaciones = new kendo.data.DataSource({
         transport: {
@@ -348,7 +303,7 @@ function f05SelectGridDetOperacion() {
         //INFORMACIONES DE PA /Operaciones/Listar
 
         $("#f05TiempoTranscurrido").text(TiempoTranscurrido);
-        $("#f05Operacion").text(Actividad);
+        $("#f05Actividad").text(Actividad);
         $("#f05HoraInicio").text(HoraInicio);
         $("#f05Estado").text(Estado);
         $("#f05Detalle").text(data[0].Detalle);
