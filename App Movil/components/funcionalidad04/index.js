@@ -34,14 +34,14 @@ function f04FechaAtencionConsilidato() {
     f04getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" + strDateSplit[0]);
 }
 
+
 //getOperaciones -> cargamos el grid tareas
 function f04getOperaciones(f04FchAtencionConsilidato) {
     console.log("DFC >>> param fx " + f04FchAtencionConsilidato);
 
     //var idSS = sessionStorage.getItem("sessionUSER");
-
-    $("#f04operaciones").kendoGrid({
-        dataSource: {
+    
+    var f04dsOperaciones = new kendo.data.DataSource({
             transport: {
                 read: {
                     url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
@@ -70,7 +70,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                     }
                 }
             },
-            pageSize: 10,
+            pageSize: 4,
             requestStart: function (e) {
                 kendo.ui.progress($("#homeView"), true);
                 /*
@@ -83,196 +83,209 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
             },
             requestEnd: function (e) {
                 kendo.ui.progress($("#homeView"), false);
-            },
-        },
-        filterable: true,
-        sortable: true,
-        pageable: true,
-        scrollable: false,
-        selectable: "row",
-        change: f04SelectGridDetOperacion,
-        filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
-        columns: [
-            //COL_1 NumOperacion
-            {
-                field: "NumOperacion",
-                title: "Id",
-                width: "40px",
-                filterable: false
-            },
-            //COL2 Cliente
-            {
-                field: "ClienteAlias",
-                title: "Cliente",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Cliente: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL3 Despachador
-            {
-                field: "Despachador",
-                title: "Despachador",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Cliente: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL4 Almacén
-            {
-                field: "Almacen",
-                title: "Almacén",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Almacén: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL5 #Órden
-            {
-                field: "Orden",
-                title: "#Órden",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Órden: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL6 Operacion
-            {
-                field: "Operacion",
-                title: "Operación",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Operación: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL7 Tiempo Trascurrido
-            {
-                field: "HoraFin",
-                title: "Tiempo Trascurrido",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por Tiempo Trascurrido: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            },
-            //COL8 Fecha de creacion
-            {
-                field: "FechaCreacionOperacion",
-                title: "Fecha de creacion",
-                width: "120px",
-                filterable: {
-                    messages: {
-                        info: "Rango de creación: "
-                    }
-                },
-                format: "{0:dd/MM/yyyy}"
-            },
-            {
-                field: "Estado",
-                title: "Estado",
-                width: "120px",
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            contains: "Contiene",
-                            eq: "Es igual a",
-                            neq: "No es igual a"
-                        }
-                    },
-                    messages: {
-                        info: "Filtrar por estado: ",
-                        filter: "Filtrar",
-                        clear: "Limpiar"
-                    }
-                }
-            }
-        ]
+            },        
     });
-    //filterMenu -> para configurar los filtros
-    function filterMenu(e) {
-        if (e.field == "FechaCreacionOperacion") {
-            var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
-            beginOperator.value("gte");
-            beginOperator.trigger("change");
+    
+     f04dsOperaciones.fetch(function () {
+        if (f04dsOperaciones.total() > 0) {
+                $("#f04operaciones").kendoGrid({
+                    dataSource: f04dsOperaciones,
+                    filterable: true,
+                    sortable: true,
+                    pageable: true,
+                    scrollable: false,
+                    selectable: "row",
+                    change: f04SelectGridDetOperacion,
+                    filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
+                    columns: [
+                        //COL_1 NumOperacion
+                        {
+                            field: "NumOperacion",
+                            title: "Id",
+                            width: "40px",
+                            filterable: false
+                        },
+                        //COL2 Cliente
+                        {
+                            field: "ClienteAlias",
+                            title: "Cliente",
+                            width: "120px",
+                            filterable: {
+                                extra: false,
+                                operators: {
+                                    string: {
+                                        contains: "Contiene",
+                                        eq: "Es igual a",
+                                        neq: "No es igual a"
+                                    }
+                                },
+                                messages: {
+                                    info: "Filtrar por Cliente: ",
+                                    filter: "Filtrar",
+                                    clear: "Limpiar"
+                                }
+                            }
+                        },
+                        //COL3 Despachador
+                        {
+                            field: "Despachador",
+                            title: "Despachador",
+                            width: "120px",
+                            filterable: {
+                                extra: false,
+                                operators: {
+                                    string: {
+                                        contains: "Contiene",
+                                        eq: "Es igual a",
+                                        neq: "No es igual a"
+                                    }
+                                },
+                                messages: {
+                                    info: "Filtrar por Cliente: ",
+                                    filter: "Filtrar",
+                                    clear: "Limpiar"
+                                }
+                            }
+                        },
+                        //COL4 Almacén
+                        {
+                            field: "Almacen",
+                            title: "Almacén",
+                            width: "120px",
+                            filterable: {
+                                extra: false,
+                                operators: {
+                                    string: {
+                                        contains: "Contiene",
+                                        eq: "Es igual a",
+                                        neq: "No es igual a"
+                                    }
+                                },
+                                messages: {
+                                    info: "Filtrar por Almacén: ",
+                                    filter: "Filtrar",
+                                    clear: "Limpiar"
+                                }
+                            }
+                        },
+                        //COL5 #Órden
+                        {
+                            field: "Orden",
+                            title: "#Órden",
+                            width: "120px",
+                            filterable: {
+                                extra: false,
+                                operators: {
+                                    string: {
+                                        contains: "Contiene",
+                                        eq: "Es igual a",
+                                        neq: "No es igual a"
+                                    }
+                                },
+                                messages: {
+                                    info: "Filtrar por Órden: ",
+                                    filter: "Filtrar",
+                                    clear: "Limpiar"
+                                }
+                            }
+                        },
+                        //COL6 Operacion
+                        {
+                            field: "Operacion",
+                            title: "Operación",
+                            width: "120px",
+                            filterable: {
+                                extra: false,
+                                operators: {
+                                    string: {
+                                        contains: "Contiene",
+                                        eq: "Es igual a",
+                                        neq: "No es igual a"
+                                    }
+                                },
+                                messages: {
+                                    info: "Filtrar por Operación: ",
+                                    filter: "Filtrar",
+                                    clear: "Limpiar"
+                                }
+                            }
+                        },
+                        //COL7 Tiempo Trascurrido
+                        {
+                            field: "HoraFin",
+                            title: "Tiempo Trascurrido",
+                            width: "120px",
+                            filterable: {
+                                extra: false,
+                                operators: {
+                                    string: {
+                                        contains: "Contiene",
+                                        eq: "Es igual a",
+                                        neq: "No es igual a"
+                                    }
+                                },
+                                messages: {
+                                    info: "Filtrar por Tiempo Trascurrido: ",
+                                    filter: "Filtrar",
+                                    clear: "Limpiar"
+                                }
+                            }
+                        },
+                        //COL8 Fecha de creacion
+                        {
+                            field: "FechaCreacionOperacion",
+                            title: "Fecha de creacion",
+                            width: "120px",
+                            filterable: {
+                                messages: {
+                                    info: "Rango de creación: "
+                                }
+                            },
+                            format: "{0:dd/MM/yyyy}"
+                        },
+                        {
+                            field: "Estado",
+                            title: "Estado",
+                            width: "120px",
+                            filterable: {
+                                extra: false,
+                                operators: {
+                                    string: {
+                                        contains: "Contiene",
+                                        eq: "Es igual a",
+                                        neq: "No es igual a"
+                                    }
+                                },
+                                messages: {
+                                    info: "Filtrar por estado: ",
+                                    filter: "Filtrar",
+                                    clear: "Limpiar"
+                                }
+                            }
+                        }
+                    ]
+                });
+                //filterMenu -> para configurar los filtros
+                function filterMenu(e) {
+                    if (e.field == "FechaCreacionOperacion") {
+                        var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+                        beginOperator.value("gte");
+                        beginOperator.trigger("change");
 
-            var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
-            endOperator.value("lte");
-            endOperator.trigger("change");
-            e.container.find(".k-dropdown").hide();
+                        var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+                        endOperator.value("lte");
+                        endOperator.trigger("change");
+                        e.container.find(".k-dropdown").hide();
+                    }
+                }
         }
-    }
+        else {
+            var notificationElement = $("#notification");
+            notificationElement.kendoNotification();
+            var notificationWidget = notificationElement.data("kendoNotification");
+            notificationWidget.show("No se encontraron operaciones el " + f04FchAtencionConsilidato, "error");
+        }
+     });
 }
 
 
@@ -433,5 +446,4 @@ function Reasignar() {
             window.location.href = "#f04ContenedorOperaciones";
         }
     );
-
 }
