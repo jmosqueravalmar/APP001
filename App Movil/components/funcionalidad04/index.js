@@ -9,86 +9,81 @@ app.funcionalidad04 = kendo.observable({
 });
 
 // Para la primera carga usa la fecha actual
-var f04DateAtencionConsilidato = new Date();
+// var f04DateAtencionConsilidato = new Date();
+// function f04FechaAtencionConsilidato() {
+//     $("#f04FchAtencionConsilidato").kendoDatePicker({
+//         culture: "es-PE",
+//         value: f04DateAtencionConsilidato,
+//         change: function () {
+//             var valueDate = this.value();
+//             var day = valueDate.getDate();
+//             // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
+//             var month = valueDate.getMonth() + 1;
+//             var year = valueDate.getFullYear();
+//             var strValueDate = year + "/" + month + "/" + day;
+//             console.log("DFC 1 >>> >>> f04FchAtencionConsilidato __CHANGE__: " + strValueDate);
+//             f04getOperaciones(strValueDate);
+//             // guardar el valor de la ultima fecha selecionada
+//             f04DateAtencionConsilidato = new Date(year, month - 1, day);
+//         }
+//     });
+//     console.log("DFC 2 >>> f04FchAtencionConsilidato __NO__ CHANGE: " + $("#f04FchAtencionConsilidato").val());
+//     //getDespachador();    
+//     var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
+//     f04getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" + strDateSplit[0]);
+// }
 
 function f04FechaAtencionConsilidato() {
-    $("#f04FchAtencionConsilidato").kendoDatePicker({
-        culture: "es-PE",
-        value: f04DateAtencionConsilidato,
-        change: function () {
-            var valueDate = this.value();
-            var day = valueDate.getDate();
-            // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
-            var month = valueDate.getMonth() + 1;
-            var year = valueDate.getFullYear();
-            var strValueDate = year + "/" + month + "/" + day;
-            console.log("DFC 1 >>> >>> f04FchAtencionConsilidato __CHANGE__: " + strValueDate);
-            f04getOperaciones(strValueDate);
-            // guardar el valor de la ultima fecha selecionada
-            f04DateAtencionConsilidato = new Date(year, month - 1, day);
-        }
-    });
-    console.log("DFC 2 >>> f04FchAtencionConsilidato __NO__ CHANGE: " + $("#f04FchAtencionConsilidato").val());
-    //getDespachador();    
-    var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
-    f04getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" + strDateSplit[0]);
-}
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
 
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+
+    $("#f04FchAtencionConsilidato").val(today);
+    f04getOperaciones($("#f04FchAtencionConsilidato").val());
+}
 
 //getOperaciones -> cargamos el grid tareas
 function f04getOperaciones(f04FchAtencionConsilidato) {
     console.log("DFC >>> param fx " + f04FchAtencionConsilidato);
 
     //var idSS = sessionStorage.getItem("sessionUSER");
-    
     var f04dsOperaciones = new kendo.data.DataSource({
-            transport: {
-                read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
-                    dataType: "json",
-                    type: "post",
-                    data: {
-                        txtdespachador: 0,
-                        txtcliente: 0,
-                        txtorden: 0,
-                        txtalmacen: 0,
-                        txtestado: 9,
-                        txtfecha: f04FchAtencionConsilidato, //"2015/09/24", //f04FchAtencionConsilidato,
-                    },
-                }
-            },
-            error: function (e) {
-                // handle error
-                console.log("Status: " + e.status + "; Error message: " + e.errorThrown);
-            },
-            schema: {
-                model: {
-                    fields: {
-                        FechaCreacionOperacion: {
-                            type: "date"
-                        }
+        transport: {
+            read: {
+                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
+                dataType: "json",
+                type: "post",
+                data: {
+                    txtdespachador: 0,
+                    txtcliente: 0,
+                    txtorden: 0,
+                    txtalmacen: 0,
+                    txtestado: 9,
+                    txtfecha: f04FchAtencionConsilidato, //"2015/09/24", //f04FchAtencionConsilidato,
+                },
+            }
+        },
+        schema: {
+            model: {
+                fields: {
+                    FechaCreacionOperacion: {
+                        type: "date"
                     }
                 }
-            },
-            pageSize: 4,
-            requestStart: function (e) {
-                kendo.ui.progress($("#homeView"), true);
-                /*
-                            * !!!NO FUNCIONA CON LLAMADA AJAX DUPLICADAS!!!
-                            	setTimeout(function () {
-                                	kendo.ui.progress($("#homeView"), false);
-                                	alert("El Servicio no esta Disponible.");
-                                }, 10000);
-                            */
-            },
-            requestEnd: function (e) {
-                kendo.ui.progress($("#homeView"), false);
-            },        
+            }
+        },
+        pageSize: 10
     });
-    
-     f04dsOperaciones.fetch(function () {
+
+    f04dsOperaciones.fetch(function () {
         if (f04dsOperaciones.total() > 0) {
-                $("#f04operaciones").kendoGrid({
+            $("#f04operaciones").kendoGrid({
                     dataSource: f04dsOperaciones,
                     filterable: true,
                     sortable: true,
@@ -96,16 +91,16 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                     scrollable: false,
                     selectable: "row",
                     change: f04SelectGridDetOperacion,
-                    filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
+                    //filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
                     columns: [
-                        //COL_1 NumOperacion
+            //COL_1 NumOperacion
                         {
                             field: "NumOperacion",
                             title: "Id",
                             width: "40px",
                             filterable: false
-                        },
-                        //COL2 Cliente
+            },
+            //COL2 Cliente
                         {
                             field: "ClienteAlias",
                             title: "Cliente",
@@ -125,8 +120,8 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                     clear: "Limpiar"
                                 }
                             }
-                        },
-                        //COL3 Despachador
+            },
+            //COL3 Despachador
                         {
                             field: "Despachador",
                             title: "Despachador",
@@ -146,8 +141,8 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                     clear: "Limpiar"
                                 }
                             }
-                        },
-                        //COL4 Almacén
+            },
+            //COL4 Almacén
                         {
                             field: "Almacen",
                             title: "Almacén",
@@ -167,8 +162,8 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                     clear: "Limpiar"
                                 }
                             }
-                        },
-                        //COL5 #Órden
+            },
+            //COL5 #Órden
                         {
                             field: "Orden",
                             title: "#Órden",
@@ -188,8 +183,8 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                     clear: "Limpiar"
                                 }
                             }
-                        },
-                        //COL6 Operacion
+            },
+            //COL6 Operacion
                         {
                             field: "Operacion",
                             title: "Operación",
@@ -209,8 +204,8 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                     clear: "Limpiar"
                                 }
                             }
-                        },
-                        //COL7 Tiempo Trascurrido
+            },
+            //COL7 Tiempo Trascurrido
                         {
                             field: "HoraFin",
                             title: "Tiempo Trascurrido",
@@ -230,8 +225,8 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                     clear: "Limpiar"
                                 }
                             }
-                        },
-                        //COL8 Fecha de creacion
+            },
+            //COL8 Fecha de creacion
                         {
                             field: "FechaCreacionOperacion",
                             title: "Fecha de creacion",
@@ -242,7 +237,8 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                 }
                             },
                             format: "{0:dd/MM/yyyy}"
-                        },
+
+            },
                         {
                             field: "Estado",
                             title: "Estado",
@@ -262,30 +258,30 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                                     clear: "Limpiar"
                                 }
                             }
-                        }
-                    ]
-                });
-                //filterMenu -> para configurar los filtros
-                function filterMenu(e) {
-                    if (e.field == "FechaCreacionOperacion") {
-                        var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
-                        beginOperator.value("gte");
-                        beginOperator.trigger("change");
+            }
+        ]
+                })
+                // function filterMenu(e) {
+                //     if (e.field == "FechaCreacionOperacion") {
+                //         var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+                //         beginOperator.value("gte");
+                //         beginOperator.trigger("change");
 
-                        var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
-                        endOperator.value("lte");
-                        endOperator.trigger("change");
-                        e.container.find(".k-dropdown").hide();
-                    }
-                }
-        }
-        else {
+            //         var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+            //         endOperator.value("lte");
+            //         endOperator.trigger("change");
+            //         e.container.find(".k-dropdown").hide();
+            //     }
+            // }
+            $("#f04operaciones").css("display","block");
+        } else {
+            $("#f04operaciones").css("display","none");
             var notificationElement = $("#notification");
             notificationElement.kendoNotification();
             var notificationWidget = notificationElement.data("kendoNotification");
             notificationWidget.show("No se encontraron operaciones el " + f04FchAtencionConsilidato, "error");
         }
-     });
+    });
 }
 
 
@@ -446,4 +442,5 @@ function Reasignar() {
             window.location.href = "#f04ContenedorOperaciones";
         }
     );
+
 }

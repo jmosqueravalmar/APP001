@@ -120,7 +120,13 @@ function f05getImage() {
 
 function f05enviarBackend() {
     //Iteramos los audios grabados en la memoria de nuestros smartphone, para hacer la carga de audios en el backend services
+
     kendo.ui.progress($("#f05listaImage"), true);
+    //Notificaciones
+    var notificationElement = $("#notification");
+    notificationElement.kendoNotification();
+    var notificationWidget = notificationElement.data("kendoNotification");
+    //End
     $("a[type='newAudio']").each(function (index) {
         var fileToUpload = $(this).attr("value"); //capturedFiles[0].fullPath;
         upload(fileToUpload);
@@ -204,11 +210,6 @@ function f05deleteImage(idAudio) {
 }
 
 function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
-    //Notificaciones
-    var notificationElement = $("#notification");
-    notificationElement.kendoNotification();
-    var notificationWidget = notificationElement.data("kendoNotification");
-    //End
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
     accion == "insert" && $.ajax({
         type: "POST",

@@ -266,7 +266,7 @@ function viewFormTarea() {
         $('#divBtnAccion').css("display", "none");
         $("#divAudioEstado").css("display", "none");
 
-        $("#dialog").kendoWindow({
+        $("#f03dialog").kendoWindow({
             title: "Confirmación",
             scrollable: false,
             modal: true,
@@ -378,29 +378,29 @@ function getSelectCliente(accion) {
 }
 
 function modalTarea(accion) {
-    $('#dialog').data('kendoWindow').open();
-    $("#dialog").data("kendoWindow").center();
+    $('#f03dialog').data('kendoWindow').open();
+    $("#f03dialog").data("kendoWindow").center();
     switch (accion) {
         case 'insert':
-            $("#divMensaje").text("¿Realmente desea agregar la tarea?");
-            $("#btnAccionModal").attr("onclick", "accionTarea('insert');");
+            $("#f03divMensaje").text("¿Realmente desea agregar la tarea?");
+            $("#f03btnAccionModal").attr("onclick", "accionTarea('insert');");
             break;
         case 'update':
-            $("#divMensaje").text("¿Realmente desea editar la tarea?");
-            $("#btnAccionModal").attr("onclick", "accionTarea('update');");
+            $("#f03divMensaje").text("¿Realmente desea editar la tarea?");
+            $("#f03btnAccionModal").attr("onclick", "accionTarea('update');");
             break;
         default:
-            $("#divMensaje").text("¿Realmente desea eliminar la tarea?");
-            $("#btnAccionModal").attr("onclick", "accionTarea('delete');");
+            $("#f03divMensaje").text("¿Realmente desea eliminar la tarea?");
+            $("#f03btnAccionModal").attr("onclick", "accionTarea('delete');");
             break;
     }
-    $("#btnAccionModal").removeAttr("disabled");
+    $("#f03btnAccionModal").removeAttr("disabled");
 }
 
 //accionTarea -> Función Agregar. Editar y Eliminar Tarea
 function accionTarea(accion) {
-    $("#btnAccionModal").attr("disabled", "disabled");
-    $('#dialog').data('kendoWindow').close();
+    $("#f03btnAccionModal").attr("disabled", "disabled");
+    $('#f03dialog').data('kendoWindow').close();
     var idSS = sessionStorage.getItem("sessionUSER");
     //Notificaciones
     var notificationElement = $("#notification");
@@ -598,7 +598,7 @@ function selectGrid() {
     $("#divNotaVoz").html("");
     $("#divAudioEstado").show();
 
-    $("#dialog").kendoWindow({
+    $("#f03dialog").kendoWindow({
         title: "Confirmación",
         scrollable: false,
         modal: true,
