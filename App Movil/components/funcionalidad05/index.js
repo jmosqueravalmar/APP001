@@ -10,6 +10,7 @@ app.funcionalidad05 = kendo.observable({
 
 
 var f05NumOperacion = 0;
+
 function f05FechaAtencionConsilidato() {
     var date = new Date();
     var day = date.getDate();
@@ -84,198 +85,210 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
 
     f05dsOperaciones.fetch(function () {
         if (f05dsOperaciones.total() > 0) {
+            function filterMenu(e) {
+                if (e.field == "FechaCreacionOperacion") {
+                    var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+                    beginOperator.value("gte");
+                    beginOperator.trigger("change");
+                    var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+                    endOperator.value("lte");
+                    endOperator.trigger("change");
+                    e.container.find(".k-dropdown").hide();
+                }
+            }
             $("#f05operaciones").kendoGrid({
-                    dataSource: f05dsOperaciones,
-                    filterable: true,
-                    sortable: true,
-                    pageable: true,
-                    scrollable: false,
-                    selectable: "row",
-                    change: f05SelectGridDetOperacion,
-                    //filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
-                    columns: [
+                dataSource: f05dsOperaciones,
+                filterable: true,
+                sortable: true,
+                pageable: true,
+                scrollable: false,
+                selectable: "row",
+                change: f05SelectGridDetOperacion,
+                filterMenuInit: filterMenu, //llamamos a la función de configuración de los filtros
+                columns: [
             //COL_1 NumOperacion
-                        {
-                            field: "NumOperacion",
-                            title: "Id",
-                            width: "40px",
-                            filterable: false
+                    {
+                        field: "NumOperacion",
+                        title: "Id",
+                        width: "40px",
+                        filterable: false
             },
             //COL2 Cliente
-                        {
-                            field: "ClienteAlias",
-                            title: "Cliente",
-                            width: "120px",
-                            filterable: {
-                                extra: false,
-                                operators: {
-                                    string: {
-                                        contains: "Contiene",
-                                        eq: "Es igual a",
-                                        neq: "No es igual a"
-                                    }
-                                },
-                                messages: {
-                                    info: "Filtrar por Cliente: ",
-                                    filter: "Filtrar",
-                                    clear: "Limpiar"
+                    {
+                        field: "ClienteAlias",
+                        title: "Cliente",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
                                 }
+                            },
+                            messages: {
+                                info: "Filtrar por Cliente: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
                             }
+                        }
             },
             //COL3 Despachador
-                        {
-                            field: "Despachador",
-                            title: "Despachador",
-                            width: "120px",
-                            filterable: {
-                                extra: false,
-                                operators: {
-                                    string: {
-                                        contains: "Contiene",
-                                        eq: "Es igual a",
-                                        neq: "No es igual a"
-                                    }
-                                },
-                                messages: {
-                                    info: "Filtrar por Cliente: ",
-                                    filter: "Filtrar",
-                                    clear: "Limpiar"
+                    {
+                        field: "Despachador",
+                        title: "Despachador",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
                                 }
+                            },
+                            messages: {
+                                info: "Filtrar por Cliente: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
                             }
+                        }
             },
             //COL4 Almacén
-                        {
-                            field: "Almacen",
-                            title: "Almacén",
-                            width: "120px",
-                            filterable: {
-                                extra: false,
-                                operators: {
-                                    string: {
-                                        contains: "Contiene",
-                                        eq: "Es igual a",
-                                        neq: "No es igual a"
-                                    }
-                                },
-                                messages: {
-                                    info: "Filtrar por Almacén: ",
-                                    filter: "Filtrar",
-                                    clear: "Limpiar"
+                    {
+                        field: "Almacen",
+                        title: "Almacén",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
                                 }
+                            },
+                            messages: {
+                                info: "Filtrar por Almacén: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
                             }
+                        }
             },
             //COL5 #Órden
-                        {
-                            field: "Orden",
-                            title: "#Órden",
-                            width: "120px",
-                            filterable: {
-                                extra: false,
-                                operators: {
-                                    string: {
-                                        contains: "Contiene",
-                                        eq: "Es igual a",
-                                        neq: "No es igual a"
-                                    }
-                                },
-                                messages: {
-                                    info: "Filtrar por Órden: ",
-                                    filter: "Filtrar",
-                                    clear: "Limpiar"
+                    {
+                        field: "Orden",
+                        title: "#Órden",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
                                 }
+                            },
+                            messages: {
+                                info: "Filtrar por Órden: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
                             }
+                        }
             },
             //COL6 Operacion
-                        {
-                            field: "Operacion",
-                            title: "Operación",
-                            width: "120px",
-                            filterable: {
-                                extra: false,
-                                operators: {
-                                    string: {
-                                        contains: "Contiene",
-                                        eq: "Es igual a",
-                                        neq: "No es igual a"
-                                    }
-                                },
-                                messages: {
-                                    info: "Filtrar por Operación: ",
-                                    filter: "Filtrar",
-                                    clear: "Limpiar"
+                    {
+                        field: "Operacion",
+                        title: "Operación",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
                                 }
+                            },
+                            messages: {
+                                info: "Filtrar por Operación: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
                             }
+                        }
             },
             //COL7 Tiempo Trascurrido
-                        {
-                            field: "HoraFin",
-                            title: "Tiempo Trascurrido",
-                            width: "120px",
-                            filterable: {
-                                extra: false,
-                                operators: {
-                                    string: {
-                                        contains: "Contiene",
-                                        eq: "Es igual a",
-                                        neq: "No es igual a"
-                                    }
-                                },
-                                messages: {
-                                    info: "Filtrar por Tiempo Trascurrido: ",
-                                    filter: "Filtrar",
-                                    clear: "Limpiar"
+                    {
+                        field: "HoraFin",
+                        title: "Tiempo Trascurrido",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
                                 }
+                            },
+                            messages: {
+                                info: "Filtrar por Tiempo Trascurrido: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
                             }
+                        }
             },
             //COL8 Fecha de creacion
-                        {
-                            field: "FechaCreacionOperacion",
-                            title: "Fecha de creacion",
-                            width: "120px",
-                            format: "{0:dd/MM/yyyy}",
-                            filterable: {
-                                messages: {
-                                    info: "Rango de creación: "
-                                }
+                    {
+                        field: "FechaCreacionOperacion",
+                        title: "Fecha de creacion",
+                        width: "120px",
+                        format: "{0:dd/MM/yyyy}",
+                        filterable: {
+                            messages: {
+                                info: "Rango de creación: "
                             }
+                        }
             },
                         //COL8 Estado
-                        {
-                            field: "Estado",
-                            title: "Estado",
-                            width: "120px",
-                            filterable: {
-                                extra: false,
-                                operators: {
-                                    string: {
-                                        contains: "Contiene",
-                                        eq: "Es igual a",
-                                        neq: "No es igual a"
-                                    }
-                                },
-                                messages: {
-                                    info: "Filtrar por estado: ",
-                                    filter: "Filtrar",
-                                    clear: "Limpiar"
+                    {
+                        field: "Estado",
+                        title: "Estado",
+                        width: "120px",
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    contains: "Contiene",
+                                    eq: "Es igual a",
+                                    neq: "No es igual a"
                                 }
+                            },
+                            messages: {
+                                info: "Filtrar por estado: ",
+                                filter: "Filtrar",
+                                clear: "Limpiar"
                             }
-            }
-        ]
-                })
-                // function filterMenu(e) {
-                //     if (e.field == "FechaCreacionOperacion") {
-                //         var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
-                //         beginOperator.value("gte");
-                //         beginOperator.trigger("change");
-                //         var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
-                //         endOperator.value("lte");
-                //         endOperator.trigger("change");
-                //         e.container.find(".k-dropdown").hide();
-                //     }
-                // }
-            $("#f05operaciones").css("display","block");
+                        }
+                    }],
+                dataBound: function (e) {
+                    var items = this._data;
+                    var rows = e.sender.tbody.children();
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = $(rows[i]);
+                        if (i % 2 == 0) {
+                            row.addClass("row-default");
+                        } else {
+                            row.addClass("row-alt");
+                        };
+                    };
+                }
+            });
+
+            $("#f05operaciones").css("display", "block");
         } else {
-            $("#f05operaciones").css("display","none");
+            $("#f05operaciones").css("display", "none");
             var notificationElement = $("#notification");
             notificationElement.kendoNotification();
             var notificationWidget = notificationElement.data("kendoNotification");
