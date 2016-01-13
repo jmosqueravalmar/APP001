@@ -453,13 +453,11 @@ app.funcionalidad01 = kendo.observable({
              
             $("#CondicionesDePago").append(strHTMLCondicionesDePago);
             */
-
-
             for (var i = 0; i < data.length; i++) {
-
+                strHTMLCondicionesDePago += " </br>";
                 strHTMLCondicionesDePago += "<div  class=\"row\">"
                 strHTMLCondicionesDePago += "<div  class=\"col-xs-12\">"
-                strHTMLCondicionesDePago += "<div class=\"btnDetPopUp\" onclick=\"OpenModCondPago('" + data[i].Servicio
+                strHTMLCondicionesDePago += "<div class=\"btn btn-default btn-block font-boton b_color_1 tex_boton_2\" onclick=\"OpenModCondPago('" + data[i].Servicio
                 strHTMLCondicionesDePago += "','" + data[i].DiasPago
                 strHTMLCondicionesDePago += "','" + data[i].HastaMonto
                 strHTMLCondicionesDePago += "','" + data[i].Moneda

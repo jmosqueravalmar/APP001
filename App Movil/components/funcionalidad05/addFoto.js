@@ -66,10 +66,6 @@ function playAudio(ID) {
                 console.log("vert");
                 $("#f05imgShow").attr("style", "width: 100%;");
             }
-            //fin
-            // $("#f05dialogImageView").data("kendoWindow").setOptions({
-            //     height: img.clientHeight - 12
-            // });
             $("#f05dialogImageView").data("kendoWindow").center();
             $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
         },
@@ -82,19 +78,10 @@ function playAudio(ID) {
         },
         actions: ["Maximize", "Close"]
     });
-
-    $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
     $("#f05dialogImageView").data("kendoWindow").center();
-    $("#f05activarZoom").css("display", "block");
-    // $(".km-scroll-container").css({
-    //     "-webkit-transform": "",
-    //     "transform-origin": ""
-    // });
-    // $(".km-touch-scrollbar").removeAttr("style");
-    // "transform-origin": "",
-    // "width": "",
-    // "transform": ""
+    $("#f05dialogImageView_wnd_title").html('Imagen: ' + ID); //  '<a class="btn btn-default btn-xs pull-right"><i class="fa fa-trash-o text-muted"></i></a>' 
 
+    $("#f05activarZoom").css("display", "block");
     $("#f05dialogImageView").data("kendoWindow").open();
 
 }
@@ -122,7 +109,7 @@ function f05enviarBackend() {
     //Iteramos los audios grabados en la memoria de nuestros smartphone, para hacer la carga de audios en el backend services
 
     kendo.ui.progress($("#f05listaImage"), true);
-    $("a[type='newAudio']").each(function (index) {
+    $("a[type='newImage']").each(function (index) {
         var fileToUpload = $(this).attr("value"); //capturedFiles[0].fullPath;
         upload(fileToUpload);
         $(this).parent().remove();
@@ -160,45 +147,52 @@ function upload(fileToUpload) {
 var toquen = 0;
 
 function f05newImage(archivo) {
-        //$("#newAudio").append('<button type="button" class="list-group-item"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '" ><i class="fa fa-trash-o text-muted"></i></a> Nuevo Audio<span style="float:right"><a class="btn btn-info btn-xs" onclick="playAudio('archivo')"><i class="fa fa-play"></i></a></span></button>')
         toquen = toquen + 1;
         var idnota = "local" + toquen;
-        $("#f05newImage").append('<button type="button" class="list-group-item" id="btn' + idnota + '"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-hdd-o text-muted"></i> Nueva Imagen: ' + idnota + '<tag id="divAccion' + idnota + '" type="divIsPlay" align="center"></tag><span style="float:right"><input value="' + archivo + '" id="archivo' + idnota + '" type="hidden"></input><a class="btn btn-info btn-xs" onclick="playAudio(' + "'" + idnota + "'" + ')"><i id="iconBtn' + idnota + '" type="iconBtn" class="fa fa-eye"></i></a></span></button>');
+        $("#f05newImage").append('<button type="button" class="list-group-item" id="btn' + idnota + '"><a class="btn btn-default btn-xs" type="newImage" value="' + archivo + '"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-hdd-o text-muted"></i> Nueva Imagen: ' + idnota + '<tag id="divAccion' + idnota + '" type="divIsPlay" align="center"></tag><span style="float:right"><input value="' + archivo + '" id="archivo' + idnota + '" type="hidden"></input><a class="btn btn-info btn-xs" onclick="playAudio(' + "'" + idnota + "'" + ')"><i id="iconBtn' + idnota + '" type="iconBtn" class="fa fa-eye"></i></a></span></button>');
 
         $("#f05btnSendBS").removeAttr("disabled");
     }
     //Delete new audio
-$(document).on("click", "a[type='newAudio']", function () {
-    //$(this).parent().remove();
+$(document).on("click", "a[type='newImage']", function () {
+    var idimage = $(this).parent().attr("id").replace("btn", "");
+    
     $("#f05dialogImage").kendoWindow({
         title: "Confirmación",
         scrollable: false,
         modal: true,
-        visible: false
+        visible: false,
+        activate: function () {
+            $("#f05dialogImage").data("kendoWindow").center();
+        }
     });
-    idnota = $(this).parent().attr("id").replace("btn", "");
-    $("#f05dialogImage").data("kendoWindow").open();
-    $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idnota + " de la operación?");
     $("#f05dialogImage").data("kendoWindow").center();
-    $("#f05accionImage").attr('onclick', 'f05deleteImage( idnota )');
+    
+    $("#f05dialogImage").data("kendoWindow").open();
+    $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idimage + " de la operación?");
+
+    $("#f05accionImage").attr('onclick', 'f05deleteImage( idimage )');
 });
 
-function f05deleteImage(idAudio) {
-    if ($.isNumeric(idAudio)) {
+function f05deleteImage(idImage) {
+    if ($.isNumeric(idImage)) {
         $("#f05dialogImage").kendoWindow({
             title: "Confirmación",
             scrollable: false,
             modal: true,
-            visible: false
+            visible: false,
+            activate: function () {
+                $("#f05dialogImage").data("kendoWindow").center();
+            }
         });
-        $("#f05dialogImage").data("kendoWindow").open();
         $("#f05dialogImage").data("kendoWindow").center();
-        $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idAudio + " de la operación?");
-        $("#f05accionImage").attr('onclick', 'f05accionImage("ndelete","",' + idAudio + ',"")');
+        $("#f05dialogImage").data("kendoWindow").open();
+        $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idImage + " de la operación?");
+        $("#f05accionImage").attr('onclick', 'f05accionImage("ndelete","",' + idImage + ',"")');
     } else {
         $('#f05dialogImage').data('kendoWindow').close();
-        $("#btn" + idAudio).remove();
-        if ($('a[type="newAudio"]').length == 0) {
+        $("#btn" + idImage).remove();
+        if ($('a[type="newImage"]').length == 0) {
             $("#f05btnSendBS").attr("disabled", "disabled");
         }
     }
@@ -229,7 +223,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
             data = JSON.parse(datos);
             idArchivo = data[0].ID;
             if (data[0].Ejecucion == 1) { // Si Operaciones/InsertarFotos no se ejecutó correctamente
-                notificationWidget.show("No se insertó correctamente en la tabla fotos", "danger");
+                notificationWidget.show("No se insertó correctamente en la tabla fotos", "error");
                 kendo.ui.progress($("#f05listaImage"), false);
             } else {
                 $.ajax({
@@ -265,7 +259,6 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                                 // alert("UploadUrl tipo: " + 2);
                                 // alert("UploadUrl subPath: " + f05NumOperacion);
                                 // alert("UploadUrl datos: " + datos);
-
                                 kendo.ui.progress($("#f05listaImage"), false);
                                 if (parseInt(datos) == 0) {
                                     $('#f05viewImage').data('kendoListView').dataSource.read();
@@ -286,19 +279,19 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                                         });
 
                                 } else {
-                                    notificationWidget.show("No se realizó correctamente el upload", "danger");
+                                    notificationWidget.show("No se realizó correctamente el upload", "error");
                                     kendo.ui.progress($("#f05listaImage"), false);
                                 };
                             },
                             error: function () {
                                 kendo.ui.progress($("#f05listaImage"), false);
-                                notificationWidget.show("El servicio no está disponible", "danger");
+                                notificationWidget.show("El servicio no está disponible", "error");
                                 valido = false;
                             }
                         });
                     },
                     error: function () {
-                        notificationWidget.show("No se puede establecer la conexión al servicio", "danger");
+                        notificationWidget.show("No se puede establecer la conexión al servicio", "error");
                         valido = false;
                     }
                 });
@@ -308,7 +301,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
             }
         },
         error: function () {
-            notificationWidget.show("No se puede establecer la conexión al servicio", "danger");
+            notificationWidget.show("No se puede establecer la conexión al servicio", "error");
         }
     });
 
@@ -328,12 +321,12 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                 $('#f05viewImage').data('kendoListView').refresh();
 
             } else {
-                notificationWidget.show("No se eliminó la imagen correctamente", "danger");
+                notificationWidget.show("No se eliminó la imagen correctamente", "error");
             }
             $('#f05dialogImage').data('kendoWindow').close();
         },
         error: function () {
-            notificationWidget.show("No se puede establecer la conexión al servicio", "danger");
+            notificationWidget.show("No se puede establecer la conexión al servicio", "error");
             valido = false;
         }
     });

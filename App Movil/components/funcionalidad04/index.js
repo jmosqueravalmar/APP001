@@ -276,7 +276,7 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
                     var rows = e.sender.tbody.children();
                     for (var i = 0; i < rows.length; i++) {
                         var row = $(rows[i]);
-                        if (i % 2 ==0) {
+                        if (i % 2 == 0) {
                             row.addClass("row-default");
                         } else {
                             row.addClass("row-alt");
@@ -356,7 +356,7 @@ function f04SelectGridDetOperacion() {
         $("#f04LVHoraInicio").text(HoraInicio);
         $("#f04LVEstado").text(Estado);
 
-        $("#f04Detalle").text(data[0].Detalle);
+        $("#f04Detalle").val(data[0].Detalle);
 
         getDespachador(data[0].IdDespachador);
 
@@ -434,7 +434,6 @@ function Reasignar() {
             var data = this.data();
             // data[0].Msg
             // console.log("DFC >>> MSG REASIGNACION >>> " + data[0].Msg);
-
             $("#dialogReasinacion").kendoWindow({
                 scrollable: false,
                 modal: true,
@@ -445,9 +444,9 @@ function Reasignar() {
                     $("#dialogReasinacion").data("kendoWindow").center();
                 }
             });
+            $("#dialogReasinacion").data("kendoWindow").center();
             $("#dialogReasinacion").data("kendoWindow").title('Reasignación');
             $("#dialogReasinacion").data("kendoWindow").open();
-            $("#dialogReasinacion").data("kendoWindow").center();
             // $("#msgReasinacion").html('Accion de REASIGNACION');
             $("#msgReasinacion").html(data[0].Msg);
             window.location.href = "#f04ContenedorOperaciones";

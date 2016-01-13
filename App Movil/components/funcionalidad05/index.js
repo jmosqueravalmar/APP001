@@ -480,10 +480,13 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
     $("#dialog").kendoWindow({
         scrollable: false,
         modal: true,
-        visible: false
+        visible: false,
+        activate: function () {
+            $("#dialogReasinacion").data("kendoWindow").center();
+        }
     });
-    $("#dialog").data("kendoWindow").title("Confirmar: " + accion);
     $("#dialog").data("kendoWindow").center();
+    $("#dialog").data("kendoWindow").title("Confirmar: " + accion);
     $("#dialog").data("kendoWindow").open();
 
     $("#btnFuncionFoto05").text("Cancelar");

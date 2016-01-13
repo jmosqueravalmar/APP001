@@ -1,4 +1,4 @@
-$("#f03verCaptureView").attr("onclick","kendo.mobile.application.navigate('components/funcionalidad03/captureView.html');f03getAudios();");
+$("#f03verCaptureView").attr("onclick", "kendo.mobile.application.navigate('components/funcionalidad03/captureView.html');f03getAudios();");
 f03getAudios();
 
 function id(element) {
@@ -63,8 +63,8 @@ function playAudio(ID) {
     if (isAudioPlaying) {
         if (isAudioPause == ID) {
             //alert($("#iconBtn" + ID).attr("class"));
-            if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") {//si se está reproduciendo
-                $("#iconBtn" + ID).attr("class", "fa fa-play");//agregamos icono play
+            if ($("#iconBtn" + ID).attr("class") == "fa fa-pause") { //si se está reproduciendo
+                $("#iconBtn" + ID).attr("class", "fa fa-play"); //agregamos icono play
                 isAudioPause = ID;
                 mediaContent.pause();
                 return;
@@ -122,7 +122,7 @@ function f03getAudios() {
             template: kendo.template($("#f03TemLA").html())
         });
     });
-    
+
 }
 
 function f03enviarBackend() {
@@ -172,28 +172,41 @@ function f03newAudio(archivo) {
         $("#newAudio").append('<button type="button" class="list-group-item" id="btn' + idnota + '"><a class="btn btn-default btn-xs" type="newAudio" value="' + archivo + '"><i class="fa fa-trash-o text-muted"></i></a>&nbsp&nbsp&nbsp<i class="fa fa-hdd-o text-muted"></i> Nuevo Audio: ' + idnota + '<tag id="divAccion' + idnota + '" type="divIsPlay" align="center"></tag><span style="float:right"><input value="' + archivo + '" id="archivo' + idnota + '" type="hidden"></input><a class="btn btn-info btn-xs" onclick="playAudio(' + "'" + idnota + "'" + ')"><i id="iconBtn' + idnota + '" type="iconBtn" class="fa fa-play"></i></a></span></button>');
 
         $("#btnSendBS").removeAttr("disabled");
+
     }
     //Delete new audio
 $(document).on("click", "a[type='newAudio']", function () {
-    
-    //$(this).parent().remove();
-    idnota = $(this).parent().attr("id").replace("btn", "");
-    $("#dialogAudio").data("kendoWindow").open();
+    var idnota = $(this).parent().attr("id").replace("btn", "");
+
+    $("#dialogAudio").kendoWindow({
+        title: "Confirmación",
+        scrollable: false,
+        modal: true,
+        visible: false,
+        activate: function () {
+            $("#dialogAudio").data("kendoWindow").center();
+        }
+    });
+
     $("#dialogAudio").data("kendoWindow").center();
+    $("#dialogAudio").data("kendoWindow").open();
     $("#divMensajeConf").text("¿Desea eliminar el audio " + idnota + " de la tarea?");
     $("#accionAudio").attr('onclick', 'f03deleteAudio( idnota )');
 });
 
 function f03deleteAudio(idAudio) {
-    $("#dialogAudio").kendoWindow({
-        title: "Confirmación",
-        scrollable: false,
-        modal: true,
-        visible: false
-    });
     if ($.isNumeric(idAudio)) {
-        $("#dialogAudio").data("kendoWindow").open();
+        $("#dialogAudio").kendoWindow({
+            title: "Confirmación",
+            scrollable: false,
+            modal: true,
+            visible: false,
+            activate: function () {
+                $("#dialogAudio").data("kendoWindow").center();
+            }
+        });
         $("#dialogAudio").data("kendoWindow").center();
+        $("#dialogAudio").data("kendoWindow").open();
         $("#divMensajeConf").text("¿Desea eliminar el audio " + idAudio + " de la tarea?");
         $("#accionAudio").attr('onclick', 'f03accionAudio("ndelete","",' + idAudio + ',"")');
     } else {
@@ -266,19 +279,17 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                                         });
 
                                 } else {
-                                    notificationWidget.show("No se descargó el archivo del backend service", "danger");
+                                    notificationWidget.show("No se descargó el archivo del backend service", "error");
                                 };
                             },
                             error: function () {
                                 kendo.ui.progress($("#listaAudios"), false);
-                                notificationWidget.show("El servicio no está disponible", "danger");
-                                valido = false;
+                                notificationWidget.show("El servicio no está disponible", "error");
                             }
                         });
                     },
                     error: function () {
-                        notificationWidget.show("No se puede establecer la conexión al servicio", "danger");
-                        valido = false;
+                        notificationWidget.show("No se puede establecer la conexión al servicio", "error");
                     }
                 });
                 $('#f03viewAudios').data('kendoListView').dataSource.read();
@@ -286,7 +297,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
             }
         },
         error: function () {
-            notificationWidget.show("No se puede establecer la conexión al servicio", "danger");
+            notificationWidget.show("No se puede establecer la conexión al servicio", "error");
         }
     });
 
@@ -307,12 +318,12 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                 $('#f03viewAudios').data('kendoListView').refresh();
 
             } else {
-                notificationWidget.show("No se eliminó la nota correctamente", "danger");
+                notificationWidget.show("No se eliminó la nota correctamente", "error");
             }
             $('#dialogAudio').data('kendoWindow').close();
         },
         error: function () {
-            notificationWidget.show("No se puede establecer la conexión al servicio", "danger");
+            notificationWidget.show("No se puede establecer la conexión al servicio", "error");
             valido = false;
         }
     });

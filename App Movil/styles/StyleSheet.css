@@ -1,134 +1,90 @@
-.logoBase
-{
-    width: 70%; 
+.logoBase {
+    width: 70%;
     margin: 0px 0px -11px 0px;
 }
-
 .logoBase2 {
-   width: 45%;
-   margin: 0px 0px -5px 0px;
+    width: 45%;
+    margin: 0px 0px -5px 0px;
 }
-
-.footerUsuario
-{
+.footerUsuario {
     float: left;
     padding: 30px 0px 0px 10px;
     font-style: oblique;
     font-weight: bold;
 }
-
-.AlertaTareas1
-{
+.AlertaTareas1 {
     /*Rojo*/
+    
     background-color: #f00 !important;
     color: #FFFFFF;
     /*border: black 1px solid;*/
 }
-
-.AlertaTareas2
-{
+.AlertaTareas2 {
     /*Naranja*/
+    
     background-color: #EF7A1D !important;
     color: #FFFFFF;
 }
-
-#id2 , #id5 {
+#id2,
+#id5 {
     background-color: #EF7A1D !important;
     color: #FFFFFF;
 }
-
 #id4 {
-   	background-color: #f00 !important;
+    background-color: #f00 !important;
     color: #FFFFFF;
 }
-
 /*#tareas1 div {
   	background-image: url(../images/grid.mobile.jpg) !important;
     background-repeat: round !important;  
 }*/
-
-
 /* STYLE FUNCIONALIDAD 01*/
-.btnDetMorosidadUtilizacionLinea{
-    border-style: solid;
-    border-color: Black;
-    border-width: 1px;
+
+summary::-webkit-details-marker {
+    display: none
+}
+summary:before {
+    background: green;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    min-width: 100%;
-    background-color: #0053B3;
-    color: #FFFFFF;
-    padding: 10px;
+    content: "[+]";
+    color: #FFF;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    padding-top: 1px;
+    padding-left: 1px;
+    padding-right: 2px;
+    padding-bottom: 2px;
     text-align: center;
 }
-
-.btnLlamar{
-    border-style: solid;
-    border-color: Black;
-    border-width: 1px;
+details[open] summary:before {
+    background: red;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    min-width: 100%;
-    background-color: #449d44;
-    color: #FFFFFF;
-    padding: 10px;
-    text-align: center;    
+    content: "[--]";
+    color: #FFF;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 10px 0 0;
+    padding: 0;
+    padding-top: 1px;
+    padding-left: 1px;
+    padding-right: 2px;
+    padding-bottom: 2px;
 }
-
-    summary::-webkit-details-marker {
-    	display: none
-    }
-    
-    summary:before {
-      background: green;
-      border-radius: 5px;
-      content: "[+]";
-      color: #FFF;
-      font-size: 1.2em;
-      font-weight: bold;
-      margin: 0 10px 0 0;
-      padding-top: 1px;
-      padding-left: 1px;
-      padding-right: 2px;
-      padding-bottom: 2px;
-      text-align: center;
-    }
-    
-    details[open] summary:before {
-     background: red;
-      border-radius: 5px;
-      content: "[--]";
-      color: #FFF;
-      font-size: 1.2em;
-      font-weight: bold;
-      margin: 0 10px 0 0;
-      padding: 0;
-      padding-top: 1px;
-      padding-left: 1px;
-      padding-right: 2px;
-      padding-bottom: 2px;
-    }
-
-.StandardDetails details summary{
+.StandardDetails details summary {
     display: block;
 }
-
-.ItemLstCliente{
+.ItemLstCliente {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
 .MarginTop7 {
-     margin-top: 7px;   
+    margin-top: 7px;
 }
-
 .MarginBotton5 {
-     margin-bottom: 5px;
+    margin-bottom: 5px;
 }
-
-.BorderItemLstCliente{
+.BorderItemLstCliente {
     /*margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 3px;
@@ -138,6 +94,7 @@
     border-radius: 10px;
     min-height:40px;
     text-align: justify;*/
+    
     border-style: solid;
     border-width: 1px;
     border-radius: 10px;
@@ -145,13 +102,14 @@
     text-align: center;
     display: table;
     width: 100%;
+    border: 1px solid #ddd;
 }
 
-.DetCondPagoServicio{
+.DetCondPagoServicio {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 3px;
-    margin-right:3px;
+    margin-right: 3px;
     border-style: solid;
     border-width: 1px;
     border-radius: 10px;
@@ -162,42 +120,25 @@
     /*vertical-align: middle;*/
 }
 
-.btnDetPopUp{
-    border-style: solid;
-    border-color: Black;
-    border-width: 1px;
-    border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    min-width: 100%;
-    background-color: #0053B3;
-    color: #FFFFFF;
-    padding: 10px;
-    text-align: center;
-}
-
-.PopUpCondPago{
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px;
-    width: 100%; 
-}
-
-.PopUpTarifas{
+.PopUpCondPago {
     border-style: solid;
     border-width: 2px;
     border-radius: 10px;
     width: 100%;
 }
-
-.TitlePopUp{
+.PopUpTarifas {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    width: 100%;
+}
+.TitlePopUp {
     min-width: 100%;
     background-color: #0053B3;
-    color: #FFFFFF;    
+    color: #FFFFFF;
     font-size: large;
     text-align: center;
 }
-
 /*
 div {
    position:absolute; height:100%; 
@@ -209,40 +150,31 @@ h1 {
 }
 */
 
-
-.container-fluid { 
+.container-fluid {
     border-bottom: 1px solid !important;
 }
-
 #lstCliente {
     margin: 0px;
     padding: 0px;
 }
-
 #lstCliente div {
-        margin: 5px 0px !important
+    margin: 5px 0px !important
 }
-
 .b_color_1 {
     background-color: #0053B3 !important;
 }
-
 .b_color_2 {
     background-color: #EF7A0D !important;
 }
-
 .border_1 {
     border-color: #0053B3 !important;
 }
-
 .color_1 {
     color: #0053B3 !important;
 }
-
 .color_2 {
     color: #EF7A0D !important;
 }
-
 /*
 naranja : #EF7A0D
 
@@ -257,74 +189,62 @@ h1 {
    vertical-align: middle;
 }
 */
-
 /* standar */
+/* para barra navegacion superior */
 
-/* para barra navegacion superior */ 
 .font-nav-bar {
     font-size: 20px !important;
     font-weight: lighter !important;
 }
-
 /* para los botones */
+
 .font-boton {
-	font-size: 15px !important;
+    font-size: 15px !important;
     font-weight: bold !important;
 }
-
 .font-cuerpo {
-	font-size: 13px;
+    font-size: 13px;
     font-weight: normal !important;
 }
-
 .centrar {
-    text-align:center !important;
-} 
-
-.divBotones {
-    width:46% !important; 
-    float:left;
+    text-align: center !important;
 }
-
-#GoLogin, #GoClean {
+.divBotones {
+    width: 46% !important;
+    float: left;
+}
+#GoLogin,
+#GoClean {
     width: 100% !important;
     background-color: #EF7A0D;
     color: white;
     font-weight: bold;
 }
-
 /* standar */
-
 /*  funcionalidad 2 */
 
 .input-group-addon {
     width: 55% !important;
 }
-
 .input-group input {
-    text-align:center;
+    text-align: center;
 }
-
 .icono_centrado {
     float: left;
     width: 10%;
-    height: 20px; 
+    height: 20px;
 }
-
 .icono_sep {
     padding-top: 7px;
 }
-
 .span_centro {
     width: 90%;
     float: right;
 }
-
 .cabecera_usuario {
-	margin: 5px 15px;
-    background-color: white;    
+    margin: 5px 15px;
+    background-color: white;
 }
-
 /* funcionalidad 2 */
 
 .contenedorBusqueda {
@@ -332,32 +252,26 @@ h1 {
     margin: 0px !important;
     background-color: white !important;
 }
-
 .tex_boton_2 {
-    color:white !important; 
+    color: white !important;
     border: #EF7A0D !important;
 }
-
 .check_bajo {
-    background-color:green !important; 
-    color:white !important;
+    background-color: green !important;
+    color: white !important;
 }
-
 .check_medio {
-    background-color:#EF7A0D !important; 
-    color:white !important;
+    background-color: #EF7A0D !important;
+    color: white !important;
 }
-
 .check_alto {
-    background-color:red !important; 
-    color:white !important;
+    background-color: red !important;
+    color: white !important;
 }
-
 #divBtnAccion div {
     margin-bottom: 15px !important;
 }
-
-.c_login_text { 
+.c_login_text {
     width: 50%;
     float: left;
     height: 34px;
@@ -365,14 +279,11 @@ h1 {
     line-height: 2;
     font-weight: bolder;
 }
-
 .c_grupo_login {
-    width:100%; 
-    padding:5px 10px; 
-    height:40px;
+    width: 100%;
+    padding: 5px 10px;
+    height: 40px;
 }
-
-textarea
-{
-  width:100%;
+textarea {
+    width: 100%;
 }

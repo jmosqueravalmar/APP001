@@ -270,7 +270,10 @@ function viewFormTarea() {
             title: "Confirmación",
             scrollable: false,
             modal: true,
-            visible: false
+            visible: false,
+            activate: function () {
+                $("#f03dialog").data("kendoWindow").center();
+            }
         });
     }
     //getSelectTipoTarea -> datos del select tipo de tarea
@@ -378,8 +381,8 @@ function getSelectCliente(accion) {
 }
 
 function modalTarea(accion) {
-    $('#f03dialog').data('kendoWindow').open();
     $("#f03dialog").data("kendoWindow").center();
+    $('#f03dialog').data('kendoWindow').open();
     switch (accion) {
         case 'insert':
             $("#f03divMensaje").text("¿Realmente desea agregar la tarea?");
@@ -602,7 +605,10 @@ function selectGrid() {
         title: "Confirmación",
         scrollable: false,
         modal: true,
-        visible: false
+        visible: false,
+        activate: function () {
+            $("#f03dialog").data("kendoWindow").center();
+        }
     });
 }
 
@@ -758,7 +764,7 @@ function accionTipoTarea(accion) {
                     },
                     async: false,
                     success: function (datos) {
-                        
+
                         var data = [];
                         data = JSON.parse(datos);
 

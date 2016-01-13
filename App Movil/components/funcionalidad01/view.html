@@ -12,7 +12,7 @@
     
     <!-- START_CUSTOM_CODE_funcionalidad01 -->
 
-    <div id="lstCliente" class="container-fluid"></div>
+    <div id="lstCliente" class="container-fluid" style="display:none;"></div>
     
     <script type="text/x-kendo-tmpl" id="tmpLstCliente">
          <div class="row BorderItemLstCliente">
@@ -141,7 +141,7 @@
                 <div class="col-xs-12">
                     <!-- TODO-WIP -->
                     <br>
-                    <div id="btnLlamar" class="btnLlamar" onclick="MakeCall();">LLAMAR</div>
+                    <button id="btnLlamar" class="btn btn-success btn-block font-boton tex_boton_2" onclick="MakeCall();"> <span class="fa fa-phone" aria-hidden="true"></span>&nbsp&nbsp&nbsp LLAMAR</button>
                 </div>            
             </div>            
             <div class="row">
@@ -214,7 +214,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <!-- TODO-WIP -->                    
-                    <div id="btnMorosidadUtilizacionLinea" class="btnDetMorosidadUtilizacionLinea" onclick="GoToDetMorosidadUtilizacionLinea();" >Morosidad y Utilizacion de Linea</div>
+                    <button id="btnMorosidadUtilizacionLinea" class="btn btn-default btn-block font-boton b_color_1 tex_boton_2" onclick="GoToDetMorosidadUtilizacionLinea();" >Morosidad y Utilizacion de Linea</button>
                 </div>
             </div>
         </details>
@@ -909,11 +909,8 @@
         </div>                
         <br>                
         <div class="row">
-            <div class="col-xs-7">
-                &nbsp;
-            </div>
-            <div class="col-xs-5">
-                    <button type="button" onclick="$('#ModTarifas').data('kendoMobileModalView').close();">Cerrar</button>                        
+            <div class="col-xs-12">
+                    <button type="button" class="form-control btn-default btn-block" onclick="$('#ModTarifas').data('kendoMobileModalView').close();">Cerrar</button>                        
             </div>
         </div>    
         <br>                
@@ -971,11 +968,8 @@
         </div>
         <br>                
         <div class="row">
-            <div class="col-xs-7">
-                &nbsp;
-            </div>
-            <div class="col-xs-5">
-                    <button type="button" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>                        
+            <div class="col-xs-12">
+                    <button type="button" class="form-control btn-default btn-block" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>                        
             </div>
         </div>    
         <br>
