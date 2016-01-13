@@ -151,6 +151,11 @@
     background-color: rgb(239, 122, 29);
 }
 
+/* ->Fondo de pantalla por defecto: defecto->f4f4f4   BORRAR SI ES NECESARIO desde aqui */
+.km-flat, .km-flat .km-navbar, .km-flat .k-toolbar, .km-flat .km-detail, .km-flat .km-content {
+    background-color: #FFF; 
+}
+/* ->hasta aqui */
 
 /* END_CUSTOM_CODE_kendoUiMobileApp */
 

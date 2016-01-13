@@ -122,11 +122,6 @@ function f05enviarBackend() {
     //Iteramos los audios grabados en la memoria de nuestros smartphone, para hacer la carga de audios en el backend services
 
     kendo.ui.progress($("#f05listaImage"), true);
-    //Notificaciones
-    var notificationElement = $("#notification");
-    notificationElement.kendoNotification();
-    var notificationWidget = notificationElement.data("kendoNotification");
-    //End
     $("a[type='newAudio']").each(function (index) {
         var fileToUpload = $(this).attr("value"); //capturedFiles[0].fullPath;
         upload(fileToUpload);
@@ -211,6 +206,11 @@ function f05deleteImage(idAudio) {
 
 function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
     var txtidUsuario = sessionStorage.getItem("sessionUSER");
+    //Notificaciones
+    var notificationElement = $("#notification");
+    notificationElement.kendoNotification();
+    var notificationWidget = notificationElement.data("kendoNotification");
+    //End
     accion == "insert" && $.ajax({
         type: "POST",
         url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/InsertarFotos',
@@ -321,6 +321,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
         },
         async: false,
         success: function (datos) {
+
             if (datos == 0) {
                 notificationWidget.show("Se eliminó la imagen " + idAudio + " de la operación", "success");
                 $('#f05viewImage').data('kendoListView').dataSource.read();

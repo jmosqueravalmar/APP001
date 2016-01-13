@@ -84,18 +84,18 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
     });
 
     f05dsOperaciones.fetch(function () {
-        if (f05dsOperaciones.total() > 0) {
-            function filterMenu(e) {
-                if (e.field == "FechaCreacionOperacion") {
-                    var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
-                    beginOperator.value("gte");
-                    beginOperator.trigger("change");
-                    var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
-                    endOperator.value("lte");
-                    endOperator.trigger("change");
-                    e.container.find(".k-dropdown").hide();
-                }
+        function filterMenu(e) {
+            if (e.field == "FechaCreacionOperacion") {
+                var beginOperator = e.container.find("[data-role=dropdownlist]:eq(0)").data("kendoDropDownList");
+                beginOperator.value("gte");
+                beginOperator.trigger("change");
+                var endOperator = e.container.find("[data-role=dropdownlist]:eq(2)").data("kendoDropDownList");
+                endOperator.value("lte");
+                endOperator.trigger("change");
+                e.container.find(".k-dropdown").hide();
             }
+        }
+        if (f05dsOperaciones.total() > 0) {
             $("#f05operaciones").kendoGrid({
                 dataSource: f05dsOperaciones,
                 filterable: true,
@@ -272,6 +272,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                             }
                         }
                     }],
+                //dataBound -> para pintar la fila rojo (si es menor 2 dias), naranja (si es menor a 7 dias) y blanco (mayor a 7 dias) 
                 dataBound: function (e) {
                     var items = this._data;
                     var rows = e.sender.tbody.children();
@@ -281,11 +282,10 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
                             row.addClass("row-default");
                         } else {
                             row.addClass("row-alt");
-                        };
-                    };
+                        }
+                    }
                 }
             });
-
             $("#f05operaciones").css("display", "block");
         } else {
             $("#f05operaciones").css("display", "none");
