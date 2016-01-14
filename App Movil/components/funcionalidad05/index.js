@@ -52,7 +52,16 @@ function f05FechaAtencionConsilidato() {
 
 //getOperaciones -> cargamos el grid tareas
 function f05getOperaciones(f05FchAtencionConsilidato) {
-    console.log("DFC >>> param fx " + f05FchAtencionConsilidato);
+    var notificationElement = $("#notification");
+    notificationElement.kendoNotification();
+    var notificationWidget = notificationElement.data("kendoNotification");
+    if (!$("#f05FchAtencionConsilidato").val()) {
+        notificationWidget.show("Fecha incorrecta", "error");
+        $('#f05FchAtencionConsilidato').parent().addClass("has-error");
+        return;
+    } else {
+        $('#f05FchAtencionConsilidato').parent().removeClass("has-error");
+    }
 
     //var idSS = sessionStorage.getItem("sessionUSER");
     var f05dsOperaciones = new kendo.data.DataSource({
@@ -289,9 +298,6 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
             $("#f05operaciones").css("display", "block");
         } else {
             $("#f05operaciones").css("display", "none");
-            var notificationElement = $("#notification");
-            notificationElement.kendoNotification();
-            var notificationWidget = notificationElement.data("kendoNotification");
             notificationWidget.show("No se encontraron operaciones el " + f05FchAtencionConsilidato, "error");
         }
     });
@@ -476,21 +482,21 @@ function getBotonera(NumOperacion) {
 
 function tipoFuncion(accion, NumOperacion, Ultimo) {
     // Definimos el modal de confirmación aquí
-    $("#dialog").css("display", "block");
-    $("#dialog").kendoWindow({
+    $("#f05dialog").css("display", "block");
+    $("#f05dialog").kendoWindow({
         scrollable: false,
         modal: true,
         visible: false,
         activate: function () {
-            $("#dialogReasinacion").data("kendoWindow").center();
+            $("#f05dialog").data("kendoWindow").center();
         }
     });
-    $("#dialog").data("kendoWindow").center();
-    $("#dialog").data("kendoWindow").title("Confirmar: " + accion);
-    $("#dialog").data("kendoWindow").open();
+    $("#f05dialog").data("kendoWindow").center();
+    $("#f05dialog").data("kendoWindow").title("Confirmar: " + accion);
+    $("#f05dialog").data("kendoWindow").open();
 
     $("#btnFuncionFoto05").text("Cancelar");
-    $("#btnFuncionFoto05").attr("onclick", "$('#dialog').data('kendoWindow').close();");
+    $("#btnFuncionFoto05").attr("onclick", "$('#f05dialog').data('kendoWindow').close();");
     $("#cuerpoModal").html('');
 
     switch (accion) {
@@ -525,7 +531,7 @@ function tipoFuncion(accion, NumOperacion, Ultimo) {
         case "Fin":
             accion = "Terminar";
             $("#btnFuncionFoto05").html('<span class="fa fa-camera" aria-hidden="true"></span> Fotos');
-            $("#btnFuncionFoto05").attr("onclick", "kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');$('#dialog').data('kendoWindow').close();");
+            $("#btnFuncionFoto05").attr("onclick", "kendo.mobile.application.navigate('components/funcionalidad05/captureView.html');$('#f05dialog').data('kendoWindow').close();");
             break;
         default:
             break;
@@ -567,7 +573,7 @@ function f05funcion(accion, NumOperacion) {
                     var data = [];
                     data = JSON.parse(datos);
                     if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
+                        $('#f05dialog').data('kendoWindow').close();
                         getBotonera(NumOperacion);
                         notificationWidget.show("Operación: Iniciar realizado correctamente", "success");
                     } else {
@@ -593,7 +599,7 @@ function f05funcion(accion, NumOperacion) {
                     var data = [];
                     data = JSON.parse(datos);
                     if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
+                        $('#f05dialog').data('kendoWindow').close();
                         getBotonera(NumOperacion);
                         notificationWidget.show("Operación: Canal realizado correctamente", "success");
                     } else {
@@ -618,7 +624,7 @@ function f05funcion(accion, NumOperacion) {
                     var data = [];
                     data = JSON.parse(datos);
                     if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
+                        $('#f05dialog').data('kendoWindow').close();
                         getBotonera(NumOperacion);
                         notificationWidget.show("Operación: Permiso realizado correctamente", "success");
                     } else {
@@ -644,7 +650,7 @@ function f05funcion(accion, NumOperacion) {
                     var data = [];
                     data = JSON.parse(datos);
                     if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
+                        $('#f05dialog').data('kendoWindow').close();
                         getBotonera(NumOperacion);
                         notificationWidget.show("Operación: Levante realizado correctamente", "success");
                     } else {
@@ -669,7 +675,7 @@ function f05funcion(accion, NumOperacion) {
                     var data = [];
                     data = JSON.parse(datos);
                     if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
+                        $('#f05dialog').data('kendoWindow').close();
                         getBotonera(NumOperacion);
                         notificationWidget.show("Operación: Notificar realizado correctamente", "success");
                     } else {
@@ -694,7 +700,7 @@ function f05funcion(accion, NumOperacion) {
                     var data = [];
                     data = JSON.parse(datos);
                     if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
+                        $('#f05dialog').data('kendoWindow').close();
                         getBotonera(NumOperacion);
                         notificationWidget.show("Operación: Solicitar realizado correctamente", "success");
                     } else {
@@ -719,7 +725,7 @@ function f05funcion(accion, NumOperacion) {
                     var data = [];
                     data = JSON.parse(datos);
                     if (data[0].Ejecucion == 0) {
-                        $('#dialog').data('kendoWindow').close();
+                        $('#f05dialog').data('kendoWindow').close();
                         getBotonera(NumOperacion);
                         notificationWidget.show("Operación: Terminar realizado correctamente", "success");
                     } else {
@@ -769,7 +775,7 @@ function f05funcion(accion, NumOperacion) {
 //             switch (accion) {
 //                 case "Permiso":
 //                     if (data[0].Ejecucion == 1) {
-//                         $('#dialog').data('kendoWindow').close();
+//                         $('#f05dialog').data('kendoWindow').close();
 //                         // if (accion == "Terminar") {
 //                         //     window.location.href = "#operaciones1";
 //                         // } else {
@@ -783,7 +789,7 @@ function f05funcion(accion, NumOperacion) {
 //                     break;
 //                 default:
 //                     if (data[0].Ejecucion == 0) {
-//                         $('#dialog').data('kendoWindow').close();
+//                         $('#f05dialog').data('kendoWindow').close();
 //                         // if (accion == "Terminar") {
 //                         //     window.location.href = "#operaciones1";
 //                         // } else {

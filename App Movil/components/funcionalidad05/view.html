@@ -26,7 +26,7 @@
             </span>
         </div>
         <div class="col-xs-6">
-            <input id="f05FchAtencionConsilidato" type="date" style="width:100%" class="form-control" onchange="f05getOperaciones(this.value);">
+            <input id="f05FchAtencionConsilidato" type="date" style="width:100%" class="form-control" onchange="f05getOperaciones(this.value);" min="1900-01-01" max="9999-01-01">
         </div>
     </div>
     <!-- Listado Operaciones -->
@@ -123,11 +123,11 @@
     </div>
     <!--DETALLE REASIGNACION TAREA TEST FIN -->
     <!--     Modal confirmación -->
-    <div id="dialog" style="display:none;">
+    <div id="f05dialog" style="display:none;">
         <div id="cuerpoModal" class="form-group" align="center"></div>
         <div class="row">
             <div class="col-xs-6">
-                <button id="btnFuncionFoto05" type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="$('#dialog').data('kendoWindow').close();">Cancelar</button>
+                <button id="btnFuncionFoto05" type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="$('#f05dialog').data('kendoWindow').close();">Cancelar</button>
             </div>
             <div class="col-xs-6">
                 <button id="btnFuncion05" type="button" class="btn btn-default btn-block font-boton b_color_2 tex_boton_2" onclick="">Aceptar</button>

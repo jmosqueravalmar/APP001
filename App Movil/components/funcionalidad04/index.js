@@ -50,8 +50,16 @@ function f04FechaAtencionConsilidato() {
 
 //getOperaciones -> cargamos el grid tareas
 function f04getOperaciones(f04FchAtencionConsilidato) {
-    console.log("DFC >>> param fx " + f04FchAtencionConsilidato);
-
+    var notificationElement = $("#notification");
+    notificationElement.kendoNotification();
+    var notificationWidget = notificationElement.data("kendoNotification");
+    if (!$("#f04FchAtencionConsilidato").val()) {
+        notificationWidget.show("Fecha incorrecta", "error");
+        $('#f04FchAtencionConsilidato').parent().addClass("has-error");
+        return;
+    } else {
+        $('#f04FchAtencionConsilidato').parent().removeClass("has-error");
+    }
     //var idSS = sessionStorage.getItem("sessionUSER");
     var f04dsOperaciones = new kendo.data.DataSource({
         transport: {
@@ -287,9 +295,6 @@ function f04getOperaciones(f04FchAtencionConsilidato) {
             $("#f04operaciones").css("display", "block");
         } else {
             $("#f04operaciones").css("display", "none");
-            var notificationElement = $("#notification");
-            notificationElement.kendoNotification();
-            var notificationWidget = notificationElement.data("kendoNotification");
             notificationWidget.show("No se encontraron operaciones el " + f04FchAtencionConsilidato, "error");
         }
     });

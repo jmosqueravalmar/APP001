@@ -695,18 +695,17 @@ function cargaPrincipal() {
         }
 
     });
+
     dsCliente.fetch(function () {
+        console.log("dsCliente.total(): " + dsCliente.total());
         if (dsCliente.total() > 0) {
             $("#lstCliente").kendoListView({
                 dataSource: dsCliente,
                 template: kendo.template($("#tmpLstCliente").html()),
                 selectable: true,
                 change: function (e) {
-
                     var grid = $("#lstCliente").data("kendoListView");
                     var row = grid.select();
-                    
-                    console.log("List View ClienteID > " + this.dataItem(row).ClienteID);
                     $("#det-nombre").html($.trim(this.dataItem(row).ClienteRazonSocial));
                     ClienteID = this.dataItem(row).ClienteID;
                     //console.log("E > data: " + e.dataItem);
@@ -724,6 +723,7 @@ function cargaPrincipal() {
                     //Change view to detail
                     window.location.href = "#det-cliente";
                     //window.location.href = "components/funcionalidad01/viewDetalle.html";
+
                 }
             });
             $("#lstCliente").css("display", "block");
