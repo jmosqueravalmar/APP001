@@ -287,3 +287,7 @@ h1 {
 textarea {
     width: 100%;
 }
+
+.oveflw {
+    overflow: hidden;
+}
