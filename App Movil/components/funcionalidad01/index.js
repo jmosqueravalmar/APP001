@@ -703,7 +703,9 @@ function cargaPrincipal() {
                 selectable: true,
                 change: function (e) {
 
-                    var row = $(".k-state-selected").select();
+                    var grid = $("#lstCliente").data("kendoListView");
+                    var row = grid.select();
+                    
                     console.log("List View ClienteID > " + this.dataItem(row).ClienteID);
                     $("#det-nombre").html($.trim(this.dataItem(row).ClienteRazonSocial));
                     ClienteID = this.dataItem(row).ClienteID;
