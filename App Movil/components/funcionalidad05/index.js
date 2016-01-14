@@ -67,7 +67,7 @@ function f05getOperaciones(f05FchAtencionConsilidato) {
     var f05dsOperaciones = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Listar",
+                url: WServ + "Operaciones/Listar",
                 dataType: "json",
                 type: "post",
                 data: {
@@ -311,7 +311,7 @@ function f05SelectGridDetOperacion() {
     var f05dsOperaciones = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Detalle/" + this.dataItem(seleccion).NumOperacion, //226667
+                url: WServ + "Operaciones/Detalle/" + this.dataItem(seleccion).NumOperacion, //226667
                 dataType: "json",
                 type: "get"
             },
@@ -394,7 +394,7 @@ function getBotonera(NumOperacion) {
             read: {
                 //Levante-Notoficacion: 239257,224322
                 //Canal: 239257,239255,227192,227840,228961,227840
-                url: "http://www.ausa.com.pe/appmovil_test01/Operaciones/Opciones/" + NumOperacion, //NumOperacion: 78503,232302,241557,241557
+                url: WServ + "Operaciones/Opciones/" + NumOperacion, //NumOperacion: 78503,232302,241557,241557
                 dataType: "json",
                 type: "get"
             }
@@ -562,7 +562,7 @@ function f05funcion(accion, NumOperacion) {
     switch (accion) {
         case "Iniciar":
             $.ajax({
-                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Iniciar',
+                url: WServ + 'Operaciones/Iniciar',
                 type: "post",
                 data: {
                     txtid: NumOperacion, //numOperacion del detalle de la operación
@@ -587,7 +587,7 @@ function f05funcion(accion, NumOperacion) {
             break;
         case "Canal":
             $.ajax({
-                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Canal',
+                url: WServ + 'Operaciones/Canal',
                 type: "post",
                 data: {
                     operacion: NumOperacion,
@@ -613,7 +613,7 @@ function f05funcion(accion, NumOperacion) {
             break;
         case "Permiso":
             $.ajax({
-                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Permiso',
+                url: WServ + 'Operaciones/Permiso',
                 type: "post",
                 data: {
                     txtid: NumOperacion, //numOperacion del detalle de la operación
@@ -638,7 +638,7 @@ function f05funcion(accion, NumOperacion) {
             break;
         case "Levante":
             $.ajax({
-                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Levante',
+                url: WServ + 'Operaciones/Levante',
                 type: "post",
                 data: {
                     operacion: NumOperacion,
@@ -664,7 +664,7 @@ function f05funcion(accion, NumOperacion) {
             break;
         case "Notificar":
             $.ajax({
-                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Notificar',
+                url: WServ + 'Operaciones/Notificar',
                 type: "post",
                 data: {
                     operacion: NumOperacion,
@@ -689,7 +689,7 @@ function f05funcion(accion, NumOperacion) {
             break;
         case "Solicitar":
             $.ajax({
-                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Solicitar',
+                url: WServ + 'Operaciones/Solicitar',
                 type: "post",
                 data: {
                     txtid: NumOperacion, //numOperacion del detalle de la operación
@@ -714,7 +714,7 @@ function f05funcion(accion, NumOperacion) {
             break;
         default: //"Terminar"
             $.ajax({
-                url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/Terminar',
+                url: WServ + 'Operaciones/Terminar',
                 type: "post",
                 data: {
                     txtid: NumOperacion, //numOperacion del detalle de la operación
@@ -738,76 +738,7 @@ function f05funcion(accion, NumOperacion) {
             });
             break;
     }
-}
-
-
-// function f05funcion(accion, NumOperacion) {
-//     //Test: Canal=0,Permiso=1,Levante=0,Notificar=0,Solicitar=0,Iniciar=0,Terminar=0
-//     //Notificaciones
-//     var notificationElement = $("#notification");
-//     notificationElement.kendoNotification();
-//     var notificationWidget = notificationElement.data("kendoNotification");
-//     //end
-//     if ($('#dtpLevante').val() == "") {
-//         $('#dtpLevante').parent().addClass("has-error");
-//         notificationWidget.show("Ingrese la fecha", "error");
-//         return;
-//     }
-
-//     var txtidUsuario = sessionStorage.getItem("sessionUSER");
-//     //tidUsuario = 126;//borrar en producción
-
-//     $.ajax({
-//         url: 'http://www.ausa.com.pe/appmovil_test01/Operaciones/' + accion,
-//         type: "post",
-//         data: {
-//             operacion: NumOperacion,
-//             usuario: txtidUsuario,
-//             txtid: NumOperacion, //numOperacion del detalle de la operación
-//             txtidUsuario: txtidUsuario, //id del usuario
-//             fecha: $('#dtpLevante').val(),
-//             canal: $('input:radio[name=txtprioridad]:checked').val()
-//         },
-//         async: false,
-//         success: function (datos) {
-//             var data = [];
-//             data = JSON.parse(datos);
-//             switch (accion) {
-//                 case "Permiso":
-//                     if (data[0].Ejecucion == 1) {
-//                         $('#f05dialog').data('kendoWindow').close();
-//                         // if (accion == "Terminar") {
-//                         //     window.location.href = "#operaciones1";
-//                         // } else {
-//                         //     getBotonera(getBotonera);
-//                         // }
-//                         getBotonera(NumOperacion);
-//                         notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
-//                     } else {
-//                         notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
-//                     }
-//                     break;
-//                 default:
-//                     if (data[0].Ejecucion == 0) {
-//                         $('#f05dialog').data('kendoWindow').close();
-//                         // if (accion == "Terminar") {
-//                         //     window.location.href = "#operaciones1";
-//                         // } else {
-//                         //     getBotonera(getBotonera);
-//                         // }
-//                         getBotonera(NumOperacion);
-//                         notificationWidget.show("Operación: " + accion + " realizado correctamente", "success");
-//                     } else {
-//                         notificationWidget.show("No se pudo ejecutar la operación: " + accion, "error")
-//                     }
-//                     break;
-//             }
-//         },
-//         error: function () {
-//             notificationWidget.show("No se puede establecer la conexión al servicio", "error");
-//         }
-//     });
-// }
+} 
 
 
 function aumentarFont() {

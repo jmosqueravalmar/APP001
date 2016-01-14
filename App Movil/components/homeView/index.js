@@ -44,7 +44,7 @@ function LoginDS() {
     dsLogin = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Inicio/AutentificaUsuario",
+                url: WServ + "Inicio/AutentificaUsuario",
                 dataType: "json",
                 type: "post",
                 data: {
@@ -81,7 +81,7 @@ function LoginDS() {
             DSdatos = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: "http://www.ausa.com.pe/appmovil_test01/Usuarios/Datos/" + userID,
+                        url: WServ + "Usuarios/Datos/" + userID,
                         dataType: "json"
                     }
                 }
@@ -136,7 +136,7 @@ function validarRoles(id, visual){
         dsRoles = new kendo.data.DataSource({
             transport: {
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Usuarios/Roles/"+id,
+                    url: WServ + "Usuarios/Roles/"+id,
                     dataType: "json"
                 }
             }

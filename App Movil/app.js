@@ -69,17 +69,8 @@
 
 sessionStorage.sessionUSER = "SessionData";
 
-//function cerrar_session(){
-    //$("#MenuPrincipal").hide();
-   // $("#appDrawer").data("kendoMobileDrawer").destroy(); 
-    //$("fun01").attr('disabled','enabled');
-    //$("fun01").attr('style','display:block');
-   // $("#fun01").css("display", "block");
-//}
-
-//function iniciar_session(){
- 	//new kendo.mobile.Application();
-   // $("#appDrawer").kendoMobileDrawer();
-//}
+/* servicio */
+	var WServ = "Data";
+	WServ = "http://www.ausa.com.pe/appmovil_test01/"; 
  
 // END_CUSTOM_CODE_kendoUiMobileApp

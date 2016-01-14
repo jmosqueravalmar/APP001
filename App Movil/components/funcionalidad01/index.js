@@ -7,15 +7,15 @@ app.funcionalidad01 = kendo.observable({
     onShow: function () {},
     afterShow: function () {},
     MostraDetalleCliente: function () {
-        console.log("DFC > MostraDetalleCliente ");
-        console.log("Detalle Cliente ClienteID > " + ClienteID);
+        //console.log("DFC > MostraDetalleCliente ");
+        //console.log("Detalle Cliente ClienteID > " + ClienteID);
 
         //DETALLE CONTACTOS CLIENTE START        
         dsContactosCliente = new kendo.data.DataSource({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/contacto/" + ClienteID,
+                    url: WServ + "Clientes/contacto/" + ClienteID,
                     dataType: "json"
                 },
             },
@@ -46,7 +46,7 @@ app.funcionalidad01 = kendo.observable({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/contactoT?id=" + ClienteID + "&contacto=0",
+                    url: WServ + "Clientes/contactoT?id=" + ClienteID + "&contacto=0",
                     dataType: "json"
                 },
             },
@@ -121,7 +121,7 @@ app.funcionalidad01 = kendo.observable({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/morosidad/" + ClienteID,
+                    url: WServ + "Clientes/morosidad/" + ClienteID,
                     dataType: "json"
                 },
             },
@@ -184,7 +184,7 @@ app.funcionalidad01 = kendo.observable({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/participacionD/" + ClienteID,
+                    url: WServ + "Clientes/participacionD/" + ClienteID,
                     dataType: "json"
                 },
             },
@@ -299,7 +299,7 @@ app.funcionalidad01 = kendo.observable({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/participacion/" + ClienteID,
+                    url: WServ + "Clientes/participacion/" + ClienteID,
                     dataType: "json"
                 },
             },
@@ -340,7 +340,7 @@ app.funcionalidad01 = kendo.observable({
                 }
             },
             requestEnd: function (e) {
-                console.log("dsIngresoDespachoAduanaUsoAOLMes >> requestEnd");
+                //console.log("dsIngresoDespachoAduanaUsoAOLMes >> requestEnd");
             },
         });
 
@@ -365,7 +365,7 @@ app.funcionalidad01 = kendo.observable({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/condpagoD/" + ClienteID,
+                    url: WServ + "Clientes/condpagoD/" + ClienteID,
                     dataType: "json"
                 },
             },
@@ -484,7 +484,7 @@ app.funcionalidad01 = kendo.observable({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/tarifas/" + ClienteID,
+                    url: WServ + "Clientes/tarifas/" + ClienteID,
                     dataType: "json"
                 },
             },
@@ -588,7 +588,7 @@ app.funcionalidad01 = kendo.observable({
             transport: {
                 //Parametrizzare con ContactoID
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Clientes/condpago/" + ClienteID,
+                    url: WServ + "Clientes/condpago/" + ClienteID,
                     dataType: "json"
                 },
             },
@@ -659,7 +659,7 @@ function cargaPrincipal() {
             // OK funziona, ottimizzare per grandi vol. di dati || paginazione
             // Parametrizzare la URL con una variabile idUsuario
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Clientes/carteraFiltro/",
+                url: WServ + "Clientes/carteraFiltro/",
                 dataType: "json",
                 type: "post",
                 data: {
@@ -697,7 +697,7 @@ function cargaPrincipal() {
     });
 
     dsCliente.fetch(function () {
-        console.log("dsCliente.total(): " + dsCliente.total());
+        //console.log("dsCliente.total(): " + dsCliente.total());
         if (dsCliente.total() > 0) {
             $("#lstCliente").kendoListView({
                 dataSource: dsCliente,
@@ -738,7 +738,7 @@ function cargaPrincipal() {
 }
 
 function AlertaProcentageRangos(valorIndicador, elementoAlerta) {
-    console.log("AlertaProcentageRangos >>> nivelAlerta: " + valorIndicador + " elementoAlerta: " + elementoAlerta);
+    //console.log("AlertaProcentageRangos >>> nivelAlerta: " + valorIndicador + " elementoAlerta: " + elementoAlerta);
     var colorAlerta = "";
     if (valorIndicador >= 100.00) {
         colorAlerta = "red";
@@ -764,7 +764,7 @@ function OpenModCondPago(valServicio, valDiasPago, valHastaMonto, valMoneda, val
 }
 
 function OpenModTarifas(valServicio, valObservaciones) {
-    console.log("OpenModTarifas >>> " + valServicio);
+    //console.log("OpenModTarifas >>> " + valServicio);
     $("#ModTarifasServicio").html(valServicio);
     $("#ModTarifasObservaciones").html(unescape(valObservaciones));
     $('#ModTarifas').data('kendoMobileModalView').open();

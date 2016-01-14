@@ -8,31 +8,6 @@ app.funcionalidad04 = kendo.observable({
     },
 });
 
-// Para la primera carga usa la fecha actual
-// var f04DateAtencionConsilidato = new Date();
-// function f04FechaAtencionConsilidato() {
-//     $("#f04FchAtencionConsilidato").kendoDatePicker({
-//         culture: "es-PE",
-//         value: f04DateAtencionConsilidato,
-//         change: function () {
-//             var valueDate = this.value();
-//             var day = valueDate.getDate();
-//             // numero desde 0 hasta 11 que representa los meses desde enero hasta diciembre
-//             var month = valueDate.getMonth() + 1;
-//             var year = valueDate.getFullYear();
-//             var strValueDate = year + "/" + month + "/" + day;
-//             console.log("DFC 1 >>> >>> f04FchAtencionConsilidato __CHANGE__: " + strValueDate);
-//             f04getOperaciones(strValueDate);
-//             // guardar el valor de la ultima fecha selecionada
-//             f04DateAtencionConsilidato = new Date(year, month - 1, day);
-//         }
-//     });
-//     console.log("DFC 2 >>> f04FchAtencionConsilidato __NO__ CHANGE: " + $("#f04FchAtencionConsilidato").val());
-//     //getDespachador();    
-//     var strDateSplit = $("#f04FchAtencionConsilidato").val().split("/");
-//     f04getOperaciones(strDateSplit[2] + "/" + strDateSplit[1] + "/" + strDateSplit[0]);
-// }
-
 function f04FechaAtencionConsilidato() {
     var date = new Date();
     var day = date.getDate();
@@ -308,7 +283,7 @@ function f04SelectGridDetOperacion() {
     //var seleccion = $(".k-state-selected").select();
     var grid = $("#f04operaciones").data("kendoGrid");
     var seleccion = grid.select();
-    console.log("DFC 3 >>> " + seleccion);
+    //console.log("DFC 3 >>> " + seleccion);
     //dsOperaciones -> obtenemos la lista de tareas
     var dsOperaciones = new kendo.data.DataSource({
         transport: {
@@ -387,7 +362,7 @@ function disminuirFont() {
 
 //getDespachador -> datos del select tipo de tarea
 function getDespachador(campo) {
-    console.log(" DFC >>> getDespachador()");
+    //console.log(" DFC >>> getDespachador()");
     var idSS = campo;
     $("#txtIdDespachador").kendoDropDownList({
         dataSource: {

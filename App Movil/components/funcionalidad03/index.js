@@ -14,7 +14,7 @@ function getTareas() {
         var dsTareas = new kendo.data.DataSource({
             transport: {
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Tareas/listar",
+                    url: WServ + "Tareas/listar",
                     dataType: "json",
                     type: "post",
                     data: {
@@ -282,7 +282,7 @@ function getSelectTipoTarea(accion) {
             dataSource: {
                 transport: {
                     read: {
-                        url: "http://www.ausa.com.pe/appmovil_test01/Tareas/tipoListar",
+                        url: WServ + "Tareas/tipoListar",
                         dataType: "json"
                     }
                 }
@@ -316,7 +316,7 @@ function getSelectCliente(accion) {
             dataSource: {
                 transport: {
                     read: {
-                        url: "http://www.ausa.com.pe/appmovil_test01/Clientes/cartera/" + idSS2, //305
+                        url: WServ + "Clientes/cartera/" + idSS2, //305
                         dataType: "json"
                     }
                 },
@@ -358,7 +358,7 @@ function getSelectCliente(accion) {
         dsTareaCliente = new kendo.data.DataSource({
             transport: {
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
+                    url: WServ + "Relaciones/clistar",
                     dataType: "json",
                     type: "post",
                     data: {
@@ -405,6 +405,7 @@ function accionTarea(accion) {
     $("#f03btnAccionModal").attr("disabled", "disabled");
     $('#f03dialog').data('kendoWindow').close();
     var idSS = sessionStorage.getItem("sessionUSER");
+    
     //Notificaciones
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
@@ -432,24 +433,11 @@ function accionTarea(accion) {
     if ($('#txtflimite').val() == "") {
         $('#txtflimite').parent().parent().addClass("has-error");
         valido = false;
-    }
-
-    /*// Eliminar este console log en producción
-    console.log(accion);
-    console.log("txtid = " + $('#txtid').val());
-    console.log("txtidc = " + $('#txtidc').val());
-    console.log("txtidtt = " + $('#txtidtt option:selected').val());
-    console.log("txtorden = " + $('#txtorden').val());
-    console.log("txtobserv = " + $('#txtobserv').val());
-    console.log("txtdetalle = " + $('#txtdetalle').val());
-    console.log("txtprioridad = " + $('input:radio[name=txtprioridad]:checked').val());
-    console.log("txtflimite = " + $('#txtflimite').val() + " 00:00:00");
-    console.log("txtestado = " + $('#txtestado').val());
-    console.log(valido);*/
+    } 
 
     valido && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
+        url: WServ + 'Tareas/' + accion,
         data: {
             txtuserid: idSS, //668
             txtid: $('#txtid').val(),
@@ -470,7 +458,7 @@ function accionTarea(accion) {
                 for (var i = 0; i < $('#txtidc').val().length; i++) {
                     $.ajax({ // INSERT
                         type: "post",
-                        url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/cinsert',
+                        url: WServ + 'Relaciones/cinsert',
                         data: {
                             txtid: data[0].Column1,
                             txtidc: txtidc[i]
@@ -495,7 +483,7 @@ function accionTarea(accion) {
                 var dsTareaCliente = new kendo.data.DataSource({
                     transport: {
                         read: {
-                            url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/clistar",
+                            url: WServ + "Relaciones/clistar",
                             dataType: "json",
                             type: "post",
                             data: {
@@ -510,7 +498,7 @@ function accionTarea(accion) {
                         var TareaCliente = data[i];
                         $.ajax({ // DELETE
                             type: "POST",
-                            url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/cdelete',
+                            url: WServ + 'Relaciones/cdelete',
                             data: {
                                 txtidt: $('#txtid').val(),
                                 txtidc: TareaCliente.cli_int_id
@@ -529,7 +517,7 @@ function accionTarea(accion) {
                     for (var i = 0; i < $('#txtidc').val().length; i++) {
                         $.ajax({ // INSERT
                             type: "POST",
-                            url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/cinsert',
+                            url: WServ + 'Relaciones/cinsert',
                             data: {
                                 txtid: $('#txtid').val(),
                                 txtidc: txtidc[i]
@@ -662,7 +650,7 @@ function adminTT() {
         dataSource: {
             transport: {
                 read: {
-                    url: "http://www.ausa.com.pe/appmovil_test01/Tareas/tipoListar",
+                    url: WServ + "Tareas/tipoListar",
                     dataType: "json",
                     type: "get"
                 }
@@ -756,7 +744,7 @@ function accionTipoTarea(accion) {
         for (var i = 0; i < grid.length; i++) {
             if ($("#cb" + i).is(':checked') && grid[i]["tiptar_int_usrcreacion"] == idSS) { //668
                 $.ajax({
-                    url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
+                    url: WServ + 'Tareas/' + accion,
                     type: "post",
                     data: {
                         txtid: grid[i]["tiptar_int_id"],
@@ -802,7 +790,7 @@ function accionTipoTarea(accion) {
     }
 
     valido && $.ajax({
-        url: 'http://www.ausa.com.pe/appmovil_test01/Tareas/' + accion,
+        url: WServ + 'Tareas/' + accion,
         type: "post",
         data: {
             txtid: $('#txtidTT').val(),

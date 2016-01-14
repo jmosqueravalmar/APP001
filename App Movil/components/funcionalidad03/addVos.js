@@ -106,7 +106,7 @@ function f03getAudios() {
     var dsAudios = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "http://www.ausa.com.pe/appmovil_test01/Relaciones/nlistar/",
+                url: WServ + "Relaciones/nlistar/",
                 dataType: "json",
                 type: "post",
                 data: {
@@ -226,7 +226,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
     //End
     accion == "insert" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Notas/insert',
+        url: WServ + 'Notas/insert',
         data: {
             txtruta: FileUri
         },
@@ -238,7 +238,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                 var idNota = data[0].Column1;
                 $.ajax({
                     type: "POST",
-                    url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ninsert',
+                    url: WServ + 'Relaciones/ninsert',
                     data: {
                         txtidnota: idNota,
                         txtidtarea: $('#txtid').val()
@@ -250,7 +250,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
                             type: "POST",
-                            url: "http://www.ausa.com.pe/appmovil_test01/Upload/UploadUrl",
+                            url: WServ + "Upload/UploadUrl",
                             data: {
                                 id: idNota,
                                 url: FileUri,
@@ -303,7 +303,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
 
     accion == "ndelete" && $.ajax({
         type: "POST",
-        url: 'http://www.ausa.com.pe/appmovil_test01/Relaciones/ndelete',
+        url: WServ + 'Relaciones/ndelete',
         data: {
             txtnota: idAudio,
             txttarea: $('#txtid').val()
