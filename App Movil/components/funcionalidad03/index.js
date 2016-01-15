@@ -347,7 +347,8 @@ function getSelectCliente(accion) {
             },
             dataTextField: "ClienteRazonSocial",
             dataValueField: "ClienteID",
-            filter: "contains"
+            filter: "contains",
+            minLength: 3
         });
     }
 
@@ -405,7 +406,7 @@ function accionTarea(accion) {
     $("#f03btnAccionModal").attr("disabled", "disabled");
     $('#f03dialog').data('kendoWindow').close();
     var idSS = sessionStorage.getItem("sessionUSER");
-    
+
     //Notificaciones
     var notificationElement = $("#notification");
     notificationElement.kendoNotification();
@@ -433,7 +434,7 @@ function accionTarea(accion) {
     if ($('#txtflimite').val() == "") {
         $('#txtflimite').parent().parent().addClass("has-error");
         valido = false;
-    } 
+    }
 
     valido && $.ajax({
         type: "POST",

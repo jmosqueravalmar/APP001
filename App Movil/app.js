@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // store a reference to the application object that will be created
     // later on so that we can use it if need be
     //Commit sdfdf
@@ -6,8 +6,8 @@
         data: {}
     };
 
-    var bootstrap = function() {
-        $(function() {
+    var bootstrap = function () {
+        $(function () {
             app.mobileApp = new kendo.mobile.Application(document.body, {
 
                 // comment out the following line to get a UI which matches the look
@@ -22,7 +22,7 @@
 
     if (window.cordova) {
         // this function is called by Cordova when the application is loaded by the device
-        document.addEventListener('deviceready', function() {
+        document.addEventListener('deviceready', function () {
             // hide the splash screen as soon as the app is ready. otherwise
             // Cordova will wait 5 very long seconds to do it for you.
             if (navigator && navigator.splashscreen) {
@@ -30,13 +30,13 @@
             }
 
             var element = document.getElementById('appDrawer');
-            if (typeof(element) != 'undefined' && element != null) {
+            if (typeof (element) != 'undefined' && element != null) {
                 if (window.navigator.msPointerEnabled) {
-                    $("#navigation-container").on("MSPointerDown", "a", function(event) {
+                    $("#navigation-container").on("MSPointerDown", "a", function (event) {
                         app.keepActiveState($(this));
                     });
                 } else {
-                    $("#navigation-container").on("touchstart", "a", function(event) {
+                    $("#navigation-container").on("touchstart", "a", function (event) {
                         app.keepActiveState($(this));
                     });
                 }
@@ -56,7 +56,7 @@
 
     window.app = app;
 
-    app.isOnline = function() {
+    app.isOnline = function () {
         if (!navigator || !navigator.connection) {
             return true;
         } else {
@@ -70,7 +70,8 @@
 sessionStorage.sessionUSER = "SessionData";
 
 /* servicio */
-	var WServ = "Data";
-	WServ = "http://www.ausa.com.pe/appmovil_test01/"; 
- 
+var WServ = "Data";
+WServ = "http://www.ausa.com.pe/appmovil_test01/";
+//WServ = "http://54.213.238.161/wsAusa/";
+
 // END_CUSTOM_CODE_kendoUiMobileApp

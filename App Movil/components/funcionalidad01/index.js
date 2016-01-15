@@ -7,8 +7,13 @@ app.funcionalidad01 = kendo.observable({
     onShow: function () {},
     afterShow: function () {},
     MostraDetalleCliente: function () {
-        //console.log("DFC > MostraDetalleCliente ");
-        //console.log("Detalle Cliente ClienteID > " + ClienteID);
+        var notificationElement = $("#notification");
+        notificationElement.kendoNotification();
+        var notificationWidget = notificationElement.data("kendoNotification");
+
+
+        console.log("DFC > MostraDetalleCliente ");
+        console.log("Detalle Cliente ClienteID > " + ClienteID);
 
         //DETALLE CONTACTOS CLIENTE START        
         dsContactosCliente = new kendo.data.DataSource({
@@ -83,27 +88,35 @@ app.funcionalidad01 = kendo.observable({
             },
         });
 
-        $("#ContactosCliente").kendoDropDownList({
-            dataTextField: "ContactoNombre",
-            dataValueField: "ContactoID",
-            dataSource: dsContactosCliente,
-            change: function (e) {
-                //console.log("ContactosCliente >> change");
-                // ContactoFechaCumpleanos
-                // get the dataItem corresponding to the selectedIndex.
-                $("#FechaCumpleanos").html($.trim(this.dataItem().ContactoFechaCumpleanos));
-                $("#MailCli").html($.trim(this.dataItem().ContactoEmail));
-                $("#CargoCli").html($.trim(this.dataItem().Cargo));
-            },
-            dataBound: function (e) {
-                //console.log("ContactosCliente >> dataBound");
-                $("#FechaCumpleanos").html($.trim("1 May."));
-                // dataItem from dsContactosCliente DataSource
-                // console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
-                // ContactoFechaCumpleanos
-                $("#FechaCumpleanos").html($.trim(this.dataItem(0).ContactoFechaCumpleanos));
-                $("#MailCli").html($.trim(this.dataItem().ContactoEmail));
-                $("#CargoCli").html($.trim(this.dataItem().Cargo));
+        dsContactosCliente.fetch(function () {
+            if (dsContactosCliente.total() > 0) {
+                $("#ContactosCliente").kendoDropDownList({
+                    dataTextField: "ContactoNombre",
+                    dataValueField: "ContactoID",
+                    dataSource: dsContactosCliente,
+                    change: function (e) {
+                        //console.log("ContactosCliente >> change");
+                        // ContactoFechaCumpleanos
+                        // get the dataItem corresponding to the selectedIndex.
+                        $("#FechaCumpleanos").html($.trim(this.dataItem().ContactoFechaCumpleanos));
+                        $("#MailCli").html($.trim(this.dataItem().ContactoEmail));
+                        $("#CargoCli").html($.trim(this.dataItem().Cargo));
+                    },
+                    dataBound: function (e) {
+                        //console.log("ContactosCliente >> dataBound");
+                        $("#FechaCumpleanos").html($.trim("1 May."));
+                        // dataItem from dsContactosCliente DataSource
+                        // console.log("ContactosCliente >> dataBound >> dataItem(0): " + this.dataItem(0).ContactoID + " -- " + this.dataItem(0).ContactoNombre + " -- " + this.dataItem(0).ContactoFechaCumpleanos);
+                        // ContactoFechaCumpleanos
+                        $("#FechaCumpleanos").html($.trim(this.dataItem(0).ContactoFechaCumpleanos));
+                        $("#MailCli").html($.trim(this.dataItem().ContactoEmail));
+                        $("#CargoCli").html($.trim(this.dataItem().Cargo));
+                    }
+                });
+                $("#f01detetalleContacto").show();
+            } else {
+                $("#f01detetalleContacto").hide();
+                notificationWidget.show("No se encontraron datos de contactos", "error");
             }
         });
 
@@ -170,13 +183,20 @@ app.funcionalidad01 = kendo.observable({
         });
 
         dsSituaccionPago.fetch(function () {
-            var data = this.data();
-            //console.log("dsSituaccionPago >> data fetch()");
-            //console.log(data.length);
-            //console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
-            //console.log("PlazoDePago >> " + data[0].PlazoDePago);
-            $("#PorcUtilizacionDeLinea").html(data[0].PorcUtilizacionDeLinea + "%");
+            if (dsSituaccionPago.total() > 0) {
+                var data = this.data();
+                //console.log("dsSituaccionPago >> data fetch()");
+                //console.log(data.length);
+                //console.log("ClienteRazonSocial >> " + data[0].ClienteRazonSocial);
+                //console.log("PlazoDePago >> " + data[0].PlazoDePago);
+                $("#PorcUtilizacionDeLinea").html(data[0].PorcUtilizacionDeLinea + "%");
+                $("#f01situacionPago").show();
+            } else {
+                $("#f01situacionPago").hide();
+                notificationWidget.show("No se encontró situación de pago", "error");
+            }
         });
+
         //SITUACION DE PAGO END
 
         //PARTICIPACION AUSA Y OTRAS AGENCIAS START
@@ -248,48 +268,58 @@ app.funcionalidad01 = kendo.observable({
         });
 
         dsParticipacionAUSAyAgencias.fetch(function () {
-            var view1 = dsParticipacionAUSAyAgencias.view();
-            //console.log("view1 >> length: " + view1.length);
-            //ParticipacionOtrasAgencias
-            var strHTML = "";
-            for (var i = 0; i < view1.length; i++) {
-                //strHTML += "<dd> Agencias " + i + "</dd>"; 
-                strHTML += "<dd><b>";
-                strHTML += view1[i].Agente + "<br>";
-                strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% Despacho (" + view1[i].PorcDespachosAnterior + "%)<br>";
-                strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% CIF (" + view1[i].PorcCIFAnterior + "%)<br>";
-                strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% FOB (" + view1[i].PorcFOBAnterior + "%)<br>";
-                strHTML += "</b></dd>";
+            if (dsParticipacionAUSAyAgencias.total() > 0) {
+                var view1 = dsParticipacionAUSAyAgencias.view();
+                //console.log("view1 >> length: " + view1.length);
+                //ParticipacionOtrasAgencias
+                var strHTML = "";
+                for (var i = 0; i < view1.length; i++) {
+                    //strHTML += "<dd> Agencias " + i + "</dd>"; 
+                    strHTML += "<dd><b>";
+                    strHTML += view1[i].Agente + "<br>";
+                    strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% Despacho (" + view1[i].PorcDespachosAnterior + "%)<br>";
+                    strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% CIF (" + view1[i].PorcCIFAnterior + "%)<br>";
+                    strHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% FOB (" + view1[i].PorcFOBAnterior + "%)<br>";
+                    strHTML += "</b></dd>";
+                }
+                $("#ParticipacionOtrasAgencias").html(strHTML);
+
+                //AUSA  ADUANAS S.A.
+                dsParticipacionAUSAyAgencias.filter({
+                    field: "Agente",
+                    operator: "startswith",
+                    value: "AUSA"
+                });
+                var view2 = dsParticipacionAUSAyAgencias.view();
+                //console.log("view2 >> length: " + view2.length);
+                //console.log("view2 >> Agente: " + view2[0].Agente);
+                //TODO-WIP IMPLEMENTS VISUAL ALERTS 
+                $("#PorcDespachosVigentes").html(view2[0].PorcDespachosVigentes + "%");
+                AlertaProcentageRangos(view2[0].PorcDespachosVigentes, "PorcDespachosVigentes");
+
+                $("#PorcDespachosAnterior").html(view2[0].PorcDespachosAnterior + "%");
+                AlertaProcentageRangos(view2[0].PorcDespachosAnterior, "PorcDespachosAnterior");
+
+                $("#PorcFOBVigente").html(view2[0].PorcFOBVigente + "%");
+                AlertaProcentageRangos(view2[0].PorcFOBVigente, "PorcFOBVigente");
+
+                $("#PorcFOBAnterior").html(view2[0].PorcFOBAnterior + "%");
+                AlertaProcentageRangos(view2[0].PorcFOBAnterior, "PorcFOBAnterior");
+
+                $("#PorcCIFVigente").html(view2[0].PorcCIFVigente + "%");
+                AlertaProcentageRangos(view2[0].PorcCIFVigente, "PorcCIFVigente");
+
+                $("#PorcCIFAnterior").html(view2[0].PorcCIFAnterior + "%");
+                AlertaProcentageRangos(view2[0].PorcCIFAnterior, "PorcCIFAnterior");
+
+                $("#f01participacionAusa").show();
+                $("#f01participacionOtros").show();
+                
+            } else {
+                $("#f01participacionAusa").hide();
+                $("#f01participacionOtros").hide();
+                notificationWidget.show("No se encontró participación", "error");
             }
-            $("#ParticipacionOtrasAgencias").html(strHTML);
-
-            //AUSA  ADUANAS S.A.
-            dsParticipacionAUSAyAgencias.filter({
-                field: "Agente",
-                operator: "startswith",
-                value: "AUSA"
-            });
-            var view2 = dsParticipacionAUSAyAgencias.view();
-            //console.log("view2 >> length: " + view2.length);
-            //console.log("view2 >> Agente: " + view2[0].Agente);
-            //TODO-WIP IMPLEMENTS VISUAL ALERTS 
-            $("#PorcDespachosVigentes").html(view2[0].PorcDespachosVigentes + "%");
-            AlertaProcentageRangos(view2[0].PorcDespachosVigentes, "PorcDespachosVigentes");
-
-            $("#PorcDespachosAnterior").html(view2[0].PorcDespachosAnterior + "%");
-            AlertaProcentageRangos(view2[0].PorcDespachosAnterior, "PorcDespachosAnterior");
-
-            $("#PorcFOBVigente").html(view2[0].PorcFOBVigente + "%");
-            AlertaProcentageRangos(view2[0].PorcFOBVigente, "PorcFOBVigente");
-
-            $("#PorcFOBAnterior").html(view2[0].PorcFOBAnterior + "%");
-            AlertaProcentageRangos(view2[0].PorcFOBAnterior, "PorcFOBAnterior");
-
-            $("#PorcCIFVigente").html(view2[0].PorcCIFVigente + "%");
-            AlertaProcentageRangos(view2[0].PorcCIFVigente, "PorcCIFVigente");
-
-            $("#PorcCIFAnterior").html(view2[0].PorcCIFAnterior + "%");
-            AlertaProcentageRangos(view2[0].PorcCIFAnterior, "PorcCIFAnterior");
 
         });
         //PARTICIPACION AUSA Y OTRAS AGENCIAS END
@@ -340,24 +370,36 @@ app.funcionalidad01 = kendo.observable({
                 }
             },
             requestEnd: function (e) {
-                //console.log("dsIngresoDespachoAduanaUsoAOLMes >> requestEnd");
+                console.log("dsIngresoDespachoAduanaUsoAOLMes >> requestEnd");
             },
         });
 
         dsIngresoDespachoAduanaUsoAOLMes.fetch(function () {
-            // id --> PartAduanaCierreMesAnterior
-            // id --> PartAduanaAcumuladoMes
-            // id --> PartAduanaAcumuladoTresMeses
-            // id --> UsosAOLdelMes
-            var data = this.data();
-            $("#PartDespachoCierreMesAnterior").html("$" + data[0].IPDMesAnterior);
-            $("#PartDespachoAcumuladoMes").html("$" + data[0].IPDmesVigente);
-            $("#PartDespachoAcumuladoTresMeses").html("$" + data[0].IPDUltimos3Meses);
-            $("#PartAduanaCierreMesAnterior").html("$" + data[0].AduanaIngresoMesAnterior);
-            $("#PartAduanaAcumuladoMes").html("$" + data[0].AduanaIngresoMesVigente);
-            $("#PartAduanaAcumuladoTresMeses").html("$" + data[0].AduanaIngresoUltimos3Meses);
-            $("#UsosAOLdelMes").html(data[0].HitsAOL);
+
+            if (dsIngresoDespachoAduanaUsoAOLMes.total() > 0) {
+                // id --> PartAduanaCierreMesAnterior
+                // id --> PartAduanaAcumuladoMes
+                // id --> PartAduanaAcumuladoTresMeses
+                // id --> UsosAOLdelMes
+                var data = this.data();
+                $("#PartDespachoCierreMesAnterior").html("$" + data[0].IPDMesAnterior);
+                $("#PartDespachoAcumuladoMes").html("$" + data[0].IPDmesVigente);
+                $("#PartDespachoAcumuladoTresMeses").html("$" + data[0].IPDUltimos3Meses);
+                $("#PartAduanaCierreMesAnterior").html("$" + data[0].AduanaIngresoMesAnterior);
+                $("#PartAduanaAcumuladoMes").html("$" + data[0].AduanaIngresoMesVigente);
+                $("#PartAduanaAcumuladoTresMeses").html("$" + data[0].AduanaIngresoUltimos3Meses);
+                $("#UsosAOLdelMes").html(data[0].HitsAOL);
+                $("#f01ingresoPorDespacho").show();
+                $("#f01ingresoAduanas").show();                
+            } else {
+                $("#f01ingresoPorDespacho").hide();
+                $("#f01ingresoAduanas").hide();
+                $("#UsosAOLdelMes").html("");
+                notificationWidget.show("No se encontró ingresos", "error");
+            }
         });
+
+
         //INGRESO POR DESPACHO INGRESO ADUANAS CANTIDAD USOS AOL DEL MES END
 
         //CONDICIONES DE PAGO START
@@ -411,69 +453,77 @@ app.funcionalidad01 = kendo.observable({
         });
 
         dsCondicionesDePago.fetch(function () {
-            var strHTMLCondicionesDePago = "";
-            var data = this.data();
-            //console.log("dsCondicionesDePago.data() >> length: " + data.length);            
 
-            //TODO-WIP CHANGE THE STYLE FOR SUB DETAILS
-            //TODO-WIP CHANGE CHANGE TO MODAL VIEW REFACTOR IT
-            /*
-            for (var i = 0; i < data.length; i++) {
-                //console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
-                strHTMLCondicionesDePago += "<details class=\"StandardDetails\">";
-                strHTMLCondicionesDePago += "<summary><b>";
-                strHTMLCondicionesDePago += data[i].Servicio;                 
-                strHTMLCondicionesDePago += "</b></summary>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Dias Pago</div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
-                strHTMLCondicionesDePago += data[i].DiasPago;
-                strHTMLCondicionesDePago += "</b></div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Hasta Monto</div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
-                strHTMLCondicionesDePago += data[i].HastaMonto;
-                strHTMLCondicionesDePago += "</b></div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Moneda</div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
-                strHTMLCondicionesDePago += data[i].Moneda;
-                strHTMLCondicionesDePago += "</b></div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Linea Credito</div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
-                strHTMLCondicionesDePago += data[i].LineaCredito;
-                strHTMLCondicionesDePago += "</b></div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Linea Negocio</div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
-                strHTMLCondicionesDePago += data[i].LineaNegocio;
-                strHTMLCondicionesDePago += "</b></div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Compania</div>";
-                strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
-                strHTMLCondicionesDePago += data[i].Compania;
-                strHTMLCondicionesDePago += "</b></div>";
-                strHTMLCondicionesDePago += "</details>";
-            }
-             
-            $("#CondicionesDePago").append(strHTMLCondicionesDePago);
-            */
-            for (var i = 0; i < data.length; i++) {
-                strHTMLCondicionesDePago += " </br>";
-                strHTMLCondicionesDePago += "<div  class=\"row\">"
-                strHTMLCondicionesDePago += "<div  class=\"col-xs-12\">"
-                strHTMLCondicionesDePago += "<div class=\"btn btn-default btn-block font-boton b_color_1 tex_boton_2\" onclick=\"OpenModCondPago('" + data[i].Servicio
-                strHTMLCondicionesDePago += "','" + data[i].DiasPago
-                strHTMLCondicionesDePago += "','" + data[i].HastaMonto
-                strHTMLCondicionesDePago += "','" + data[i].Moneda
-                strHTMLCondicionesDePago += "','" + data[i].LineaCredito
-                strHTMLCondicionesDePago += "','" + data[i].LineaNegocio
-                strHTMLCondicionesDePago += "','" + data[i].Compania
-                strHTMLCondicionesDePago += "');\"> ";
-                strHTMLCondicionesDePago += " <b>";
-                strHTMLCondicionesDePago += data[i].Servicio;
-                strHTMLCondicionesDePago += " </b>";
-                strHTMLCondicionesDePago += " </div>";
-                strHTMLCondicionesDePago += " </div>";
-                strHTMLCondicionesDePago += " </div>";
-            }
+            if (dsCondicionesDePago.total() > 0) {
+                var strHTMLCondicionesDePago = "";
+                var data = this.data();
+                //console.log("dsCondicionesDePago.data() >> length: " + data.length);            
 
-            $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+                //TODO-WIP CHANGE THE STYLE FOR SUB DETAILS
+                //TODO-WIP CHANGE CHANGE TO MODAL VIEW REFACTOR IT
+                /*
+                for (var i = 0; i < data.length; i++) {
+                    //console.log("dsCondicionesDePago.Servicio: " + data[i].Servicio);
+                    strHTMLCondicionesDePago += "<details class=\"StandardDetails\">";
+                    strHTMLCondicionesDePago += "<summary><b>";
+                    strHTMLCondicionesDePago += data[i].Servicio;                 
+                    strHTMLCondicionesDePago += "</b></summary>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Dias Pago</div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                    strHTMLCondicionesDePago += data[i].DiasPago;
+                    strHTMLCondicionesDePago += "</b></div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Hasta Monto</div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                    strHTMLCondicionesDePago += data[i].HastaMonto;
+                    strHTMLCondicionesDePago += "</b></div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Moneda</div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                    strHTMLCondicionesDePago += data[i].Moneda;
+                    strHTMLCondicionesDePago += "</b></div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Linea Credito</div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                    strHTMLCondicionesDePago += data[i].LineaCredito;
+                    strHTMLCondicionesDePago += "</b></div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Linea Negocio</div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                    strHTMLCondicionesDePago += data[i].LineaNegocio;
+                    strHTMLCondicionesDePago += "</b></div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-5\">Compania</div>";
+                    strHTMLCondicionesDePago += "<div class=\"col-xs-7\"><b>";
+                    strHTMLCondicionesDePago += data[i].Compania;
+                    strHTMLCondicionesDePago += "</b></div>";
+                    strHTMLCondicionesDePago += "</details>";
+                }
+                 
+                $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+                */
+                for (var i = 0; i < data.length; i++) {
+                    strHTMLCondicionesDePago += " </br>";
+                    strHTMLCondicionesDePago += "<div  class=\"row\">"
+                    strHTMLCondicionesDePago += "<div  class=\"col-xs-12\">"
+                    strHTMLCondicionesDePago += "<div class=\"btn btn-default btn-block font-boton b_color_1 tex_boton_2\" onclick=\"OpenModCondPago('" + data[i].Servicio
+                    strHTMLCondicionesDePago += "','" + data[i].DiasPago
+                    strHTMLCondicionesDePago += "','" + data[i].HastaMonto
+                    strHTMLCondicionesDePago += "','" + data[i].Moneda
+                    strHTMLCondicionesDePago += "','" + data[i].LineaCredito
+                    strHTMLCondicionesDePago += "','" + data[i].LineaNegocio
+                    strHTMLCondicionesDePago += "','" + data[i].Compania
+                    strHTMLCondicionesDePago += "');\"> ";
+                    strHTMLCondicionesDePago += " <b>";
+                    strHTMLCondicionesDePago += data[i].Servicio;
+                    strHTMLCondicionesDePago += " </b>";
+                    strHTMLCondicionesDePago += " </div>";
+                    strHTMLCondicionesDePago += " </div>";
+                    strHTMLCondicionesDePago += " </div>";
+                }
+
+                $("#CondicionesDePago").append(strHTMLCondicionesDePago);
+
+                $("#f01condicionesDePago").show();
+            } else {
+                $("#f01condicionesDePago").hide();
+                notificationWidget.show("No se encontró condiciónes de pago", "error");
+            }
 
 
         });
@@ -515,49 +565,58 @@ app.funcionalidad01 = kendo.observable({
         });
 
         dsTarifas.fetch(function () {
-            var strHTMLTarifas = "";
-            var data = this.data();
-            //console.log("dsTarifas.data() >> length: " + data.length);
+            if (dsTarifas.total() > 0) {
 
-            /*
-            for (var i = 0; i < data.length; i++) {
-                //console.log("dsTarifas.Servicio: " + data[i].Servicio);
-                strHTMLTarifas += "<details>";
-                strHTMLTarifas += "<summary><b>";
-                strHTMLTarifas += data[i].Servicio;
-                strHTMLTarifas += "</b></summary>";
-                strHTMLTarifas += "<p><b>Observaciones</b></p>";
-                strHTMLTarifas += "<textarea readonly rows=\"5\" cols=\"40\">";
-                strHTMLTarifas += data[i].Observacion;
-                strHTMLTarifas += "</textarea>";
-                strHTMLTarifas += "</details>";
+
+                var strHTMLTarifas = "";
+                var data = this.data();
+                //console.log("dsTarifas.data() >> length: " + data.length);
+
+                /*
+                for (var i = 0; i < data.length; i++) {
+                    //console.log("dsTarifas.Servicio: " + data[i].Servicio);
+                    strHTMLTarifas += "<details>";
+                    strHTMLTarifas += "<summary><b>";
+                    strHTMLTarifas += data[i].Servicio;
+                    strHTMLTarifas += "</b></summary>";
+                    strHTMLTarifas += "<p><b>Observaciones</b></p>";
+                    strHTMLTarifas += "<textarea readonly rows=\"5\" cols=\"40\">";
+                    strHTMLTarifas += data[i].Observacion;
+                    strHTMLTarifas += "</textarea>";
+                    strHTMLTarifas += "</details>";
+                }
+                 
+                $("#Tarifas").append(strHTMLTarifas);
+                */
+
+                var myStr = "";
+
+                for (var i = 0; i < data.length; i++) {
+
+                    myStr = data[i].Observacion;
+
+                    myStr = myStr.replace("\r\n", "\n");
+
+                    strHTMLTarifas += "<div  class=\"row\">";
+                    strHTMLTarifas += "<div  class=\"col-xs-12\">";
+                    strHTMLTarifas += "<div class=\"btnDetPopUp\" onclick=\"OpenModTarifas('" + data[i].Servicio;
+                    strHTMLTarifas += "','" + escape(myStr);
+                    strHTMLTarifas += "');\"> ";
+                    strHTMLTarifas += " <b>";
+                    strHTMLTarifas += data[i].Servicio;
+                    strHTMLTarifas += " </b>";
+                    strHTMLTarifas += " </div>";
+                    strHTMLTarifas += " </div>";
+                    strHTMLTarifas += " </div>";
+                }
+
+                $("#Tarifas").append(strHTMLTarifas);
+                $("#f01tarifas").show();
+            } else {
+                $("#f01tarifas").hide();
+                notificationWidget.show("No se encontró situación de pago", "error");
             }
-             
-            $("#Tarifas").append(strHTMLTarifas);
-            */
 
-            var myStr = "";
-
-            for (var i = 0; i < data.length; i++) {
-
-                myStr = data[i].Observacion;
-
-                myStr = myStr.replace("\r\n", "\n");
-
-                strHTMLTarifas += "<div  class=\"row\">";
-                strHTMLTarifas += "<div  class=\"col-xs-12\">";
-                strHTMLTarifas += "<div class=\"btnDetPopUp\" onclick=\"OpenModTarifas('" + data[i].Servicio;
-                strHTMLTarifas += "','" + escape(myStr);
-                strHTMLTarifas += "');\"> ";
-                strHTMLTarifas += " <b>";
-                strHTMLTarifas += data[i].Servicio;
-                strHTMLTarifas += " </b>";
-                strHTMLTarifas += " </div>";
-                strHTMLTarifas += " </div>";
-                strHTMLTarifas += " </div>";
-            }
-
-            $("#Tarifas").append(strHTMLTarifas);
         });
         //PARTICIPACION TARIFAS END
 
@@ -697,35 +756,17 @@ function cargaPrincipal() {
     });
 
     dsCliente.fetch(function () {
-        //console.log("dsCliente.total(): " + dsCliente.total());
         if (dsCliente.total() > 0) {
-            $("#lstCliente").kendoListView({
-                dataSource: dsCliente,
-                template: kendo.template($("#tmpLstCliente").html()),
-                selectable: true,
-                change: function (e) {
-                    var grid = $("#lstCliente").data("kendoListView");
-                    var row = grid.select();
-                    $("#det-nombre").html($.trim(this.dataItem(row).ClienteRazonSocial));
-                    ClienteID = this.dataItem(row).ClienteID;
-                    //console.log("E > data: " + e.dataItem);
-
-                    /*
-                    *** hooks to handle kendoMobileListView data structure ***
-                    $("#det-nombre").html(e.dataItem.nombre);
-                    $("#det-rubro").html(e.dataItem.rubro);
-                    get_Contactos_Clientes(e.dataItem.id);
-                    */
-
-                    //Apply the filter to the Custormer's contact list                    
-                    // dsContactosCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
-
-                    //Change view to detail
-                    window.location.href = "#det-cliente";
-                    //window.location.href = "components/funcionalidad01/viewDetalle.html";
-
-                }
-            });
+            if ($("#lstCliente").data("kendoListView")) {
+                $("#lstCliente").data("kendoListView").setDataSource(dsCliente);
+            } else {
+                $("#lstCliente").kendoListView({
+                    dataSource: dsCliente,
+                    template: kendo.template($("#tmpLstCliente").html()),
+                    selectable: true,
+                    change: f01SelectGridDetOperacion
+                });
+            }
             $("#lstCliente").css("display", "block");
         } else {
             $("#lstCliente").css("display", "none");
@@ -737,8 +778,32 @@ function cargaPrincipal() {
     });
 }
 
+function f01SelectGridDetOperacion() {
+    var grid = $("#lstCliente").data("kendoListView");
+    var row = grid.select();
+
+    $("#det-nombre").html($.trim(this.dataItem(row).ClienteRazonSocial));
+    ClienteID = this.dataItem(row).ClienteID;
+    //console.log("E > data: " + e.dataItem);
+
+    /*
+    *** hooks to handle kendoMobileListView data structure ***
+    $("#det-nombre").html(e.dataItem.nombre);
+    $("#det-rubro").html(e.dataItem.rubro);
+    get_Contactos_Clientes(e.dataItem.id);
+    */
+
+    //Apply the filter to the Custormer's contact list                    
+    // dsContactosCliente.filter({field: "ClienteID", operator: "eq", value: this.dataItem(row).ClienteID});
+
+    //Change view to detail
+    window.location.href = "#det-cliente";
+    //window.location.href = "components/funcionalidad01/viewDetalle.html";
+
+}
+
 function AlertaProcentageRangos(valorIndicador, elementoAlerta) {
-    //console.log("AlertaProcentageRangos >>> nivelAlerta: " + valorIndicador + " elementoAlerta: " + elementoAlerta);
+    console.log("AlertaProcentageRangos >>> nivelAlerta: " + valorIndicador + " elementoAlerta: " + elementoAlerta);
     var colorAlerta = "";
     if (valorIndicador >= 100.00) {
         colorAlerta = "red";
@@ -764,7 +829,7 @@ function OpenModCondPago(valServicio, valDiasPago, valHastaMonto, valMoneda, val
 }
 
 function OpenModTarifas(valServicio, valObservaciones) {
-    //console.log("OpenModTarifas >>> " + valServicio);
+    console.log("OpenModTarifas >>> " + valServicio);
     $("#ModTarifasServicio").html(valServicio);
     $("#ModTarifasObservaciones").html(unescape(valObservaciones));
     $('#ModTarifas').data('kendoMobileModalView').open();
