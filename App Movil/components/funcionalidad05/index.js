@@ -10,6 +10,7 @@ app.funcionalidad05 = kendo.observable({
 
 
 var f05NumOperacion = 0;
+var f05Orden = 0;
 
 function f05FechaAtencionConsilidato() {
     var date = new Date();
@@ -362,6 +363,7 @@ function f05SelectGridDetOperacion() {
         $("#f05Cliente").text(data[0].Cliente);
         $("#f05Almacen").text(data[0].Almacen);
         $("#f05Orden").text(data[0].Orden);
+        f05Orden = data[0].Orden;
         $("#f05Despachador").text(data[0].Despachador);
         $("#f05TipoCarga").text(data[0].TipoCarga);
         $("#f05Cantidad").text(data[0].Cantidad);

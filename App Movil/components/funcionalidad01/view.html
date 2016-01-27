@@ -24,15 +24,15 @@
     -->
     <!-- END_CUSTOM_CODE_funcionalidad01 -->
 </div>
-<div data-role="view" id="det-cliente" data-title="Detalle del Cliente" data-show="app.funcionalidad01.MostraDetalleCliente">
+<div data-role="view" id="det-cliente" data-title="Detalle del Cliente">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" onclick="GoBackListaClientes();"><span class="k-icon k-i-undo"></span></a>
+        <a data-role="backbutton" data-align="right"><span class="k-icon k-i-undo"></span></a>
     </div>
     <!-- ACTUALIZACION CONSULTA CLIENTE START  -->
     <!-- TODO: DATA HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
     <!-- TODO-WIP: FECHA y HORA HARD CODED CONSUME FROM WS  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -69,7 +69,7 @@
     <!-- ACTUALIZACION CONSULTA CLIENTE END  -->
     <!--  CLIENTE START  -->
     <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -92,7 +92,7 @@
     <!--  CLIENTE END  -->
     <!--  DETALLE CONTACTOS CLIENTE START  -->
     <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div id="f01detetalleContacto" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01detetalleContacto" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -177,7 +177,7 @@
     <!--  DETALLE CONTACTOS CLIENTE END HTML  -->
     <!--  SITUACION DE PAGO START  -->
     <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div id="f01situacionPago" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01situacionPago" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -220,7 +220,7 @@
     <!--  SITUACION DE PAGO END  -->
     <!--  PARTICIPACION DE AUSA START  -->
     <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div id="f01participacionAusa" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01participacionAusa" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -360,7 +360,7 @@
     <!--  PARTICIPACION DE AUSA END  -->
     <!--  PARTICIPACION OTRAS AGENCIAS START  -->
     <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div id="f01participacionOtros" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01participacionOtros" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -395,7 +395,7 @@
     <!--  PARTICIPACION OTRAS AGENCIAS END  -->
     <!--  PARTICIPACION INGRESO POR DESPACHO START  -->
     <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div id="f01ingresoPorDespacho" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01ingresoPorDespacho" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -452,7 +452,7 @@
     <!--  PARTICIPACION INGRESO POR DESPACHO END  -->
     <!--  PARTICIPACION INGRESO ADUANAS START  -->
     <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div id="f01ingresoAduanas" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01ingresoAduanas" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -500,7 +500,7 @@
     <!--  PARTICIPACION INGRESO ADUANAS END  -->
     <!--  PARTICIPACION CONDICIONES DE PAGO START  -->
     <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div id="f01condicionesDePago" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01condicionesDePago" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -526,7 +526,7 @@
     <!--  PARTICIPACION TARIFAS START  -->
     <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
     <!-- TODO-WIP:  CHANGE TO MODAL VIEW REFACTOR IT  -->
-    <div id="f01tarifas" class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div id="f01tarifas" class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -550,7 +550,7 @@
     <!--  PARTICIPACION TARIFAS END  -->
     <!--  CANTIDAD DE USOS AOL DEL MES  START  -->
     <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -584,11 +584,12 @@
 <div data-role="view" id="det-MorosidadUtilizacionLinea" data-title="Morosidad y Utilizacion" data-show="app.funcionalidad01.MostraMorosidadUtilizacionLinea">
     <div data-role="navbar">
         <span data-role="view-title"></span>
-        <a data-role="button" data-align="right" onclick="GoBackMorosidadUtilizacionLinea();"><span class="k-icon k-i-undo"></span></a>
+        <!--         <a data-role="button" data-align="right" onclick="GoBackMorosidadUtilizacionLinea();"><span class="k-icon k-i-undo"></span></a> -->
+        <a data-role="backbutton" data-align="right"><span class="k-icon k-i-undo"></span></a>
     </div>
     <!--  CLIENTE RAZON SOCIAL START  -->
     <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -611,7 +612,7 @@
     <!--  CLIENTE RAZON SOCIAL  END  -->
     <!--  DEUDA VENCIDA START  -->
     <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -634,11 +635,11 @@
     <!--  DEUDA VENCIDA  END  -->
     <!--  CONDICION PAGO (DIAS) START  -->
     <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white; border-botton: white;">
+    <div class="container-fluid">
         <!-- TODO-WIP -->
         <!--  STATUS AUSA START  -->
         <!-- TODO: APPLY STYLE CSS CLASES REFACTOR IT  -->
-        <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+        <div>
             <div class="row">
                 <div class="col-xs-12">
                     &nbsp;
@@ -701,7 +702,7 @@
     <!--  CONDICION PAGO (DIAS)  END  -->
     <!--  LINEA ASIGNADA START  -->
     <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -724,7 +725,7 @@
     <!--  LINEA ASIGNADA  END  -->
     <!--  UTILIZACION ACTUAL START  -->
     <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -749,7 +750,7 @@
     <!--  DEF:  DIFERENCIAS DE LINEAS = (LINEA ASIGNADA - UTILIZACION ACTUAL) -->
     <!--  IMPORTANTE: VERIFICA CON RODRIGO AUSA LA DEFINIZIONE NON COMPARE NELLA ACTA ESTERNA DI J.RAMIREZ -->
     <!-- TODO: HTML HARD CODED,APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -772,7 +773,7 @@
     <!--  DIFERENCIAS DE LINEAS  END  -->
     <!--  PORC. EN USO DE LA LINEA  ACTUAL START  -->
     <!-- TODO:HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -795,7 +796,7 @@
     <!--  PORC. EN USO DE LA LINEA  ACTUAL  END  -->
     <!--  PROMEDIO USO ULTIMO 6 MESES ($) START  -->
     <!-- TODO: HTML HARD CODED, APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -818,7 +819,7 @@
     <!--  PROMEDIO USO ULTIMO 6 MESES ($)  END  -->
     <!--  PORC. EN USO PROMEDIO USO ULTIMO 6 MESES ($) START  -->
     <!-- TODO:  APPLY STYLE CSS CLASES REFACTOR IT  -->
-    <div class="container-fluid" style="border-style: solid; border-top: white; border-left: white; border-right: white;">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
                 &nbsp;
@@ -840,94 +841,86 @@
     </div>
     <!--  PORC. EN USO PROMEDIO USO ULTIMO 6 MESES ($)  END  -->
 </div>
-<div data-role="modalview" id="ModTarifas" class="PopUpTarifas" data-zoom="true" style="width: 100% !important; height: 60% !important;">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 TitlePopUp">
-                <br><b id="ModTarifasServicio">***Nombre-Servicio***</b>
-            </div>
+<div data-role="modalview" id="ModTarifas" style="width: 80%;height: 75%;" data-model="addView">
+    <div data-role="header" id="f01HeaderModTarifas">
+        <div data-role="navbar">
+            <span id="ModTarifasServicio"></span>
+            <a data-role="button" data-align="right" onclick="$('#ModTarifas').data('kendoMobileModalView').close();"><span class="fa fa-times"></span></a>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <br><b>Observaciones</b>
-                <br>
-                <br>
-            </div>
+    </div>
+    <div id="f01activarZoom" data-role="view" data-zoom="true" style="height: 100% !important;">
+        <div data-role="content">
+            <textarea id="ModTarifasObservaciones" class="form-control" readonly style="font-size: 1px !important; width: 100%;"> </textarea>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <textarea id="ModTarifasObservaciones" readonly rows="20" cols="65" style="font-size: 2px !important; width: 100% !important;"> </textarea>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-xs-12">
-                <button type="button" class="form-control btn-default btn-block" onclick="$('#ModTarifas').data('kendoMobileModalView').close();">Cerrar</button>
-            </div>
-        </div>
-        <br>
     </div>
 </div>
-<div data-role="modalview" id="ModCondPago" class="PopUpCondPago">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12 TitlePopUp">
-                <b id="ModServicio">***Nombre-Servicio***</b>
-            </div>
+<div data-role="modalview" id="ModCondPago">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span id="ModServicio"></span>
         </div>
-        <br>
-        <br>
-        <div class="row">
-            <div class="col-xs-5"><b>Dias Pago</b>
-            </div>
-            <div class="col-xs-7">
-                <b id="ModDiasPago">***Total-Dias-Pago***</b>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-xs-5"><b>Hasta Monto</b>
-            </div>
-            <div class="col-xs-7">
-                <b id="ModHastaMonto">***Hasta-Monto***</b>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-xs-5"><b>Moneda</b>
-            </div>
-            <div class="col-xs-7">
-                <b id="ModMoneda">***Moneda***</b>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-xs-5"><b>Linea Credito</b>
-            </div>
-            <div class="col-xs-7">
-                <b id="ModLineaCredito">***Linea-Credito***</b>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-xs-5"><b>Linea Negocio</b>
-            </div>
-            <div class="col-xs-7">
-                <b id="ModLineaNegocio">***Linea-Negocio***</b>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-xs-5"><b>Compania</b>
-            </div>
-            <div class="col-xs-7">
-                <b id="ModCompania">***Compania***</b>
-            </div>
-        </div>
-        <br>
-        <div class="row">
+    </div>
+    </br>
+    <div class="col-xs-12">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Dias Pago</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModDiasPago">***Total-Dias-Pago***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Hasta Monto</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModHastaMonto">***Hasta-Monto***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Moneda</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModMoneda">***Moneda***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Linea Credito</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModLineaCredito">***Linea-Credito***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Linea Negocio</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModLineaNegocio">***Linea-Negocio***</b>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-5"><b>Compania</b>
+                    </div>
+                    <div class="col-xs-7">
+                        <b id="ModCompania">***Compania***</b>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="row" align="center">
             <div class="col-xs-12">
-                <button type="button" class="form-control btn-default btn-block" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>
+                <button type="button" class="form-control btn-defaultfont-boton b_color_2 tex_boton_2" onclick="$('#ModCondPago').data('kendoMobileModalView').close();">Cerrar</button>
             </div>
         </div>
         <br>

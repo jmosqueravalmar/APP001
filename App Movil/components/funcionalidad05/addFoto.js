@@ -156,7 +156,7 @@ function f05newImage(archivo) {
     //Delete new audio
 $(document).on("click", "a[type='newImage']", function () {
     var idimage = $(this).parent().attr("id").replace("btn", "");
-    
+
     $("#f05dialogImage").kendoWindow({
         title: "Confirmación",
         scrollable: false,
@@ -167,7 +167,7 @@ $(document).on("click", "a[type='newImage']", function () {
         }
     });
     $("#f05dialogImage").data("kendoWindow").center();
-    
+
     $("#f05dialogImage").data("kendoWindow").open();
     $("#f05divMensajeConf").text("¿Desea eliminar la imagen " + idimage + " de la operación?");
 
@@ -215,13 +215,13 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
         },
         async: false,
         success: function (datos) {
-            // alert("InsertarFotos archivo: " + FileUri);
-            // alert("InsertarFotos usuario: " + txtidUsuario);
-            // alert("InsertarFotos operacion: " + f05NumOperacion);
-            // alert("InsertarFotos datos: " + datos);
+            alert("InsertarFotos archivo: " + FileUri);
+            alert("InsertarFotos usuario: " + txtidUsuario);
+            alert("InsertarFotos operacion: " + f05NumOperacion);
+            alert("InsertarFotos datos: " + datos);
             var data = [];
             data = JSON.parse(datos);
-            idArchivo = data[0].ID;
+            var idArchivo = data[0].ID;
             if (data[0].Ejecucion == 1) { // Si Operaciones/InsertarFotos no se ejecutó correctamente
                 notificationWidget.show("No se insertó correctamente en la tabla fotos", "error");
                 kendo.ui.progress($("#f05listaImage"), false);
@@ -230,16 +230,16 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                     type: "POST",
                     url: WServ + 'Operaciones/InsertarTareaFotos',
                     data: {
-                        archivo: FileUri,
+                        archivo: "Foto" + idArchivo + ".jpg", // Se cambió solo el nombre del archivo
                         usuario: txtidUsuario,
                         operacion: f05NumOperacion //$('#f05txtid').val()
                     },
                     async: false,
                     success: function (datos) {
-                        // alert("InsertarTareaFotos archivo: " + FileUri);
-                        // alert("InsertarTareaFotos usuario: " + txtidUsuario);
-                        // alert("InsertarTareaFotos operacion: " + f05NumOperacion);
-                        // alert("InsertarTareaFotos datos: " + datos);
+                        alert("InsertarTareaFotos archivo: " + "Foto" + idArchivo + ".jpg");
+                        alert("InsertarTareaFotos usuario: " + txtidUsuario);
+                        alert("InsertarTareaFotos operacion: " + f05NumOperacion);
+                        alert("InsertarTareaFotos datos: " + datos);
 
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
                         $.ajax({
@@ -249,16 +249,16 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                                 id: idArchivo,
                                 url: FileUri,
                                 tipo: 2,
-                                subPath: f05NumOperacion //$('#f05txtid').val()
+                                subPath: f05Orden //Se cambió a numero de orden
                             },
                             async: false,
                             success: function (datos) {
 
-                                // alert("UploadUrl id: " + idArchivo);
-                                // alert("UploadUrl url: " + FileUri);
-                                // alert("UploadUrl tipo: " + 2);
-                                // alert("UploadUrl subPath: " + f05NumOperacion);
-                                // alert("UploadUrl datos: " + datos);
+                                alert("UploadUrl id: " + idArchivo);
+                                alert("UploadUrl url: " + FileUri);
+                                alert("UploadUrl tipo: " + 2);
+                                alert("UploadUrl subPath: " + f05Orden);
+                                alert("UploadUrl datos: " + datos);
                                 kendo.ui.progress($("#f05listaImage"), false);
                                 if (parseInt(datos) == 0) {
                                     $('#f05viewImage').data('kendoListView').dataSource.read();
@@ -275,7 +275,7 @@ function f05accionImage(accion, FileUri, idAudio, idAudioBackend) {
                                             //notificationWidget.show("Eliminado correctamente del backend service", "success");
                                         },
                                         function (error) {
-                                            notificationWidget.show(JSON.stringify(error), "error");
+                                            notificationWidget.show("No se eliminó del Backend Service: "+ JSON.stringify(error), "error");
                                         });
 
                                 } else {

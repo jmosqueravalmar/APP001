@@ -232,6 +232,8 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
         },
         async: false,
         success: function (datos) {
+            alert("Notas/insert txtruta: " + FileUri);
+            alert("Notas/insert datos: " + datos);
             var data = [];
             data = JSON.parse(datos);
             if (data[0].Column1 > 0) {
@@ -245,6 +247,10 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                     },
                     async: false,
                     success: function (datos) {
+                        alert("Relaciones/ninsert txtidnota: " + idNota);
+                        alert("Relaciones/ninsert txtidtarea: " + $('#txtid').val());
+                        alert("Relaciones/ninsert datos: " + datos);
+
                         var data = [];
                         data = JSON.parse(datos);
                         //ajax para descargar, guardar en servidor y para actualizar el url en server ausa
@@ -259,6 +265,12 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                             },
                             async: false,
                             success: function (datos) {
+                                alert("Upload/UploadUrl id: " + idNota);
+                                alert("Upload/UploadUrl url: " + FileUri);
+                                alert("Upload/UploadUrl tipo: " + 1);
+                                alert("Upload/UploadUrl subPath: " + $('#txtid').val());
+                                alert("Upload/UploadUrl datos: " + datos);
+
                                 kendo.ui.progress($("#listaAudios"), false);
                                 if (parseInt(datos) == 0) {
                                     // $('#f03viewAudios').data('kendoListView').dataSource.read();
@@ -275,7 +287,7 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                                             //notificationWidget.show("Eliminado correctamente del backend service", "success");
                                         },
                                         function (error) {
-                                            notificationWidget.show(JSON.stringify(error), "error");
+                                            notificationWidget.show("No se eliminó del Backend Service: "+ JSON.stringify(error), "error");
                                         });
 
                                 } else {
@@ -284,7 +296,8 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                             },
                             error: function () {
                                 kendo.ui.progress($("#listaAudios"), false);
-                                notificationWidget.show("El servicio no está disponible", "error");
+                                alert(datos);
+                                notificationWidget.show("El servicio upload no está disponible", "error");
                             }
                         });
                     },
@@ -294,6 +307,8 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
                 });
                 $('#f03viewAudios').data('kendoListView').dataSource.read();
                 $('#f03viewAudios').data('kendoListView').refresh();
+            } else {
+                notificationWidget.show("No se pudo insertar en la tabla notas");
             }
         },
         error: function () {
@@ -322,9 +337,8 @@ function f03accionAudio(accion, FileUri, idAudio, idAudioBackend) {
             }
             $('#dialogAudio').data('kendoWindow').close();
         },
-        error: function () {
-            notificationWidget.show("No se puede establecer la conexión al servicio", "error");
-            valido = false;
+        error: function (xhr, status, error) {
+            alert(xhr.responseText);
         }
     });
 }

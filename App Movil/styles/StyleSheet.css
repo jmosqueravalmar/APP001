@@ -40,6 +40,13 @@
 }*/
 /* STYLE FUNCIONALIDAD 01*/
 
+.container-fluid {
+    border-style: solid;
+    border-top: white;
+    border-left: white;
+    border-right: white;
+    border: 1px solid #ddd;
+}
 summary::-webkit-details-marker {
     display: none
 }
@@ -104,7 +111,6 @@ details[open] summary:before {
     width: 100%;
     border: 1px solid #ddd;
 }
-
 .DetCondPagoServicio {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -118,19 +124,6 @@ details[open] summary:before {
     text-align: center;
     padding-top: 10px;
     /*vertical-align: middle;*/
-}
-
-.PopUpCondPago {
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px;
-    width: 100%;
-}
-.PopUpTarifas {
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px;
-    width: 100%;
 }
 .TitlePopUp {
     min-width: 100%;
@@ -150,9 +143,6 @@ h1 {
 }
 */
 
-.container-fluid {
-    border-bottom: 1px solid !important;
-}
 #lstCliente {
     margin: 0px;
     padding: 0px;
@@ -287,7 +277,6 @@ h1 {
 textarea {
     width: 100%;
 }
-
 .oveflw {
     overflow: hidden;
 }
