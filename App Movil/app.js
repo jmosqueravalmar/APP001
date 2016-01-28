@@ -71,7 +71,7 @@ sessionStorage.sessionUSER = "SessionData";
 
 /* servicio */
 var WServ = "Data";
-WServ = "http://www.ausa.com.pe/appmovil_test01/";
+WServ = "http://www.ausa.com.pe/AppMovil_Valmar/";
 //WServ = "http://54.213.238.161/wsAusa/";
 
 // END_CUSTOM_CODE_kendoUiMobileApp
